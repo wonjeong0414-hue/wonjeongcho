@@ -163,8 +163,8 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 
   <div class="work-info" id="workInfo">
     <div class="wi-left">
-      <!-- ★ 항상 Tactile Thinking 고정 -->
-      <div class="wi-title">Tactile Thinking</div>
+      <!-- 작품명 (Garden a26 07 등 동적) -->
+      <div class="wi-title" id="wiTitle"></div>
       <div class="wi-meta" id="wiMeta"></div>
     </div>
     <div class="wi-desc" id="wiDesc"></div>
@@ -250,20 +250,22 @@ fetch('./data/main.json')
     img.onload = function(){
       document.getElementById('imgBg').style.backgroundImage = "url('"+imgUrl+"')";
       setTimeout(function(){
-        document.getElementById('workTitle').textContent = main.title || '';
+        /* 오버레이: 항상 "Tactile Thinking" 고정 */
+        document.getElementById('workTitle').textContent = 'Tactile Thinking';
         document.getElementById('workTitle').classList.add('visible');
         document.getElementById('workInfo').classList.add('visible');
         document.getElementById('scrollCue').classList.add('visible');
       },350);
     };
     img.onerror = function(){
-      document.getElementById('workTitle').textContent = main.title || '';
+      document.getElementById('workTitle').textContent = 'Tactile Thinking';
       document.getElementById('workTitle').classList.add('visible');
       document.getElementById('workInfo').classList.add('visible');
       document.getElementById('scrollCue').classList.add('visible');
     };
     img.src = imgUrl;
-    /* wi-title은 고정 "Tactile Thinking" — 건드리지 않음 */
+    /* 하단 좌측: 작품명(Garden a26 07 등) */
+    document.getElementById('wiTitle').textContent = main.title || '';
     document.getElementById('wiMeta').textContent = (main.year||'')+(main.medium?' · '+main.medium:'');
     document.getElementById('wiDesc').textContent = main.desc || '';
     if(subImgs[0]) document.getElementById('subImg1').src = subImgs[0];
