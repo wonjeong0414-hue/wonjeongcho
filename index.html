@@ -14,7 +14,6 @@
 html,body{height:100%;background:var(--bg);overflow:hidden}
 body{font-family:'Cormorant Garamond',serif;display:flex;flex-direction:column}
 
-/* ── nav ── */
 nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-items:center;justify-content:space-between;padding:0 36px;z-index:100;background:var(--bg);border-bottom:0.5px solid rgba(0,0,0,0.08)}
 @media(max-width:600px){nav{padding:0 12px}}
 .nav-logo{font-family:'Cormorant Garamond',serif;font-weight:400;font-size:13px;letter-spacing:0.28em;color:var(--ink);text-transform:uppercase;opacity:0;animation:fadeIn 1s ease 0.3s forwards;cursor:pointer}
@@ -27,27 +26,23 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 .nav-dropdown-item{display:block;font-size:9px;letter-spacing:0.08em;color:var(--ink-mid);padding:6px 16px;cursor:pointer;transition:color 0.15s,background 0.15s;white-space:nowrap}
 .nav-dropdown-item:hover{color:var(--ink);background:rgba(0,0,0,0.03)}
 
-/* ── shell ── */
 .shell{position:fixed;top:var(--nav-h);left:0;right:0;bottom:0;display:flex;flex-direction:column;overflow:hidden}
 
-/* ── 기본 상태: 이미지 영역 (화면 전체) ── */
+/* 기본: 화면 중앙에 이미지 */
 .main-area{
   flex-shrink:0;
   height:calc(100vh - var(--nav-h));
-  display:flex;flex-direction:column;align-items:center;
-  justify-content:flex-start;
-  justify-content:center;
-  padding-top:0;
-  transition:height 0.8s cubic-bezier(0.16,1,0.3,1), padding-top 0.8s cubic-bezier(0.16,1,0.3,1);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:12px 36px 16px;
+  transition:height 0.8s cubic-bezier(0.16,1,0.3,1);
   overflow:hidden;
-  position:relative;
 }
 .main-area.collapsed{
   height:clamp(140px,20vh,200px);
-  padding-top:0;
+  justify-content:flex-start;
+  padding:0;
 }
 
-/* ── 이미지 박스 ── */
 .img-box{
   width:min(58vw,580px);height:min(55vh,520px);
   flex-shrink:0;position:relative;overflow:hidden;cursor:pointer;
@@ -66,7 +61,6 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 .scroll-cue.visible{opacity:0.35}
 .main-area.collapsed .scroll-cue{opacity:0 !important;pointer-events:none}
 
-/* ── 기본 상태 work-info ── */
 .work-info{
   width:min(58vw,540px);flex-shrink:0;
   display:flex;justify-content:space-between;align-items:baseline;
@@ -79,9 +73,6 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 .wi-left .wi-meta{font-size:9px;letter-spacing:0.12em;color:var(--ink-dim);text-transform:uppercase;margin-top:3px}
 .wi-desc{font-size:10px;color:var(--ink-mid);line-height:1.8;flex:1;max-width:45%;text-align:right;word-break:keep-all}
 
-
-
-/* ── 하단: gallery iframe ── */
 .bottom-row{
   flex:1;min-height:0;
   opacity:0;pointer-events:none;
@@ -112,10 +103,8 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
     <span class="nav-item" onclick="go('about')">About</span>
   </div>
 </nav>
-
 <div class="shell">
   <div class="main-area" id="mainArea">
-
     <div class="img-box" id="imgBox" onclick="expand()">
       <div class="img-bg" id="imgBg"></div>
       <div class="img-overlay">
@@ -123,7 +112,6 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
       </div>
       <div class="scroll-cue" id="scrollCue">&#8595;</div>
     </div>
-
     <div class="work-info" id="workInfo">
       <div class="wi-left">
         <div class="wi-title" id="wiTitle"></div>
@@ -131,22 +119,14 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
       </div>
       <div class="wi-desc" id="wiDesc"></div>
     </div>
-      <div class="hero-text-desc">우연의 캔버스 위에 스며든 필연의 숨결,<br>비결정적 순간이 빚어낸 견고한 정원</div>
-    </div>
-
   </div>
-
-  <!-- gallery.html iframe -->
   <div class="bottom-row" id="bottomRow">
     <iframe id="galleryFrame" src="" frameborder="0"></iframe>
   </div>
 </div>
-
 <script>
-var isExpanded = false;
-
-function go(page){ window.location.href = page + '.html'; }
-
+var isExpanded=false;
+function go(page){window.location.href=page+'.html';}
 document.querySelectorAll('.nav-dropdown').forEach(function(dd){
   var menu=dd.querySelector('.nav-dropdown-menu'),timer;
   dd.addEventListener('mouseenter',function(){clearTimeout(timer);menu.style.display='block';});
@@ -154,69 +134,53 @@ document.querySelectorAll('.nav-dropdown').forEach(function(dd){
   menu.addEventListener('mouseenter',function(){clearTimeout(timer);});
   menu.addEventListener('mouseleave',function(){timer=setTimeout(function(){menu.style.display='none';},150);});
 });
-
 function expand(){
-  if(isExpanded) return;
-  isExpanded = true;
+  if(isExpanded)return;isExpanded=true;
   document.getElementById('mainArea').classList.add('collapsed');
   document.getElementById('bottomRow').classList.add('show');
-  var fr = document.getElementById('galleryFrame');
-  if(!fr.getAttribute('data-loaded')){
-    fr.src = 'gallery.html';
-    fr.setAttribute('data-loaded','1');
-  }
+  var fr=document.getElementById('galleryFrame');
+  if(!fr.getAttribute('data-loaded')){fr.src='gallery.html';fr.setAttribute('data-loaded','1');}
 }
 function collapse(){
-  if(!isExpanded) return;
-  isExpanded = false;
+  if(!isExpanded)return;isExpanded=false;
   document.getElementById('mainArea').classList.remove('collapsed');
   document.getElementById('bottomRow').classList.remove('show');
 }
-
 window.addEventListener('wheel',function(e){
-  if(!isExpanded && e.deltaY > 20) expand();
-  if(isExpanded && e.deltaY < -20){
-    try{ if(document.getElementById('galleryFrame').contentWindow.scrollY===0) collapse(); }
-    catch(err){ collapse(); }
-  }
+  if(!isExpanded&&e.deltaY>20)expand();
+  if(isExpanded&&e.deltaY<-20){try{if(document.getElementById('galleryFrame').contentWindow.scrollY===0)collapse();}catch(err){collapse();}}
 },{passive:true});
 var ty=0;
 window.addEventListener('touchstart',function(e){ty=e.touches[0].clientY;},{passive:true});
 window.addEventListener('touchmove',function(e){if(!isExpanded&&ty-e.touches[0].clientY>40)expand();},{passive:true});
-
-fetch('./data/main.json')
-  .then(function(r){return r.json();})
-  .then(function(result){
-    var main=result.main; if(!main) return;
-    var imgUrl=main.imgUrl||main.thumb||'';
-    var img=new Image();
-    img.onload=function(){
-      document.getElementById('imgBg').style.backgroundImage="url('"+imgUrl+"')";
-      setTimeout(function(){
-        document.getElementById('workTitle').textContent='Tactile Thinking';
-        document.getElementById('workTitle').classList.add('visible');
-        document.getElementById('workInfo').classList.add('visible');
-        document.getElementById('scrollCue').classList.add('visible');
-      },350);
-    };
-    img.onerror=function(){
+fetch('./data/main.json').then(function(r){return r.json();}).then(function(result){
+  var main=result.main;if(!main)return;
+  var imgUrl=main.imgUrl||main.thumb||'';
+  var img=new Image();
+  img.onload=function(){
+    document.getElementById('imgBg').style.backgroundImage="url('"+imgUrl+"')";
+    setTimeout(function(){
       document.getElementById('workTitle').textContent='Tactile Thinking';
       document.getElementById('workTitle').classList.add('visible');
       document.getElementById('workInfo').classList.add('visible');
       document.getElementById('scrollCue').classList.add('visible');
-      document.getElementById('heroText').classList.add('visible');
-    };
-    img.src=imgUrl;
-    document.getElementById('wiTitle').textContent=main.title||'';
-    document.getElementById('wiMeta').textContent=(main.year||'')+(main.medium?' · '+main.medium:'');
-    document.getElementById('wiDesc').textContent=main.desc||'';
-  })
-  .catch(function(){
-    document.getElementById('workTitle').textContent='Won Jeong Cho';
+    },350);
+  };
+  img.onerror=function(){
+    document.getElementById('workTitle').textContent='Tactile Thinking';
     document.getElementById('workTitle').classList.add('visible');
     document.getElementById('workInfo').classList.add('visible');
-    document.getElementById('heroText').classList.add('visible');
-  });
+    document.getElementById('scrollCue').classList.add('visible');
+  };
+  img.src=imgUrl;
+  document.getElementById('wiTitle').textContent=main.title||'';
+  document.getElementById('wiMeta').textContent=(main.year||'')+(main.medium?' · '+main.medium:'');
+  document.getElementById('wiDesc').textContent=main.desc||'';
+}).catch(function(){
+  document.getElementById('workTitle').textContent='Won Jeong Cho';
+  document.getElementById('workTitle').classList.add('visible');
+  document.getElementById('workInfo').classList.add('visible');
+});
 </script>
 </body>
 </html>
