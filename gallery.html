@@ -24,20 +24,10 @@ html,body{height:100%;background:var(--bg);font-family:'Cormorant Garamond',seri
   width:var(--left-w);flex-shrink:0;
   display:flex;flex-direction:column;
   padding:28px 0 28px 24px;
-  border-right:0.5px solid rgba(0,0,0,0.07);
+  
 }
 
-/* 설명 문구 */
-.side-desc{
-  font-family:'EB Garamond',serif;
-  font-size:10px;
-  font-style:italic;
-  color:var(--ink-dim);
-  line-height:1.85;
-  word-break:keep-all;
-  padding-right:16px;
-  margin-bottom:32px;
-}
+
 
 /* 태그 목록 */
 .tag-list{
@@ -46,17 +36,17 @@ html,body{height:100%;background:var(--bg);font-family:'Cormorant Garamond',seri
   justify-content:center;
 }
 .tag-item{
-  font-size:8px;letter-spacing:0.14em;text-transform:uppercase;
-  color:var(--ink-dim);
+  font-size:10px;letter-spacing:0.14em;text-transform:uppercase;
+  color:var(--ink-mid);font-weight:500;
   padding:9px 0;
   cursor:pointer;
-  border-bottom:0.5px solid rgba(0,0,0,0.05);
+  
   transition:color 0.2s, padding-left 0.25s;
   line-height:1.4;
   padding-right:16px;
   position:relative;
 }
-.tag-item:first-child{border-top:0.5px solid rgba(0,0,0,0.05)}
+
 .tag-item:hover,.tag-item.active{color:var(--ink);padding-left:6px}
 .tag-item.active::after{
   content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);
@@ -182,9 +172,6 @@ html,body{height:100%;background:var(--bg);font-family:'Cormorant Garamond',seri
 
   <!-- 왼쪽: 설명문구 + 태그 4개 -->
   <div class="left-panel">
-    <div class="side-desc">
-      우연의 캔버스 위에<br>스며든 필연의 숨결,<br>비결정적 순간이<br>빚어낸 견고한 정원
-    </div>
     <div class="tag-list">
       <div class="tag-item" id="tag-THE" onclick="onTagClick('THE')">Themes &amp; Philosophy</div>
       <div class="tag-item" id="tag-SER" onclick="onTagClick('SER')">Series &amp; Narratives</div>
