@@ -144,7 +144,6 @@ function collapse(){
   document.getElementById('subSection').classList.remove('open');
   document.getElementById('galleryArea').classList.remove('open');
 }
-
 document.getElementById('galleryArea').addEventListener('scroll',function(){
   if(this.scrollTop===0) collapse();
 });
@@ -156,7 +155,6 @@ var ty=0;
 window.addEventListener('touchstart',function(e){ty=e.touches[0].clientY;},{passive:true});
 window.addEventListener('touchmove',function(e){if(!isExpanded&&ty-e.touches[0].clientY>40)expand();},{passive:true});
 
-// 데이터 fetch
 fetch(SCRIPT_URL + '?page=api_main')
   .then(function(r){ return r.json(); })
   .then(function(result){
@@ -187,45 +185,6 @@ fetch(SCRIPT_URL + '?page=api_main')
     if(subImgs[0]) document.getElementById('subImg1').src = subImgs[0];
     if(subImgs[1]) document.getElementById('subImg2').src = subImgs[1];
     if(subImgs[2]) document.getElementById('subImg3').src = subImgs[2];
-  })
-  .catch(function(){
-    document.getElementById('workTitle').textContent = 'Won Jeong Cho';
-    document.getElementById('workTitle').classList.add('visible');
-    document.getElementById('workInfo').classList.add('visible');
-  });
-  .then(function(r){ return r.json(); })
-  .then(function(works){
-    var main = null;
-    var subs = [];
-    works.forEach(function(w){
-      if(!main) main = w;
-      else if(subs.length < 3) subs.push(w);
-    });
-    if(!main) return;
-    var imgUrl = main.full || main.thumb || '';
-    var img = new Image();
-    img.onload = function(){
-      document.getElementById('imgBg').style.backgroundImage = "url('"+imgUrl+"')";
-      setTimeout(function(){
-        document.getElementById('workTitle').textContent = main.title || '';
-        document.getElementById('workTitle').classList.add('visible');
-        document.getElementById('workInfo').classList.add('visible');
-        document.getElementById('scrollCue').classList.add('visible');
-      },350);
-    };
-    img.onerror = function(){
-      document.getElementById('workTitle').textContent = main.title || '';
-      document.getElementById('workTitle').classList.add('visible');
-      document.getElementById('workInfo').classList.add('visible');
-      document.getElementById('scrollCue').classList.add('visible');
-    };
-    img.src = imgUrl;
-    document.getElementById('wiTitle').textContent = main.title || '';
-    document.getElementById('wiMeta').textContent = (main.year||'')+(main.medium?' · '+main.medium:'');
-    document.getElementById('wiDesc').textContent = main.desc || '';
-    if(subs[0]) document.getElementById('subImg1').src = subs[0].thumb||'';
-    if(subs[1]) document.getElementById('subImg2').src = subs[1].thumb||'';
-    if(subs[2]) document.getElementById('subImg3').src = subs[2].thumb||'';
   })
   .catch(function(){
     document.getElementById('workTitle').textContent = 'Won Jeong Cho';
