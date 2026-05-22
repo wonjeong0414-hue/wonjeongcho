@@ -490,19 +490,20 @@ document.addEventListener('click',function(e){
 Promise.all([
   fetch(SCRIPT_URL+'?page=api_tags').then(function(r){return r.json();}),
   fetch(SCRIPT_URL+'?page=api_works').then(function(r){return r.json();}),
-  fetch(SCRIPT_URL+'?page=ctxfilter').then(function(r){return r.json();})
+  fetch(SCRIPT_URL+'?page=api_main').then(function(r){return r.json();})
 ]).then(function(results){
   var tags=results[0]; allWorks=results[1];
-  var subImgs=results[2]||[];
+  var mainData=results[2]||{};
+  var subImgUrls = mainData.subImgs || [];
   TAGS_THE=tags.THE||[]; TAGS_SER=tags.SER||[]; TAGS_MAT=tags.MAT||[]; TAGS_SEN=tags.SEN||[];
   buildList('list-THE',TAGS_THE,'THE');
   buildList('list-SER',TAGS_SER,'SER');
   buildList('list-MAT',TAGS_MAT,'MAT');
   buildList('list-SEN',TAGS_SEN,'SEN');
-  if(subImgs[0]) loadSubImg('subImg1',subImgs[0].thumb||subImgs[0].full||'');
-  if(subImgs[1]) loadSubImg('subImg2',subImgs[1].thumb||subImgs[1].full||'');
-  if(subImgs[2]) loadSubImg('subImg3',subImgs[2].thumb||subImgs[2].full||'');
-}).catch(function(){
+  if(subImgUrls[0]) loadSubImg('subImg1', subImgUrls[0]);
+  if(subImgUrls[1]) loadSubImg('subImg2', subImgUrls[1]);
+  if(subImgUrls[2]) loadSubImg('subImg3', subImgUrls[2]);
+  }).catch(function(){
   console.error('데이터 로딩 오류');
 });
 </script>
