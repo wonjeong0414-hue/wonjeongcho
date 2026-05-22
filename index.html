@@ -66,15 +66,15 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 .sub-card:hover .sub-img{transform:scale(1.04)}
 
 /* ── gallery-area ── */
-.gallery-area{width:100%;flex:1;overflow-y:auto;opacity:0;pointer-events:none;transition:opacity 0.5s ease}
+.gallery-area{width:100%;flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;opacity:0;pointer-events:none;transition:opacity 0.5s ease;-webkit-overflow-scrolling:touch}
 .gallery-area.open{opacity:1;pointer-events:all}
 
 /* ── gallery grid ── */
 .gallery-grid{
   display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
-  gap:2px;
-  padding:20px 0 40px;
+  grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+  gap:18px;
+  padding:24px 0 60px;
 }
 .gallery-item{
   position:relative;
@@ -110,9 +110,9 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 /* 로딩 스켈레톤 */
 .gallery-skel{
   display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
-  gap:2px;
-  padding:20px 0 40px;
+  grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+  gap:18px;
+  padding:24px 0 60px;
 }
 .skel-item{
   aspect-ratio:1;
