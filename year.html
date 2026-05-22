@@ -25,6 +25,7 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 .nav-dd-menu{display:none;position:absolute;top:calc(100% + 4px);left:50%;transform:translateX(-50%);background:var(--white);border-radius:4px;padding:4px 0;min-width:80px;z-index:300;box-shadow:0 4px 16px rgba(0,0,0,0.08)}
 .nav-dd-item{display:block;font-size:9px;letter-spacing:0.08em;color:var(--ink-mid);padding:5px 14px;cursor:pointer;transition:color 0.15s,background 0.15s;white-space:nowrap;text-transform:uppercase}
 .nav-dd-item:hover{color:var(--ink);background:rgba(0,0,0,0.03)}
+/* ── 데스크탑 레이아웃 ── */
 .layout{position:fixed;top:var(--nav-h);left:0;right:0;bottom:0;display:flex;flex-direction:column}
 .top-header{flex-shrink:0;display:flex;align-items:center;height:52px;padding:0}
 .header-title{font-family:'EB Garamond',serif;font-style:italic;font-size:18px;color:var(--ink)}
@@ -70,6 +71,7 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 @keyframes cardShimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
 .load-sentinel{height:1px}
 .loading-msg{padding:40px;text-align:center;font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink-dim)}
+/* ── 모달 ── */
 .modal-bg{position:fixed;inset:0;background:rgba(26,26,24,0.78);z-index:500;opacity:0;pointer-events:none;transition:opacity 0.3s ease;display:flex;align-items:center;justify-content:center;padding:24px}
 .modal-bg.open{opacity:1;pointer-events:all}
 .modal{background:var(--white);max-width:980px;width:100%;max-height:90vh;display:flex;overflow:hidden;transform:translateY(16px) scale(0.976);transition:transform 0.34s cubic-bezier(0.16,1,0.3,1);position:relative}
@@ -90,6 +92,7 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 .arr-prev{left:12px}
 .arr-next{right:calc(260px + 12px)}
 .m-year-bar{display:none}
+/* ── 모바일 ── */
 @media(max-width:600px){
   html,body{overflow:auto}
   .layout{position:static;margin-top:var(--nav-h);height:auto;display:block}
@@ -97,21 +100,78 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
   .body-row{display:block;overflow:visible;height:auto}
   .left-panel{display:none}
   .right-panel{position:static;width:100%;height:auto;overflow:visible}
-  .preview-zone{position:static;display:flex;align-items:center;justify-content:center;padding:16px 0 0;height:auto;opacity:1}
-  .preview-zone.hidden{display:none}
-  .preview-img-wrap{display:flex;flex-direction:column;align-items:center;width:90%;max-width:90%}
-  .preview-img{max-width:100%;max-height:55vw;width:auto;height:auto}
-  .preview-caption{margin-top:8px;opacity:1 !important;align-items:center}
-  .caption-title{font-size:10px;text-align:center}
-  .caption-sen{font-size:8px;text-align:center}
-  .m-year-bar{display:flex !important;flex-wrap:wrap;padding:6px 10px;border-top:0.5px solid rgba(0,0,0,0.08);border-bottom:0.5px solid rgba(0,0,0,0.08);background:var(--bg);position:sticky;top:var(--nav-h);z-index:100;margin-top:12px}
-  .m-yr-item{padding:2px 6px;font-size:11px;color:var(--ink);cursor:pointer;font-family:'Cormorant Garamond',serif;transition:color 0.15s}
-  .m-yr-item.checked{font-weight:500;color:var(--ink-mid)}
-  .grid-zone{position:static;opacity:1 !important;pointer-events:all;padding:10px 10px 60px;display:none}
-  .grid-zone.open{display:block}
-  .grid{grid-template-columns:repeat(3,1fr);gap:3px}
-  .yd-label{font-size:22px}
-  .year-divider{padding:16px 0 8px}
+  .preview-zone{display:none !important}
+
+  /* 연도 바 — 왼쪽 현재연도 크게 + 나머지 작게 */
+  .m-year-bar{
+    display:flex !important;
+    align-items:center;
+    padding:8px 12px;
+    border-bottom:0.5px solid rgba(0,0,0,0.08);
+    background:var(--bg);
+    position:sticky;
+    top:var(--nav-h);
+    z-index:100;
+    overflow-x:auto;
+    scrollbar-width:none;
+    gap:0;
+  }
+  .m-year-bar::-webkit-scrollbar{display:none}
+  .m-yr-active{
+    font-family:'EB Garamond',serif;
+    font-style:italic;
+    font-size:26px;
+    color:var(--ink);
+    line-height:1;
+    margin-right:16px;
+    flex-shrink:0;
+    cursor:default;
+  }
+  .m-yr-sep{
+    width:0.5px;
+    height:16px;
+    background:rgba(0,0,0,0.15);
+    margin-right:14px;
+    flex-shrink:0;
+  }
+  .m-yr-list{
+    display:flex;
+    align-items:center;
+    gap:2px;
+    overflow-x:auto;
+    scrollbar-width:none;
+  }
+  .m-yr-list::-webkit-scrollbar{display:none}
+  .m-yr-item{
+    padding:3px 7px;
+    font-size:11px;
+    color:var(--ink-dim);
+    cursor:pointer;
+    font-family:'Cormorant Garamond',serif;
+    transition:color 0.15s;
+    white-space:nowrap;
+    flex-shrink:0;
+  }
+  .m-yr-item:hover{color:var(--ink)}
+  .m-yr-item.checked{color:var(--ink);font-weight:500}
+
+  /* 그리드 — 1열 세로 나열 */
+  .grid-zone{position:static;opacity:1 !important;pointer-events:all;padding:0 0 60px;display:block !important}
+  .grid{grid-template-columns:1fr;gap:0}
+  .year-divider{display:none}
+
+  /* 모바일 카드 — 이미지 + 캡션 */
+  .card{aspect-ratio:auto;background:none;margin-bottom:0}
+  .card-img-wrap{width:100%;position:relative;background:rgba(0,0,0,0.04)}
+  .card img{position:static;width:100%;height:auto;max-height:none;object-fit:contain;filter:none}
+  .card img.loaded{filter:none}
+  .card:hover img{transform:none}
+  .card-overlay{display:none}
+  .card-caption{padding:10px 16px 18px;border-bottom:0.5px solid rgba(0,0,0,0.06)}
+  .card-caption-title{font-family:'EB Garamond',serif;font-style:italic;font-size:13px;color:var(--ink);line-height:1.4;margin-bottom:3px}
+  .card-caption-meta{font-size:8px;letter-spacing:0.08em;color:var(--ink-dim);line-height:1.6}
+
+  /* 모달 */
   .modal-bg{padding:0;align-items:flex-end;background:rgba(26,26,24,0.5)}
   .modal{flex-direction:column;height:auto;min-height:100vh;width:100%;border-radius:0;overflow-y:scroll;overflow-x:hidden;scroll-snap-type:y mandatory;-webkit-overflow-scrolling:touch}
   .modal-img-area{flex:none;width:100%;height:auto;padding:16px 0;background:var(--white);display:flex;align-items:center;justify-content:center;scroll-snap-align:start;position:relative}
@@ -150,7 +210,12 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
     <div class="left-panel">
       <div class="year-grid" id="yearGrid"></div>
     </div>
-    <div class="m-year-bar" id="mYearBar"></div>
+    <!-- 모바일 연도 바 -->
+    <div class="m-year-bar" id="mYearBar">
+      <div class="m-yr-active" id="mYrActive"></div>
+      <div class="m-yr-sep"></div>
+      <div class="m-yr-list" id="mYrList"></div>
+    </div>
     <div class="right-panel">
       <div class="preview-zone" id="previewZone">
         <div class="preview-img-wrap">
@@ -190,14 +255,13 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 <script>
 var ALL_YEARS = [], selectedYears = [], allFiltered = [], flatFiltered = [], modalIdx = 0;
 var CHUNK_SIZE = 24, chunkSentinel = null, chunkObserver = null, yearRendered = {};
-var allWorks = []; // works.json 전체 캐시
+var allWorks = [];
 
 function sel(id){ return document.getElementById(id); }
 function isMobile(){ return window.innerWidth <= 600; }
 function go(page){ window.location.href = page + '.html'; }
 
 function initPreview(works){
-  // works.json의 page 필드가 'py'인 항목을 최신 연도부터 탐색
   var found = null;
   var sorted = works.slice().sort(function(a,b){
     return (parseInt(b['year']||0)) - (parseInt(a['year']||0));
@@ -206,11 +270,7 @@ function initPreview(works){
     if((sorted[i]['page']||'').trim()==='py'){ found=sorted[i]; break; }
   }
   var img = sel('previewImg');
-  if(!found){
-    img.style.display='none';
-    sel('emptyHint').style.display='block';
-    return;
-  }
+  if(!found){ img.style.display='none'; sel('emptyHint').style.display='block'; return; }
   var url = found['full']||found['thumb']||'';
   if(!url){ img.style.display='none'; sel('emptyHint').style.display='block'; return; }
   img.onload = function(){
@@ -239,13 +299,39 @@ function buildYearGrid(){
 }
 
 function buildMobileYearBar(){
-  var bar = sel('mYearBar'); if(!bar) return;
-  bar.innerHTML = '';
+  var activeEl = sel('mYrActive');
+  var listEl   = sel('mYrList');
+  if(!activeEl || !listEl) return;
+  // 최신 연도를 기본 선택
+  var curYr = selectedYears.length ? selectedYears[0] : (ALL_YEARS[0]||'');
+  activeEl.textContent = curYr;
+  listEl.innerHTML = '';
   ALL_YEARS.forEach(function(yr){
+    if(yr === curYr) return; // 현재 연도는 왼쪽에 크게 표시
     var div = document.createElement('div');
-    div.className = 'm-yr-item'; div.id = 'm-yr-'+yr; div.textContent = yr;
+    div.className = 'm-yr-item';
+    div.id = 'm-yr-'+yr;
+    div.textContent = yr;
     div.addEventListener('click', function(){ toggleYear(yr, sel('yr-'+yr)); });
-    bar.appendChild(div);
+    listEl.appendChild(div);
+  });
+}
+
+function updateMobileYearBar(){
+  var activeEl = sel('mYrActive');
+  var listEl   = sel('mYrList');
+  if(!activeEl || !listEl) return;
+  var curYr = selectedYears.length ? selectedYears[0] : (ALL_YEARS[0]||'');
+  activeEl.textContent = curYr;
+  listEl.innerHTML = '';
+  ALL_YEARS.forEach(function(yr){
+    if(yr === curYr) return;
+    var div = document.createElement('div');
+    div.className = 'm-yr-item';
+    div.id = 'm-yr-'+yr;
+    div.textContent = yr;
+    div.addEventListener('click', function(){ toggleYear(yr, sel('yr-'+yr)); });
+    listEl.appendChild(div);
   });
 }
 
@@ -253,14 +339,13 @@ function toggleYear(yr, el){
   var already = selectedYears.length===1 && selectedYears[0]===yr;
   ALL_YEARS.forEach(function(y){
     var e=sel('yr-'+y); if(e) e.classList.remove('checked');
-    var m=sel('m-yr-'+y); if(m) m.classList.remove('checked');
   });
   if(already){ selectedYears=[]; }
   else{
     selectedYears=[yr];
     if(el) el.classList.add('checked');
-    var mEl=sel('m-yr-'+yr); if(mEl) mEl.classList.add('checked');
   }
+  if(isMobile()) updateMobileYearBar();
   fetchAndRender();
 }
 
@@ -268,22 +353,21 @@ function fetchAndRender(){
   disconnectChunkObserver();
   if(!selectedYears.length){
     sel('gridZone').classList.remove('open');
-    var pz=sel('previewZone'); pz.classList.remove('hidden'); pz.style.display='';
+    if(!isMobile()){
+      var pz=sel('previewZone'); pz.classList.remove('hidden'); pz.style.display='';
+    }
     sel('gridContainer').innerHTML=''; allFiltered=[]; flatFiltered=[]; return;
   }
-  var pz=sel('previewZone');
-  if(isMobile()){ pz.style.display='none'; } else { pz.classList.add('hidden'); }
+  if(!isMobile()){
+    sel('previewZone').classList.add('hidden');
+  }
   sel('gridZone').classList.add('open');
   sel('gridContainer').innerHTML='<div class="loading-msg">Loading…</div>';
 
   var yearsDesc = selectedYears.slice().sort(function(a,b){ return b-a; });
-
-  // works.json 캐시에서 연도별 필터링 (추가 fetch 불필요)
   allFiltered=[]; flatFiltered=[];
   yearsDesc.forEach(function(yr){
-    var rows = allWorks.filter(function(w){
-      return parseInt(w['year']||0) === yr;
-    });
+    var rows = allWorks.filter(function(w){ return parseInt(w['year']||0) === yr; });
     if(rows.length) allFiltered.push({ year: yr, rows: rows });
     rows.forEach(function(r){ flatFiltered.push(r); });
   });
@@ -292,11 +376,16 @@ function fetchAndRender(){
 
 function renderAll(){
   var con=sel('gridContainer'); con.innerHTML=''; disconnectChunkObserver();
-  if(!allFiltered.length){ con.innerHTML='<div style="padding:60px 0;text-align:center;font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink-dim)">No works found</div>'; return; }
+  if(!allFiltered.length){
+    con.innerHTML='<div style="padding:60px 0;text-align:center;font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink-dim)">No works found</div>';
+    return;
+  }
   allFiltered.forEach(function(g){
-    var d=document.createElement('div'); d.className='year-divider';
-    d.innerHTML='<span class="yd-label">'+g.year+'</span><span class="yd-count">'+g.rows.length+' works</span>';
-    con.appendChild(d);
+    if(!isMobile()){
+      var d=document.createElement('div'); d.className='year-divider';
+      d.innerHTML='<span class="yd-label">'+g.year+'</span><span class="yd-count">'+g.rows.length+' works</span>';
+      con.appendChild(d);
+    }
     var grid=document.createElement('div'); grid.className='grid'; grid.id='grid-'+g.year;
     con.appendChild(grid); yearRendered[g.year]=0;
   });
@@ -340,16 +429,41 @@ function disconnectChunkObserver(){
 
 function makeCard(row, flatIdx, animOffset){
   var card=document.createElement('div'); card.className='card';
-  var title=row['title']||'', yr=row['year']||'', medium=row['medium']||'', thumb=row['thumb']||'';
-  var sk=document.createElement('div'); sk.className='card-skeleton'; card.appendChild(sk);
-  var img=document.createElement('img'); img.alt=title;
-  img.onload=function(){ if(sk.parentNode) sk.parentNode.removeChild(sk); };
-  img.onerror=function(){ if(sk.parentNode) sk.parentNode.removeChild(sk); };
-  if(thumb){ lazyLoad(img,thumb); } else { img.classList.add('loaded'); }
-  card.appendChild(img);
-  var ov=document.createElement('div'); ov.className='card-overlay';
-  ov.innerHTML='<div class="card-title">'+title+'</div><div class="card-meta">'+yr+(medium?' · '+medium:'')+'</div>';
-  card.appendChild(ov);
+  var title=row['title']||'', yr=row['year']||'', medium=row['medium']||'';
+  var dim=row['dim']||row['dimensions']||'', thumb=row['thumb']||'';
+
+  if(isMobile()){
+    // 모바일: 이미지 + 캡션 세로 나열
+    var wrap=document.createElement('div'); wrap.className='card-img-wrap';
+    var sk=document.createElement('div'); sk.className='card-skeleton'; wrap.appendChild(sk);
+    var img=document.createElement('img'); img.alt=title;
+    img.onload=function(){ if(sk.parentNode) sk.parentNode.removeChild(sk); img.classList.add('loaded'); };
+    img.onerror=function(){ if(sk.parentNode) sk.parentNode.removeChild(sk); };
+    if(thumb){ lazyLoad(img,thumb); } else { img.classList.add('loaded'); }
+    wrap.appendChild(img);
+    card.appendChild(wrap);
+    // 캡션
+    var cap=document.createElement('div'); cap.className='card-caption';
+    cap.innerHTML='<div class="card-caption-title">'+title+'</div>'
+      +'<div class="card-caption-meta">'
+      +(medium?medium:'')
+      +(medium&&dim?' &nbsp;·&nbsp; ':'')
+      +(dim?dim:'')
+      +'</div>';
+    card.appendChild(cap);
+  } else {
+    // 데스크탑: 기존 카드
+    var sk=document.createElement('div'); sk.className='card-skeleton'; card.appendChild(sk);
+    var img=document.createElement('img'); img.alt=title;
+    img.onload=function(){ if(sk.parentNode) sk.parentNode.removeChild(sk); };
+    img.onerror=function(){ if(sk.parentNode) sk.parentNode.removeChild(sk); };
+    if(thumb){ lazyLoad(img,thumb); } else { img.classList.add('loaded'); }
+    card.appendChild(img);
+    var ov=document.createElement('div'); ov.className='card-overlay';
+    ov.innerHTML='<div class="card-title">'+title+'</div><div class="card-meta">'+yr+(medium?' · '+medium:'')+'</div>';
+    card.appendChild(ov);
+  }
+
   (function(idx){ card.addEventListener('click',function(){ openModal(idx); }); })(flatIdx);
   setTimeout(function(){ card.classList.add('revealed'); }, Math.min(animOffset*25,400));
   return card;
@@ -418,12 +532,10 @@ document.addEventListener('click',function(e){
     document.querySelectorAll('.nav-dd-menu').forEach(function(m){ m.style.display='none'; });
 });
 
-// works.json 하나만 fetch — 연도 목록 추출 + 프리뷰 + 그리드 모두 처리
 fetch('./data/works.json')
   .then(function(r){ return r.json(); })
   .then(function(works){
     allWorks = works;
-    // 연도 목록 추출 (내림차순)
     var yearSet = {};
     works.forEach(function(w){
       var y = parseInt(w['year']||0);
@@ -431,7 +543,18 @@ fetch('./data/works.json')
     });
     ALL_YEARS = Object.keys(yearSet).map(Number).sort(function(a,b){ return b-a; });
     buildYearGrid();
-    initPreview(works);
+    if(isMobile()){
+      // 모바일: 최신 연도 자동 선택
+      if(ALL_YEARS.length){
+        selectedYears = [ALL_YEARS[0]];
+        var el = sel('yr-'+ALL_YEARS[0]);
+        if(el) el.classList.add('checked');
+        updateMobileYearBar();
+        fetchAndRender();
+      }
+    } else {
+      initPreview(works);
+    }
   })
   .catch(function(){
     sel('yearGrid').innerHTML='<div style="font-size:8px;color:var(--ink-dim)">로딩 오류</div>';
