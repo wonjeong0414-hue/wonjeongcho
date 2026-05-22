@@ -27,7 +27,7 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 .nav-dropdown-item{display:block;font-size:9px;letter-spacing:0.08em;color:var(--ink-mid);padding:6px 16px;cursor:pointer;transition:color 0.15s,background 0.15s;white-space:nowrap}
 .nav-dropdown-item:hover{color:var(--ink);background:rgba(0,0,0,0.03)}
 .page{margin-top:var(--nav-h);height:calc(100vh - var(--nav-h));display:flex;flex-direction:column;align-items:center;justify-content:center;padding:12px 36px 16px;transition:all 0.75s cubic-bezier(0.16,1,0.3,1);overflow:hidden}
-.page.expanded{justify-content:flex-start;padding-top:16px}
+.page.expanded{justify-content:flex-start;padding-top:16px;overflow:visible}
 .img-box{width:min(58vw,580px);height:min(55vh,520px);flex-shrink:0;position:relative;overflow:hidden;cursor:pointer;transition:all 0.75s cubic-bezier(0.16,1,0.3,1)}
 .page.expanded .img-box{width:100%;height:30vh}
 .img-bg{position:absolute;inset:0;background-size:cover;background-position:center;transition:transform 0.6s ease}
@@ -66,7 +66,7 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 .sub-card:hover .sub-img{transform:scale(1.04)}
 
 /* ── gallery-area ── */
-.gallery-area{width:100%;flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;opacity:0;pointer-events:none;transition:opacity 0.5s ease;-webkit-overflow-scrolling:touch}
+.gallery-area{width:100%;flex:1;min-height:0;overflow:visible;opacity:0;pointer-events:none;transition:opacity 0.5s ease}
 .gallery-area.open{opacity:1;pointer-events:all}
 
 /* ── gallery grid ── */
@@ -230,6 +230,9 @@ function collapse(){
 document.getElementById('galleryArea').addEventListener('scroll',function(){
   if(this.scrollTop===0) collapse();
 });
+window.addEventListener('scroll',function(){
+  if(isExpanded && window.scrollY===0) collapse();
+},{passive:true});
 window.addEventListener('wheel',function(e){
   if(!isExpanded&&e.deltaY>20) expand();
   if(isExpanded&&e.deltaY<-20&&document.getElementById('galleryArea').scrollTop===0) collapse();
