@@ -10,9 +10,14 @@
 <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,500;1,500&family=Cormorant+Garamond:wght@300;400&display=swap"></noscript>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{--ink:#1a1a18;--ink-mid:#4a4a47;--ink-dim:#7a7a74;--bg:#f7f6f3;--white:#ffffff;--nav-h:50px}
-html{height:100%;background:var(--bg)}
-body{height:100%;background:var(--bg);font-family:'Cormorant Garamond',serif;display:flex;flex-direction:column}
+:root{
+  --ink:#1a1a18;--ink-mid:#4a4a47;--ink-dim:#7a7a74;
+  --bg:#f7f6f3;--white:#ffffff;--nav-h:50px;
+  /* expanded 시 이미지 영역 높이 */
+  --img-collapsed-h:22vh;
+}
+html,body{height:100%;background:var(--bg);overflow:hidden}
+body{font-family:'Cormorant Garamond',serif;display:flex;flex-direction:column}
 
 /* ── nav ── */
 nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-items:center;justify-content:space-between;padding:0 36px;z-index:100;background:var(--bg);border-bottom:0.5px solid rgba(0,0,0,0.08)}
@@ -29,64 +34,91 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 .nav-dropdown-item{display:block;font-size:9px;letter-spacing:0.08em;color:var(--ink-mid);padding:6px 16px;cursor:pointer;transition:color 0.15s,background 0.15s;white-space:nowrap}
 .nav-dropdown-item:hover{color:var(--ink);background:rgba(0,0,0,0.03)}
 
-/* ── page layout ── */
-.page{
-  margin-top:var(--nav-h);
-  height:calc(100vh - var(--nav-h));
-  display:flex;flex-direction:column;
-  align-items:center;justify-content:center;
-  padding:12px 36px 16px;
-  transition:all 0.75s cubic-bezier(0.16,1,0.3,1);
+/* ── 전체 레이아웃: nav 아래 100% 고정, flex column ── */
+.shell{
+  position:fixed;
+  top:var(--nav-h);left:0;right:0;
+  bottom:0;
+  display:flex;
+  flex-direction:column;
   overflow:hidden;
 }
-.page.expanded{
+
+/* ── 상단 메인 구역 ── */
+.main-area{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  flex-shrink:0;
+  padding:12px 36px 0;
+  /* 기본: 남은 높이 전부 */
+  height:calc(100vh - var(--nav-h));
+  transition:height 0.8s cubic-bezier(0.16,1,0.3,1), padding 0.8s cubic-bezier(0.16,1,0.3,1);
+}
+.main-area.collapsed{
+  height:calc(var(--img-collapsed-h) + 52px); /* 이미지 + work-info */
   justify-content:flex-start;
-  padding-top:16px;
-  overflow:visible;
+  padding-top:10px;
 }
 
 /* ── image box ── */
-.img-box{width:min(58vw,580px);height:min(55vh,520px);flex-shrink:0;position:relative;overflow:hidden;cursor:pointer;transition:all 0.75s cubic-bezier(0.16,1,0.3,1)}
-.page.expanded .img-box{width:100%;height:30vh}
+.img-box{
+  width:min(58vw,580px);
+  height:min(55vh,520px);
+  flex-shrink:0;
+  position:relative;overflow:hidden;cursor:pointer;
+  transition:width 0.8s cubic-bezier(0.16,1,0.3,1),
+             height 0.8s cubic-bezier(0.16,1,0.3,1);
+}
+.main-area.collapsed .img-box{
+  width:min(46vw,460px);
+  height:var(--img-collapsed-h);
+}
 .img-bg{position:absolute;inset:0;background-size:cover;background-position:center;transition:transform 0.6s ease}
 .img-box:hover .img-bg{transform:scale(1.006)}
-.img-overlay{position:absolute;inset:0;display:flex;align-items:flex-end;justify-content:center;padding-bottom:20px;background:linear-gradient(to top,rgba(247,246,243,0.7) 0%,transparent 30%)}
+.img-overlay{position:absolute;inset:0;display:flex;align-items:flex-end;justify-content:center;padding-bottom:20px;background:linear-gradient(to top,rgba(247,246,243,0.65) 0%,transparent 35%)}
 @keyframes txtFloat{0%,100%{transform:translateY(0);opacity:0.92}40%{transform:translateY(-3px);opacity:1}70%{transform:translateY(1.5px);opacity:0.87}}
-.work-title{font-family:'EB Garamond',serif;font-style:italic;font-size:26px;letter-spacing:0.08em;color:var(--ink);animation:txtFloat 7s ease-in-out infinite;opacity:0;transition:opacity 0.7s ease;text-shadow:0 1px 12px rgba(247,246,243,0.6)}
+.work-title{font-family:'EB Garamond',serif;font-style:italic;font-size:26px;letter-spacing:0.08em;color:var(--ink);animation:txtFloat 7s ease-in-out infinite;opacity:0;transition:opacity 0.7s ease,font-size 0.8s ease;text-shadow:0 1px 12px rgba(247,246,243,0.6)}
 .work-title.visible{opacity:1}
-.page.expanded .work-title{font-size:18px}
+.main-area.collapsed .work-title{font-size:16px}
 @keyframes bob{0%,100%{opacity:0.35;transform:translateY(0) translateX(-50%)}50%{opacity:0.6;transform:translateY(4px) translateX(-50%)}}
-.scroll-cue{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);font-size:13px;color:var(--ink-mid);animation:bob 2.2s ease-in-out infinite;cursor:pointer;opacity:0;transition:opacity 0.8s ease 1s}
+.scroll-cue{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);font-size:13px;color:var(--ink-mid);animation:bob 2.2s ease-in-out infinite;cursor:pointer;opacity:0;transition:opacity 0.5s ease}
 .scroll-cue.visible{opacity:0.35}
-.page.expanded .scroll-cue{display:none}
+.main-area.collapsed .scroll-cue{opacity:0 !important;pointer-events:none}
 
 /* ── work info ── */
-.work-info{width:min(58vw,540px);display:flex;justify-content:space-between;align-items:baseline;padding:10px 0;border-top:0.5px solid rgba(0,0,0,0.1);opacity:0;transition:opacity 0.7s ease 0.2s,width 0.75s cubic-bezier(0.16,1,0.3,1);flex-shrink:0}
+.work-info{
+  width:min(58vw,540px);
+  display:flex;justify-content:space-between;align-items:baseline;
+  padding:8px 0;
+  border-top:0.5px solid rgba(0,0,0,0.1);
+  opacity:0;flex-shrink:0;
+  transition:opacity 0.7s ease 0.2s,
+             width 0.8s cubic-bezier(0.16,1,0.3,1),
+             padding 0.8s ease;
+}
 .work-info.visible{opacity:1}
-.page.expanded .work-info{width:100%;padding:8px 0}
+.main-area.collapsed .work-info{width:min(46vw,460px);padding:6px 0}
 .wi-left .wi-title{font-family:'EB Garamond',serif;font-size:14px;color:var(--ink)}
 .wi-left .wi-meta{font-size:9px;letter-spacing:0.12em;color:var(--ink-dim);text-transform:uppercase;margin-top:3px}
 .wi-desc{font-size:10px;color:var(--ink-mid);line-height:1.8;flex:1;max-width:45%;text-align:right;word-break:keep-all}
 
 /* ── context iframe panel ── */
 .context-panel{
-  width:100%;
   flex:1;
-  min-height:60vh;
+  min-height:0;
+  width:100%;
   opacity:0;
   pointer-events:none;
-  transition:opacity 0.5s ease 0.15s;
+  transition:opacity 0.55s ease 0.2s;
+  border-top:0.5px solid rgba(0,0,0,0.07);
   overflow:hidden;
-  border-top:0.5px solid rgba(0,0,0,0.06);
-  margin-top:4px;
 }
 .context-panel.open{opacity:1;pointer-events:all}
 .context-panel iframe{
-  width:100%;
-  height:100%;
-  min-height:60vh;
-  border:none;
-  display:block;
+  width:100%;height:100%;
+  border:none;display:block;
 }
 
 @keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
@@ -110,26 +142,28 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
   </div>
 </nav>
 
-<div class="page" id="page">
-  <div class="img-box" id="imgBox" onclick="expand()">
-    <div class="img-bg" id="imgBg"></div>
-    <div class="img-overlay">
-      <div class="work-title" id="workTitle"></div>
+<div class="shell">
+  <!-- 상단: 메인 이미지 + 작품 정보 -->
+  <div class="main-area" id="mainArea">
+    <div class="img-box" id="imgBox" onclick="expand()">
+      <div class="img-bg" id="imgBg"></div>
+      <div class="img-overlay">
+        <div class="work-title" id="workTitle"></div>
+      </div>
+      <div class="scroll-cue" id="scrollCue">&#8595;</div>
     </div>
-    <div class="scroll-cue" id="scrollCue">&#8595;</div>
+    <div class="work-info" id="workInfo">
+      <div class="wi-left">
+        <div class="wi-title" id="wiTitle"></div>
+        <div class="wi-meta" id="wiMeta"></div>
+      </div>
+      <div class="wi-desc" id="wiDesc"></div>
+    </div>
   </div>
 
-  <div class="work-info" id="workInfo">
-    <div class="wi-left">
-      <div class="wi-title" id="wiTitle"></div>
-      <div class="wi-meta" id="wiMeta"></div>
-    </div>
-    <div class="wi-desc" id="wiDesc"></div>
-  </div>
-
-  <!-- 스크롤 시 context.html 을 iframe으로 표시 -->
+  <!-- 하단: context.html iframe -->
   <div class="context-panel" id="contextPanel">
-    <iframe id="contextFrame" src="" frameborder="0" scrolling="yes"></iframe>
+    <iframe id="contextFrame" src="" frameborder="0"></iframe>
   </div>
 </div>
 
@@ -148,10 +182,9 @@ document.querySelectorAll('.nav-dropdown').forEach(function(dd){
 
 function expand(){
   if(isExpanded) return;
-  isExpanded=true;
-  document.getElementById('page').classList.add('expanded');
+  isExpanded = true;
+  document.getElementById('mainArea').classList.add('collapsed');
   document.getElementById('contextPanel').classList.add('open');
-  // context.html을 처음 expand 시 한 번만 로드
   var fr = document.getElementById('contextFrame');
   if(!fr.getAttribute('data-loaded')){
     fr.src = 'context.html';
@@ -161,23 +194,31 @@ function expand(){
 
 function collapse(){
   if(!isExpanded) return;
-  isExpanded=false;
-  document.getElementById('page').classList.remove('expanded');
+  isExpanded = false;
+  document.getElementById('mainArea').classList.remove('collapsed');
   document.getElementById('contextPanel').classList.remove('open');
 }
 
-window.addEventListener('wheel',function(e){
+/* wheel */
+window.addEventListener('wheel', function(e){
   if(!isExpanded && e.deltaY > 20) expand();
-  if(isExpanded && e.deltaY < -20) collapse();
+  if(isExpanded && e.deltaY < -20){
+    /* iframe 내부 스크롤이 맨 위일 때만 collapse */
+    var fr = document.getElementById('contextFrame');
+    try{
+      if(fr.contentWindow.scrollY === 0) collapse();
+    } catch(err){ collapse(); }
+  }
 },{passive:true});
 
-var ty=0;
+/* touch */
+var ty = 0;
 window.addEventListener('touchstart',function(e){ty=e.touches[0].clientY;},{passive:true});
 window.addEventListener('touchmove',function(e){
   if(!isExpanded && ty - e.touches[0].clientY > 40) expand();
 },{passive:true});
 
-/* ── 메인 이미지 로드 ── */
+/* 메인 이미지 로드 */
 fetch('./data/main.json')
   .then(function(r){ return r.json(); })
   .then(function(result){
@@ -192,7 +233,7 @@ fetch('./data/main.json')
         document.getElementById('workTitle').classList.add('visible');
         document.getElementById('workInfo').classList.add('visible');
         document.getElementById('scrollCue').classList.add('visible');
-      },350);
+      }, 350);
     };
     img.onerror = function(){
       document.getElementById('workTitle').textContent = 'Tactile Thinking';
