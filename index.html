@@ -155,7 +155,7 @@ var ty=0;
 window.addEventListener('touchstart',function(e){ty=e.touches[0].clientY;},{passive:true});
 window.addEventListener('touchmove',function(e){if(!isExpanded&&ty-e.touches[0].clientY>40)expand();},{passive:true});
 
-fetch(SCRIPT_URL + '?page=api_main')
+fetch('./data/main.json')
   .then(function(r){ return r.json(); })
   .then(function(result){
     var main = result.main;
