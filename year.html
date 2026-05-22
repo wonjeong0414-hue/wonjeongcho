@@ -188,29 +188,46 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
   </div>
 </div>
 <script>
-var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwJLNpoaHB_1Lq30e_MPMx50V6ZXCKXtYatvwY2b_YRPEWySmHFQM8CJ2aTUM0FAfw6dQ/exec';
 var ALL_YEARS = [], selectedYears = [], allFiltered = [], flatFiltered = [], modalIdx = 0;
 var CHUNK_SIZE = 24, chunkSentinel = null, chunkObserver = null, yearRendered = {};
+var allWorks = []; // works.json 전체 캐시
 
 function sel(id){ return document.getElementById(id); }
 function isMobile(){ return window.innerWidth <= 600; }
 function go(page){ window.location.href = page + '.html'; }
 
-function initPreview(data){
+function initPreview(works){
+  // works.json에서 '페이지' 컬럼이 'py'인 항목을 최신 연도부터 탐색
+  var found = null;
+  var sorted = works.slice().sort(function(a,b){
+    return (parseInt(b['Year']||b['year']||0)) - (parseInt(a['Year']||a['year']||0));
+  });
+  for(var i=0;i<sorted.length;i++){
+    var page = sorted[i]['페이지']||sorted[i]['page']||'';
+    if(page.trim()==='py'){ found=sorted[i]; break; }
+  }
   var img = sel('previewImg');
-  if(!data.url){ img.style.display='none'; sel('emptyHint').style.display='block'; return; }
+  if(!found){
+    img.style.display='none';
+    sel('emptyHint').style.display='block';
+    return;
+  }
+  var url = found['full']||found['thumb']||'';
+  if(!url){ img.style.display='none'; sel('emptyHint').style.display='block'; return; }
   img.onload = function(){
     img.classList.add('loaded');
-    if(data.title) sel('captionTitle').textContent = data.title;
-    if(data.sen)   sel('captionSen').textContent   = data.sen;
-    if(data.title||data.sen) sel('previewCaption').classList.add('show');
+    var title = found['Title']||found['title']||'';
+    var sen   = found['Themes & Philosophy']||found['sen']||'';
+    if(title) sel('captionTitle').textContent = title;
+    if(sen)   sel('captionSen').textContent   = sen.split(/[,\n]/)[0].trim();
+    if(title||sen) sel('previewCaption').classList.add('show');
   };
   img.onerror = function(){
-    var m = data.url.match(/[?&]id=([a-zA-Z0-9_-]{10,})/);
+    var m = url.match(/[?&]id=([a-zA-Z0-9_-]{10,})/);
     if(m && img.src.indexOf('w800')===-1){ img.src='https://drive.google.com/thumbnail?id='+m[1]+'&sz=w800'; }
     else{ img.style.display='none'; sel('emptyHint').style.display='block'; }
   };
-  img.src = data.url;
+  img.src = url;
 }
 
 function buildYearGrid(){
@@ -259,19 +276,19 @@ function fetchAndRender(){
   if(isMobile()){ pz.style.display='none'; } else { pz.classList.add('hidden'); }
   sel('gridZone').classList.add('open');
   sel('gridContainer').innerHTML='<div class="loading-msg">Loading…</div>';
+
   var yearsDesc = selectedYears.slice().sort(function(a,b){ return b-a; });
-  fetch(SCRIPT_URL+'?page=api_year&'+yearsDesc.map(function(y){ return 'year='+y; }).join('&'))
-    .then(function(r){ return r.json(); })
-    .then(function(data){
-      allFiltered=[]; flatFiltered=[];
-      yearsDesc.forEach(function(yr){
-        var rows=data[yr]||[];
-        if(rows.length) allFiltered.push({year:yr,rows:rows});
-        rows.forEach(function(r){ flatFiltered.push(r); });
-      });
-      yearRendered={}; renderAll();
-    })
-    .catch(function(){ sel('gridContainer').innerHTML='<div class="loading-msg">Error</div>'; });
+
+  // works.json 캐시에서 연도별 필터링 (추가 fetch 불필요)
+  allFiltered=[]; flatFiltered=[];
+  yearsDesc.forEach(function(yr){
+    var rows = allWorks.filter(function(w){
+      return parseInt(w['Year']||w['year']||0) === yr;
+    });
+    if(rows.length) allFiltered.push({ year: yr, rows: rows });
+    rows.forEach(function(r){ flatFiltered.push(r); });
+  });
+  yearRendered={}; renderAll();
 }
 
 function renderAll(){
@@ -402,22 +419,24 @@ document.addEventListener('click',function(e){
     document.querySelectorAll('.nav-dd-menu').forEach(function(m){ m.style.display='none'; });
 });
 
-// 데이터 fetch
-Promise.all([
-  fetch(SCRIPT_URL + '?page=api_preview').then(function(r){ return r.json(); }),
-  fetch(SCRIPT_URL + '?page=api_works').then(function(r){ return r.json(); })
-]).then(function(results){
-  var preview = results[0];
-  var works   = results[1];
-  ALL_YEARS = [];
-  var yearSet = {};
-  works.forEach(function(w){ if(w.year && !yearSet[w.year]){ yearSet[w.year]=1; ALL_YEARS.push(parseInt(w.year)); } });
-  ALL_YEARS.sort(function(a,b){ return b-a; });
-  buildYearGrid();
-  initPreview(preview);
-}).catch(function(){
-  sel('yearGrid').innerHTML='<div style="font-size:8px;color:var(--ink-dim)">로딩 오류</div>';
-});
+// works.json 하나만 fetch — 연도 목록 추출 + 프리뷰 + 그리드 모두 처리
+fetch('./data/works.json')
+  .then(function(r){ return r.json(); })
+  .then(function(works){
+    allWorks = works;
+    // 연도 목록 추출 (내림차순)
+    var yearSet = {};
+    works.forEach(function(w){
+      var y = parseInt(w['Year']||w['year']||0);
+      if(y) yearSet[y] = 1;
+    });
+    ALL_YEARS = Object.keys(yearSet).map(Number).sort(function(a,b){ return b-a; });
+    buildYearGrid();
+    initPreview(works);
+  })
+  .catch(function(){
+    sel('yearGrid').innerHTML='<div style="font-size:8px;color:var(--ink-dim)">로딩 오류</div>';
+  });
 </script>
 </body>
 </html>
