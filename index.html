@@ -10,10 +10,7 @@
 <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,500;1,500&family=Cormorant+Garamond:wght@300;400&display=swap"></noscript>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --ink:#1a1a18;--ink-mid:#4a4a47;--ink-dim:#7a7a74;
-  --bg:#f7f6f3;--white:#ffffff;--nav-h:50px;
-}
+:root{--ink:#1a1a18;--ink-mid:#4a4a47;--ink-dim:#7a7a74;--bg:#f7f6f3;--white:#fff;--nav-h:50px}
 html,body{height:100%;background:var(--bg);overflow:hidden}
 body{font-family:'Cormorant Garamond',serif;display:flex;flex-direction:column}
 
@@ -30,43 +27,32 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 .nav-dropdown-item{display:block;font-size:9px;letter-spacing:0.08em;color:var(--ink-mid);padding:6px 16px;cursor:pointer;transition:color 0.15s,background 0.15s;white-space:nowrap}
 .nav-dropdown-item:hover{color:var(--ink);background:rgba(0,0,0,0.03)}
 
-/* ── 전체 셸 ── */
-.shell{
-  position:fixed;top:var(--nav-h);left:0;right:0;bottom:0;
-  display:flex;flex-direction:column;
-  overflow:hidden;
-}
+/* ── shell ── */
+.shell{position:fixed;top:var(--nav-h);left:0;right:0;bottom:0;display:flex;flex-direction:column;overflow:hidden}
 
-/* ══════════════════════════
-   기본 상태: 이미지 상단 배치
-══════════════════════════ */
+/* ── 기본 상태: 이미지 영역 (화면 전체) ── */
 .main-area{
+  flex-shrink:0;
+  height:calc(100vh - var(--nav-h));
   display:flex;flex-direction:column;align-items:center;
   justify-content:flex-start;
   padding-top:clamp(28px,6vh,64px);
-  flex-shrink:0;
-  height:calc(100vh - var(--nav-h));
-  transition:height 0.8s cubic-bezier(0.16,1,0.3,1),
-             padding 0.8s cubic-bezier(0.16,1,0.3,1);
+  transition:height 0.8s cubic-bezier(0.16,1,0.3,1), padding-top 0.8s cubic-bezier(0.16,1,0.3,1);
   overflow:hidden;
+  position:relative;
 }
 .main-area.collapsed{
-  height:auto;
+  height:clamp(140px,20vh,200px);
   padding-top:0;
 }
 
 /* ── 이미지 박스 ── */
 .img-box{
-  width:min(58vw,580px);
-  height:min(55vh,520px);
+  width:min(58vw,580px);height:min(55vh,520px);
   flex-shrink:0;position:relative;overflow:hidden;cursor:pointer;
-  transition:width 0.8s cubic-bezier(0.16,1,0.3,1),
-             height 0.8s cubic-bezier(0.16,1,0.3,1);
+  transition:width 0.8s cubic-bezier(0.16,1,0.3,1),height 0.8s cubic-bezier(0.16,1,0.3,1);
 }
-.main-area.collapsed .img-box{
-  width:100%;
-  height:clamp(120px,18vh,180px);
-}
+.main-area.collapsed .img-box{width:100%;height:100%}
 .img-bg{position:absolute;inset:0;background-size:cover;background-position:center;transition:transform 0.6s ease}
 .img-box:hover .img-bg{transform:scale(1.006)}
 .img-overlay{position:absolute;inset:0;display:flex;align-items:flex-end;justify-content:center;padding-bottom:20px;background:linear-gradient(to top,rgba(247,246,243,0.65) 0%,transparent 35%)}
@@ -79,13 +65,12 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 .scroll-cue.visible{opacity:0.35}
 .main-area.collapsed .scroll-cue{opacity:0 !important;pointer-events:none}
 
-/* ── 기본 상태 work-info (이미지 아래) ── */
+/* ── 기본 상태 work-info ── */
 .work-info{
-  width:min(58vw,540px);
+  width:min(58vw,540px);flex-shrink:0;
   display:flex;justify-content:space-between;align-items:baseline;
   padding:8px 0;border-top:0.5px solid rgba(0,0,0,0.1);
-  opacity:0;flex-shrink:0;
-  transition:opacity 0.7s ease 0.2s, width 0.8s cubic-bezier(0.16,1,0.3,1);
+  opacity:0;transition:opacity 0.7s ease 0.2s,width 0.8s cubic-bezier(0.16,1,0.3,1);
 }
 .work-info.visible{opacity:1}
 .main-area.collapsed .work-info{display:none}
@@ -93,39 +78,43 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 .wi-left .wi-meta{font-size:9px;letter-spacing:0.12em;color:var(--ink-dim);text-transform:uppercase;margin-top:3px}
 .wi-desc{font-size:10px;color:var(--ink-mid);line-height:1.8;flex:1;max-width:45%;text-align:right;word-break:keep-all}
 
-/* ══════════════════════════
-   collapsed 하단 3단 구조
-══════════════════════════ */
+/* ── 기본 상태: 이미지 아래 빈 공간에 감각적 텍스트 ── */
+.hero-text{
+  position:absolute;
+  bottom:clamp(24px,5vh,60px);
+  left:50%;transform:translateX(-50%);
+  text-align:center;
+  opacity:0;
+  transition:opacity 0.8s ease 0.5s;
+  pointer-events:none;
+  width:min(72vw,640px);
+}
+.hero-text.visible{opacity:1}
+.main-area.collapsed .hero-text{display:none}
+.hero-text-title{
+  font-family:'EB Garamond',serif;font-style:italic;
+  font-size:clamp(22px,3vw,36px);
+  color:var(--ink);letter-spacing:0.06em;
+  margin-bottom:14px;line-height:1.1;
+}
+.hero-text-desc{
+  font-size:clamp(10px,1vw,12px);
+  color:var(--ink-dim);
+  letter-spacing:0.06em;
+  line-height:2;
+  word-break:keep-all;
+}
 
-
-.caption-bar.show{opacity:1;pointer-events:all}
-
-
-
-/* Row 2: 태그메뉴(왼쪽) + iframe(오른쪽) */
+/* ── 하단: gallery iframe ── */
 .bottom-row{
   flex:1;min-height:0;
-  display:flex;
   opacity:0;pointer-events:none;
-  transition:opacity 0.5s ease 0.25s;
-  border-top:0.5px solid rgba(0,0,0,0.08);
-}
-.bottom-row.show{opacity:1;pointer-events:all}
-
-
-
-
-
-
-/* iframe 오른쪽 */
-.context-panel{
-  flex:1;min-width:0;
+  transition:opacity 0.55s ease 0.2s;
+  border-top:0.5px solid rgba(0,0,0,0.07);
   overflow:hidden;
 }
-.context-panel iframe{
-  width:100%;height:100%;
-  border:none;display:block;
-}
+.bottom-row.show{opacity:1;pointer-events:all}
+.bottom-row iframe{width:100%;height:100%;border:none;display:block}
 
 @keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
 </style>
@@ -149,9 +138,8 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 </nav>
 
 <div class="shell">
-
-  <!-- 메인 이미지 영역 -->
   <div class="main-area" id="mainArea">
+
     <div class="img-box" id="imgBox" onclick="expand()">
       <div class="img-bg" id="imgBg"></div>
       <div class="img-overlay">
@@ -159,6 +147,7 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
       </div>
       <div class="scroll-cue" id="scrollCue">&#8595;</div>
     </div>
+
     <div class="work-info" id="workInfo">
       <div class="wi-left">
         <div class="wi-title" id="wiTitle"></div>
@@ -166,35 +155,25 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
       </div>
       <div class="wi-desc" id="wiDesc"></div>
     </div>
-  </div>
-    <div class="caption-desc">우연의 캔버스 위에 스며든 필연의 숨결, 비결정적 순간이 빚어낸 견고한 정원</div>
+
+    <!-- 이미지 아래 빈 공간: 감각적 텍스트 -->
+    <div class="hero-text" id="heroText">
+      <div class="hero-text-title">Tactile Thinking</div>
+      <div class="hero-text-desc">우연의 캔버스 위에 스며든 필연의 숨결,<br>비결정적 순간이 빚어낸 견고한 정원</div>
+    </div>
+
   </div>
 
-  <!-- 하단: 태그메뉴(왼쪽) + context iframe(오른쪽) -->
+  <!-- gallery.html iframe -->
   <div class="bottom-row" id="bottomRow">
-      <div class="tag-item" onclick="goContext('SER')">Series &amp; Narratives</div>
-      <div class="tag-item" onclick="goContext('MAT')">Materiality &amp; Process</div>
-      <div class="tag-item" onclick="goContext('SEN')">Senses &amp; Emotions</div>
-    </div>
-    <div class="context-panel" id="contextPanel">
-      <iframe id="contextFrame" src="" frameborder="0"></iframe>
-    </div>
+    <iframe id="galleryFrame" src="" frameborder="0"></iframe>
   </div>
-
 </div>
 
 <script>
 var isExpanded = false;
 
 function go(page){ window.location.href = page + '.html'; }
-
-function goContext(cat){
-  /* 태그 클릭 시 context 페이지로 이동하거나 iframe에 해시 전달 */
-  var fr = document.getElementById('contextFrame');
-  if(fr.getAttribute('data-loaded')){
-    try{ fr.contentWindow.postMessage({openCat: cat}, '*'); } catch(e){}
-  }
-}
 
 document.querySelectorAll('.nav-dropdown').forEach(function(dd){
   var menu=dd.querySelector('.nav-dropdown-menu'),timer;
@@ -209,13 +188,12 @@ function expand(){
   isExpanded = true;
   document.getElementById('mainArea').classList.add('collapsed');
   document.getElementById('bottomRow').classList.add('show');
-  var fr = document.getElementById('contextFrame');
+  var fr = document.getElementById('galleryFrame');
   if(!fr.getAttribute('data-loaded')){
     fr.src = 'gallery.html';
     fr.setAttribute('data-loaded','1');
   }
 }
-
 function collapse(){
   if(!isExpanded) return;
   isExpanded = false;
@@ -223,53 +201,50 @@ function collapse(){
   document.getElementById('bottomRow').classList.remove('show');
 }
 
-window.addEventListener('wheel', function(e){
+window.addEventListener('wheel',function(e){
   if(!isExpanded && e.deltaY > 20) expand();
   if(isExpanded && e.deltaY < -20){
-    try{
-      if(document.getElementById('contextFrame').contentWindow.scrollY === 0) collapse();
-    } catch(err){ collapse(); }
+    try{ if(document.getElementById('galleryFrame').contentWindow.scrollY===0) collapse(); }
+    catch(err){ collapse(); }
   }
 },{passive:true});
-
-var ty = 0;
+var ty=0;
 window.addEventListener('touchstart',function(e){ty=e.touches[0].clientY;},{passive:true});
-window.addEventListener('touchmove',function(e){
-  if(!isExpanded && ty - e.touches[0].clientY > 40) expand();
-},{passive:true});
+window.addEventListener('touchmove',function(e){if(!isExpanded&&ty-e.touches[0].clientY>40)expand();},{passive:true});
 
-/* 메인 이미지 로드 */
 fetch('./data/main.json')
-  .then(function(r){ return r.json(); })
+  .then(function(r){return r.json();})
   .then(function(result){
-    var main = result.main;
-    if(!main) return;
-    var imgUrl = main.imgUrl || main.thumb || '';
-    var img = new Image();
-    img.onload = function(){
-      document.getElementById('imgBg').style.backgroundImage = "url('"+imgUrl+"')";
+    var main=result.main; if(!main) return;
+    var imgUrl=main.imgUrl||main.thumb||'';
+    var img=new Image();
+    img.onload=function(){
+      document.getElementById('imgBg').style.backgroundImage="url('"+imgUrl+"')";
       setTimeout(function(){
-        document.getElementById('workTitle').textContent = 'Tactile Thinking';
+        document.getElementById('workTitle').textContent='Tactile Thinking';
         document.getElementById('workTitle').classList.add('visible');
         document.getElementById('workInfo').classList.add('visible');
         document.getElementById('scrollCue').classList.add('visible');
-      }, 350);
+        document.getElementById('heroText').classList.add('visible');
+      },350);
     };
-    img.onerror = function(){
-      document.getElementById('workTitle').textContent = 'Tactile Thinking';
+    img.onerror=function(){
+      document.getElementById('workTitle').textContent='Tactile Thinking';
       document.getElementById('workTitle').classList.add('visible');
       document.getElementById('workInfo').classList.add('visible');
       document.getElementById('scrollCue').classList.add('visible');
+      document.getElementById('heroText').classList.add('visible');
     };
-    img.src = imgUrl;
-    document.getElementById('wiTitle').textContent = main.title || '';
-    document.getElementById('wiMeta').textContent = (main.year||'')+(main.medium?' · '+main.medium:'');
-    document.getElementById('wiDesc').textContent = main.desc || '';
+    img.src=imgUrl;
+    document.getElementById('wiTitle').textContent=main.title||'';
+    document.getElementById('wiMeta').textContent=(main.year||'')+(main.medium?' · '+main.medium:'');
+    document.getElementById('wiDesc').textContent=main.desc||'';
   })
   .catch(function(){
-    document.getElementById('workTitle').textContent = 'Won Jeong Cho';
+    document.getElementById('workTitle').textContent='Won Jeong Cho';
     document.getElementById('workTitle').classList.add('visible');
     document.getElementById('workInfo').classList.add('visible');
+    document.getElementById('heroText').classList.add('visible');
   });
 </script>
 </body>
