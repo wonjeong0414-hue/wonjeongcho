@@ -41,12 +41,15 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 .scroll-cue{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);font-size:13px;color:var(--ink-mid);animation:bob 2.2s ease-in-out infinite;cursor:pointer;opacity:0;transition:opacity 0.8s ease 1s}
 .scroll-cue.visible{opacity:0.35}
 .page.expanded .scroll-cue{display:none}
+
+/* ── work-info: 좌측 Tactile Thinking 고정, 우측 설명 ── */
 .work-info{width:min(58vw,540px);display:flex;justify-content:space-between;align-items:baseline;padding:10px 0;border-top:0.5px solid rgba(0,0,0,0.1);opacity:0;transition:opacity 0.7s ease 0.2s,width 0.75s cubic-bezier(0.16,1,0.3,1);flex-shrink:0}
 .work-info.visible{opacity:1}
 .page.expanded .work-info{width:100%;padding:8px 0}
 .wi-left .wi-title{font-family:'EB Garamond',serif;font-size:14px;color:var(--ink)}
 .wi-left .wi-meta{font-size:9px;letter-spacing:0.12em;color:var(--ink-dim);text-transform:uppercase;margin-top:3px}
 .wi-desc{font-size:10px;color:var(--ink-mid);line-height:1.8;flex:1;max-width:45%;text-align:right;word-break:keep-all}
+
 .sub-section{width:100%;flex-shrink:0;height:0;overflow:hidden;opacity:0;transition:height 0.65s cubic-bezier(0.16,1,0.3,1),opacity 0.5s ease 0.15s}
 .sub-section.open{height:220px;opacity:1}
 .sub-grid{display:flex;gap:16px;align-items:flex-start;justify-content:center;padding:16px 0 8px;height:100%}
@@ -61,9 +64,73 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 .sub-card:hover{box-shadow:0 12px 32px rgba(0,0,0,0.12)}
 .sub-img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.5s ease}
 .sub-card:hover .sub-img{transform:scale(1.04)}
+
+/* ── gallery-area ── */
 .gallery-area{width:100%;flex:1;overflow-y:auto;opacity:0;pointer-events:none;transition:opacity 0.5s ease}
 .gallery-area.open{opacity:1;pointer-events:all}
-.gallery-placeholder{padding:48px;text-align:center;font-size:10px;color:var(--ink-dim);letter-spacing:0.16em;text-transform:uppercase}
+
+/* ── gallery grid ── */
+.gallery-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+  gap:2px;
+  padding:20px 0 40px;
+}
+.gallery-item{
+  position:relative;
+  aspect-ratio:1;
+  overflow:hidden;
+  cursor:pointer;
+  background:rgba(0,0,0,0.04);
+}
+.gallery-item img{
+  width:100%;height:100%;
+  object-fit:cover;
+  display:block;
+  transition:transform 0.5s ease,opacity 0.4s ease;
+  opacity:0;
+}
+.gallery-item img.loaded{opacity:1}
+.gallery-item:hover img{transform:scale(1.04)}
+.gallery-item-label{
+  position:absolute;bottom:0;left:0;right:0;
+  padding:28px 12px 10px;
+  background:linear-gradient(to top,rgba(26,26,24,0.55) 0%,transparent 100%);
+  opacity:0;
+  transition:opacity 0.3s ease;
+}
+.gallery-item:hover .gallery-item-label{opacity:1}
+.gallery-item-label span{
+  font-family:'EB Garamond',serif;
+  font-style:italic;
+  font-size:11px;
+  color:rgba(247,246,243,0.9);
+  letter-spacing:0.06em;
+}
+/* 로딩 스켈레톤 */
+.gallery-skel{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+  gap:2px;
+  padding:20px 0 40px;
+}
+.skel-item{
+  aspect-ratio:1;
+  background:linear-gradient(90deg,rgba(0,0,0,0.04) 25%,rgba(0,0,0,0.07) 50%,rgba(0,0,0,0.04) 75%);
+  background-size:200% 100%;
+  animation:shimmer 1.4s infinite;
+}
+@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+
+/* 섹션 레이블 */
+.gallery-section-label{
+  font-size:9px;letter-spacing:0.22em;text-transform:uppercase;
+  color:var(--ink-dim);
+  padding:16px 0 10px;
+  border-bottom:0.5px solid rgba(0,0,0,0.08);
+  margin-bottom:2px;
+}
+
 @keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
 </style>
 </head>
@@ -84,6 +151,7 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
     <span class="nav-item" onclick="go('about')">About</span>
   </div>
 </nav>
+
 <div class="page" id="page">
   <div class="img-box" id="imgBox" onclick="expand()">
     <div class="img-bg" id="imgBg"></div>
@@ -92,13 +160,16 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
     </div>
     <div class="scroll-cue" id="scrollCue">&#8595;</div>
   </div>
+
   <div class="work-info" id="workInfo">
     <div class="wi-left">
-      <div class="wi-title" id="wiTitle"></div>
+      <!-- ★ 항상 Tactile Thinking 고정 -->
+      <div class="wi-title">Tactile Thinking</div>
       <div class="wi-meta" id="wiMeta"></div>
     </div>
     <div class="wi-desc" id="wiDesc"></div>
   </div>
+
   <div class="sub-section" id="subSection">
     <div class="sub-grid">
       <div class="sub-card" id="sub1" onclick="go('year')">
@@ -112,13 +183,24 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
       </div>
     </div>
   </div>
+
+  <!-- ★ gallery-area: 실제 작품 그리드 -->
   <div class="gallery-area" id="galleryArea">
-    <div class="gallery-placeholder">— 갤러리 페이지 연결 예정 —</div>
+    <div class="gallery-section-label" id="galleryLabel">Works</div>
+    <!-- 로딩 중 스켈레톤 -->
+    <div class="gallery-skel" id="gallerySkel">
+      <div class="skel-item"></div><div class="skel-item"></div><div class="skel-item"></div>
+      <div class="skel-item"></div><div class="skel-item"></div><div class="skel-item"></div>
+    </div>
+    <!-- 실제 이미지 그리드 -->
+    <div class="gallery-grid" id="galleryGrid" style="display:none"></div>
   </div>
 </div>
+
 <script>
 var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwJLNpoaHB_1Lq30e_MPMx50V6ZXCKXtYatvwY2b_YRPEWySmHFQM8CJ2aTUM0FAfw6dQ/exec';
 var isExpanded = false;
+var galleryLoaded = false;
 
 function go(page){ window.location.href = page + '.html'; }
 
@@ -136,6 +218,7 @@ function expand(){
   document.getElementById('page').classList.add('expanded');
   document.getElementById('subSection').classList.add('open');
   document.getElementById('galleryArea').classList.add('open');
+  if(!galleryLoaded) loadGallery();
 }
 function collapse(){
   if(!isExpanded) return;
@@ -155,6 +238,7 @@ var ty=0;
 window.addEventListener('touchstart',function(e){ty=e.touches[0].clientY;},{passive:true});
 window.addEventListener('touchmove',function(e){if(!isExpanded&&ty-e.touches[0].clientY>40)expand();},{passive:true});
 
+/* ── 메인 이미지 로드 ── */
 fetch('./data/main.json')
   .then(function(r){ return r.json(); })
   .then(function(result){
@@ -179,7 +263,7 @@ fetch('./data/main.json')
       document.getElementById('scrollCue').classList.add('visible');
     };
     img.src = imgUrl;
-    document.getElementById('wiTitle').textContent = main.title || '';
+    /* wi-title은 고정 "Tactile Thinking" — 건드리지 않음 */
     document.getElementById('wiMeta').textContent = (main.year||'')+(main.medium?' · '+main.medium:'');
     document.getElementById('wiDesc').textContent = main.desc || '';
     if(subImgs[0]) document.getElementById('subImg1').src = subImgs[0];
@@ -191,6 +275,55 @@ fetch('./data/main.json')
     document.getElementById('workTitle').classList.add('visible');
     document.getElementById('workInfo').classList.add('visible');
   });
+
+/* ── 갤러리 그리드 로드 ── */
+function loadGallery(){
+  galleryLoaded = true;
+  fetch('./data/gallery.json')
+    .then(function(r){ return r.json(); })
+    .then(function(items){
+      renderGallery(items);
+    })
+    .catch(function(){
+      /* gallery.json 없을 때 → main.json subImgs 활용 또는 빈 상태 */
+      fetch('./data/main.json')
+        .then(function(r){ return r.json(); })
+        .then(function(result){
+          var items = (result.allWorks || result.subImgs || []).map(function(url,i){
+            return {imgUrl: url, title:''};
+          });
+          renderGallery(items);
+        })
+        .catch(function(){ hideSkel(); });
+    });
+}
+
+function renderGallery(items){
+  hideSkel();
+  if(!items || items.length===0){
+    document.getElementById('galleryLabel').textContent = 'Works';
+    return;
+  }
+  document.getElementById('galleryLabel').textContent = 'Works — '+items.length;
+  var grid = document.getElementById('galleryGrid');
+  grid.style.display = '';
+  items.forEach(function(item){
+    var url = item.imgUrl || item.thumb || item;
+    var title = item.title || '';
+    var div = document.createElement('div');
+    div.className = 'gallery-item';
+    div.innerHTML = '<img src="'+url+'" alt="'+title+'" loading="lazy">'
+      +(title ? '<div class="gallery-item-label"><span>'+title+'</span></div>' : '');
+    div.querySelector('img').addEventListener('load',function(){this.classList.add('loaded');});
+    div.addEventListener('click',function(){ if(title) go('year'); });
+    grid.appendChild(div);
+  });
+}
+
+function hideSkel(){
+  var s = document.getElementById('gallerySkel');
+  if(s) s.style.display='none';
+}
 </script>
 </body>
 </html>
