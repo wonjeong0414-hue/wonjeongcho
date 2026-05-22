@@ -13,6 +13,8 @@
 :root{--ink:#1a1a18;--ink-mid:#4a4a47;--ink-dim:#7a7a74;--bg:#f7f6f3;--white:#ffffff;--nav-h:50px}
 html{height:100%;background:var(--bg)}
 body{height:100%;background:var(--bg);font-family:'Cormorant Garamond',serif;display:flex;flex-direction:column}
+
+/* ── nav ── */
 nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-items:center;justify-content:space-between;padding:0 36px;z-index:100;background:var(--bg);border-bottom:0.5px solid rgba(0,0,0,0.08)}
 @media(max-width:600px){nav{padding:0 12px}}
 @media(max-width:480px){.nav-logo{font-size:10px !important;letter-spacing:0.16em !important}.nav-item{font-size:8px !important;padding:5px 6px !important;letter-spacing:0.1em !important}.nav-sep{margin:0 1px !important}}
@@ -26,8 +28,24 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 .nav-dropdown-menu{display:none;position:absolute;top:calc(100% + 6px);left:0;background:var(--white);border:0.5px solid rgba(0,0,0,0.1);border-radius:4px;padding:5px 0;min-width:0;width:max-content;z-index:200;box-shadow:0 6px 18px rgba(0,0,0,0.07)}
 .nav-dropdown-item{display:block;font-size:9px;letter-spacing:0.08em;color:var(--ink-mid);padding:6px 16px;cursor:pointer;transition:color 0.15s,background 0.15s;white-space:nowrap}
 .nav-dropdown-item:hover{color:var(--ink);background:rgba(0,0,0,0.03)}
-.page{margin-top:var(--nav-h);height:calc(100vh - var(--nav-h));display:flex;flex-direction:column;align-items:center;justify-content:center;padding:12px 36px 16px;transition:all 0.75s cubic-bezier(0.16,1,0.3,1);overflow:hidden}
-.page.expanded{justify-content:flex-start;padding-top:16px;overflow:visible}
+
+/* ── page layout ── */
+.page{
+  margin-top:var(--nav-h);
+  height:calc(100vh - var(--nav-h));
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  padding:12px 36px 16px;
+  transition:all 0.75s cubic-bezier(0.16,1,0.3,1);
+  overflow:hidden;
+}
+.page.expanded{
+  justify-content:flex-start;
+  padding-top:16px;
+  overflow:visible;
+}
+
+/* ── image box ── */
 .img-box{width:min(58vw,580px);height:min(55vh,520px);flex-shrink:0;position:relative;overflow:hidden;cursor:pointer;transition:all 0.75s cubic-bezier(0.16,1,0.3,1)}
 .page.expanded .img-box{width:100%;height:30vh}
 .img-bg{position:absolute;inset:0;background-size:cover;background-position:center;transition:transform 0.6s ease}
@@ -42,7 +60,7 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 .scroll-cue.visible{opacity:0.35}
 .page.expanded .scroll-cue{display:none}
 
-/* ── work-info: 좌측 Tactile Thinking 고정, 우측 설명 ── */
+/* ── work info ── */
 .work-info{width:min(58vw,540px);display:flex;justify-content:space-between;align-items:baseline;padding:10px 0;border-top:0.5px solid rgba(0,0,0,0.1);opacity:0;transition:opacity 0.7s ease 0.2s,width 0.75s cubic-bezier(0.16,1,0.3,1);flex-shrink:0}
 .work-info.visible{opacity:1}
 .page.expanded .work-info{width:100%;padding:8px 0}
@@ -50,85 +68,25 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 .wi-left .wi-meta{font-size:9px;letter-spacing:0.12em;color:var(--ink-dim);text-transform:uppercase;margin-top:3px}
 .wi-desc{font-size:10px;color:var(--ink-mid);line-height:1.8;flex:1;max-width:45%;text-align:right;word-break:keep-all}
 
-.sub-section{width:100%;flex-shrink:0;height:0;overflow:hidden;opacity:0;transition:height 0.65s cubic-bezier(0.16,1,0.3,1),opacity 0.5s ease 0.15s}
-.sub-section.open{height:220px;opacity:1}
-.sub-grid{display:flex;gap:16px;align-items:flex-start;justify-content:center;padding:16px 0 8px;height:100%}
-@keyframes floatA{0%,100%{transform:translateY(0px)}35%{transform:translateY(-7px)}70%{transform:translateY(4px)}}
-@keyframes floatB{0%,100%{transform:translateY(0px)}25%{transform:translateY(5px)}60%{transform:translateY(-9px)}}
-@keyframes floatC{0%,100%{transform:translateY(0px)}45%{transform:translateY(-5px)}80%{transform:translateY(6px)}}
-.sub-card{flex:0 0 auto;width:160px;height:180px;position:relative;overflow:hidden;cursor:pointer;opacity:0;transition:opacity 0.6s ease,box-shadow 0.3s ease}
-.sub-card.loaded{opacity:1}
-.sub-card:nth-child(1){animation:floatA 8s ease-in-out infinite}
-.sub-card:nth-child(2){animation:floatB 10s ease-in-out infinite;margin-top:20px}
-.sub-card:nth-child(3){animation:floatC 9s ease-in-out 0.5s infinite;margin-top:8px}
-.sub-card:hover{box-shadow:0 12px 32px rgba(0,0,0,0.12)}
-.sub-img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.5s ease}
-.sub-card:hover .sub-img{transform:scale(1.04)}
-
-/* ── gallery-area ── */
-.gallery-area{width:100%;flex:1;min-height:0;overflow:visible;opacity:0;pointer-events:none;transition:opacity 0.5s ease}
-.gallery-area.open{opacity:1;pointer-events:all}
-
-/* ── gallery grid ── */
-.gallery-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
-  gap:18px;
-  padding:24px 0 60px;
-}
-.gallery-item{
-  position:relative;
-  aspect-ratio:1;
+/* ── context iframe panel ── */
+.context-panel{
+  width:100%;
+  flex:1;
+  min-height:60vh;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity 0.5s ease 0.15s;
   overflow:hidden;
-  cursor:pointer;
-  background:rgba(0,0,0,0.04);
+  border-top:0.5px solid rgba(0,0,0,0.06);
+  margin-top:4px;
 }
-.gallery-item img{
-  width:100%;height:100%;
-  object-fit:cover;
+.context-panel.open{opacity:1;pointer-events:all}
+.context-panel iframe{
+  width:100%;
+  height:100%;
+  min-height:60vh;
+  border:none;
   display:block;
-  transition:transform 0.5s ease,opacity 0.4s ease;
-  opacity:0;
-}
-.gallery-item img.loaded{opacity:1}
-.gallery-item:hover img{transform:scale(1.04)}
-.gallery-item-label{
-  position:absolute;bottom:0;left:0;right:0;
-  padding:28px 12px 10px;
-  background:linear-gradient(to top,rgba(26,26,24,0.55) 0%,transparent 100%);
-  opacity:0;
-  transition:opacity 0.3s ease;
-}
-.gallery-item:hover .gallery-item-label{opacity:1}
-.gallery-item-label span{
-  font-family:'EB Garamond',serif;
-  font-style:italic;
-  font-size:11px;
-  color:rgba(247,246,243,0.9);
-  letter-spacing:0.06em;
-}
-/* 로딩 스켈레톤 */
-.gallery-skel{
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
-  gap:18px;
-  padding:24px 0 60px;
-}
-.skel-item{
-  aspect-ratio:1;
-  background:linear-gradient(90deg,rgba(0,0,0,0.04) 25%,rgba(0,0,0,0.07) 50%,rgba(0,0,0,0.04) 75%);
-  background-size:200% 100%;
-  animation:shimmer 1.4s infinite;
-}
-@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
-
-/* 섹션 레이블 */
-.gallery-section-label{
-  font-size:9px;letter-spacing:0.22em;text-transform:uppercase;
-  color:var(--ink-dim);
-  padding:16px 0 10px;
-  border-bottom:0.5px solid rgba(0,0,0,0.08);
-  margin-bottom:2px;
 }
 
 @keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
@@ -163,44 +121,20 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 
   <div class="work-info" id="workInfo">
     <div class="wi-left">
-      <!-- 작품명 (Garden a26 07 등 동적) -->
       <div class="wi-title" id="wiTitle"></div>
       <div class="wi-meta" id="wiMeta"></div>
     </div>
     <div class="wi-desc" id="wiDesc"></div>
   </div>
 
-  <div class="sub-section" id="subSection">
-    <div class="sub-grid">
-      <div class="sub-card" id="sub1" onclick="go('year')">
-        <img class="sub-img" id="subImg1" src="" alt="" onload="this.parentElement.classList.add('loaded')" onerror="this.parentElement.style.display='none'">
-      </div>
-      <div class="sub-card" id="sub2" onclick="go('year')">
-        <img class="sub-img" id="subImg2" src="" alt="" onload="this.parentElement.classList.add('loaded')" onerror="this.parentElement.style.display='none'">
-      </div>
-      <div class="sub-card" id="sub3" onclick="go('year')">
-        <img class="sub-img" id="subImg3" src="" alt="" onload="this.parentElement.classList.add('loaded')" onerror="this.parentElement.style.display='none'">
-      </div>
-    </div>
-  </div>
-
-  <!-- ★ gallery-area: 실제 작품 그리드 -->
-  <div class="gallery-area" id="galleryArea">
-    <div class="gallery-section-label" id="galleryLabel">Works</div>
-    <!-- 로딩 중 스켈레톤 -->
-    <div class="gallery-skel" id="gallerySkel">
-      <div class="skel-item"></div><div class="skel-item"></div><div class="skel-item"></div>
-      <div class="skel-item"></div><div class="skel-item"></div><div class="skel-item"></div>
-    </div>
-    <!-- 실제 이미지 그리드 -->
-    <div class="gallery-grid" id="galleryGrid" style="display:none"></div>
+  <!-- 스크롤 시 context.html 을 iframe으로 표시 -->
+  <div class="context-panel" id="contextPanel">
+    <iframe id="contextFrame" src="" frameborder="0" scrolling="yes"></iframe>
   </div>
 </div>
 
 <script>
-var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwJLNpoaHB_1Lq30e_MPMx50V6ZXCKXtYatvwY2b_YRPEWySmHFQM8CJ2aTUM0FAfw6dQ/exec';
 var isExpanded = false;
-var galleryLoaded = false;
 
 function go(page){ window.location.href = page + '.html'; }
 
@@ -216,44 +150,44 @@ function expand(){
   if(isExpanded) return;
   isExpanded=true;
   document.getElementById('page').classList.add('expanded');
-  document.getElementById('subSection').classList.add('open');
-  document.getElementById('galleryArea').classList.add('open');
-  if(!galleryLoaded) loadGallery();
+  document.getElementById('contextPanel').classList.add('open');
+  // context.html을 처음 expand 시 한 번만 로드
+  var fr = document.getElementById('contextFrame');
+  if(!fr.getAttribute('data-loaded')){
+    fr.src = 'context.html';
+    fr.setAttribute('data-loaded','1');
+  }
 }
+
 function collapse(){
   if(!isExpanded) return;
   isExpanded=false;
   document.getElementById('page').classList.remove('expanded');
-  document.getElementById('subSection').classList.remove('open');
-  document.getElementById('galleryArea').classList.remove('open');
+  document.getElementById('contextPanel').classList.remove('open');
 }
-document.getElementById('galleryArea').addEventListener('scroll',function(){
-  if(this.scrollTop===0) collapse();
-});
-window.addEventListener('scroll',function(){
-  if(isExpanded && window.scrollY===0) collapse();
-},{passive:true});
+
 window.addEventListener('wheel',function(e){
-  if(!isExpanded&&e.deltaY>20) expand();
-  if(isExpanded&&e.deltaY<-20&&document.getElementById('galleryArea').scrollTop===0) collapse();
+  if(!isExpanded && e.deltaY > 20) expand();
+  if(isExpanded && e.deltaY < -20) collapse();
 },{passive:true});
+
 var ty=0;
 window.addEventListener('touchstart',function(e){ty=e.touches[0].clientY;},{passive:true});
-window.addEventListener('touchmove',function(e){if(!isExpanded&&ty-e.touches[0].clientY>40)expand();},{passive:true});
+window.addEventListener('touchmove',function(e){
+  if(!isExpanded && ty - e.touches[0].clientY > 40) expand();
+},{passive:true});
 
 /* ── 메인 이미지 로드 ── */
 fetch('./data/main.json')
   .then(function(r){ return r.json(); })
   .then(function(result){
     var main = result.main;
-    var subImgs = result.subImgs || [];
     if(!main) return;
     var imgUrl = main.imgUrl || main.thumb || '';
     var img = new Image();
     img.onload = function(){
       document.getElementById('imgBg').style.backgroundImage = "url('"+imgUrl+"')";
       setTimeout(function(){
-        /* 오버레이: 항상 "Tactile Thinking" 고정 */
         document.getElementById('workTitle').textContent = 'Tactile Thinking';
         document.getElementById('workTitle').classList.add('visible');
         document.getElementById('workInfo').classList.add('visible');
@@ -267,68 +201,15 @@ fetch('./data/main.json')
       document.getElementById('scrollCue').classList.add('visible');
     };
     img.src = imgUrl;
-    /* 하단 좌측: 작품명(Garden a26 07 등) */
     document.getElementById('wiTitle').textContent = main.title || '';
     document.getElementById('wiMeta').textContent = (main.year||'')+(main.medium?' · '+main.medium:'');
     document.getElementById('wiDesc').textContent = main.desc || '';
-    if(subImgs[0]) document.getElementById('subImg1').src = subImgs[0];
-    if(subImgs[1]) document.getElementById('subImg2').src = subImgs[1];
-    if(subImgs[2]) document.getElementById('subImg3').src = subImgs[2];
   })
   .catch(function(){
     document.getElementById('workTitle').textContent = 'Won Jeong Cho';
     document.getElementById('workTitle').classList.add('visible');
     document.getElementById('workInfo').classList.add('visible');
   });
-
-/* ── 갤러리 그리드 로드 ── */
-function loadGallery(){
-  galleryLoaded = true;
-  fetch('./data/gallery.json')
-    .then(function(r){ return r.json(); })
-    .then(function(items){
-      renderGallery(items);
-    })
-    .catch(function(){
-      /* gallery.json 없을 때 → main.json subImgs 활용 또는 빈 상태 */
-      fetch('./data/main.json')
-        .then(function(r){ return r.json(); })
-        .then(function(result){
-          var items = (result.allWorks || result.subImgs || []).map(function(url,i){
-            return {imgUrl: url, title:''};
-          });
-          renderGallery(items);
-        })
-        .catch(function(){ hideSkel(); });
-    });
-}
-
-function renderGallery(items){
-  hideSkel();
-  if(!items || items.length===0){
-    document.getElementById('galleryLabel').textContent = 'Works';
-    return;
-  }
-  document.getElementById('galleryLabel').textContent = 'Works — '+items.length;
-  var grid = document.getElementById('galleryGrid');
-  grid.style.display = '';
-  items.forEach(function(item){
-    var url = item.imgUrl || item.thumb || item;
-    var title = item.title || '';
-    var div = document.createElement('div');
-    div.className = 'gallery-item';
-    div.innerHTML = '<img src="'+url+'" alt="'+title+'" loading="lazy">'
-      +(title ? '<div class="gallery-item-label"><span>'+title+'</span></div>' : '');
-    div.querySelector('img').addEventListener('load',function(){this.classList.add('loaded');});
-    div.addEventListener('click',function(){ if(title) go('year'); });
-    grid.appendChild(div);
-  });
-}
-
-function hideSkel(){
-  var s = document.getElementById('gallerySkel');
-  if(s) s.style.display='none';
-}
 </script>
 </body>
 </html>
