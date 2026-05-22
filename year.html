@@ -197,14 +197,14 @@ function isMobile(){ return window.innerWidth <= 600; }
 function go(page){ window.location.href = page + '.html'; }
 
 function initPreview(works){
-  // works.json에서 '페이지' 컬럼이 'py'인 항목을 최신 연도부터 탐색
+  // pub:'y'인 항목 중 가장 최근 연도 첫 번째 작품을 프리뷰로 사용
+  // 나중에 '페이지':'py' 컬럼 추가 시 아래 조건으로 교체
   var found = null;
   var sorted = works.slice().sort(function(a,b){
-    return (parseInt(b['Year']||b['year']||0)) - (parseInt(a['Year']||a['year']||0));
+    return (parseInt(b['year']||0)) - (parseInt(a['year']||0));
   });
   for(var i=0;i<sorted.length;i++){
-    var page = sorted[i]['페이지']||sorted[i]['page']||'';
-    if(page.trim()==='py'){ found=sorted[i]; break; }
+    if((sorted[i]['pub']||'').trim()==='y'){ found=sorted[i]; break; }
   }
   var img = sel('previewImg');
   if(!found){
@@ -216,8 +216,8 @@ function initPreview(works){
   if(!url){ img.style.display='none'; sel('emptyHint').style.display='block'; return; }
   img.onload = function(){
     img.classList.add('loaded');
-    var title = found['Title']||found['title']||'';
-    var sen   = found['Themes & Philosophy']||found['sen']||'';
+    var title = found['title']||'';
+    var sen   = found['THE']||found['SER']||'';
     if(title) sel('captionTitle').textContent = title;
     if(sen)   sel('captionSen').textContent   = sen.split(/[,\n]/)[0].trim();
     if(title||sen) sel('previewCaption').classList.add('show');
@@ -283,7 +283,7 @@ function fetchAndRender(){
   allFiltered=[]; flatFiltered=[];
   yearsDesc.forEach(function(yr){
     var rows = allWorks.filter(function(w){
-      return parseInt(w['Year']||w['year']||0) === yr;
+      return parseInt(w['year']||0) === yr;
     });
     if(rows.length) allFiltered.push({ year: yr, rows: rows });
     rows.forEach(function(r){ flatFiltered.push(r); });
@@ -341,7 +341,7 @@ function disconnectChunkObserver(){
 
 function makeCard(row, flatIdx, animOffset){
   var card=document.createElement('div'); card.className='card';
-  var title=row['Title']||'', yr=row['Year']||'', medium=row['Medium']||'', thumb=row['thumb']||'';
+  var title=row['title']||'', yr=row['year']||'', medium=row['medium']||'', thumb=row['thumb']||'';
   var sk=document.createElement('div'); sk.className='card-skeleton'; card.appendChild(sk);
   var img=document.createElement('img'); img.alt=title;
   img.onload=function(){ if(sk.parentNode) sk.parentNode.removeChild(sk); };
@@ -385,13 +385,13 @@ function paintModal(){
   mImg.onload=function(){ mImg.style.opacity='1'; };
   mImg.onerror=function(){ var m=fullSrc.match(/[?&]id=([a-zA-Z0-9_-]{10,})/); if(m&&mImg.src.indexOf('w800')===-1) mImg.src='https://drive.google.com/thumbnail?id='+m[1]+'&sz=w800'; };
   mImg.src=fullSrc;
-  sel('mTitle').textContent=row['Title']||'';
-  sel('mYear').textContent=row['Year']||'';
-  sel('mMedium').textContent=row['Medium']||'';
-  sel('mDim').textContent=row['Dimensions']||'';
-  sel('mDesc').textContent=row['Description']||'';
+  sel('mTitle').textContent=row['title']||'';
+  sel('mYear').textContent=row['year']||'';
+  sel('mMedium').textContent=row['medium']||'';
+  sel('mDim').textContent=row['dim']||row['dimensions']||'';
+  sel('mDesc').textContent=row['desc']||'';
   var tags=[];
-  ['Themes & Philosophy','Series & Narratives','Materiality & Process','Senses & Emotions'].forEach(function(k){
+  ['THE','SER','MAT','SEN'].forEach(function(k){
     var v=row[k]||''; v.split(/[,\n]/).forEach(function(t){ t=t.trim(); if(t) tags.push(t); });
   });
   sel('mTags').innerHTML=tags.map(function(t){ return '<span class="m-tag">'+t+'</span>'; }).join('');
@@ -427,7 +427,7 @@ fetch('./data/works.json')
     // 연도 목록 추출 (내림차순)
     var yearSet = {};
     works.forEach(function(w){
-      var y = parseInt(w['Year']||w['year']||0);
+      var y = parseInt(w['year']||0);
       if(y) yearSet[y] = 1;
     });
     ALL_YEARS = Object.keys(yearSet).map(Number).sort(function(a,b){ return b-a; });
