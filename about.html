@@ -136,7 +136,6 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 </div>
 
 <script>
-var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwJLNpoaHB_1Lq30e_MPMx50V6ZXCKXtYatvwY2b_YRPEWySmHFQM8CJ2aTUM0FAfw6dQ/exec';
 var D = null;
 var lang = 'ko';
 
@@ -226,8 +225,8 @@ function render() {
   renderCVPanel('panelFair',  D.fair||[], ko);
 }
 
-// 데이터 fetch
-fetch(SCRIPT_URL + '?page=api_about')
+// 데이터 fetch — about.json 직접 로드
+fetch('./data/about.json')
   .then(function(r){ return r.json(); })
   .then(function(data){
     D = data;
