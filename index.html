@@ -157,7 +157,42 @@ window.addEventListener('touchstart',function(e){ty=e.touches[0].clientY;},{pass
 window.addEventListener('touchmove',function(e){if(!isExpanded&&ty-e.touches[0].clientY>40)expand();},{passive:true});
 
 // 데이터 fetch
-fetch(SCRIPT_URL + '?page=api_works')
+fetch(SCRIPT_URL + '?page=api_main')
+  .then(function(r){ return r.json(); })
+  .then(function(result){
+    var main = result.main;
+    var subImgs = result.subImgs || [];
+    if(!main) return;
+    var imgUrl = main.imgUrl || main.thumb || '';
+    var img = new Image();
+    img.onload = function(){
+      document.getElementById('imgBg').style.backgroundImage = "url('"+imgUrl+"')";
+      setTimeout(function(){
+        document.getElementById('workTitle').textContent = main.title || '';
+        document.getElementById('workTitle').classList.add('visible');
+        document.getElementById('workInfo').classList.add('visible');
+        document.getElementById('scrollCue').classList.add('visible');
+      },350);
+    };
+    img.onerror = function(){
+      document.getElementById('workTitle').textContent = main.title || '';
+      document.getElementById('workTitle').classList.add('visible');
+      document.getElementById('workInfo').classList.add('visible');
+      document.getElementById('scrollCue').classList.add('visible');
+    };
+    img.src = imgUrl;
+    document.getElementById('wiTitle').textContent = main.title || '';
+    document.getElementById('wiMeta').textContent = (main.year||'')+(main.medium?' · '+main.medium:'');
+    document.getElementById('wiDesc').textContent = main.desc || '';
+    if(subImgs[0]) document.getElementById('subImg1').src = subImgs[0];
+    if(subImgs[1]) document.getElementById('subImg2').src = subImgs[1];
+    if(subImgs[2]) document.getElementById('subImg3').src = subImgs[2];
+  })
+  .catch(function(){
+    document.getElementById('workTitle').textContent = 'Won Jeong Cho';
+    document.getElementById('workTitle').classList.add('visible');
+    document.getElementById('workInfo').classList.add('visible');
+  });
   .then(function(r){ return r.json(); })
   .then(function(works){
     var main = null;
