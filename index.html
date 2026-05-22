@@ -98,7 +98,9 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 <div class="shell">
   <div class="img-box" id="imgBox">
     <div class="img-bg" id="imgBg"></div>
-    <div class="img-overlay"></div>
+    <div class="img-overlay">
+      <div class="work-title" id="workTitle"></div>
+    </div>
     <div class="scroll-cue" id="scrollCue">&#8595;</div>
   </div>
 
@@ -109,10 +111,7 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
     </div>
     <div class="wi-desc" id="wiDesc"></div>
   </div>
-
-  <div class="hero-text" id="heroText">
-    <div class="hero-title">Tactile Thinking</div>
-  </div>
+</div>
 </div>
 
 <script>
@@ -127,14 +126,16 @@ fetch('./data/main.json')
     img.onload=function(){
       document.getElementById('imgBg').style.backgroundImage="url('"+imgUrl+"')";
       setTimeout(function(){
+        document.getElementById('workTitle').textContent='Tactile Thinking';
+        document.getElementById('workTitle').classList.add('visible');
         document.getElementById('workInfo').classList.add('visible');
         document.getElementById('scrollCue').classList.add('visible');
-        document.getElementById('heroText').classList.add('visible');
       },350);
     };
     img.onerror=function(){
-      document.getElementById('workInfo').classList.add('visible');
-      document.getElementById('heroText').classList.add('visible');
+      document.getElementById('workTitle').textContent='Tactile Thinking';
+        document.getElementById('workTitle').classList.add('visible');
+        document.getElementById('workInfo').classList.add('visible');
     };
     img.src=imgUrl;
     document.getElementById('wiTitle').textContent=main.title||'';
@@ -142,7 +143,9 @@ fetch('./data/main.json')
     document.getElementById('wiDesc').textContent=main.desc||'';
   })
   .catch(function(){
-    document.getElementById('workInfo').classList.add('visible');
+    document.getElementById('workTitle').textContent='Tactile Thinking';
+        document.getElementById('workTitle').classList.add('visible');
+        document.getElementById('workInfo').classList.add('visible');
     document.getElementById('heroText').classList.add('visible');
   });
 </script>
