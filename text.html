@@ -74,44 +74,57 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 
 /* ── 모바일 ── */
 @media(max-width:600px){
-  html,body{overflow:auto;height:auto}
+  html,body{overflow:hidden;height:100%}
   .bg-img{display:none}
 
+  /* lang-bar: fixed 유지 */
   .lang-bar{height:36px;padding:0 14px}
 
+  /* page-body: fixed 유지, lang-bar 아래부터 */
   .page-body{
-    position:static;
-    margin-top:calc(var(--nav-h) + 36px);
-    height:auto;
-    overflow:visible;
-    display:block;
-  }
-  .desktop-wrap{height:auto;overflow:visible;flex-direction:column}
-
-  /* Statement: 스크롤하면 올라감 */
-  .stmt-block{padding:16px 16px 18px;max-height:none;overflow:visible}
-  .stmt-label{font-size:7.5px;margin-bottom:8px}
-  .stmt-text{font-size:12.5px;line-height:1.85}
-
-  .three-col{flex-direction:column;height:auto;overflow:visible}
-
-  /* 탭 바: fixed로 고정 — sticky 대신 */
-  .left-panel{
     position:fixed;
     top:calc(var(--nav-h) + 36px);
-    left:0;right:0;
+    left:0;right:0;bottom:0;
+    display:flex;
+    flex-direction:column;
+    overflow:hidden;
+  }
+  .desktop-wrap{display:flex;flex-direction:column;height:100%;overflow:hidden}
+
+  /* Statement: 고정 높이 영역 */
+  .stmt-block{
+    flex-shrink:0;
+    padding:14px 16px 16px;
+    max-height:38%;
+    overflow-y:auto;
+    scrollbar-width:none;
+  }
+  .stmt-block::-webkit-scrollbar{display:none}
+  .stmt-label{font-size:7.5px;margin-bottom:8px}
+  .stmt-text{font-size:12px;line-height:1.8}
+
+  /* three-col: 나머지 공간 전부 */
+  .three-col{
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    min-height:0;
+    overflow:hidden;
+  }
+
+  /* 탭 바: 고정, 스크롤 안 됨 */
+  .left-panel{
+    flex-shrink:0;
     width:100%;
     height:38px;
     flex-direction:row;
     align-items:center;
     justify-content:center;
-    background:var(--bg);
-    border-bottom:0.5px solid rgba(0,0,0,0.08);
-    z-index:150;
     padding:0;
-    display:flex;
+    border-bottom:0.5px solid rgba(0,0,0,0.08);
+    border-top:0.5px solid rgba(0,0,0,0.06);
+    background:var(--bg);
   }
-
   .tab-list{flex-direction:row;gap:0;width:100%}
   .tab-item{
     font-size:9px;
@@ -125,12 +138,15 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
   .tab-item.active::after{display:none}
   .tab-item.active{border-bottom:1.5px solid var(--ink)}
 
-  /* stmt 아래 + 탭 바(38px) 높이만큼 콘텐츠 밀기 */
+  /* list-col: 여기만 스크롤 */
   .list-col{
+    flex:1;
     width:100%;
+    min-height:0;
     border-right:none;
-    padding:46px 14px 80px;
-    overflow:visible;
+    padding:0 14px 40px;
+    overflow-y:auto;
+    -webkit-overflow-scrolling:touch;
   }
 
   .detail-col{display:none}
