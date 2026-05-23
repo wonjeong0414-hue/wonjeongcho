@@ -117,79 +117,66 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 
 /* ===== 모바일 ===== */
 @media (max-width: 600px) {
-  html, body { overflow: auto; }
+  html, body { overflow: auto; height: auto; }
 
+  /* layout: fixed 해제 */
   .layout {
     position: static;
     margin-top: var(--nav-h);
     height: auto;
     display: block;
   }
-
   .top-header { display: none; }
 
+  /* body-row: 세로 스택 */
   .body-row {
-    display: flex;
-    flex-direction: column;
+    display: block;
     height: auto;
     overflow: visible;
   }
 
-  /* 필터 패널 → 가로 스크롤 칩 */
+  /* 필터 패널: 기본 숨김, .panel-open일 때 표시 */
   .left-panel {
     width: 100%;
-    flex-direction: row;
-    padding: 8px 12px;
+    flex-direction: column;
+    padding: 0 16px 12px;
+    overflow: hidden;
+    max-height: 0;
     border-bottom: 0.5px solid rgba(0,0,0,0.08);
-    overflow-x: auto;
-    scrollbar-width: none;
+    transition: max-height 0.35s cubic-bezier(0.16,1,0.3,1);
   }
-  .left-panel::-webkit-scrollbar { display: none; }
+  .left-panel.panel-open {
+    max-height: 600px;
+    padding-top: 12px;
+  }
+
+  /* cat-list: transition 완전 제거, open이면 바로 보임 */
+  .cat-list {
+    max-height: 0;
+    overflow: hidden;
+    transition: none;
+    display: block;
+    padding: 0;
+  }
+  .cat-cell.open .cat-list {
+    max-height: 400px;
+    padding-bottom: 8px;
+  }
+
+  /* cb-item 터치 영역 확대 */
+  .cb-item { padding: 8px 0; }
+  .cb-label { font-size: 11px; }
+  .cat-title { font-size: 10px; }
 
   .strip-row { display: none; }
   .active-strip { display: none; }
-  .result-count { display: none; }
-
-  .cat-list-wrap {
-    flex-direction: row;
-    gap: 6px;
-    flex: none;
-    overflow: visible;
+  .result-count {
+    text-align: left;
+    margin-top: 12px;
+    font-size: 9px;
   }
 
-  .cat-cell { flex-shrink: 0; position: relative; }
-
-  .cat-header {
-    padding: 4px 10px;
-    border: 0.5px solid rgba(0,0,0,0.2);
-    border-radius: 20px;
-    white-space: nowrap;
-  }
-  .cat-arrow { display: none; }
-
-  /* 모바일 드롭다운: transition 무효화하고 display로 제어 */
-  .cat-list {
-    display: none !important;
-    max-height: none !important;
-    overflow: visible !important;
-    transition: none !important;
-    position: absolute;
-    top: calc(100% + 4px);
-    left: 0;
-    z-index: 200;
-    background: var(--white);
-    border-radius: 6px;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.15);
-    padding: 6px 0;
-    min-width: 140px;
-  }
-  .cat-cell.open .cat-list {
-    display: flex !important;
-    flex-direction: column;
-    padding-bottom: 6px;
-  }
-
-  /* 우측 패널 — absolute 자식들을 static flow로 전환 */
+  /* 우측 패널: absolute 자식들 static으로 */
   .right-panel {
     position: static;
     width: 100%;
@@ -199,10 +186,38 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 
   .float-zone { display: none !important; }
 
-  /* 모바일 초기 안내 문구 */
+  /* 모바일 상단 필터 토글 바 */
+  .mobile-filter-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 16px;
+    border-bottom: 0.5px solid rgba(0,0,0,0.08);
+    cursor: pointer;
+  }
+  .mobile-filter-label {
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+  }
+  .mobile-filter-arrow {
+    font-size: 9px;
+    color: var(--ink-dim);
+    transition: transform 0.25s;
+  }
+  .mobile-filter-bar.open .mobile-filter-arrow { transform: rotate(180deg); }
+  .mobile-filter-tag {
+    font-size: 9px;
+    letter-spacing: 0.05em;
+    color: var(--ink-mid);
+    font-style: italic;
+  }
+
+  /* 모바일 초기 안내 */
   .mobile-hint {
     display: block;
-    padding: 48px 24px;
+    padding: 60px 24px;
     font-family: 'EB Garamond', serif;
     font-style: italic;
     font-size: 15px;
@@ -211,44 +226,40 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
     text-align: center;
   }
 
-  /* narrative: absolute 해제, show 여부와 무관하게 항상 표시 */
+  /* narrative: static flow */
   .narrative-zone {
     position: static !important;
     opacity: 1 !important;
     transform: none !important;
     pointer-events: all !important;
-    padding: 24px 20px 12px;
-    display: none; /* 기본 숨김, JS가 .show 붙일 때만 표시 */
+    padding: 32px 20px 16px;
+    display: none;
   }
-  .narrative-zone.show {
-    display: block;
-  }
+  .narrative-zone.show { display: block; }
 
-  /* grid-zone: absolute 해제, open일 때만 표시 */
+  /* grid-zone: static flow */
   .grid-zone {
     position: static !important;
     opacity: 1 !important;
     pointer-events: all !important;
-    padding: 12px 12px 60px;
+    padding: 12px 12px 80px;
     overflow: visible;
     display: none;
   }
-  .grid-zone.open {
-    display: block !important;
-  }
+  .grid-zone.open { display: block !important; }
 
   .grid { grid-template-columns: repeat(2, 1fr); gap: 4px; }
 
-  /* 모달 — 바텀시트 */
+  /* 모달 바텀시트 */
   .modal-bg { padding: 0; align-items: flex-end; }
   .modal {
     flex-direction: column;
     height: 95vh;
     width: 100%;
+    max-height: none;
     border-radius: 12px 12px 0 0;
     overflow-y: scroll;
     overflow-x: hidden;
-    max-height: none;
   }
   .modal-img-area {
     flex: none;
@@ -258,7 +269,7 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
   }
   .modal-img-area img {
     max-width: 100%;
-    max-height: 60vh;
+    max-height: 55vh;
     object-fit: contain;
   }
   .modal-panel {
@@ -269,19 +280,18 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
   }
   .modal-x {
     position: fixed;
-    top: 14px;
-    right: 14px;
+    top: 14px; right: 14px;
     z-index: 600;
     background: rgba(0,0,0,0.45);
     color: #fff;
-    width: 32px;
-    height: 32px;
+    width: 32px; height: 32px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
+    font-size: 18px;
   }
-  .arr-prev { left: 10px; position: fixed; top: 50vh; }
+  .arr-prev { left: 10px; position: fixed; top: 50vh; right: auto; }
   .arr-next { right: 10px; position: fixed; top: 50vh; left: auto; }
 }
 </style>
@@ -307,6 +317,11 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
     <div class="header-title">Tactile Thinking</div>
   </div>
   <div class="body-row">
+    <div class="mobile-filter-bar" id="mobileFilterBar" onclick="toggleMobilePanel()">
+      <span class="mobile-filter-label">Filter</span>
+      <span class="mobile-filter-tag" id="mobileFilterTag"></span>
+      <span class="mobile-filter-arrow">▾</span>
+    </div>
     <div class="left-panel">
       <div class="strip-row">
         <button class="clear-btn" id="clearBtn" style="display:none" onclick="clearAll()">Clear all</button>
@@ -420,6 +435,22 @@ var TAG_DESC={
 
 var CAT_COL={THE:'Themes & Philosophy',SER:'Series & Narratives',MAT:'Materiality & Process',SEN:'Senses & Emotions'};
 
+function toggleMobilePanel() {
+  var panel = document.querySelector('.left-panel');
+  var bar = sel('mobileFilterBar');
+  if (!panel) return;
+  var isOpen = panel.classList.contains('panel-open');
+  panel.classList.toggle('panel-open', !isOpen);
+  bar.classList.toggle('open', !isOpen);
+}
+
+function closeMobilePanel() {
+  var panel = document.querySelector('.left-panel');
+  var bar = sel('mobileFilterBar');
+  if (panel) panel.classList.remove('panel-open');
+  if (bar) bar.classList.remove('open');
+}
+
 function sel(id){ return document.getElementById(id); }
 function go(page){ window.location.href = page+'.html'; }
 function parseTags(str){ if(!str) return []; return String(str).split(/[,\n]/).map(function(t){return t.trim();}).filter(Boolean); }
@@ -465,6 +496,12 @@ function toggleTag(cat,enc,el){
     selected[cat]=[tag]; el.classList.add('checked');
   }
   updateBadge(cat); updatePills(); applyFilter();
+  // 모바일: 태그 선택 후 패널 닫기 + 선택 태그 표시
+  closeMobilePanel();
+  var allSelected=[];
+  ['THE','SER','MAT','SEN'].forEach(function(c){ allSelected=allSelected.concat(selected[c]); });
+  var tagEl=sel('mobileFilterTag');
+  if(tagEl) tagEl.textContent=allSelected.length?allSelected[0]:'';
 }
 
 function updateBadge(cat){ sel('cell-'+cat).classList.toggle('has-sel',selected[cat].length>0); }
