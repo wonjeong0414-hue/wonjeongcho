@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
@@ -153,6 +153,8 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
     transform:translateY(100%);
     transition:transform 0.38s cubic-bezier(0.16,1,0.3,1);
     will-change:transform;
+    overflow-y:auto;
+    max-height:92vh;
   }
   .bs-sheet.half{transform:translateY(8%)}
   .bs-sheet.full{transform:translateY(0)}
@@ -161,11 +163,11 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
   .bs-handle{width:36px;height:4px;border-radius:2px;background:rgba(0,0,0,0.15)}
 
   .bs-img-area{width:100%;padding:0 20px 12px;display:flex;align-items:center;justify-content:center}
-  .bs-img-area img{max-width:100%;max-height:38vh;object-fit:contain;display:block;opacity:0;transition:opacity 0.3s ease}
-  .bs-sheet.full .bs-img-area img{max-height:45vh}
+  .bs-img-area img{max-width:100%;max-height:48vh;object-fit:contain;display:block;opacity:0;transition:opacity 0.3s ease}
+  .bs-sheet.full .bs-img-area img{max-height:48vh}
 
-  .bs-info{padding:0 20px 40px;overflow-y:auto;max-height:40vh}
-  .bs-sheet.full .bs-info{max-height:65vh}
+  .bs-info{padding:0 20px 40px;overflow-y:auto;max-height:none}
+  .bs-sheet.full .bs-info{max-height:none}
 
   .bs-title{font-family:'EB Garamond',serif;font-style:italic;font-size:20px;color:var(--ink);line-height:1.3;margin-bottom:6px}
   .bs-meta{font-size:8px;letter-spacing:0.14em;color:var(--ink-dim);text-transform:uppercase;margin-bottom:2px}
@@ -618,4 +620,4 @@ fetch('./data/works.json')
   });
 </script>
 </body>
-</html>
+</html> 
