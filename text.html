@@ -77,10 +77,8 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
   html,body{overflow:auto;height:auto}
   .bg-img{display:none}
 
-  /* lang-bar: fixed 유지 */
   .lang-bar{height:36px;padding:0 14px}
 
-  /* page-body: fixed 해제 → 일반 flow */
   .page-body{
     position:static;
     margin-top:calc(var(--nav-h) + 36px);
@@ -90,64 +88,53 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
   }
   .desktop-wrap{height:auto;overflow:visible;flex-direction:column}
 
-  /* Statement 블록: 일반 flow — 스크롤하면 올라감 */
-  .stmt-block{
-    padding:16px 16px 18px;
-    max-height:none;
-    overflow:visible;
-  }
+  /* Statement: 스크롤하면 올라감 */
+  .stmt-block{padding:16px 16px 18px;max-height:none;overflow:visible}
   .stmt-label{font-size:7.5px;margin-bottom:8px}
   .stmt-text{font-size:12.5px;line-height:1.85}
 
-  /* three-col: 모바일에서 list-col + detail-col만 */
   .three-col{flex-direction:column;height:auto;overflow:visible}
-  /* three-col 안의 left-panel은 JS로 밖으로 꺼냄 — 이 스타일은 꺼낸 후 적용 */
 
-  /* 탭 바: body 직접 자식으로 sticky */
+  /* 탭 바: fixed로 고정 — sticky 대신 */
   .left-panel{
+    position:fixed;
+    top:calc(var(--nav-h) + 36px);
+    left:0;right:0;
     width:100%;
-    flex-direction:row;
-    padding:0 14px;
     height:38px;
+    flex-direction:row;
     align-items:center;
     justify-content:center;
-    border-bottom:0.5px solid rgba(0,0,0,0.08);
-    border-top:0.5px solid rgba(0,0,0,0.05);
     background:var(--bg);
-    position:sticky;
-    top:calc(var(--nav-h) + 36px);
-    z-index:100;
-    /* three-col 안에서 꺼낼 때 width 유지 */
-    box-sizing:border-box;
+    border-bottom:0.5px solid rgba(0,0,0,0.08);
+    z-index:150;
+    padding:0;
+    display:flex;
   }
 
-  .tab-list{flex-direction:row;gap:0;width:100%;justify-content:space-around}
+  .tab-list{flex-direction:row;gap:0;width:100%}
   .tab-item{
     font-size:9px;
     letter-spacing:0.1em;
     white-space:nowrap;
-    padding:0 8px;
     line-height:38px;
     flex:1;
     text-align:center;
+    padding:0;
   }
   .tab-item.active::after{display:none}
-  .tab-item.active{
-    border-bottom:1.5px solid var(--ink);
-    margin-bottom:-1px;
-  }
+  .tab-item.active{border-bottom:1.5px solid var(--ink)}
 
-  /* 리스트: 탭 아래 일반 flow */
+  /* stmt 아래 + 탭 바(38px) 높이만큼 콘텐츠 밀기 */
   .list-col{
     width:100%;
     border-right:none;
-    padding:0 14px 80px;
+    padding:46px 14px 80px;
     overflow:visible;
   }
 
   .detail-col{display:none}
 
-  /* 파일 행 */
   .file-row{padding:10px 0;gap:10px}
   .file-row:first-child{border-top:none}
   .file-title{font-size:13px}
@@ -155,7 +142,6 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
   .file-arrow{opacity:0.25;font-size:11px}
   .file-row.active-row .file-arrow{transform:rotate(90deg);opacity:0.6}
 
-  /* 인라인 디테일 */
   .m-inline-detail{
     display:none;
     padding:12px 14px 18px 24px;
@@ -230,8 +216,15 @@ function isMobile(){return window.innerWidth<=600;}
 function escH(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 function cleanTitle(f){return f.replace(/\.pdf$/i,'').replace(/\.docx?$/i,'').replace(/_/g,' ').trim();}
 
-// 모바일: 탭 바를 three-col 밖으로 꺼내서 stmt 다음에 배치
-// sticky가 동작하려면 스크롤 컨테이너(body) 직계 라인에 있어야 함
+// 모바일: 탭 바 fixed top 동적 조정 (stmt 높이 반영)
+function adjustTabTop(){
+  if(!isMobile())return;
+  var panel=sel('leftPanel');
+  if(!panel)return;
+  var navH=50, langH=36;
+  panel.style.top=(navH+langH)+'px';
+}
+
 function relocateTabBar(){
   if(!isMobile())return;
   var panel=sel('leftPanel');
@@ -240,6 +233,7 @@ function relocateTabBar(){
   if(panel&&threeCol&&desktopWrap){
     desktopWrap.insertBefore(panel,threeCol);
   }
+  adjustTabTop();
 }
 
 document.querySelectorAll('.nav-dd').forEach(function(dd){
