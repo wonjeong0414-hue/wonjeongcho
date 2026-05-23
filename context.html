@@ -258,7 +258,7 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
     will-change:transform;
     touch-action:none;
   }
-  .bs-sheet.half { transform:translateY(52%); }
+  .bs-sheet.half { transform:translateY(30%); }
   .bs-sheet.full { transform:translateY(0); }
 
   .bs-handle-wrap {
@@ -343,8 +343,10 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
   .bs-prev { left:10px; }
   .bs-next { right:10px; }
 
-  /* 시트 열릴 때 그리드 스크롤 잠금 */
-  body.sheet-open .grid-zone { overflow-y:hidden !important; }
+  /* 시트 열릴 때 배경 blur + 스크롤 잠금 */
+  .grid-zone { transition:filter 0.3s ease; }
+  body.sheet-open .grid-zone { overflow-y:hidden !important; filter:blur(3px); }
+  body.sheet-open .mobile-hint { filter:blur(3px); transition:filter 0.3s ease; }
 }
 </style>
 </head>
@@ -672,17 +674,8 @@ function runNarrativeThenGrid(tag){
   if(narrativeTimer){clearTimeout(narrativeTimer);narrativeTimer=null;}
   var hint=sel('mobileHint');if(hint)hint.style.display='none';
   sel('floatZone').classList.add('hidden');
-  sel('gridZone').classList.remove('open');
-  var nZone=sel('narrativeZone');
-  sel('nsLabel').textContent=tag;
-  sel('nsText').textContent=TAG_DESC[tag]||'';
-  nZone.classList.remove('rising');nZone.classList.add('show');
-  narrativeTimer=setTimeout(function(){
-    narrativeTimer=null;
-    nZone.classList.add('rising');
-    setTimeout(function(){nZone.classList.remove('show','rising');},600);
-    renderFiltered();
-  },2200);
+  sel('narrativeZone').classList.remove('show','rising');
+  renderFiltered();
 }
 
 function showFloat(){
@@ -875,4 +868,4 @@ Promise.all([
 }).catch(function(){console.error('데이터 로딩 오류');});
 </script>
 </body>
-</html>
+</html> 
