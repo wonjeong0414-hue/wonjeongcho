@@ -77,10 +77,10 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
   html,body{overflow:auto;height:auto}
   .bg-img{display:none}
 
-  /* lang-bar: fixed 유지, nav 아래 */
+  /* lang-bar: fixed 유지 */
   .lang-bar{height:36px;padding:0 14px}
 
-  /* page-body: static flow로 전환 */
+  /* page-body: fixed 해제 → 일반 flow */
   .page-body{
     position:static;
     margin-top:calc(var(--nav-h) + 36px);
@@ -90,38 +90,35 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
   }
   .desktop-wrap{height:auto;overflow:visible;flex-direction:column}
 
-  /* Statement 블록 */
+  /* Statement 블록: 일반 flow — 스크롤하면 올라감 */
   .stmt-block{
     padding:16px 16px 18px;
     max-height:none;
     overflow:visible;
   }
   .stmt-label{font-size:7.5px;margin-bottom:8px}
-  .stmt-text{font-size:12.5px;line-height:1.85;-webkit-line-clamp:unset}
+  .stmt-text{font-size:12.5px;line-height:1.85}
 
-  /* three-col → 세로 스택 */
+  /* three-col */
   .three-col{flex-direction:column;height:auto;overflow:visible}
 
-  /* 탭 바: sticky — stmt 다음 위치에서 고정 */
+  /* 탭 바: sticky 고정 — stmt가 올라간 뒤 이 자리에 붙음 */
   .left-panel{
     width:100%;
     flex-direction:row;
     padding:0 14px;
     height:38px;
     align-items:center;
-    justify-content:flex-start;
+    justify-content:center;
     border-bottom:0.5px solid rgba(0,0,0,0.08);
     border-top:0.5px solid rgba(0,0,0,0.05);
     background:var(--bg);
     position:sticky;
     top:calc(var(--nav-h) + 36px);
     z-index:100;
-    overflow-x:auto;
-    scrollbar-width:none;
   }
-  .left-panel::-webkit-scrollbar{display:none}
 
-  .tab-list{flex-direction:row;gap:18px;flex-shrink:0}
+  .tab-list{flex-direction:row;gap:24px}
   .tab-item{
     font-size:9px;
     letter-spacing:0.1em;
@@ -132,10 +129,10 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
   .tab-item.active::after{display:none}
   .tab-item.active{
     border-bottom:1.5px solid var(--ink);
-    margin-bottom:-1px; /* border-bottom이 패널 border와 겹치게 */
+    margin-bottom:-1px;
   }
 
-  /* 리스트: 탭 아래 일반 flow, 탭이 sticky라 자연스럽게 아래로 스크롤 */
+  /* 리스트: 탭 아래 일반 flow */
   .list-col{
     width:100%;
     border-right:none;
@@ -143,7 +140,6 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
     overflow:visible;
   }
 
-  /* 데스크탑 detail-col 숨김 */
   .detail-col{display:none}
 
   /* 파일 행 */
