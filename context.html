@@ -167,19 +167,27 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
   }
   .cat-arrow { display: none; }
 
+  /* 모바일 드롭다운: transition 무효화하고 display로 제어 */
   .cat-list {
+    display: none !important;
+    max-height: none !important;
+    overflow: visible !important;
+    transition: none !important;
     position: absolute;
     top: calc(100% + 4px);
     left: 0;
-    z-index: 100;
+    z-index: 200;
     background: var(--white);
     border-radius: 6px;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.15);
     padding: 6px 0;
     min-width: 140px;
-    max-height: none !important;
   }
-  .cat-cell.open .cat-list { max-height: none; padding-bottom: 6px; }
+  .cat-cell.open .cat-list {
+    display: flex !important;
+    flex-direction: column;
+    padding-bottom: 6px;
+  }
 
   /* 우측 패널 — absolute 자식들을 static flow로 전환 */
   .right-panel {
@@ -664,10 +672,12 @@ document.querySelectorAll('.nav-dd').forEach(function(dd) {
   });
 });
 
-// 외부 클릭시 닫기
+// 외부 클릭시 nav 드롭다운 + cat-cell 닫기
 document.addEventListener('click', function(e) {
   if (!e.target.closest || !e.target.closest('.nav-dd'))
     document.querySelectorAll('.nav-dd-menu').forEach(function(m){ m.style.display='none'; });
+  if (!e.target.closest || !e.target.closest('.cat-cell'))
+    document.querySelectorAll('.cat-cell').forEach(function(c){ c.classList.remove('open'); });
 });
 
 // 데이터 fetch — works.json + tags.json
