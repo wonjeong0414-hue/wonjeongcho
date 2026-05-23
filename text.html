@@ -99,10 +99,11 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
   .stmt-label{font-size:7.5px;margin-bottom:8px}
   .stmt-text{font-size:12.5px;line-height:1.85}
 
-  /* three-col */
+  /* three-col: 모바일에서 list-col + detail-col만 */
   .three-col{flex-direction:column;height:auto;overflow:visible}
+  /* three-col 안의 left-panel은 JS로 밖으로 꺼냄 — 이 스타일은 꺼낸 후 적용 */
 
-  /* 탭 바: sticky 고정 — stmt가 올라간 뒤 이 자리에 붙음 */
+  /* 탭 바: body 직접 자식으로 sticky */
   .left-panel{
     width:100%;
     flex-direction:row;
@@ -116,15 +117,19 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
     position:sticky;
     top:calc(var(--nav-h) + 36px);
     z-index:100;
+    /* three-col 안에서 꺼낼 때 width 유지 */
+    box-sizing:border-box;
   }
 
-  .tab-list{flex-direction:row;gap:24px}
+  .tab-list{flex-direction:row;gap:0;width:100%;justify-content:space-around}
   .tab-item{
     font-size:9px;
     letter-spacing:0.1em;
     white-space:nowrap;
-    padding:0;
+    padding:0 8px;
     line-height:38px;
+    flex:1;
+    text-align:center;
   }
   .tab-item.active::after{display:none}
   .tab-item.active{
@@ -198,7 +203,7 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
       <a class="stmt-link" id="stmtLink" href="#" target="_blank" style="display:none">PDF 열기 ↗</a>
     </div>
     <div class="three-col">
-      <div class="left-panel">
+      <div class="left-panel" id="leftPanel">
         <div class="tab-list" id="tabList"></div>
       </div>
       <div class="list-col" id="listCol">
@@ -224,6 +229,18 @@ function sel(id){return document.getElementById(id);}
 function isMobile(){return window.innerWidth<=600;}
 function escH(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 function cleanTitle(f){return f.replace(/\.pdf$/i,'').replace(/\.docx?$/i,'').replace(/_/g,' ').trim();}
+
+// 모바일: 탭 바를 three-col 밖으로 꺼내서 stmt 다음에 배치
+// sticky가 동작하려면 스크롤 컨테이너(body) 직계 라인에 있어야 함
+function relocateTabBar(){
+  if(!isMobile())return;
+  var panel=sel('leftPanel');
+  var threeCol=panel&&panel.closest('.three-col');
+  var desktopWrap=threeCol&&threeCol.parentNode;
+  if(panel&&threeCol&&desktopWrap){
+    desktopWrap.insertBefore(panel,threeCol);
+  }
+}
 
 document.querySelectorAll('.nav-dd').forEach(function(dd){
   var menu=dd.querySelector('.nav-dd-menu'),timer;
@@ -380,6 +397,7 @@ fetch('./data/text.json')
     currentTab=TABS[0]||'';
     initStatement();
     buildTabs();
+    relocateTabBar();
     renderList();
     if(result.previewImg){
       initPreview(result.previewImg);
