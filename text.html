@@ -91,12 +91,13 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
   }
   .desktop-wrap{display:flex;flex-direction:column;height:100%;overflow:hidden}
 
-  /* Statement: 내용 높이만큼만, 스크롤 없음 */
+  /* Statement: 최대 38%, 자체 스크롤 */
   .stmt-block{
     flex-shrink:0;
-    padding:14px 16px 14px;
-    max-height:none;
-    overflow:visible;
+    padding:16px 20px 16px;
+    max-height:38%;
+    overflow-y:auto;
+    scrollbar-width:none;
   }
   .stmt-block::-webkit-scrollbar{display:none}
   .stmt-label{font-size:7.5px;margin-bottom:8px}
@@ -111,7 +112,7 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
     overflow:hidden;
   }
 
-  /* 탭 바: 고정, 스크롤 안 됨 */
+  /* 탭 바 */
   .left-panel{
     flex-shrink:0;
     width:100%;
@@ -137,16 +138,19 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
   .tab-item.active::after{display:none}
   .tab-item.active{border-bottom:1.5px solid var(--ink)}
 
-  /* list-col: 여기만 스크롤 */
+  /* list-col: statement와 같은 좌우 패딩 */
   .list-col{
     flex:1;
     width:100%;
     min-height:0;
     border-right:none;
-    padding:0 14px 40px;
+    padding:0 20px 40px;
     overflow-y:auto;
     -webkit-overflow-scrolling:touch;
   }
+
+  /* 번호 숨김 */
+  .file-num{display:none}
 
   .detail-col{display:none}
 
