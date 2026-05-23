@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
@@ -114,6 +114,147 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 .modal-arr:hover{background:rgba(255,255,255,0.22)}
 .arr-prev{left:12px}
 .arr-next{right:calc(260px + 12px)}
+
+/* ===== 모바일 ===== */
+@media (max-width: 600px) {
+  html, body { overflow: auto; }
+
+  .layout {
+    position: static;
+    margin-top: var(--nav-h);
+    height: auto;
+    display: block;
+  }
+
+  .top-header { display: none; }
+
+  .body-row {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    overflow: visible;
+  }
+
+  /* 필터 패널 → 가로 스크롤 칩 */
+  .left-panel {
+    width: 100%;
+    flex-direction: row;
+    padding: 8px 12px;
+    border-bottom: 0.5px solid rgba(0,0,0,0.08);
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .left-panel::-webkit-scrollbar { display: none; }
+
+  .strip-row { display: none; }
+  .active-strip { display: none; }
+  .result-count { display: none; }
+
+  .cat-list-wrap {
+    flex-direction: row;
+    gap: 6px;
+    flex: none;
+    overflow: visible;
+  }
+
+  .cat-cell { flex-shrink: 0; position: relative; }
+
+  .cat-header {
+    padding: 4px 10px;
+    border: 0.5px solid rgba(0,0,0,0.2);
+    border-radius: 20px;
+    white-space: nowrap;
+  }
+  .cat-arrow { display: none; }
+
+  .cat-list {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    z-index: 100;
+    background: var(--white);
+    border-radius: 6px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+    padding: 6px 0;
+    min-width: 140px;
+    max-height: none !important;
+  }
+  .cat-cell.open .cat-list { max-height: none; padding-bottom: 6px; }
+
+  /* 우측 패널 */
+  .right-panel {
+    position: static;
+    width: 100%;
+    height: auto;
+    overflow: visible;
+    min-height: 60vh;
+  }
+
+  .float-zone { display: none !important; }
+
+  .grid-zone {
+    position: static;
+    opacity: 1 !important;
+    pointer-events: all;
+    padding: 12px 12px 60px;
+    display: block !important;
+    overflow: visible;
+  }
+
+  /* narrative는 모바일에서 absolute 대신 static flow로 */
+  .narrative-zone {
+    position: static;
+    padding: 24px 20px 0;
+    transform: none !important;
+  }
+
+  .grid { grid-template-columns: repeat(2, 1fr); gap: 4px; }
+
+  /* 모달 — 바텀시트 */
+  .modal-bg { padding: 0; align-items: flex-end; }
+  .modal {
+    flex-direction: column;
+    height: 95vh;
+    width: 100%;
+    border-radius: 12px 12px 0 0;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    max-height: none;
+  }
+  .modal-img-area {
+    flex: none;
+    width: 100%;
+    height: auto;
+    padding: 20px;
+  }
+  .modal-img-area img {
+    max-width: 100%;
+    max-height: 60vh;
+    object-fit: contain;
+  }
+  .modal-panel {
+    flex: none;
+    width: 100%;
+    padding: 20px 20px 48px;
+    overflow: visible;
+  }
+  .modal-x {
+    position: fixed;
+    top: 14px;
+    right: 14px;
+    z-index: 600;
+    background: rgba(0,0,0,0.45);
+    color: #fff;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .arr-prev { left: 10px; position: fixed; top: 50vh; }
+  .arr-next { right: 10px; position: fixed; top: 50vh; left: auto; }
+}
 </style>
 </head>
 <body>
@@ -441,8 +582,15 @@ function showFloat(){
   sel('floatZone').classList.remove('hidden');
 }
 
-function openModal(idx){modalIdx=idx;paintModal();sel('modalBg').classList.add('open');document.body.style.overflow='hidden';}
-function closeModal(){sel('modalBg').classList.remove('open');document.body.style.overflow='';}
+function openModal(idx){
+  modalIdx=idx; paintModal();
+  sel('modalBg').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeModal(){
+  sel('modalBg').classList.remove('open');
+  document.body.style.overflow='';
+}
 function bgClose(e){if(e.target===sel('modalBg'))closeModal();}
 function navModal(d){modalIdx=(modalIdx+d+filtered.length)%filtered.length;paintModal();}
 
@@ -472,17 +620,30 @@ document.addEventListener('keydown',function(e){
   if(e.key==='ArrowRight')navModal(1);
 });
 
-document.querySelectorAll('.nav-dd').forEach(function(dd){
-  var menu=dd.querySelector('.nav-dd-menu'),timer;
-  dd.addEventListener('mouseenter',function(){clearTimeout(timer);menu.style.display='block';});
-  dd.addEventListener('mouseleave',function(){timer=setTimeout(function(){menu.style.display='none';},150);});
-  menu.addEventListener('mouseenter',function(){clearTimeout(timer);});
-  menu.addEventListener('mouseleave',function(){timer=setTimeout(function(){menu.style.display='none';},150);});
-  dd.querySelector('.nav-item').addEventListener('click',function(){menu.style.display=(menu.style.display==='block')?'none':'block';});
+/* ===== nav 드롭다운 — PC hover + 모바일 터치 ===== */
+document.querySelectorAll('.nav-dd').forEach(function(dd) {
+  var menu = dd.querySelector('.nav-dd-menu'), timer;
+  var navItem = dd.querySelector('.nav-item');
+
+  // PC: hover
+  dd.addEventListener('mouseenter', function() { clearTimeout(timer); menu.style.display='block'; });
+  dd.addEventListener('mouseleave', function() { timer=setTimeout(function(){ menu.style.display='none'; },150); });
+  menu.addEventListener('mouseenter', function() { clearTimeout(timer); });
+  menu.addEventListener('mouseleave', function() { timer=setTimeout(function(){ menu.style.display='none'; },150); });
+
+  // 모바일: tap toggle
+  navItem.addEventListener('click', function(e) {
+    e.stopPropagation();
+    var isOpen = menu.style.display === 'block';
+    document.querySelectorAll('.nav-dd-menu').forEach(function(m){ m.style.display='none'; });
+    if (!isOpen) menu.style.display = 'block';
+  });
 });
-document.addEventListener('click',function(e){
-  if(!e.target.closest||!e.target.closest('.nav-dd'))
-    document.querySelectorAll('.nav-dd-menu').forEach(function(m){m.style.display='none';});
+
+// 외부 클릭시 닫기
+document.addEventListener('click', function(e) {
+  if (!e.target.closest || !e.target.closest('.nav-dd'))
+    document.querySelectorAll('.nav-dd-menu').forEach(function(m){ m.style.display='none'; });
 });
 
 // 데이터 fetch — works.json + tags.json
@@ -496,7 +657,6 @@ Promise.all([
   buildList('list-SER',TAGS_SER,'SER');
   buildList('list-MAT',TAGS_MAT,'MAT');
   buildList('list-SEN',TAGS_SEN,'SEN');
-  // page:'서브'인 항목을 최신 연도부터 최대 3개 탐색
   var sorted=allWorks.slice().sort(function(a,b){return (parseInt(b.year||0))-(parseInt(a.year||0));});
   var subs=[];
   for(var i=0;i<sorted.length&&subs.length<3;i++){
