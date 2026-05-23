@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
@@ -181,31 +181,52 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
   }
   .cat-cell.open .cat-list { max-height: none; padding-bottom: 6px; }
 
-  /* 우측 패널 */
+  /* 우측 패널 — absolute 자식들을 static flow로 전환 */
   .right-panel {
     position: static;
     width: 100%;
     height: auto;
     overflow: visible;
-    min-height: 60vh;
   }
 
   .float-zone { display: none !important; }
 
-  .grid-zone {
-    position: static;
-    opacity: 1 !important;
-    pointer-events: all;
-    padding: 12px 12px 60px;
-    display: block !important;
-    overflow: visible;
+  /* 모바일 초기 안내 문구 */
+  .mobile-hint {
+    display: block;
+    padding: 48px 24px;
+    font-family: 'EB Garamond', serif;
+    font-style: italic;
+    font-size: 15px;
+    color: var(--ink-dim);
+    line-height: 1.9;
+    text-align: center;
   }
 
-  /* narrative는 모바일에서 absolute 대신 static flow로 */
+  /* narrative: absolute 해제, show 여부와 무관하게 항상 표시 */
   .narrative-zone {
-    position: static;
-    padding: 24px 20px 0;
+    position: static !important;
+    opacity: 1 !important;
     transform: none !important;
+    pointer-events: all !important;
+    padding: 24px 20px 12px;
+    display: none; /* 기본 숨김, JS가 .show 붙일 때만 표시 */
+  }
+  .narrative-zone.show {
+    display: block;
+  }
+
+  /* grid-zone: absolute 해제, open일 때만 표시 */
+  .grid-zone {
+    position: static !important;
+    opacity: 1 !important;
+    pointer-events: all !important;
+    padding: 12px 12px 60px;
+    overflow: visible;
+    display: none;
+  }
+  .grid-zone.open {
+    display: block !important;
   }
 
   .grid { grid-template-columns: repeat(2, 1fr); gap: 4px; }
@@ -316,6 +337,7 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
       <div class="result-count" id="resultCount"></div>
     </div>
     <div class="right-panel">
+      <div class="mobile-hint" id="mobileHint">카테고리를 선택하면<br>작품이 나타납니다</div>
       <div class="float-zone" id="floatZone">
         <div class="sub-card s1" onclick="go('index')">
           <img class="sub-img" id="subImg1" alt="">
@@ -560,6 +582,7 @@ function lazyLoad(img,url){if(!url){img.classList.add('loaded');return;}img.data
 
 function runNarrativeThenGrid(tag){
   if(narrativeTimer){clearTimeout(narrativeTimer);narrativeTimer=null;}
+  if(sel('mobileHint')) sel('mobileHint').style.display='none';
   sel('floatZone').classList.add('hidden');
   sel('gridZone').classList.remove('open');
   var nZone=sel('narrativeZone');
@@ -580,6 +603,7 @@ function showFloat(){
   sel('narrativeZone').classList.remove('show','rising');
   sel('gridZone').classList.remove('open');
   sel('floatZone').classList.remove('hidden');
+  if(sel('mobileHint')) sel('mobileHint').style.display='block';
 }
 
 function openModal(idx){
