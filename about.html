@@ -71,21 +71,15 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
   padding-top:2px;
   flex-shrink:0;
 }
-.cv-content{}
-.cv-title{
-  color:var(--ink);
-  line-height:1.5;
-}
-.cv-meta{
-  display:flex;
-  gap:8px;
-  margin-top:2px;
+.cv-content{display:flex;align-items:baseline;flex-wrap:wrap;gap:0}
+.cv-title{color:var(--ink);line-height:1.7}
+.cv-meta-inline{
   font-size:11px;
   color:var(--ink-dim);
   letter-spacing:0.04em;
+  line-height:1.7;
 }
-.cv-place{}
-.cv-city{opacity:0.75}
+.cv-sep{opacity:0.35}
 
 .cv-footer{margin-top:52px;padding-top:28px;border-top:.5px solid rgba(26,26,24,.12);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px}
 .cv-pdf-link{display:inline-flex;align-items:center;gap:7px;font-family:'Cormorant Garamond',serif;font-size:8px;letter-spacing:0.14em;text-transform:uppercase;color:var(--bg);text-decoration:none;background:rgba(26,26,24,0.55);padding:4px 12px 4px 10px;border-radius:2px;border:none;transition:background .2s}
@@ -227,19 +221,16 @@ function renderCVPanel(id, items, ko){
     var place = ko ? (item.placeKo||'') : (item.placeEn||item.placeKo||'');
     var city  = ko ? (item.cityKo||'')  : (item.cityEn||item.cityKo||'');
     if(!title) return '';
-    var metaHtml = '';
-    if(place || city){
-      metaHtml = '<div class="cv-meta">'
-        +(place ? '<span class="cv-place">'+place+'</span>' : '')
-        +(place && city ? '<span style="opacity:0.3">·</span>' : '')
-        +(city  ? '<span class="cv-city">'+city+'</span>'  : '')
-        +'</div>';
-    }
+    var parts = [];
+    if(place) parts.push(place);
+    if(city)  parts.push(city);
+    var sep = (place || city) ? '&nbsp;&nbsp;' : '';
+    var meta = parts.length ? '<span class="cv-meta-inline">'+parts.join('<span class="cv-sep"> · </span>')+'</span>' : '';
     return '<div class="cv-row-item">'
       +'<div class="cv-year">'+(item.year||'')+'</div>'
       +'<div class="cv-content">'
-        +'<div class="cv-title">'+title+'</div>'
-        +metaHtml
+        +'<span class="cv-title">'+title+'</span>'
+        +sep+meta
       +'</div>'
       +'</div>';
   }).join('');
