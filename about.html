@@ -10,7 +10,7 @@
 <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Cormorant+Garamond:wght@300;400&display=swap"></noscript>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{--ink:#1a1a18;--ink-mid:#4a4a47;--ink-dim:#7a7a74;--bg:#f7f6f3;--white:#fff;--nav-h:50px;--max-w:720px;--pad:48px}
+:root{--ink:#1a1a18;--ink-mid:#4a4a47;--ink-dim:#7a7a74;--bg:#f7f6f3;--white:#fff;--nav-h:50px;--max-w:860px;--pad:48px}
 html{background:var(--bg)}
 body{background:var(--bg);font-family:'Cormorant Garamond',serif;color:var(--ink);min-height:100vh}
 nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-items:center;justify-content:space-between;padding:0 36px;z-index:200;background:var(--bg);border-bottom:.5px solid rgba(26,26,24,.07)}
@@ -89,7 +89,7 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 .social-link:hover{color:var(--ink);border-color:rgba(26,26,24,.45);background:rgba(26,26,24,.05)}
 .social-link svg{width:10px;height:10px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;opacity:.7}
 .loading{padding:80px 0;text-align:center;font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink-dim)}
-@media(max-width:600px){:root{--pad:22px}nav{padding:0 12px}.lang-bar{padding:0 16px;height:40px}.cv-footer{flex-direction:column;align-items:flex-start}.cv-row-item{grid-template-columns:40px 1fr;gap:0 10px}}
+@media(max-width:600px){:root{--pad:22px}nav{padding:0 12px}.lang-bar{padding:0 16px;height:40px}.cv-footer{flex-direction:column;align-items:flex-start}.cv-row-item{grid-template-columns:40px 1fr;gap:0 10px}.cv-tabs{flex-wrap:wrap;gap:4px}.cv-tab{font-size:8px;letter-spacing:0.1em;padding:6px 12px 6px 0}}
 @media(max-width:480px){.nav-logo{font-size:10px;letter-spacing:0.18em}.nav-item{font-size:8.5px;padding:5px 7px}.nav-sep{margin:0 2px}}
 </style>
 </head>
@@ -247,10 +247,17 @@ function render(){
   var collText=ko?(D.collKo||''):(D.collEn||'');
   document.getElementById('collSection').innerHTML='<div class="coll-box">'+(collText||'—')+'</div>';
   var cvText=ko?(D.cvKo||''):(D.cvEn||'');
-  var cvParas=cvText.split(/\n\n+/).filter(function(p){return p.trim();});
-  if(cvParas.length<=1) cvParas=cvText.split(/\n/).filter(function(p){return p.trim();});
-  document.getElementById('cvSummarySection').innerHTML='<div class="cv-summary">'
-    +cvParas.map(function(p){return'<p style="margin-bottom:1.2em">'+p.trim()+'</p>';}).join('')+'</div>';
+  var cvSummaryEl=document.getElementById('cvSummarySection');
+  if(cvText.trim()){
+    var cvParas=cvText.split(/\n\n+/).filter(function(p){return p.trim();});
+    if(cvParas.length<=1) cvParas=cvText.split(/\n/).filter(function(p){return p.trim();});
+    cvSummaryEl.innerHTML='<div class="cv-summary">'
+      +cvParas.map(function(p){return'<p style="margin-bottom:1.2em">'+p.trim()+'</p>';}).join('')+'</div>';
+    cvSummaryEl.style.display='block';
+  } else {
+    cvSummaryEl.innerHTML='';
+    cvSummaryEl.style.display='none';
+  }
   if(D.pdfUrl){document.getElementById('pdfLink').href=D.pdfUrl;document.getElementById('pdfLink').style.display='inline-flex';}
   document.getElementById('pdfLabel').textContent=ko?'CV 전체 다운로드':'Download Full CV';
   document.getElementById('tabSoloLabel').textContent=ko?'개인 및 초대전':'Solo & Invitational';
