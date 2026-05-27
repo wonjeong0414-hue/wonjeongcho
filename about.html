@@ -14,7 +14,7 @@
 html{background:var(--bg);scrollbar-width:none}
 html::-webkit-scrollbar{display:none}
 body::-webkit-scrollbar{display:none}
-body{background:var(--bg);font-family:'Cormorant Garamond',serif;color:var(--ink);height:100vh;overflow:hidden;display:flex;flex-direction:column}
+body{background:var(--bg);font-family:'Cormorant Garamond',serif;color:var(--ink);min-height:100vh}
 
 /* ── nav ── */
 nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-items:center;justify-content:space-between;padding:0 36px;z-index:200;background:var(--bg);border-bottom:.5px solid rgba(26,26,24,.07)}
@@ -41,19 +41,19 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 .lang-btn:not(.active):hover{color:var(--ink)}
 
 /* ── page wrap ── */
-.page-wrap{max-width:var(--max-w);width:100%;margin:0 auto;padding:0 var(--pad);display:flex;flex-direction:column;flex:1;min-height:0;margin-top:calc(var(--nav-h) + 44px)}
+.page-wrap{max-width:var(--max-w);margin:0 auto;padding:calc(var(--nav-h) + 44px + 40px) var(--pad) 100px}
 
 /* ══════════════════════════════════
    상단 Bio + CV 요약 (세로 단순)
 ══════════════════════════════════ */
-.bio-section{margin-bottom:28px;flex-shrink:0;padding-top:32px}
+.bio-section{margin-bottom:40px}
 .bio-text{font-family:'EB Garamond',serif;color:#2a2a27;word-break:keep-all}
 .bio-title{font-size:15px;font-weight:500;line-height:1.7;margin-bottom:1em;letter-spacing:.01em}
 .bio-body{font-size:13px;line-height:2.0;color:var(--ink-mid);text-align:justify}
 .bio-body p{margin-bottom:1.2em}
 .bio-body p:last-child{margin-bottom:0}
 
-.cv-summary-section{margin-bottom:0;flex-shrink:0}
+.cv-summary-section{margin-bottom:48px}
 .cv-summary{font-family:'EB Garamond',serif;font-size:13px;line-height:2.0;color:var(--ink-mid);word-break:keep-all;text-align:justify;hyphens:auto}
 .cv-summary p{margin-bottom:1em}
 .cv-summary p:last-child{margin-bottom:0}
@@ -61,20 +61,14 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 /* ══════════════════════════════════
    메인 구역: 좌(학력+소장인) + 우(CV리스트)
 ══════════════════════════════════ */
-.sec-divider{width:100%;height:.5px;background:rgba(26,26,24,.1);margin:20px 0 0;flex-shrink:0}
+.sec-divider{width:100%;height:.5px;background:rgba(26,26,24,.1);margin:0 0 48px}
 
 .main-grid{
   display:grid;
   grid-template-columns:220px 1fr;
   gap:0 56px;
   align-items:start;
-  flex:1;
-  min-height:0;
-  overflow-y:auto;
-  scrollbar-width:none;
-  padding:28px 0 60px;
 }
-.main-grid::-webkit-scrollbar{display:none}
 
 /* ── 좌측 패널 ── */
 .left-col{}
@@ -124,7 +118,7 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 .cv-sep{opacity:0.3}
 
 /* ── CV 탭 ── */
-.cv-tabs{display:flex;gap:0;border-bottom:.5px solid rgba(26,26,24,.1);margin-bottom:24px;position:sticky;top:0;background:var(--bg);z-index:10;padding-top:8px}
+.cv-tabs{display:flex;gap:0;border-bottom:.5px solid rgba(26,26,24,.1);margin-bottom:24px;position:sticky;top:calc(var(--nav-h) + 44px);background:var(--bg);z-index:10;padding-top:8px}
 .cv-tab{font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-dim);padding:6px 18px 6px 0;cursor:pointer;border-bottom:1px solid transparent;margin-bottom:-1px;transition:color .2s,border-color .2s;white-space:nowrap}
 .cv-tab:hover{color:var(--ink)}
 .cv-tab.active{color:var(--ink);border-bottom-color:var(--ink)}
@@ -155,12 +149,9 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 /* ── 모바일 ── */
 @media(max-width:600px){
   :root{--pad:22px}
-  body{height:auto;overflow:auto}
   nav{padding:0 12px}
   .lang-bar{padding:0 16px;height:40px}
-  .page-wrap{margin-top:calc(var(--nav-h) + 36px);padding-bottom:60px}
-  .main-grid{grid-template-columns:1fr;gap:40px 0;overflow-y:visible;flex:none}
-  .bio-section{padding-top:20px}
+  .main-grid{grid-template-columns:1fr;gap:40px 0}
   .cv-footer{flex-direction:column;align-items:flex-start}
   .cv-row-item{grid-template-columns:38px 1fr;gap:0 10px}
 }
@@ -216,7 +207,7 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
   <div class="sec-divider"></div>
 
   <!-- 메인: 좌(학력+소장인) / 우(CV 리스트) -->
-  <div class="main-grid">
+  <div class="main-grid" id="mainGrid">
 
     <!-- 좌측 -->
     <div class="left-col">
@@ -393,6 +384,17 @@ function render(){
   if(D.pdfUrl){document.getElementById('pdfLink').href=D.pdfUrl;document.getElementById('pdfLink').style.display='inline-flex';}
   document.getElementById('pdfLabel').textContent=ko?'CV 전체 다운로드':'Download Full CV';
 }
+
+// 스크롤 main-grid 상단에서 멈추기
+window.addEventListener('scroll', function(){
+  var grid = document.getElementById('mainGrid');
+  if(!grid) return;
+  var gridTop = grid.getBoundingClientRect().top + window.scrollY
+                - (50 + 44); // nav + lang-bar 높이
+  if(window.scrollY > gridTop){
+    window.scrollTo({top: gridTop, behavior: 'instant'});
+  }
+}, {passive: false});
 
 fetch('./data/about.json')
   .then(function(r){return r.json();})
