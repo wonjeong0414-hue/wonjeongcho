@@ -153,7 +153,7 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
     background:var(--bg);
   }
   .m-selected-bar.show{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
-  .m-sel-label{font-size:8px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-dim);flex-shrink:0}
+  .m-sel-label{display:none}
   .m-sel-tag{
     font-family:'EB Garamond',serif;font-style:italic;
     font-size:12px;color:var(--ink-mid);
@@ -163,6 +163,20 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
   }
   .m-sel-x{font-size:11px;opacity:0.4;cursor:pointer;font-style:normal}
   .m-sel-x:hover{opacity:0.8}
+  /* 모바일 첫화면 설명 문구 */
+  .m-desc-bar{
+    padding:20px 16px 14px;
+    border-bottom:0.5px solid rgba(0,0,0,0.06);
+  }
+  .m-desc-text{
+    font-family:'EB Garamond',serif;
+    font-style:italic;
+    font-size:15px;
+    color:var(--ink-mid);
+    line-height:1.9;
+    letter-spacing:0.02em;
+    word-break:keep-all;
+  }
   /* ★ mobile-hint 모바일에서만 보임 */
   .mobile-hint{display:flex;flex-direction:column;align-items:center;padding:0;position:relative}
   .mobile-hint-marquee-wrap{width:100%;display:flex;justify-content:flex-end;padding:8px 14px 6px;border-bottom:0.5px solid rgba(0,0,0,0.06)}
@@ -264,10 +278,11 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
       <div class="result-count" id="resultCount"></div>
     </div>
     <div class="right-panel">
-      <!-- 모바일 선택된 태그 표시 -->
-      <div class="m-selected-bar" id="mSelectedBar">
-        <span class="m-sel-label">선택</span>
+      <!-- 모바일 첫화면 설명 문구 + 선택된 태그 표시 -->
+      <div class="m-desc-bar" id="mDescBar">
+        <div class="m-desc-text">우연의 캔버스 위에 스며든<br>필연의 숨결, 비결정적 순간이<br>빚어낸 견고한 정원</div>
       </div>
+      <div class="m-selected-bar" id="mSelectedBar"></div>
       <!-- ★ mobile-hint: 모바일에서만 보임 (PC에서는 display:none) -->
       <div class="mobile-hint" id="mobileHint">
         <div class="mobile-hint-marquee-wrap">
