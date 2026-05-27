@@ -179,25 +179,59 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 .loading-msg{padding:40px;text-align:center;font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink-dim)}
 
 /* ── PC 모달 ── */
-.modal-bg{position:fixed;inset:0;background:rgba(26,26,24,0.78);z-index:500;opacity:0;pointer-events:none;transition:opacity 0.3s ease;display:flex;align-items:center;justify-content:center;padding:24px}
+.modal-bg{position:fixed;inset:0;background:rgba(26,26,24,0.82);z-index:500;opacity:0;pointer-events:none;transition:opacity 0.3s ease;display:flex;align-items:center;justify-content:center;padding:32px}
 .modal-bg.open{opacity:1;pointer-events:all}
-.modal{background:var(--white);max-width:980px;width:100%;max-height:90vh;display:flex;overflow:hidden;transform:translateY(16px) scale(0.976);transition:transform 0.34s cubic-bezier(0.16,1,0.3,1);position:relative}
+/* ── 세로형 모달 ── */
+.modal{
+  background:var(--white);
+  max-width:520px;
+  width:100%;
+  max-height:90vh;
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+  transform:translateY(16px) scale(0.976);
+  transition:transform 0.34s cubic-bezier(0.16,1,0.3,1);
+  position:relative;
+  border-radius:2px;
+}
 .modal-bg.open .modal{transform:translateY(0) scale(1)}
-.modal-img-area{flex:1;min-width:0;background:#f7f6f3;display:flex;align-items:center;justify-content:center;overflow:hidden;padding:24px}
-.modal-img-area img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;display:block;transition:opacity 0.3s ease}
-.modal-panel{width:260px;flex-shrink:0;padding:38px 26px 28px;display:flex;flex-direction:column;overflow-y:auto}
-.modal-x{position:absolute;top:16px;right:18px;font-size:20px;line-height:1;color:var(--ink-dim);cursor:pointer;background:none;border:none;font-family:serif;transition:color 0.15s}
+.modal-img-area{
+  width:100%;
+  background:#f0efec;
+  display:flex;align-items:center;justify-content:center;
+  overflow:hidden;
+  padding:0;
+  max-height:58vh;
+  flex-shrink:0;
+}
+.modal-img-area img{
+  width:100%;height:100%;
+  object-fit:contain;
+  display:block;
+  max-height:58vh;
+  transition:opacity 0.3s ease;
+}
+.modal-panel{
+  width:100%;
+  padding:22px 28px 24px;
+  display:flex;flex-direction:column;
+  overflow-y:auto;
+  text-align:center;
+  align-items:center;
+}
+.modal-x{position:absolute;top:12px;right:14px;font-size:18px;line-height:1;color:rgba(26,26,24,0.4);cursor:pointer;background:none;border:none;font-family:serif;transition:color 0.15s;z-index:10}
 .modal-x:hover{color:var(--ink)}
-.m-title{font-family:'EB Garamond',serif;font-style:italic;font-size:20px;color:var(--ink);line-height:1.3;margin-bottom:9px}
-.m-meta{font-size:8px;letter-spacing:0.14em;color:var(--ink-dim);text-transform:uppercase;margin-bottom:3px}
-.m-rule{width:20px;height:0.5px;background:rgba(0,0,0,0.13);margin:16px 0}
-.m-desc{font-size:11px;line-height:1.9;color:var(--ink-mid);word-break:keep-all;flex:1}
-.m-tags{margin-top:20px;display:flex;flex-wrap:wrap;gap:4px}
-.m-tag{font-size:7.5px;letter-spacing:0.05em;padding:3px 8px;border-radius:20px;color:var(--ink-dim)}
-.modal-arr{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,0.1);backdrop-filter:blur(6px);border:none;color:#fff;font-size:22px;width:40px;height:40px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background 0.2s;font-family:serif}
-.modal-arr:hover{background:rgba(255,255,255,0.22)}
-.arr-prev{left:12px}
-.arr-next{right:calc(260px + 12px)}
+.m-title{font-family:'EB Garamond',serif;font-style:italic;font-size:18px;color:var(--ink);line-height:1.3;margin-bottom:6px}
+.m-meta{font-size:7.5px;letter-spacing:0.14em;color:var(--ink-dim);text-transform:uppercase;margin-bottom:2px}
+.m-rule{width:20px;height:0.5px;background:rgba(0,0,0,0.12);margin:12px auto}
+.m-desc{font-size:11px;line-height:1.9;color:var(--ink-mid);word-break:keep-all}
+.m-tags{margin-top:14px;display:flex;flex-wrap:wrap;gap:4px;justify-content:center}
+.m-tag{font-size:7.5px;letter-spacing:0.05em;padding:3px 8px;border-radius:20px;color:var(--ink-dim);border:0.5px solid rgba(0,0,0,0.1)}
+.modal-arr{position:fixed;top:50%;transform:translateY(-50%);background:rgba(255,255,255,0.12);backdrop-filter:blur(6px);border:none;color:#fff;font-size:24px;width:44px;height:44px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background 0.2s;font-family:serif}
+.modal-arr:hover{background:rgba(255,255,255,0.25)}
+.arr-prev{left:16px}
+.arr-next{right:16px}
 .m-year-bar{display:none}
 
 /* ── 모바일 ── */
