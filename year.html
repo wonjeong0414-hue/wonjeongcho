@@ -95,13 +95,13 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 /* ── preview zone ── */
 .preview-zone{
   position:absolute;inset:0;
-  display:flex;align-items:flex-start;justify-content:flex-start;
+  display:flex;align-items:flex-start;justify-content:center;
   padding:clamp(12px,3vh,40px) 48px;
   opacity:1;transition:opacity 0.5s ease;pointer-events:none;
   overflow:hidden;
 }
 .preview-zone.hidden{opacity:0}
-.preview-img-wrap{display:flex;flex-direction:column;align-items:flex-start;max-width:92%}
+.preview-img-wrap{display:flex;flex-direction:column;align-items:flex-start;max-width:min(82%,680px)}
 
 /* ★ 이미지 10% 크게 + 움직임 강화 */
 .preview-img-wrap{
@@ -113,7 +113,7 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 }
 .preview-img{
   display:block;
-  max-height:calc(100vh - var(--nav-h) - var(--bar-h) - 80px);
+  max-height:calc(100vh - var(--nav-h) - var(--bar-h) - 60px);
   max-width:100%;
   width:auto;
   object-fit:contain;
@@ -188,7 +188,7 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
   .layout{position:static;margin-top:var(--nav-h);height:auto;display:block}
   .year-bar{display:none}
   .body-row{display:block;overflow:visible;height:auto;position:static}
-  .preview-zone{display:none !important}
+  .preview-zone{display:none}
   .m-year-bar{
     display:flex !important;
     align-items:center;
