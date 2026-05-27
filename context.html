@@ -537,7 +537,6 @@ function lazyLoad(img,url){if(!url){img.classList.add('loaded');return;}img.data
 function runNarrativeThenGrid(tag){
   if(narrativeTimer){clearTimeout(narrativeTimer);narrativeTimer=null;}
   var hint=sel('mobileHint');if(hint)hint.style.display='none';
-  var ot=sel('hintOverlayText');if(ot)ot.style.opacity='0';
   sel('floatZone').classList.add('hidden');
   sel('narrativeZone').classList.remove('show','rising');
   renderFiltered();
@@ -551,7 +550,6 @@ function showFloat(){
   sel('floatZone').classList.remove('hidden');
   var hint=sel('mobileHint');
   if(hint&&isMobile())hint.style.display='flex';
-  var ot=sel('hintOverlayText');if(ot)ot.style.opacity='1';
 }
 
 function openModal(idx){
