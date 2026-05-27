@@ -96,7 +96,7 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 .narrative-zone.show{opacity:1;transform:translateY(0);pointer-events:all}
 .narrative-zone.rising{opacity:0;transform:translateY(-18px);transition:opacity 0.5s ease,transform 0.6s cubic-bezier(0.4,0,0.2,1)}
 .ns-label{font-family:'EB Garamond',serif;font-style:italic;font-size:10px;letter-spacing:0.28em;text-transform:uppercase;color:var(--ink-dim);margin-bottom:18px}
-.ns-text{font-family:'EB Garamond',serif;font-size:clamp(15px,1.8vw,21px);line-height:1.95;color:var(--ink);max-width:520px;word-break:keep-all}
+.ns-text{font-family:'EB Garamond',serif;font-size:clamp(15px,1.8vw,21px);line-height:1.95;color:var(--ink);max-width:660px;word-break:keep-all}
 .ns-rule{width:0;height:0.5px;background:rgba(0,0,0,0.12);margin-top:22px;transition:width 1.1s cubic-bezier(0.16,1,0.3,1) 0.4s}
 .narrative-zone.show .ns-rule{width:28px}
 .grid-zone{position:absolute;inset:0;overflow-y:auto;padding:20px 7% 48px 20px;scrollbar-width:none;opacity:0;pointer-events:none;transition:opacity 0.5s ease}
@@ -121,10 +121,10 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 /* PC 모달 */
 .modal-bg{position:fixed;inset:0;background:rgba(26,26,24,0.82);z-index:500;opacity:0;pointer-events:none;transition:opacity 0.3s ease;display:flex;align-items:center;justify-content:center;padding:5%}
 .modal-bg.open{opacity:1;pointer-events:all}
-.modal{background:var(--white);max-width:520px;width:100%;max-height:90vh;display:flex;flex-direction:column;overflow:hidden;transform:translateY(16px) scale(0.976);transition:transform 0.34s cubic-bezier(0.16,1,0.3,1);position:relative;border-radius:2px}
+.modal{background:var(--white);max-width:660px;width:100%;max-height:90vh;display:flex;flex-direction:column;overflow:hidden;transform:translateY(16px) scale(0.976);transition:transform 0.34s cubic-bezier(0.16,1,0.3,1);position:relative;border-radius:2px}
 .modal-bg.open .modal{transform:translateY(0) scale(1)}
-.modal-img-area{width:100%;background:#f0efec;display:flex;align-items:center;justify-content:center;overflow:hidden;padding:0;max-height:58vh;flex-shrink:0}
-.modal-img-area img{width:100%;height:100%;object-fit:contain;display:block;max-height:58vh;transition:opacity 0.3s ease}
+.modal-img-area{width:100%;background:#f0efec;display:flex;align-items:center;justify-content:center;overflow:hidden;padding:0;max-height:65vh;flex-shrink:0}
+.modal-img-area img{width:100%;height:100%;object-fit:contain;display:block;max-height:65vh;transition:opacity 0.3s ease}
 .modal-panel{width:100%;padding:22px 28px 24px;display:flex;flex-direction:column;overflow-y:auto;text-align:center;align-items:center}
 .modal-x{position:absolute;top:12px;right:14px;font-size:18px;line-height:1;color:rgba(26,26,24,0.4);cursor:pointer;background:none;border:none;font-family:serif;transition:color 0.15s;z-index:10}
 .modal-x:hover{color:var(--ink)}
