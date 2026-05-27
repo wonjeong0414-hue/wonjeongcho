@@ -36,15 +36,15 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 .year-bar{
   flex-shrink:0;
   min-height:var(--bar-h);
-  height:auto !important;
-  display:flex !important;
+  height:auto;
+  display:flex;
   align-items:center;
-  flex-wrap:wrap !important;
-  padding:6px 36px;
+  flex-wrap:wrap;
+  padding:4px 36px;
   border-bottom:0.5px solid rgba(0,0,0,0.07);
-  gap:4px 0;
-  overflow:visible !important;
-  row-gap:4px;
+  column-gap:0;
+  row-gap:0;
+  overflow:visible;
 }
 .year-bar::-webkit-scrollbar{display:none}
 .bar-title{
@@ -55,10 +55,9 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
   margin-right:12px;
   flex-shrink:0;
   letter-spacing:0.04em;
-  align-self:flex-start;
-  padding-top:4px;
+  line-height:var(--bar-h);
 }
-.bar-sep{width:0.5px;height:14px;background:rgba(0,0,0,0.12);margin-right:18px;flex-shrink:0}
+.bar-sep{width:0.5px;height:14px;background:rgba(0,0,0,0.12);margin-right:14px;flex-shrink:0;align-self:center}
 .yr-item{
   cursor:pointer;
   user-select:none;
@@ -96,13 +95,15 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 /* ── preview zone ── */
 .preview-zone{
   position:absolute;inset:0;
-  display:flex;align-items:center;justify-content:center;
-  padding:20px;
+  display:flex;align-items:flex-start;justify-content:center;
+  padding-top:clamp(16px,4vh,48px);
+  padding-left:20px;padding-right:20px;
   opacity:1;transition:opacity 0.5s ease;pointer-events:none;
 }
 .preview-img-wrap{pointer-events:all}
 .preview-zone.hidden{opacity:0}
 .preview-img-wrap{display:flex;flex-direction:column;align-items:center;max-width:88%}
+.preview-caption{align-self:flex-start}
 
 /* ★ 이미지 10% 크게 + 움직임 강화 */
 .preview-img{
@@ -263,7 +264,7 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
   <div class="year-bar" id="yearBar">
     <span class="bar-title">Year</span>
     <div class="bar-sep"></div>
-    <div class="year-grid" id="yearGrid" style="display:flex;flex-direction:row;gap:0"></div>
+    <div class="year-grid" id="yearGrid" style="display:flex;flex-direction:row;flex-wrap:wrap;gap:0;flex:1;min-width:0"></div>
   </div>
 
   <div class="body-row">
