@@ -183,9 +183,9 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 .m-year-bar{display:none}
 
 /* ── 모바일 ── */
-@media(max-width:600px){
+@media(max-width:480px){
   html,body{overflow:auto;height:auto}
-  .layout{position:static;margin-top:var(--nav-h);height:auto;display:block}
+  .layout{position:static;margin-top:calc(var(--nav-h) + 44px);height:auto;display:block}
   .year-bar{display:none}
   .body-row{display:block;overflow:visible;height:auto;position:static}
   .preview-zone{display:none}
@@ -195,9 +195,10 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
     padding:8px 12px;
     border-bottom:0.5px solid rgba(0,0,0,0.08);
     background:var(--bg);
-    position:sticky;
+    position:fixed;
     top:var(--nav-h);
-    z-index:100;
+    left:0;right:0;
+    z-index:150;
     overflow-x:auto;
     scrollbar-width:none;
     gap:0;
@@ -210,7 +211,7 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
   .m-yr-item{padding:3px 7px;font-size:11px;color:var(--ink-dim);cursor:pointer;font-family:'Cormorant Garamond',serif;transition:color 0.15s;white-space:nowrap;flex-shrink:0}
   .m-yr-item:hover{color:var(--ink)}
   .m-yr-item.checked{color:var(--ink);font-weight:500}
-  .grid-zone{position:static;opacity:1 !important;pointer-events:all;padding:8px 24px 120px;display:block !important;transition:filter 0.3s ease}
+  .grid-zone{position:static;opacity:1 !important;pointer-events:all;padding:60px 16px 120px;display:block !important;transition:filter 0.3s ease}
   .grid{display:block;column-count:2;column-gap:5px}
   .year-divider{display:none}
   .card{aspect-ratio:unset;background:rgba(0,0,0,0.04);display:inline-block;width:100%;break-inside:avoid;margin-bottom:5px}
@@ -260,6 +261,13 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
   </div>
 </nav>
 
+<!-- 모바일 연도 바 (layout 밖) -->
+<div class="m-year-bar" id="mYearBar">
+  <div class="m-yr-active" id="mYrActive"></div>
+  <div class="m-yr-sep"></div>
+  <div class="m-yr-list" id="mYrList"></div>
+</div>
+
 <div class="layout">
   <!-- ★ 상단 가로 연도 바 -->
   <div class="year-bar" id="yearBar">
@@ -269,13 +277,6 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
   </div>
 
   <div class="body-row">
-    <!-- 모바일 연도 바 -->
-    <div class="m-year-bar" id="mYearBar">
-      <div class="m-yr-active" id="mYrActive"></div>
-      <div class="m-yr-sep"></div>
-      <div class="m-yr-list" id="mYrList"></div>
-    </div>
-
     <div class="right-panel" style="flex:1;min-width:0;position:relative;overflow:hidden">
       <div class="preview-zone" id="previewZone">
         <div class="preview-img-wrap">
