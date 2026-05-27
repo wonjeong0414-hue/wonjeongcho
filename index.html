@@ -89,6 +89,42 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 .work-title.visible{opacity:1}
 
 @keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+/* ── 모바일 ── */
+@media(max-width:600px){
+  /* nav: logo 작게, 한 줄에 메뉴와 나란히 */
+  .nav-logo{
+    font-size:9px !important;
+    letter-spacing:0.18em !important;
+  }
+  .nav-item{font-size:8px !important;padding:4px 7px !important}
+  .nav-sep{margin:0 2px !important}
+
+  /* shell: padding 줄여서 이미지 크게 */
+  .shell{
+    padding-top:clamp(8px,2vh,20px);
+  }
+
+  /* 이미지 모바일에서 크게 */
+  .img-box{
+    width:92vw !important;
+    height:52vh !important;
+  }
+
+  /* work-info 너비 맞추기 */
+  .work-info{
+    width:92vw !important;
+  }
+
+  /* Tactile Thinking 가운데 정렬 */
+  .img-overlay{
+    justify-content:center !important;
+    align-items:flex-end !important;
+  }
+  .work-title{
+    font-size:22px !important;
+    text-align:center;
+  }
+}
 </style>
 </head>
 <body>
