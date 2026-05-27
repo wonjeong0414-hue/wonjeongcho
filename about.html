@@ -115,6 +115,14 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 .cv-meta-inline{font-size:10.5px;color:var(--ink-dim);letter-spacing:0.04em;line-height:1.7}
 .cv-sep{opacity:0.3}
 
+/* ── CV 탭 ── */
+.cv-tabs{display:flex;gap:0;border-bottom:.5px solid rgba(26,26,24,.1);margin-bottom:24px}
+.cv-tab{font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-dim);padding:6px 18px 6px 0;cursor:pointer;border-bottom:1px solid transparent;margin-bottom:-1px;transition:color .2s,border-color .2s;white-space:nowrap}
+.cv-tab:hover{color:var(--ink)}
+.cv-tab.active{color:var(--ink);border-bottom-color:var(--ink)}
+.cv-panel{display:none}
+.cv-panel.active{display:block}
+
 /* ── footer ── */
 .cv-footer{
   margin-top:56px;padding-top:28px;
@@ -197,20 +205,16 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
       </div>
     </div>
 
-    <!-- 우측 CV 리스트 -->
+    <!-- 우측 CV 탭 + 리스트 -->
     <div class="right-col">
-      <div class="cv-section" id="sectionSolo">
-        <div class="cv-section-label" id="labelSolo">개인 및 초대전</div>
-        <div id="panelSolo"></div>
+      <div class="cv-tabs">
+        <div class="cv-tab active" id="tabSolo"  onclick="setCvTab('solo')"><span id="labelSolo">개인 및 초대전</span></div>
+        <div class="cv-tab"        id="tabGroup" onclick="setCvTab('group')"><span id="labelGroup">단체전</span></div>
+        <div class="cv-tab"        id="tabFair"  onclick="setCvTab('fair')">Art Fair</div>
       </div>
-      <div class="cv-section" id="sectionGroup">
-        <div class="cv-section-label" id="labelGroup">단체전</div>
-        <div id="panelGroup"></div>
-      </div>
-      <div class="cv-section" id="sectionFair">
-        <div class="cv-section-label">Art Fair</div>
-        <div id="panelFair"></div>
-      </div>
+      <div class="cv-panel active" id="panelSolo"></div>
+      <div class="cv-panel"        id="panelGroup"></div>
+      <div class="cv-panel"        id="panelFair"></div>
     </div>
   </div>
 
@@ -246,6 +250,14 @@ document.querySelectorAll('.nav-dd').forEach(function(dd){
   menu.addEventListener('mouseenter',function(){clearTimeout(timer);});
   menu.addEventListener('mouseleave',function(){timer=setTimeout(function(){menu.style.display='none';},150);});
 });
+
+function setCvTab(t){
+  ['Solo','Group','Fair'].forEach(function(n){
+    var key=n.toLowerCase();
+    document.getElementById('tab'+n).classList.toggle('active',key===t);
+    document.getElementById('panel'+n).classList.toggle('active',key===t);
+  });
+}
 
 function setLang(l){
   lang=l;
@@ -333,12 +345,7 @@ function render(){
   renderCVPanel('panelGroup', D.group||[], ko);
   renderCVPanel('panelFair',  D.fair||[],  ko);
 
-  /* 빈 섹션 숨기기 */
-  ['Solo','Group','Fair'].forEach(function(n){
-    var sec=document.getElementById('section'+n);
-    var panel=document.getElementById('panel'+n);
-    if(sec&&panel) sec.style.display=panel.innerHTML.trim()?'block':'none';
-  });
+
 
   /* PDF */
   if(D.pdfUrl){document.getElementById('pdfLink').href=D.pdfUrl;document.getElementById('pdfLink').style.display='inline-flex';}
