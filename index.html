@@ -3,21 +3,22 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Text — WON JEONG CHO</title>
+<title>WON JEONG CHO</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Cormorant+Garamond:wght@300;400&display=swap" onload="this.rel='stylesheet'">
-<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Cormorant+Garamond:wght@300;400&display=swap"></noscript>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,500;1,500&family=Cormorant+Garamond:wght@300;400&display=swap" onload="this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,500;1,500&family=Cormorant+Garamond:wght@300;400&display=swap"></noscript>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{--ink:#1a1a18;--ink-mid:#4a4a47;--ink-dim:#7a7a74;--bg:#f7f6f3;--white:#fff;--nav-h:50px;--left-w:120px}
-html,body{height:100%;background:var(--bg);font-family:'Cormorant Garamond',serif;color:var(--ink)}
-nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-items:center;justify-content:space-between;padding:0 36px;z-index:300;background:var(--bg)}
+:root{--ink:#1a1a18;--ink-mid:#4a4a47;--ink-dim:#7a7a74;--bg:#f7f6f3;--white:#fff;--nav-h:50px}
+html,body{height:100%;background:var(--bg);overflow:hidden}
+body{font-family:'Cormorant Garamond',serif;display:flex;flex-direction:column}
+
+/* ── nav ── */
+nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-items:center;justify-content:space-between;padding:0 36px;z-index:100;background:var(--bg);border-bottom:0.5px solid rgba(0,0,0,0.08)}
 @media(max-width:600px){nav{padding:0 12px}}
-@media(max-width:480px){.nav-logo{font-size:9px !important;letter-spacing:0.16em !important}.nav-item{font-size:8px !important;padding:5px 6px !important;letter-spacing:0.1em !important}.nav-sep{margin:0 1px !important}}
-.nav-logo{font-weight:400;font-size:13px;letter-spacing:0.28em;color:var(--ink);text-decoration:none;text-transform:uppercase;transition:opacity 0.2s;cursor:pointer}
-.nav-logo:hover{opacity:.45}
-.nav-right{display:flex;align-items:center}
+.nav-logo{font-family:'Cormorant Garamond',serif;font-weight:400;font-size:13px;letter-spacing:0.28em;color:var(--ink);text-transform:uppercase;opacity:0;animation:fadeIn 1s ease 0.3s forwards;cursor:pointer}
+.nav-right{display:flex;align-items:center;opacity:0;animation:fadeIn 1s ease 0.5s forwards}
 .nav-item{font-size:9.5px;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink-dim);padding:5px 11px;cursor:pointer;text-decoration:none;transition:color 0.25s;white-space:nowrap;position:relative}
 .nav-item::after{content:'';position:absolute;bottom:0;left:11px;right:11px;height:0.5px;background:var(--ink);transform:scaleX(0);transform-origin:left;transition:transform 0.28s cubic-bezier(0.16,1,0.3,1);opacity:0.5}
 .nav-item:hover{color:var(--ink)}
@@ -25,356 +26,131 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 .nav-item.active{color:var(--ink)}
 .nav-item.active::after{transform:scaleX(1)}
 .nav-sep{width:0.5px;height:12px;background:rgba(0,0,0,0.12);margin:0 5px;flex-shrink:0}
-.nav-dd{position:relative}
-.nav-dd-menu{display:none;position:absolute;top:calc(100% + 4px);left:50%;transform:translateX(-50%);background:var(--white);border-radius:4px;padding:4px 0;min-width:80px;z-index:400;box-shadow:0 4px 16px rgba(0,0,0,0.08)}
-.nav-dd-item{display:block;font-size:9px;letter-spacing:0.08em;color:var(--ink-mid);padding:5px 14px;cursor:pointer;transition:color 0.15s,background 0.15s;white-space:nowrap;text-transform:uppercase}
-.nav-dd-item:hover{color:var(--ink);background:rgba(0,0,0,0.03)}
-.bg-img{position:fixed;inset:0;z-index:0;background-size:cover;background-position:center;background-repeat:no-repeat;opacity:0;transition:opacity 1.2s ease;pointer-events:none}
-.bg-img.loaded{opacity:0.1}
-.lang-bar{position:fixed;top:var(--nav-h);left:0;right:0;height:44px;display:flex;align-items:center;justify-content:flex-end;padding:0 36px;background:var(--bg);border-bottom:0.5px solid rgba(0,0,0,0.07);z-index:200}
-.lang-toggle{display:flex;border:0.5px solid rgba(26,26,24,0.2);border-radius:2px;overflow:hidden}
-.lang-btn{font-family:'Cormorant Garamond',serif;font-size:8px;letter-spacing:0.12em;text-transform:uppercase;padding:4px 10px;cursor:pointer;background:transparent;color:var(--ink-dim);border:none;transition:background 0.15s,color 0.15s}
-.lang-btn.active{background:rgba(26,26,24,0.62);color:var(--bg)}
-.lang-btn:not(.active):hover{color:var(--ink)}
-.page-body{position:fixed;top:calc(var(--nav-h) + 44px);left:0;right:0;bottom:0;display:flex;flex-direction:column;overflow:hidden;z-index:1}
-.desktop-wrap{display:flex;flex-direction:column;height:100%;overflow:hidden}
-.stmt-block{width:100%;padding:28px 48px 28px calc(var(--left-w) + 24px);border-bottom:0.5px solid rgba(0,0,0,0.08);flex-shrink:0;max-height:42%;overflow-y:auto;scrollbar-width:none}
-.stmt-block::-webkit-scrollbar{display:none}
-.stmt-label{font-size:8px;letter-spacing:0.22em;text-transform:uppercase;color:var(--ink-mid);margin-bottom:12px}
-.stmt-text{font-family:'EB Garamond',serif;font-size:14px;line-height:2.0;color:var(--ink);white-space:pre-wrap;word-break:keep-all;text-align:justify}
-.stmt-text.fade{opacity:0;transition:opacity 0.18s}
-.stmt-link{display:inline-flex;align-items:center;gap:4px;margin-top:14px;font-size:9.5px;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-mid);text-decoration:none;padding:0 1px;border:0.3px solid rgba(74,74,71,0.25);border-radius:2px;transition:background 0.15s,color 0.15s}
-.stmt-link:hover{background:rgba(74,74,71,0.06);color:var(--ink-mid)}
-.three-col{flex:1;display:flex;min-height:0;overflow:hidden}
-.left-panel{width:var(--left-w);flex-shrink:0;padding:20px 0;display:flex;flex-direction:column;align-items:center}
-.tab-list{display:flex;flex-direction:column;gap:6px}
-.tab-item{font-size:11px;color:var(--ink-dim);letter-spacing:0.06em;cursor:pointer;padding:1px 0;transition:color 0.18s;line-height:1.25;font-family:'Cormorant Garamond',serif;white-space:nowrap}
-.tab-item:hover{color:var(--ink-mid)}
-.tab-item.active{color:var(--ink)}
-.tab-item.active::after{content:'';display:block;height:0.5px;background:var(--ink);opacity:0.35;margin-top:3px}
-.list-col{width:36%;flex-shrink:0;padding:20px 20px 40px 0;border-right:0.5px solid rgba(0,0,0,0.07);overflow-y:auto;scrollbar-width:none}
-.list-col::-webkit-scrollbar{display:none}
-.detail-col{flex:1;min-width:0;padding:20px 48px 40px 36px;overflow-y:auto;scrollbar-width:none}
-.detail-col::-webkit-scrollbar{display:none}
-.file-list{display:flex;flex-direction:column}
-.file-row{display:flex;align-items:baseline;gap:12px;padding:7px 0;cursor:pointer;border-bottom:0.5px solid rgba(0,0,0,0.06)}
-.file-row:first-child{border-top:0.5px solid rgba(0,0,0,0.06)}
-.file-row:hover .file-title{color:var(--ink)}
-.file-row:hover .file-arrow{opacity:0.5}
-.file-row.active-row .file-title{color:var(--ink)}
-.file-num{font-size:7.5px;color:var(--ink-dim);opacity:0.6;flex-shrink:0;width:16px;text-align:right;line-height:1.6}
-.file-title{font-family:'EB Garamond',serif;font-size:12px;color:var(--ink-mid);line-height:1.4;flex:1;transition:color 0.15s}
-.file-arrow{font-size:10px;color:var(--ink-dim);opacity:0;transition:opacity 0.15s;flex-shrink:0}
-.detail-panel{opacity:0;transition:opacity 0.4s ease;pointer-events:none}
-.detail-panel.visible{opacity:1;pointer-events:all}
-.detail-year{font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-mid);margin-bottom:6px;font-weight:500}
-.detail-title{font-family:'EB Garamond',serif;font-size:17px;color:var(--ink);line-height:1.4;margin-bottom:18px}
-.detail-desc{font-family:'EB Garamond',serif;font-size:13px;color:var(--ink-mid);line-height:1.85;margin-bottom:16px;white-space:pre-wrap}
-/* ── category / place 필드 ── */
-.detail-category{font-size:10px;letter-spacing:0.14em;color:var(--ink-mid);margin-bottom:6px;text-transform:uppercase;text-align:right;font-weight:500}
-.detail-place{font-size:10px;letter-spacing:0.14em;color:var(--ink-mid);margin-bottom:20px;text-transform:uppercase;text-align:right;font-weight:500}
-.detail-link{display:inline-flex;align-items:center;gap:4px;margin-top:4px;font-size:9.5px;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-mid);text-decoration:none;padding:0 1px;border:0.3px solid rgba(74,74,71,0.25);border-radius:2px;transition:background 0.15s,color 0.15s}
-.detail-link:hover{background:rgba(74,74,71,0.06);color:var(--ink-mid)}
-.empty-state{padding:40px 0;font-family:'EB Garamond',serif;font-style:italic;font-size:13px;color:var(--ink-dim);letter-spacing:0.1em}
-.loading{padding:40px 0;font-size:8.5px;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink-dim)}
 
-/* ── 모바일 ── */
-@media(max-width:600px){
-  html,body{overflow:hidden;height:100%}
-  .bg-img{display:none}
-  .lang-bar{height:36px;padding:0 14px}
-  .page-body{position:fixed;top:calc(var(--nav-h) + 36px);left:0;right:0;bottom:0;display:flex;flex-direction:column;overflow:hidden}
-  .desktop-wrap{display:flex;flex-direction:column;height:100%;overflow:hidden}
-  .stmt-block{flex-shrink:0;padding:16px 20px 16px;max-height:38%;overflow-y:auto;scrollbar-width:none}
-  .stmt-block::-webkit-scrollbar{display:none}
-  .stmt-label{font-size:7.5px;margin-bottom:8px}
-  .stmt-text{font-size:11.5px;line-height:1.75}
-  .three-col{flex:1;display:flex;flex-direction:column;min-height:0;overflow:hidden}
-  .left-panel{flex-shrink:0;width:100%;height:38px;flex-direction:row;align-items:center;justify-content:center;padding:0;border-bottom:0.5px solid rgba(0,0,0,0.08);border-top:0.5px solid rgba(0,0,0,0.06);background:var(--bg)}
-  .tab-list{flex-direction:row;gap:0;width:100%}
-  .tab-item{font-size:9px;letter-spacing:0.1em;white-space:nowrap;line-height:38px;flex:1;text-align:center;padding:0}
-  .tab-item.active::after{display:none}
-  .tab-item.active{border-bottom:1.5px solid var(--ink)}
-  .list-col{flex:1;width:100%;min-height:0;border-right:none;padding:0 20px 40px;overflow-y:auto;-webkit-overflow-scrolling:touch}
-  .file-num{display:none}
-  .detail-col{display:none}
-  .file-row{padding:10px 0;gap:10px}
-  .file-row:first-child{border-top:none}
-  .file-title{font-size:13px}
-  .file-arrow{opacity:0.25;font-size:11px}
-  .file-row.active-row .file-arrow{transform:rotate(90deg);opacity:0.6}
-  .m-inline-detail{display:none;padding:12px 14px 18px 24px;border-bottom:0.5px solid rgba(0,0,0,0.06);background:rgba(255,255,255,0.55);animation:mFadeIn 0.22s ease}
-  .m-inline-detail.open{display:block}
-  @keyframes mFadeIn{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
-  .m-detail-year{font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-mid);margin-bottom:6px;font-weight:500}
-  .m-detail-title{font-family:'EB Garamond',serif;font-size:14px;color:var(--ink);line-height:1.4;margin-bottom:10px}
-  .m-detail-desc{font-family:'EB Garamond',serif;font-size:12.5px;color:var(--ink-mid);line-height:1.9;margin-bottom:10px;white-space:pre-wrap}
-  /* 모바일 place */
-  .m-detail-place{font-size:10px;letter-spacing:0.14em;color:var(--ink-mid);margin-bottom:14px;text-transform:uppercase;text-align:right;font-weight:500}
-  .m-detail-link{display:inline-flex;align-items:center;gap:4px;margin-top:12px;font-size:9.5px;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-mid);text-decoration:none;padding:0 1px;border:0.3px solid rgba(74,74,71,0.25);border-radius:2px}
+/* ── shell ── */
+.shell{
+  position:fixed;top:var(--nav-h);left:0;right:0;bottom:0;
+  display:flex;flex-direction:column;align-items:center;
+  /* 이미지 약간 위쪽 배치 */
+  justify-content:flex-start;
+  padding-top:clamp(20px,5vh,52px);
+  overflow:hidden;
 }
+
+/* ── 이미지 박스 ── */
+.img-box{
+  width:min(58vw,580px);
+  height:min(52vh,500px);
+  flex-shrink:0;position:relative;overflow:hidden;cursor:pointer;
+}
+.img-bg{position:absolute;inset:0;background-size:cover;background-position:center;transition:transform 0.6s ease}
+.img-box:hover .img-bg{transform:scale(1.006)}
+.img-overlay{position:absolute;inset:0;display:flex;align-items:flex-end;justify-content:center;padding-bottom:28px;background:linear-gradient(to top,rgba(247,246,243,0.75) 0%,transparent 38%)}
+@keyframes bob{0%,100%{opacity:0.35;transform:translateY(0) translateX(-50%)}50%{opacity:0.6;transform:translateY(4px) translateX(-50%)}}
+.scroll-cue{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);font-size:13px;color:var(--ink-mid);animation:bob 2.2s ease-in-out infinite;cursor:pointer;opacity:0;transition:opacity 0.5s ease}
+.scroll-cue.visible{opacity:0.35}
+
+/* ── work-info (이미지 아래 작품명 + 설명) ── */
+.work-info{
+  width:min(58vw,540px);flex-shrink:0;
+  display:flex;justify-content:space-between;align-items:baseline;
+  padding:8px 0;border-top:0.5px solid rgba(0,0,0,0.1);
+  opacity:0;transition:opacity 0.7s ease 0.2s;
+}
+.work-info.visible{opacity:1}
+.wi-left .wi-title{font-family:'EB Garamond',serif;font-size:14px;color:var(--ink)}
+.wi-left .wi-meta{font-size:9px;letter-spacing:0.12em;color:var(--ink-dim);text-transform:uppercase;margin-top:3px}
+.wi-desc{font-size:10px;color:var(--ink-mid);line-height:1.8;flex:1;max-width:45%;text-align:right;word-break:keep-all}
+
+/* ── 이미지 위 떠다니는 Tactile Thinking ── */
+@keyframes gentleFloat{
+  0%,100%{transform:translateY(0);opacity:0.9}
+  40%{transform:translateY(-7px);opacity:1}
+  70%{transform:translateY(3px);opacity:0.85}
+}
+.work-title{
+  font-family:'EB Garamond',serif;
+  font-style:italic;
+  font-weight:500;
+  font-size:32px;
+  color:var(--ink);
+  letter-spacing:0.06em;
+  line-height:1;
+  opacity:0;
+  transition:opacity 0.9s ease;
+  animation:gentleFloat 6s ease-in-out infinite;
+  text-shadow:0 2px 20px rgba(247,246,243,0.9);
+  display:inline-block;
+}
+.work-title.visible{opacity:1}
+
+@keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
 </style>
 </head>
 <body>
-<div class="bg-img" id="bgImg"></div>
 <nav>
   <span class="nav-logo" onclick="go('index')">Won Jeong Cho</span>
   <div class="nav-right">
-    <div class="nav-dd" id="navArchive">
-      <span class="nav-item">Archive</span>
-      <div class="nav-dd-menu">
-        <span class="nav-dd-item" onclick="go('year')">Year</span>
-        <span class="nav-dd-item" onclick="go('context')">Context</span>
-      </div>
-    </div>
+    <span class="nav-item" onclick="go('context')">Archive</span>
     <div class="nav-sep"></div>
-    <span class="nav-item active">Text</span>
+    <span class="nav-item" onclick="go('text')">Text</span>
     <div class="nav-sep"></div>
     <span class="nav-item" onclick="go('about')">About</span>
   </div>
 </nav>
-<div class="lang-bar">
-  <div class="lang-toggle">
-    <button class="lang-btn active" id="btnKo" onclick="setLang('ko')">한국어</button>
-    <button class="lang-btn" id="btnEn" onclick="setLang('en')">English</button>
+
+<div class="shell">
+  <div class="img-box" id="imgBox">
+    <div class="img-bg" id="imgBg"></div>
+    <div class="img-overlay">
+      <div class="work-title" id="workTitle"></div>
+    </div>
+    <div class="scroll-cue" id="scrollCue">&#8595;</div>
+  </div>
+
+  <div class="work-info" id="workInfo">
+    <div class="wi-left">
+      <div class="wi-title" id="wiTitle"></div>
+      <div class="wi-meta" id="wiMeta"></div>
+    </div>
+    <div class="wi-desc" id="wiDesc"></div>
   </div>
 </div>
-<div class="page-body" id="pageBody">
-  <div class="desktop-wrap">
-    <div class="stmt-block" id="stmtBlock" style="display:none">
-      <div class="stmt-label">Artist Statement</div>
-      <div class="stmt-text" id="stmtText"></div>
-      <a class="stmt-link" id="stmtLink" href="#" target="_blank" style="display:none">PDF 열기 ↗</a>
-    </div>
-    <div class="three-col">
-      <div class="left-panel" id="leftPanel">
-        <div class="tab-list" id="tabList"></div>
-      </div>
-      <div class="list-col" id="listCol">
-        <div id="listInner"><div class="loading">Loading…</div></div>
-      </div>
-      <div class="detail-col">
-        <div class="detail-panel" id="detailPanel">
-          <div class="detail-year"  id="detailYear"></div>
-          <div class="detail-title" id="detailTitle"></div>
-          <div class="detail-desc"  id="detailDesc"></div>
-          <div class="detail-category" id="detailCategory"></div>
-          <div class="detail-place" id="detailPlace"></div>
-          <a class="detail-link" id="detailLink" target="_blank">PDF 열기 ↗</a>
-        </div>
-      </div>
-    </div>
-  </div>
 </div>
+
 <script>
-var TEXT_DATA={}, TABS=[], STATEMENT={ko:'',en:''};
-var currentTab='', lang='ko', mOpenIdx=null, currentDetailRow=null;
+function go(page){window.location.href=page+'.html';}
 
-function go(page){ window.location.href = page+'.html'; }
-function sel(id){ return document.getElementById(id); }
-function isMobile(){ return window.innerWidth <= 600; }
-function escH(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
-function cleanTitle(f){ return f.replace(/\.pdf$/i,'').replace(/\.docx?$/i,'').replace(/_/g,' ').trim(); }
-
-function relocateTabBar(){
-  if(!isMobile()) return;
-  var panel = sel('leftPanel');
-  var threeCol = panel && panel.closest('.three-col');
-  var desktopWrap = threeCol && threeCol.parentNode;
-  if(panel && threeCol && desktopWrap) desktopWrap.insertBefore(panel, threeCol);
-}
-
-document.querySelectorAll('.nav-dd').forEach(function(dd){
-  var menu=dd.querySelector('.nav-dd-menu'), timer;
-  dd.addEventListener('mouseenter',function(){clearTimeout(timer);menu.style.display='block';});
-  dd.addEventListener('mouseleave',function(){timer=setTimeout(function(){menu.style.display='none';},150);});
-  menu.addEventListener('mouseenter',function(){clearTimeout(timer);});
-  menu.addEventListener('mouseleave',function(){timer=setTimeout(function(){menu.style.display='none';},150);});
-  dd.querySelector('.nav-item').addEventListener('click',function(e){
-    e.stopPropagation();
-    var isOpen = menu.style.display==='block';
-    document.querySelectorAll('.nav-dd-menu').forEach(function(m){m.style.display='none';});
-    if(!isOpen) menu.style.display='block';
-  });
-});
-document.addEventListener('click',function(e){
-  if(!e.target.closest || !e.target.closest('.nav-dd'))
-    document.querySelectorAll('.nav-dd-menu').forEach(function(m){m.style.display='none';});
-});
-
-function setLang(l){
-  if(lang===l) return;
-  lang=l;
-  sel('btnKo').classList.toggle('active', l==='ko');
-  sel('btnEn').classList.toggle('active', l==='en');
-  renderStmt();
-  if(isMobile()){
-    if(mOpenIdx !== null){
-      var row = (TEXT_DATA[currentTab]||[])[mOpenIdx];
-      if(row){
-        var desc = l==='ko' ? (row.desc_ko||row.desc||'') : (row.desc_en||row.desc||'');
-        var descEl = sel('m-desc-'+mOpenIdx);
-        if(descEl) descEl.textContent = desc;
-      }
-    }
-  } else {
-    if(sel('detailPanel').classList.contains('visible')) renderDetail(currentDetailRow);
-  }
-}
-
-function initPreview(url){
-  if(!url) return;
-  var bg=sel('bgImg'), img=new Image();
-  img.onload=function(){ bg.style.backgroundImage='url('+url+')'; bg.classList.add('loaded'); };
-  img.onerror=function(){
-    var m=url.match(/[?&]id=([a-zA-Z0-9_-]{10,})/);
-    if(m){ bg.style.backgroundImage='url(https://drive.google.com/thumbnail?id='+m[1]+'&sz=w800)'; bg.classList.add('loaded'); }
-  };
-  img.src=url;
-}
-
-function initStatement(){
-  if(!STATEMENT || (!STATEMENT.ko && !STATEMENT.en)) return;
-  sel('stmtBlock').style.display='block';
-  if(STATEMENT.link){ var lk=sel('stmtLink'); lk.href=STATEMENT.link; lk.style.display='inline-flex'; }
-  renderStmt();
-}
-
-function renderStmt(){
-  var txt = lang==='ko' ? (STATEMENT.ko||STATEMENT.en) : (STATEMENT.en||STATEMENT.ko);
-  var el = sel('stmtText');
-  el.classList.add('fade');
-  setTimeout(function(){ el.textContent=txt; el.classList.remove('fade'); }, 180);
-}
-
-function buildTabs(){
-  var list=sel('tabList'); list.innerHTML='';
-  TABS.forEach(function(name){
-    var div=document.createElement('div');
-    div.className='tab-item'+(name===currentTab?' active':'');
-    div.textContent=name;
-    div.addEventListener('click',function(){ switchTab(name); });
-    list.appendChild(div);
-  });
-}
-
-function switchTab(name){
-  currentTab=name; mOpenIdx=null;
-  document.querySelectorAll('.tab-item').forEach(function(el){ el.classList.toggle('active', el.textContent.trim()===name); });
-  sel('detailPanel').classList.remove('visible');
-  currentDetailRow=null;
-  renderList();
-}
-
-function renderList(){
-  var inner=sel('listInner');
-  var rows=TEXT_DATA[currentTab]||[];
-  if(!rows.length){ inner.innerHTML='<div class="empty-state">No texts found</div>'; return; }
-  if(isMobile()){
-    inner.innerHTML='<div class="file-list">'+rows.map(function(row,i){
-      var title = cleanTitle(row.filename||'—');
-      var desc  = lang==='ko' ? (row.desc_ko||row.desc||'') : (row.desc_en||row.desc||'');
-      var place = row.place || '';
-      return '<div class="file-row" id="row-'+i+'" onclick="toggleMobile('+i+')">'
-        +'<span class="file-num">'+(i+1)+'</span>'
-        +'<span class="file-title">'+escH(title)+'</span>'
-        +'<span class="file-arrow" id="arr-'+i+'">›</span></div>'
-        +'<div class="m-inline-detail" id="m-detail-'+i+'">'
-        +'<div class="m-detail-year">'+(row.year||'')+'</div>'
-        +'<div class="m-detail-title">'+escH(title)+'</div>'
-        +'<div class="m-detail-desc" id="m-desc-'+i+'">'+escH(desc)+'</div>'
-        +(place ? '<div class="m-detail-place">'+escH(row.category||'')+(row.category?' · ':'')+escH(place)+'</div>' : '')
-        +(row.link ? '<a class="m-detail-link" href="'+row.link+'" target="_blank">PDF 열기 ↗</a>' : '')
-        +'</div>';
-    }).join('')+'</div>';
-  } else {
-    inner.innerHTML='<div class="file-list">'+rows.map(function(row,i){
-      return '<div class="file-row" id="row-'+i+'" onclick="showDetail('+i+')">'
-        +'<span class="file-num">'+(i+1)+'</span>'
-        +'<span class="file-title">'+cleanTitle(row.filename||'—')+'</span>'
-        +'<span class="file-arrow">›</span></div>';
-    }).join('')+'</div>';
-  }
-}
-
-function toggleMobile(idx){
-  var rows=TEXT_DATA[currentTab]||[];
-  if(mOpenIdx===idx){
-    sel('m-detail-'+idx).classList.remove('open');
-    sel('row-'+idx).classList.remove('active-row');
-    var a=sel('arr-'+idx); if(a) a.style.transform='';
-    mOpenIdx=null; return;
-  }
-  if(mOpenIdx!==null){
-    sel('m-detail-'+mOpenIdx).classList.remove('open');
-    sel('row-'+mOpenIdx).classList.remove('active-row');
-    var pa=sel('arr-'+mOpenIdx); if(pa) pa.style.transform='';
-  }
-  mOpenIdx=idx;
-  sel('m-detail-'+idx).classList.add('open');
-  sel('row-'+idx).classList.add('active-row');
-  var a=sel('arr-'+idx); if(a) a.style.transform='rotate(90deg)';
-  var row=rows[idx];
-  if(row){
-    var desc = lang==='ko' ? (row.desc_ko||row.desc||'') : (row.desc_en||row.desc||'');
-    var descEl=sel('m-desc-'+idx); if(descEl) descEl.textContent=desc;
-  }
-  setTimeout(function(){ var el=sel('m-detail-'+idx); if(el) el.scrollIntoView({behavior:'smooth',block:'nearest'}); },50);
-}
-
-function showDetail(idx){
-  var rows=TEXT_DATA[currentTab]||[];
-  var row=rows[idx]; if(!row) return;
-  document.querySelectorAll('.file-row').forEach(function(r){ r.classList.remove('active-row'); });
-  var ar=sel('row-'+idx); if(ar) ar.classList.add('active-row');
-  currentDetailRow=row;
-  renderDetail(row);
-  sel('detailPanel').classList.add('visible');
-}
-
-function renderDetail(row){
-  if(!row) return;
-  var desc = lang==='ko' ? (row.desc_ko||row.desc||'') : (row.desc_en||row.desc||'');
-  sel('detailYear').textContent  = row.year || '';
-  sel('detailTitle').textContent = cleanTitle(row.filename||'');
-  sel('detailDesc').textContent  = desc;
-  /* ── category + place: 내용 아래 ── */
-  var catEl = sel('detailCategory');
-  catEl.textContent = row.place ? (row.category || '') : '';
-  catEl.style.display = (row.place && row.category) ? 'block' : 'none';
-  var placeEl = sel('detailPlace');
-  placeEl.textContent = row.place || '';
-  placeEl.style.display = row.place ? 'block' : 'none';
-  var lk=sel('detailLink');
-  if(row.link){ lk.href=row.link; lk.style.display='inline-flex'; } else { lk.style.display='none'; }
-}
-
-fetch('./data/text.json')
-  .then(function(r){ return r.json(); })
+fetch('./data/main.json')
+  .then(function(r){return r.json();})
   .then(function(result){
-    TEXT_DATA  = result.data      || {};
-    TABS       = result.tabs      || [];
-    STATEMENT  = result.statement || {ko:'',en:''};
-    currentTab = TABS[0] || '';
-    initStatement();
-    buildTabs();
-    relocateTabBar();
-    renderList();
-    if(result.previewImg){
-      initPreview(result.previewImg);
-    } else {
-      fetch('./data/works.json')
-        .then(function(r){ return r.json(); })
-        .then(function(works){
-          var sorted=works.slice().sort(function(a,b){ return(parseInt(b.year||0))-(parseInt(a.year||0)); });
-          for(var i=0;i<sorted.length;i++){
-            if((sorted[i].page||'').trim()==='pt'){ initPreview(sorted[i].thumb||sorted[i].full||''); break; }
-          }
-        }).catch(function(){});
-    }
+    var main=result.main; if(!main) return;
+    var imgUrl=main.imgUrl||main.thumb||'';
+    var img=new Image();
+    img.onload=function(){
+      document.getElementById('imgBg').style.backgroundImage="url('"+imgUrl+"')";
+      setTimeout(function(){
+        document.getElementById('workTitle').textContent='Tactile Thinking';
+        document.getElementById('workTitle').classList.add('visible');
+        document.getElementById('workInfo').classList.add('visible');
+        document.getElementById('scrollCue').classList.add('visible');
+      },350);
+    };
+    img.onerror=function(){
+      document.getElementById('workTitle').textContent='Tactile Thinking';
+        document.getElementById('workTitle').classList.add('visible');
+        document.getElementById('workInfo').classList.add('visible');
+    };
+    img.src=imgUrl;
+    document.getElementById('wiTitle').textContent=main.title||'';
+    document.getElementById('wiMeta').textContent=(main.year||'')+(main.medium?' · '+main.medium:'');
+    document.getElementById('wiDesc').textContent=main.desc||'';
   })
   .catch(function(){
-    sel('listInner').innerHTML='<div class="loading">데이터를 불러올 수 없습니다.</div>';
+    document.getElementById('workTitle').textContent='Tactile Thinking';
+        document.getElementById('workTitle').classList.add('visible');
+        document.getElementById('workInfo').classList.add('visible');
+    document.getElementById('heroText').classList.add('visible');
   });
 </script>
 </body>
