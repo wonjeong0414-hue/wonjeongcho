@@ -119,9 +119,9 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 
 /* ── CV 탭 ── */
 .cv-tabs{display:flex;gap:0;border-bottom:.5px solid rgba(26,26,24,.1);margin-bottom:24px;position:sticky;top:calc(var(--nav-h) + 44px);background:var(--bg);z-index:10;padding-top:8px}
-.cv-tab{font-size:8.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-dim);padding:6px 18px 6px 0;cursor:pointer;border-bottom:1px solid transparent;margin-bottom:-1px;transition:color .2s,border-color .2s;white-space:nowrap}
-.cv-tab:hover{color:var(--ink)}
-.cv-tab.active{color:var(--ink);border-bottom-color:var(--ink)}
+.cv-tab{font-size:8.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-dim);padding:6px 18px 6px 0;cursor:pointer;transition:color .2s,font-weight .1s;white-space:nowrap;border-bottom:none;margin-bottom:0}
+.cv-tab:hover{color:var(--ink-mid)}
+.cv-tab.active{color:var(--ink);font-weight:600;letter-spacing:.18em}
 .cv-panel{display:none}
 .cv-panel.active{display:block}
 
