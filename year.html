@@ -36,14 +36,14 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 .year-bar{
   flex-shrink:0;
   min-height:var(--bar-h);
-  height:auto;
-  display:flex;
+  height:auto !important;
+  display:flex !important;
   align-items:center;
-  flex-wrap:wrap;
+  flex-wrap:wrap !important;
   padding:6px 36px;
   border-bottom:0.5px solid rgba(0,0,0,0.07);
-  gap:0;
-  overflow-x:visible;
+  gap:2px 0;
+  overflow:visible !important;
 }
 .year-bar::-webkit-scrollbar{display:none}
 .bar-title{
@@ -59,16 +59,16 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 .yr-item{
   cursor:pointer;
   user-select:none;
-  padding:4px 10px;
+  padding:3px 6px;
   position:relative;
   flex-shrink:0;
 }
 .yr-label{
-  font-size:12.5px;
+  font-size:14px;
   color:var(--ink-mid);
   transition:color 0.18s;
   line-height:1.4;
-  letter-spacing:0.04em;
+  letter-spacing:0.03em;
   font-family:'Cormorant Garamond',serif;
   font-weight:500;
   display:block;
@@ -76,7 +76,7 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 .yr-item::after{
   content:'';
   position:absolute;
-  bottom:0;left:10px;right:10px;
+  bottom:0;left:6px;right:6px;
   height:0.5px;background:var(--ink);
   transform:scaleX(0);transform-origin:left;
   transition:transform 0.25s cubic-bezier(0.16,1,0.3,1);
@@ -84,7 +84,7 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 }
 .yr-item:hover .yr-label{color:var(--ink)}
 .yr-item:hover::after{transform:scaleX(1)}
-.yr-item.checked .yr-label{color:var(--ink);font-weight:600;font-size:13px}
+.yr-item.checked .yr-label{color:var(--ink);font-weight:600;font-size:14.5px}
 .yr-item.checked::after{transform:scaleX(1)}
 
 /* ── body ── */
@@ -99,7 +99,7 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 }
 .preview-img-wrap{pointer-events:all}
 .preview-zone.hidden{opacity:0}
-.preview-img-wrap{display:flex;flex-direction:column;align-items:flex-start;max-width:88%}
+.preview-img-wrap{display:flex;flex-direction:column;align-items:center;max-width:88%}
 
 /* ★ 이미지 10% 크게 + 움직임 강화 */
 .preview-img{
@@ -114,7 +114,7 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 }
 .preview-img:hover{
   animation-play-state:paused;
-  transform:scale(1.025) !important;
+  transform:scale(1.06) !important;
 }
 .preview-img.loaded{opacity:1}
 @keyframes previewFloat{
