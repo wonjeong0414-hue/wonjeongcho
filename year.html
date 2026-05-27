@@ -104,12 +104,11 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 /* ── preview 하단 Tactile Thinking ── */
 .preview-overlay-text{
   position:absolute;
-  bottom:clamp(16px,4vh,40px);
-  left:50%;
-  transform:translateX(-50%);
+  bottom:clamp(10px,2vh,24px);
+  right:clamp(8px,2%,24px);
   font-family:'EB Garamond',serif;
   font-style:italic;
-  font-size:clamp(20px,2.4vw,32px);
+  font-size:clamp(18px,2vw,28px);
   color:var(--ink);
   letter-spacing:0.08em;
   white-space:nowrap;
@@ -120,7 +119,7 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
   transition:opacity 0.8s ease 0.5s;
 }
 .preview-zone:not(.hidden) .preview-overlay-text{opacity:1}
-.preview-img-wrap{display:flex;flex-direction:column;align-items:flex-start;max-width:min(82%,680px)}
+.preview-img-wrap{display:flex;flex-direction:column;align-items:flex-start;max-width:min(82%,680px);position:relative}
 
 /* ★ 이미지 10% 크게 + 움직임 강화 */
 .preview-img-wrap{
@@ -306,8 +305,8 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
             <div class="caption-sen" id="captionSen"></div>
           </div>
           <span class="empty-hint" id="emptyHint" style="display:none">연도를 선택하세요</span>
+          <div class="preview-overlay-text">Tactile Thinking</div>
         </div>
-        <div class="preview-overlay-text">Tactile Thinking</div>
       </div>
       <div class="grid-zone" id="gridZone">
         <div id="gridContainer"></div>
