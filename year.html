@@ -42,8 +42,9 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
   flex-wrap:wrap !important;
   padding:6px 36px;
   border-bottom:0.5px solid rgba(0,0,0,0.07);
-  gap:2px 0;
+  gap:4px 0;
   overflow:visible !important;
+  row-gap:4px;
 }
 .year-bar::-webkit-scrollbar{display:none}
 .bar-title{
@@ -51,9 +52,11 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
   font-style:italic;
   font-size:18px;
   color:var(--ink);
-  margin-right:20px;
+  margin-right:12px;
   flex-shrink:0;
   letter-spacing:0.04em;
+  align-self:flex-start;
+  padding-top:4px;
 }
 .bar-sep{width:0.5px;height:14px;background:rgba(0,0,0,0.12);margin-right:18px;flex-shrink:0}
 .yr-item{
@@ -130,13 +133,14 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 .empty-hint{font-family:'EB Garamond',serif;font-style:italic;font-size:13px;color:var(--ink-dim);letter-spacing:0.12em}
 
 /* ── grid zone ── */
-.grid-zone{position:absolute;inset:0;overflow-y:auto;padding:20px 10% 48px;scrollbar-width:none;opacity:0;pointer-events:none;transition:opacity 0.5s ease}
+.grid-zone{position:absolute;inset:0;overflow-y:auto;padding:16px 24px 48px 36px;scrollbar-width:none;opacity:0;pointer-events:none;transition:opacity 0.5s ease}
 .grid-zone::-webkit-scrollbar{display:none}
 .grid-zone.open{opacity:1;pointer-events:all}
-.year-divider{grid-column:1/-1;display:flex;align-items:baseline;gap:14px;padding:28px 0 12px}
-.year-divider:first-child{padding-top:8px}
-.yd-label{font-family:'EB Garamond',serif;font-style:italic;font-size:18px;color:var(--ink);letter-spacing:0.04em;line-height:1}
-.yd-count{font-size:7.5px;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-dim)}
+.year-section{margin-bottom:40px}
+.year-section-header{width:80px;float:left;padding-top:4px;padding-right:16px}
+.year-section-grid{overflow:hidden}
+.yd-label{font-family:'EB Garamond',serif;font-style:italic;font-size:18px;color:var(--ink);letter-spacing:0.04em;line-height:1.3;display:block}
+.yd-count{font-size:9px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-mid);font-weight:500;display:block;margin-top:3px}
 .grid{display:grid;grid-template-columns:repeat(10,1fr);gap:4px}
 @media(max-width:1200px){.grid{grid-template-columns:repeat(8,1fr)}}
 @media(max-width:900px){.grid{grid-template-columns:repeat(6,1fr)}}
@@ -434,12 +438,20 @@ function renderAll(){
   }
   allFiltered.forEach(function(g){
     if(!isMobile()){
-      var d=document.createElement('div');d.className='year-divider';
-      d.innerHTML='<span class="yd-label">'+g.year+'</span><span class="yd-count">'+g.rows.length+' works</span>';
-      con.appendChild(d);
+      var section=document.createElement('div');section.className='year-section';
+      var header=document.createElement('div');header.className='year-section-header';
+      header.innerHTML='<span class="yd-label">'+g.year+'</span><span class="yd-count">'+g.rows.length+' works</span>';
+      var gridWrap=document.createElement('div');gridWrap.className='year-section-grid';
+      var grid=document.createElement('div');grid.className='grid';grid.id='grid-'+g.year;
+      gridWrap.appendChild(grid);
+      section.appendChild(header);
+      section.appendChild(gridWrap);
+      con.appendChild(section);
+    } else {
+      var grid=document.createElement('div');grid.className='grid';grid.id='grid-'+g.year;
+      con.appendChild(grid);
     }
-    var grid=document.createElement('div');grid.className='grid';grid.id='grid-'+g.year;
-    con.appendChild(grid);yearRendered[g.year]=0;
+    yearRendered[g.year]=0;
   });
   renderNextChunk();
 }
