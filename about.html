@@ -363,7 +363,10 @@ function render(){
   /* 소장인 */
   document.getElementById('labelColl').textContent=ko?'주요 작품 소장인':'Major Collections';
   var collText=ko?(D.collKo||''):(D.collEn||'');
-  document.getElementById('collSection').innerHTML='<div class="coll-text">'+(collText||'—')+'</div>';
+  var collLines = collText ? collText.split('\n').filter(function(l){return l.trim();}) : [];
+  document.getElementById('collSection').innerHTML = collLines.length
+    ? collLines.map(function(l){ return '<div class="left-item">'+l.trim()+'</div>'; }).join('')
+    : '<div class="left-item">—</div>';
 
   /* CV 리스트 - 탭 없이 섹션으로 */
   document.getElementById('labelSolo').textContent=ko?'개인 및 초대전':'Solo & Invitational';
