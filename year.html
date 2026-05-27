@@ -95,30 +95,31 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 /* ── preview zone ── */
 .preview-zone{
   position:absolute;inset:0;
-  display:flex;align-items:flex-start;justify-content:center;
-  padding-top:clamp(16px,4vh,48px);
-  padding-left:20px;padding-right:20px;
+  display:flex;align-items:flex-start;justify-content:flex-start;
+  padding:clamp(12px,3vh,40px) 48px;
   opacity:1;transition:opacity 0.5s ease;pointer-events:none;
+  overflow:hidden;
 }
-.preview-img-wrap{pointer-events:all}
 .preview-zone.hidden{opacity:0}
-.preview-img-wrap{display:flex;flex-direction:column;align-items:center;max-width:88%}
-.preview-caption{align-self:flex-start}
+.preview-img-wrap{display:flex;flex-direction:column;align-items:flex-start;max-width:92%}
 
 /* ★ 이미지 10% 크게 + 움직임 강화 */
-.preview-img{
-  display:block;
-  max-height:calc(100vh - var(--nav-h) - var(--bar-h) - 60px);
-  max-width:88%;
-  object-fit:contain;
-  opacity:0;
-  transition:opacity 1s ease, transform 0.6s cubic-bezier(0.16,1,0.3,1);
-  animation:previewFloat 9s ease-in-out infinite;
+.preview-img-wrap{
+  transition:transform 0.7s cubic-bezier(0.16,1,0.3,1);
   cursor:pointer;
 }
-.preview-img:hover{
-  animation-play-state:paused;
-  transform:scale(1.06) !important;
+.preview-img-wrap:hover{
+  transform:scale(1.04);
+}
+.preview-img{
+  display:block;
+  max-height:calc(100vh - var(--nav-h) - var(--bar-h) - 80px);
+  max-width:100%;
+  width:auto;
+  object-fit:contain;
+  opacity:0;
+  transition:opacity 1s ease;
+  animation:previewFloat 9s ease-in-out infinite;
 }
 .preview-img.loaded{opacity:1}
 @keyframes previewFloat{
