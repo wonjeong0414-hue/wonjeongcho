@@ -713,15 +713,25 @@ function paintModal(){
 function openSheet(idx){
   modalIdx=idx;paintSheet();
   var sheet=sel('bsSheet');
-  sheet.classList.remove('half','full');
+  sheet.style.transform='translateY(100%)';
+  sheet.style.transition='none';
   document.body.classList.remove('sheet-open');
   requestAnimationFrame(function(){
-    sheet.classList.add('half');
-    document.body.classList.add('sheet-open');
+    requestAnimationFrame(function(){
+      sheet.style.transition='transform 0.38s cubic-bezier(0.16,1,0.3,1)';
+      sheet.style.transform='translateY(5%)';
+      document.body.classList.add('sheet-open');
+    });
   });
   sheetState='half';
 }
-function closeSheet(){sel('bsSheet').classList.remove('half','full');sheetState='closed';document.body.classList.remove('sheet-open');}
+function closeSheet(){
+  var sheet=sel('bsSheet');
+  sheet.style.transition='transform 0.38s cubic-bezier(0.16,1,0.3,1)';
+  sheet.style.transform='translateY(100%)';
+  sheetState='closed';
+  document.body.classList.remove('sheet-open');
+}
 function navSheet(d){modalIdx=(modalIdx+d+flatFiltered.length)%flatFiltered.length;paintSheet();}
 
 function paintSheet(){
@@ -748,7 +758,7 @@ function paintSheet(){
   var handle=sel('bsHandle'),sheet=sel('bsSheet');
   if(!handle||!sheet)return;
   function onStart(e){dragStartY=e.touches?e.touches[0].clientY:e.clientY;dragStartState=sheetState;document.addEventListener('touchmove',onMove,{passive:false});document.addEventListener('touchend',onEnd);document.addEventListener('mousemove',onMove);document.addEventListener('mouseup',onEnd);}
-  function onMove(e){e.preventDefault();var y=e.touches?e.touches[0].clientY:e.clientY,dy=y-dragStartY;if(dy<-60){sheet.classList.remove('half');sheet.classList.add('full');sheetState='full';}else if(dy>60&&dragStartState==='full'){sheet.classList.remove('full');sheet.classList.add('half');sheetState='half';}else if(dy>100&&dragStartState==='half'){closeSheet();}}
+  function onMove(e){e.preventDefault();var y=e.touches?e.touches[0].clientY:e.clientY,dy=y-dragStartY;if(dy<-60){sheet.style.transform='translateY(0)';sheetState='full';}else if(dy>60&&dragStartState==='full'){sheet.style.transform='translateY(5%)';sheetState='half';}else if(dy>100&&dragStartState==='half'){closeSheet();}}
   function onEnd(){document.removeEventListener('touchmove',onMove);document.removeEventListener('touchend',onEnd);document.removeEventListener('mousemove',onMove);document.removeEventListener('mouseup',onEnd);}
   handle.addEventListener('touchstart',onStart,{passive:true});
   handle.addEventListener('mousedown',onStart);
