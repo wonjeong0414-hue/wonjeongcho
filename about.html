@@ -13,8 +13,8 @@
   <meta property="og:type" content="website">
   <meta property="og:title" content="About — Won Jeong Cho">
   <meta property="og:description" content="Biography, education, exhibition history, and collections of artist Won Jeong Cho.">
-  <meta property="og:url" content="https://wonjeong0414-hue.github.io/wonjeongcho/about.html">
-  <meta property="og:image" content="https://wonjeong0414-hue.github.io/wonjeongcho/og-image.jpg">
+  <meta property="og:url" content="https://www.chowonjeong.org/about.html">
+  <meta property="og:image" content="https://www.chowonjeong.org/og-image.jpg">
   <meta property="og:site_name" content="Won Jeong Cho">
   <meta property="og:locale" content="ko_KR">
   <meta property="og:locale:alternate" content="en_US">
@@ -22,9 +22,9 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="About — Won Jeong Cho">
   <meta name="twitter:description" content="Biography, education, exhibition history, and collections of artist Won Jeong Cho.">
-  <meta name="twitter:image" content="https://wonjeong0414-hue.github.io/wonjeongcho/og-image.jpg">
+  <meta name="twitter:image" content="https://www.chowonjeong.org/og-image.jpg">
   <!-- Canonical -->
-  <link rel="canonical" href="https://wonjeong0414-hue.github.io/wonjeongcho/about.html">
+  <link rel="canonical" href="https://www.chowonjeong.org/about.html">
   <!-- JSON-LD -->
   <script type="application/ld+json">
   {
@@ -33,12 +33,31 @@
     "name": "Won Jeong Cho",
     "alternateName": "조원정",
     "jobTitle": "Visual Artist",
-    "url": "https://wonjeong0414-hue.github.io/wonjeongcho/",
+    "description": "한국 현대미술 작가 조원정. 촉각적 사고(Tactile Thinking)를 기반으로 한 회화 작업. Korean contemporary artist working with painting and mixed media.",
+    "url": "https://www.chowonjeong.org/",
+    "image": "https://www.chowonjeong.org/og-image.jpg",
     "sameAs": [
       "https://www.instagram.com/wonjeong.cho/",
       "https://www.saatchiart.com/en-kr/chowonjeong"
     ],
-    "knowsAbout": ["Painting", "Abstract Art", "Tactile Thinking", "Contemporary Art"]
+    "knowsAbout": ["회화", "Painting", "추상미술", "Abstract Art", "Tactile Thinking", "촉각적 사고", "한국 현대미술", "Korean Contemporary Art", "Mixed Media", "혼합매체"],
+    "nationality": "Korean",
+    "workLocation": {
+      "@type": "Place",
+      "name": "Seoul, South Korea"
+    },
+    "alumniOf": [
+      {
+        "@type": "CollegeOrUniversity",
+        "name": "홍익대학교",
+        "alternateName": "Hongik University"
+      },
+      {
+        "@type": "CollegeOrUniversity",
+        "name": "이화여자대학교",
+        "alternateName": "Ewha Womans University"
+      }
+    ]
   }
   </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -197,8 +216,62 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
   .nav-item{font-size:8.5px;padding:5px 7px}
   .nav-sep{margin:0 2px}
 }
+
+/* ── 페이지 전환 fade ── */
+@keyframes pageFadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+.page-fade{animation:pageFadeIn 0.5s cubic-bezier(0.16,1,0.3,1) forwards}
+body.fade-out{opacity:0;transition:opacity 0.3s ease}
+
+/* ── 로딩 화면 ── */
+#page-loader{
+  position:fixed;inset:0;
+  background:var(--bg);
+  display:flex;align-items:center;justify-content:center;
+  z-index:9999;
+  opacity:1;
+  transition:opacity 0.6s cubic-bezier(0.16,1,0.3,1);
+  pointer-events:all;
+}
+#page-loader.hidden{opacity:0;pointer-events:none}
+.loader-inner{
+  display:flex;flex-direction:column;align-items:center;gap:20px;
+}
+.loader-name{
+  font-family:'EB Garamond',serif;
+  font-style:italic;
+  font-size:clamp(18px,3vw,28px);
+  letter-spacing:0.18em;
+  color:var(--ink);
+  opacity:0;
+  animation:loaderFadeIn 0.8s ease 0.2s forwards;
+}
+.loader-line{
+  width:0;
+  height:0.5px;
+  background:var(--ink);
+  opacity:0.3;
+  animation:loaderLine 1s cubic-bezier(0.16,1,0.3,1) 0.4s forwards;
+}
+@keyframes loaderFadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+@keyframes loaderLine{from{width:0}to{width:clamp(80px,12vw,140px)}}
 </style>
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-YBRBFCMMCB"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-YBRBFCMMCB');
+  </script>
 </head>
+
+<!-- 로딩 화면 -->
+<div id="page-loader">
+  <div class="loader-inner">
+    <div class="loader-name">Won Jeong Cho</div>
+    <div class="loader-line"></div>
+  </div>
+</div>
 <body>
 <nav>
   <span class="nav-logo" onclick="go('index')">Won Jeong Cho</span>
@@ -293,9 +366,18 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 </div>
 
 <script>
-var D=null, lang='ko';
+var D=null, lang=(function(){try{return localStorage.getItem('wcj_lang')||'ko';}catch(e){return 'ko';}}());
 
-function go(page){window.location.href=page+'.html';}
+
+/* ── 페이지 전환 ── */
+function go(page){
+  document.body.classList.add('fade-out');
+  setTimeout(function(){window.location.href=page+'.html';},280);
+}
+document.addEventListener('DOMContentLoaded',function(){
+  document.body.classList.add('page-fade');
+});
+
 
 document.querySelectorAll('.nav-dd').forEach(function(dd){
   var menu=dd.querySelector('.nav-dd-menu'),timer;
@@ -315,6 +397,7 @@ function setCvTab(t){
 
 function setLang(l){
   lang=l;
+  try{localStorage.setItem('wcj_lang',l);}catch(e){}
   document.getElementById('btnKo').classList.toggle('active',l==='ko');
   document.getElementById('btnEn').classList.toggle('active',l==='en');
   if(D) render();
@@ -433,12 +516,25 @@ window.addEventListener('scroll', function(){
   }
 }, {passive: false});
 
+document.getElementById('btnKo').classList.toggle('active',lang==='ko');
+document.getElementById('btnEn').classList.toggle('active',lang==='en');
 fetch('./data/about.json')
   .then(function(r){return r.json();})
   .then(function(data){D=data;render();})
   .catch(function(){
     document.getElementById('bioSection').innerHTML='<div class="loading">데이터를 불러올 수 없습니다.</div>';
   });
+
+/* ── 로딩 화면 제거 ── */
+window.addEventListener('load', function(){
+  var loader = document.getElementById('page-loader');
+  if(loader){
+    setTimeout(function(){
+      loader.classList.add('hidden');
+      setTimeout(function(){loader.style.display='none';}, 650);
+    }, 400);
+  }
+});
 </script>
 </body>
 </html>
