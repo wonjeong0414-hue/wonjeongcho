@@ -163,13 +163,13 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
     max-width:100%;
     margin:0;
   }
-  /* Bio 상단 고정 영역 */
-  .bio-section{flex-shrink:0;padding:10px 5% 0;max-height:14%;overflow-y:auto;scrollbar-width:none;margin-bottom:0}
+  /* Bio + CV요약 묶음 30% */
+  .bio-cv-wrap{flex-shrink:0;max-height:30%;overflow-y:auto;scrollbar-width:none}
+  .bio-cv-wrap::-webkit-scrollbar{display:none}
+  .bio-section{padding:10px 5% 0;margin-bottom:0;overflow:visible;max-height:none}
   .bio-body{font-size:11px;line-height:1.7}
   .bio-title{font-size:12px}
-  .bio-section::-webkit-scrollbar{display:none}
-  .cv-summary-section{flex-shrink:0;padding:8px 5% 0;overflow-y:auto;max-height:15%;scrollbar-width:none}
-  .cv-summary-section::-webkit-scrollbar{display:none}
+  .cv-summary-section{padding:6px 5% 0;overflow:visible;max-height:none}
   .sec-divider{flex-shrink:0;margin:6px 0 0}
   /* main-grid */
   .main-grid{flex:1;display:flex;flex-direction:column;min-height:0;overflow:hidden;grid-template-columns:1fr;gap:0;padding:0}
