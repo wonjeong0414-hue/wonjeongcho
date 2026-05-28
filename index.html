@@ -1,9 +1,9 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tactile Nature Abstract | Cho Won Jeong</title>
+<title> Tactile Nature Abstract | Cho Won Jeong</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,500;1,500&family=Cormorant+Garamond:wght@300;400&display=swap" onload="this.rel='stylesheet'">
@@ -18,15 +18,15 @@ body{font-family:'Cormorant Garamond',serif;display:flex;flex-direction:column}
 nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-items:center;justify-content:space-between;padding:0 36px;z-index:100;background:var(--bg);border-bottom:0.5px solid rgba(0,0,0,0.08)}
 @media(max-width:600px){nav{padding:0 12px}}
 .nav-logo{font-family:'Cormorant Garamond',serif;font-weight:400;font-size:13px;letter-spacing:0.28em;color:var(--ink);text-transform:uppercase;opacity:0;animation:fadeIn 1s ease 0.3s forwards;cursor:pointer}
-.nav-right{display:flex;align-items:center;opacity:0;animation:fadeIn 1s ease 0.5s forwards}
-.nav-item{font-size:9.5px;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink-dim);padding:5px 11px;cursor:pointer;text-decoration:none;transition:color 0.25s;white-space:nowrap;position:relative}
+.nav-right{display:flex;align-items:center;height:100%;opacity:0;animation:fadeIn 1s ease 0.5s forwards}
+.nav-item{font-size:9.5px;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink-dim);padding:5px 11px;cursor:pointer;text-decoration:none;transition:color 0.25s;white-space:nowrap;position:relative;line-height:1;display:flex;align-items:center}
 .nav-item::after{content:'';position:absolute;bottom:0;left:11px;right:11px;height:0.5px;background:var(--ink);transform:scaleX(0);transform-origin:left;transition:transform 0.28s cubic-bezier(0.16,1,0.3,1);opacity:0.5}
 .nav-item:hover{color:var(--ink)}
 .nav-item:hover::after{transform:scaleX(1)}
 .nav-item.active{color:var(--ink)}
 .nav-item.active::after{transform:scaleX(1)}
 .nav-sep{width:0.5px;height:12px;background:rgba(0,0,0,0.12);margin:0 5px;flex-shrink:0}
-.nav-dropdown{position:relative}
+.nav-dropdown{position:relative;display:flex;align-items:center}
 .nav-dropdown-menu{display:none;position:absolute;top:calc(100% + 6px);left:50%;transform:translateX(-50%);background:var(--white);border:0.5px solid rgba(0,0,0,0.08);border-radius:4px;padding:4px 0;min-width:90px;width:max-content;z-index:200;box-shadow:0 4px 14px rgba(0,0,0,0.07)}
 .nav-dropdown-item{display:block;font-size:9px;letter-spacing:0.1em;color:var(--ink-mid);padding:6px 14px;cursor:pointer;transition:color 0.15s,background 0.15s;white-space:nowrap;text-transform:uppercase}
 .nav-dropdown-item:hover{color:var(--ink);background:rgba(0,0,0,0.03)}
