@@ -272,7 +272,7 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 .m-year-bar{display:none}
 
 /* ── 모바일 ── */
-@media(max-width:768px){
+@media(max-width:600px){
   html,body{overflow:auto;height:auto}
   .layout{position:static;margin-top:calc(var(--nav-h) + 44px);height:auto;display:block}
   .year-bar{display:none}
@@ -484,7 +484,7 @@ var allWorks=[];
 var sheetState='closed',dragStartY=0,dragStartState='';
 
 function sel(id){return document.getElementById(id);}
-function isMobile(){return window.innerWidth<=768;}
+function isMobile(){return window.innerWidth<=600;}
 
 /* ── 페이지 전환 ── */
 function go(page){
@@ -714,8 +714,12 @@ function openSheet(idx){
   modalIdx=idx;paintSheet();
   var sheet=sel('bsSheet');
   sheet.classList.remove('half','full');
-  requestAnimationFrame(function(){sheet.classList.add('half');});
-  sheetState='half';document.body.classList.add('sheet-open');
+  document.body.classList.remove('sheet-open');
+  requestAnimationFrame(function(){
+    sheet.classList.add('half');
+    document.body.classList.add('sheet-open');
+  });
+  sheetState='half';
 }
 function closeSheet(){sel('bsSheet').classList.remove('half','full');sheetState='closed';document.body.classList.remove('sheet-open');}
 function navSheet(d){modalIdx=(modalIdx+d+flatFiltered.length)%flatFiltered.length;paintSheet();}
