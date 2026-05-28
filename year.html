@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
@@ -313,8 +313,8 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 }
 
 /* ── 페이지 전환 fade ── */
-@keyframes pageFadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
-.page-fade{animation:pageFadeIn 0.5s cubic-bezier(0.16,1,0.3,1) forwards}
+@keyframes pageFadeIn{from{opacity:0}to{opacity:1}}
+.page-fade{animation:pageFadeIn 0.4s ease forwards}
 body.fade-out{opacity:0;transition:opacity 0.3s ease}
 
 /* ── 로딩 화면 ── */
