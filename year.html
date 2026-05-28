@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
@@ -447,6 +447,9 @@ function go(page){
 }
 document.addEventListener('DOMContentLoaded',function(){
   document.body.classList.add('page-fade');
+  setTimeout(function(){
+    document.body.classList.remove('page-fade');
+  }, 500);
 });
 
 function initPreview(works){
