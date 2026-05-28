@@ -207,29 +207,57 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
   :root{--pad:22px}
   nav{padding:0 12px}
   .lang-bar{padding:0 16px;height:40px}
-  /* 모바일 전체 스크롤 */
-  body{overflow:auto !important;height:auto !important}
-  .page-wrap{padding-top:calc(var(--nav-h) + 40px + 24px)}
-  /* 학력/소장인 숨기기 (모바일에서 좌측 컬럼 불필요) */
-  .left-col{display:none}
-  /* main-grid 1단 */
-  .main-grid{grid-template-columns:1fr;gap:0}
-  /* cv-tabs: nav 바로 아래 sticky */
-  .cv-tabs{
-    position:sticky;
-    top:var(--nav-h);
-    z-index:100;
-    background:var(--bg);
-    padding:8px 0 6px;
-    margin-bottom:16px;
-    border-bottom:0.5px solid rgba(0,0,0,0.07);
+  /* text.html과 동일한 fixed layout */
+  html,body{overflow:hidden !important;height:100% !important}
+  .page-wrap{
+    position:fixed;
+    top:calc(var(--nav-h) + 40px);
+    left:0;right:0;bottom:0;
+    display:flex;flex-direction:column;
+    overflow:hidden;
+    padding:0;
+    max-width:100%;
+    margin:0;
   }
-  .cv-footer{flex-direction:column;align-items:flex-start}
+  /* Bio/CV요약 상단 스크롤 영역 */
+  .bio-section{flex-shrink:0;padding:16px var(--pad) 0;max-height:30%;overflow-y:auto;scrollbar-width:none;margin-bottom:0}
+  .bio-section::-webkit-scrollbar{display:none}
+  .cv-summary-section{display:none}
+  .sec-divider{flex-shrink:0;margin:8px 0 0}
+  /* main-grid: 탭+리스트 영역 flex로 */
+  .main-grid{
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    min-height:0;
+    overflow:hidden;
+    grid-template-columns:1fr;
+    gap:0;
+    padding:0;
+  }
+  /* 학력/소장인 숨김 */
+  .left-col{display:none}
+  .right-col{flex:1;display:flex;flex-direction:column;min-height:0;overflow:hidden}
+  /* 탭: nav 바로 아래 고정 */
+  .cv-tabs{
+    flex-shrink:0;
+    width:100%;height:38px;
+    display:flex;flex-direction:row;
+    align-items:center;justify-content:center;
+    padding:0 var(--pad);
+    border-bottom:0.5px solid rgba(0,0,0,0.08);
+    border-top:0.5px solid rgba(0,0,0,0.06);
+    background:var(--bg);
+    margin-bottom:0;
+    position:static;
+  }
+  .cv-tab{font-size:9px;letter-spacing:0.1em;flex:1;text-align:center;line-height:38px;padding:0;border-bottom:none}
+  .cv-tab.active{font-size:9.5px;font-weight:700;border-bottom:none}
+  /* CV 패널 리스트 스크롤 */
+  .cv-panel{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:12px var(--pad) 40px}
+  .cv-panel.active{display:flex;flex-direction:column}
+  .cv-footer{display:none}
   .cv-row-item{grid-template-columns:38px 1fr;gap:0 10px}
-  /* 스크롤 제한 JS 비활성화 */
-  .bio-section{margin-bottom:24px}
-  .cv-summary-section{margin-bottom:28px}
-  .sec-divider{margin:0 0 24px}
 }
 @media(max-width:480px){
   .nav-logo{font-size:10px;letter-spacing:0.18em}
