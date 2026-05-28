@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>404 — Won Jeong Cho</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;1,400&family=Cormorant+Garamond:wght@300;400&display=swap" onload="this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;1,400&family=Cormorant+Garamond:wght@300;400&display=swap"></noscript>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--ink:#1a1a18;--ink-mid:#4a4a47;--ink-dim:#7a7a74;--bg:#f7f6f3;--nav-h:50px}
+html,body{height:100%;background:var(--bg);font-family:'Cormorant Garamond',serif;color:var(--ink)}
+body{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:40px;transition:opacity 0.3s ease}
+body.fade-out{opacity:0}
+
+@keyframes pageFadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.page-fade{animation:pageFadeIn 0.6s cubic-bezier(0.16,1,0.3,1) forwards}
+
+.wrap{
+  display:flex;flex-direction:column;align-items:center;
+  gap:28px;text-align:center;
+  animation:pageFadeIn 0.8s cubic-bezier(0.16,1,0.3,1) forwards;
+}
+.num{
+  font-family:'EB Garamond',serif;
+  font-style:italic;
+  font-size:clamp(80px,14vw,140px);
+  color:var(--ink);
+  line-height:1;
+  opacity:0.12;
+  letter-spacing:0.04em;
+}
+.msg{
+  font-family:'EB Garamond',serif;
+  font-style:italic;
+  font-size:clamp(16px,2.2vw,22px);
+  color:var(--ink-mid);
+  line-height:1.8;
+  letter-spacing:0.04em;
+  max-width:420px;
+  word-break:keep-all;
+}
+.rule{width:28px;height:0.5px;background:rgba(26,26,24,0.15)}
+.back-btn{
+  font-size:9px;letter-spacing:0.22em;text-transform:uppercase;
+  color:var(--ink-dim);cursor:pointer;
+  border:0.5px solid rgba(26,26,24,0.2);
+  padding:8px 20px;border-radius:2px;
+  background:transparent;
+  transition:color 0.2s,border-color 0.2s,background 0.2s;
+  font-family:'Cormorant Garamond',serif;
+  text-decoration:none;display:inline-block;
+}
+.back-btn:hover{color:var(--ink);border-color:rgba(26,26,24,0.5);background:rgba(26,26,24,0.04)}
+</style>
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-YBRBFCMMCB"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-YBRBFCMMCB');
+  </script>
+</head>
+<body>
+<div class="wrap">
+  <div class="num">404</div>
+  <div class="rule"></div>
+  <div class="msg">
+    찾으시는 페이지가<br>존재하지 않거나 이동되었습니다.
+  </div>
+  <a class="back-btn" href="./index.html" onclick="go('index');return false;">← 홈으로 돌아가기</a>
+</div>
+
+<script>
+function go(page){
+  document.body.classList.add('fade-out');
+  setTimeout(function(){window.location.href=page+'.html';},280);
+}
+document.addEventListener('DOMContentLoaded',function(){
+  document.body.classList.add('page-fade');
+});
+</script>
+</body>
+</html>
