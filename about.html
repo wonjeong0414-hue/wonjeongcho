@@ -55,6 +55,7 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 
 .cv-summary-section{margin-bottom:48px}
 .cv-summary{font-family:'EB Garamond',serif;font-size:13px;line-height:2.0;color:var(--ink-mid);word-break:keep-all;text-align:justify;hyphens:auto}
+@media(max-width:600px){.cv-summary{font-size:12px;line-height:1.75}}
 .cv-summary p{margin-bottom:1em}
 .cv-summary p:last-child{margin-bottom:0}
 
@@ -164,10 +165,10 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
     margin:0;
   }
   /* Bio + CV요약 묶음 30% */
-  .bio-cv-wrap{flex-shrink:0;max-height:30%;overflow-y:auto;scrollbar-width:none}
+  .bio-cv-wrap{flex-shrink:0;max-height:50%;overflow-y:auto;scrollbar-width:none}
   .bio-cv-wrap::-webkit-scrollbar{display:none}
   .bio-section{padding:10px 5% 0;margin-bottom:0;overflow:visible;max-height:none}
-  .bio-body{font-size:11px;line-height:1.7}
+  .bio-body{font-size:12px;line-height:1.75}
   .bio-title{font-size:12px}
   .cv-summary-section{padding:6px 5% 0;overflow:visible;max-height:none}
   .sec-divider{flex-shrink:0;margin:6px 0 0}
