@@ -13,8 +13,8 @@
   <meta property="og:type" content="website">
   <meta property="og:title" content="Year Archive — Won Jeong Cho">
   <meta property="og:description" content="Year-by-year archive of paintings by Won Jeong Cho, from 2008 to the present.">
-  <meta property="og:url" content="https://wonjeong0414-hue.github.io/wonjeongcho/year.html">
-  <meta property="og:image" content="https://wonjeong0414-hue.github.io/wonjeongcho/og-image.jpg">
+  <meta property="og:url" content="https://www.chowonjeong.org/year.html">
+  <meta property="og:image" content="https://www.chowonjeong.org/og-image.jpg">
   <meta property="og:site_name" content="Won Jeong Cho">
   <meta property="og:locale" content="ko_KR">
   <meta property="og:locale:alternate" content="en_US">
@@ -22,9 +22,9 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Year Archive — Won Jeong Cho">
   <meta name="twitter:description" content="Year-by-year archive of paintings by Won Jeong Cho, from 2008 to the present.">
-  <meta name="twitter:image" content="https://wonjeong0414-hue.github.io/wonjeongcho/og-image.jpg">
+  <meta name="twitter:image" content="https://www.chowonjeong.org/og-image.jpg">
   <!-- Canonical -->
-  <link rel="canonical" href="https://wonjeong0414-hue.github.io/wonjeongcho/year.html">
+  <link rel="canonical" href="https://www.chowonjeong.org/year.html">
   <!-- JSON-LD -->
   <script type="application/ld+json">
   {
@@ -33,7 +33,7 @@
     "name": "Won Jeong Cho",
     "alternateName": "조원정",
     "jobTitle": "Visual Artist",
-    "url": "https://wonjeong0414-hue.github.io/wonjeongcho/",
+    "url": "https://www.chowonjeong.org/",
     "sameAs": [
       "https://www.instagram.com/wonjeong.cho/",
       "https://www.saatchiart.com/en-kr/chowonjeong"
@@ -331,8 +331,62 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
   .bs-prev{left:10px}
   .bs-next{right:10px}
 }
+
+/* ── 페이지 전환 fade ── */
+@keyframes pageFadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+.page-fade{animation:pageFadeIn 0.5s cubic-bezier(0.16,1,0.3,1) forwards}
+body.fade-out{opacity:0;transition:opacity 0.3s ease}
+
+/* ── 로딩 화면 ── */
+#page-loader{
+  position:fixed;inset:0;
+  background:var(--bg);
+  display:flex;align-items:center;justify-content:center;
+  z-index:9999;
+  opacity:1;
+  transition:opacity 0.6s cubic-bezier(0.16,1,0.3,1);
+  pointer-events:all;
+}
+#page-loader.hidden{opacity:0;pointer-events:none}
+.loader-inner{
+  display:flex;flex-direction:column;align-items:center;gap:20px;
+}
+.loader-name{
+  font-family:'EB Garamond',serif;
+  font-style:italic;
+  font-size:clamp(18px,3vw,28px);
+  letter-spacing:0.18em;
+  color:var(--ink);
+  opacity:0;
+  animation:loaderFadeIn 0.8s ease 0.2s forwards;
+}
+.loader-line{
+  width:0;
+  height:0.5px;
+  background:var(--ink);
+  opacity:0.3;
+  animation:loaderLine 1s cubic-bezier(0.16,1,0.3,1) 0.4s forwards;
+}
+@keyframes loaderFadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+@keyframes loaderLine{from{width:0}to{width:clamp(80px,12vw,140px)}}
 </style>
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-YBRBFCMMCB"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-YBRBFCMMCB');
+  </script>
 </head>
+
+<!-- 로딩 화면 -->
+<div id="page-loader">
+  <div class="loader-inner">
+    <div class="loader-name">Won Jeong Cho</div>
+    <div class="loader-line"></div>
+  </div>
+</div>
 <body>
 <nav>
   <span class="nav-logo" onclick="go('index')">Won Jeong Cho</span>
@@ -431,7 +485,16 @@ var sheetState='closed',dragStartY=0,dragStartState='';
 
 function sel(id){return document.getElementById(id);}
 function isMobile(){return window.innerWidth<=600;}
-function go(page){window.location.href=page+'.html';}
+
+/* ── 페이지 전환 ── */
+function go(page){
+  document.body.classList.add('fade-out');
+  setTimeout(function(){window.location.href=page+'.html';},280);
+}
+document.addEventListener('DOMContentLoaded',function(){
+  document.body.classList.add('page-fade');
+});
+
 
 function initPreview(works){
   var found=null;
@@ -588,8 +651,9 @@ function disconnectChunkObserver(){
 function makeCard(row,flatIdx,animOffset){
   var card=document.createElement('div');card.className='card';
   var title=row['title']||'',yr=row['year']||'',medium=row['medium']||'',thumb=row['thumb']||'';
+  var altText='조원정'+(title?' '+title:'')+(yr?' '+yr:'')+(medium?' '+medium:'');
   var sk=document.createElement('div');sk.className='card-skeleton';card.appendChild(sk);
-  var img=document.createElement('img');img.alt=title;
+  var img=document.createElement('img');img.alt=altText;
   img.onload=function(){if(sk.parentNode)sk.parentNode.removeChild(sk);img.classList.add('loaded');};
   img.onerror=function(){if(sk.parentNode)sk.parentNode.removeChild(sk);};
   if(thumb){lazyLoad(img,thumb);}else{img.classList.add('loaded');}
@@ -733,6 +797,17 @@ fetch('./data/works.json')
   .catch(function(){
     sel('yearGrid').innerHTML='<div style="font-size:8px;color:var(--ink-dim)">로딩 오류</div>';
   });
+
+/* ── 로딩 화면 제거 ── */
+window.addEventListener('load', function(){
+  var loader = document.getElementById('page-loader');
+  if(loader){
+    setTimeout(function(){
+      loader.classList.add('hidden');
+      setTimeout(function(){loader.style.display='none';}, 650);
+    }, 400);
+  }
+});
 </script>
 </body>
 </html>
