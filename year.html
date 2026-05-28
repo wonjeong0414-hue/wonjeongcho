@@ -3,28 +3,28 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Year Archive — Won Jeong Cho</title>
+<title>Context Archive — Won Jeong Cho</title>
   <!-- SEO Meta -->
-  <meta name="description" content="조원정 작가의 연도별 작품 아카이브. 2008년부터 현재까지의 회화 작품을 연도순으로 탐색할 수 있습니다.">
+  <meta name="description" content="조원정 작가의 주제별 작품 아카이브. 테마, 시리즈, 물성, 감각을 기준으로 작품을 탐색합니다.">
   <meta name="keywords" content="조원정, Won Jeong Cho, 작가, artist, 회화, painting, 추상, abstract, Tactile Thinking, 촉각적 사고, 한국 현대미술, Korean contemporary art">
   <meta name="author" content="Won Jeong Cho">
   <meta name="robots" content="index, follow">
   <!-- Open Graph -->
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Year Archive — Won Jeong Cho">
-  <meta property="og:description" content="Year-by-year archive of paintings by Won Jeong Cho, from 2008 to the present.">
-  <meta property="og:url" content="https://www.chowonjeong.org/year.html">
+  <meta property="og:title" content="Context Archive — Won Jeong Cho">
+  <meta property="og:description" content="Thematic archive of works by Won Jeong Cho, organized by themes, series, materiality, and emotions.">
+  <meta property="og:url" content="https://www.chowonjeong.org/context.html">
   <meta property="og:image" content="https://www.chowonjeong.org/og-image.jpg">
   <meta property="og:site_name" content="Won Jeong Cho">
   <meta property="og:locale" content="ko_KR">
   <meta property="og:locale:alternate" content="en_US">
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Year Archive — Won Jeong Cho">
-  <meta name="twitter:description" content="Year-by-year archive of paintings by Won Jeong Cho, from 2008 to the present.">
+  <meta name="twitter:title" content="Context Archive — Won Jeong Cho">
+  <meta name="twitter:description" content="Thematic archive of works by Won Jeong Cho, organized by themes, series, materiality, and emotions.">
   <meta name="twitter:image" content="https://www.chowonjeong.org/og-image.jpg">
   <!-- Canonical -->
-  <link rel="canonical" href="https://www.chowonjeong.org/year.html">
+  <link rel="canonical" href="https://www.chowonjeong.org/context.html">
   <!-- JSON-LD -->
   <script type="application/ld+json">
   {
@@ -47,12 +47,12 @@
 <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;1,400&family=Cormorant+Garamond:wght@300;400&display=swap&font-display=swap"></noscript>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{--ink:#1a1a18;--ink-mid:#4a4a47;--ink-dim:#7a7a74;--bg:#f7f6f3;--white:#fff;--nav-h:50px;--bar-h:44px}
+:root{--ink:#1a1a18;--ink-mid:#6b6b68;--ink-dim:#aaa9a2;--bg:#f7f6f3;--white:#fff;--nav-h:50px;--left-w:200px;--left-pad:28px}
 html,body{height:100%;background:var(--bg);font-family:'Cormorant Garamond',serif;color:var(--ink);overflow:hidden}
 nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-items:center;justify-content:space-between;padding:0 36px;z-index:200;background:var(--bg)}
-@media(max-width:600px){nav{padding:0 12px}}
-@media(max-width:480px){.nav-logo{font-size:9px !important;letter-spacing:0.16em !important}.nav-item{font-size:8px !important;padding:5px 6px !important}.nav-sep{margin:0 1px !important}}
-.nav-logo{font-weight:400;font-size:13px;letter-spacing:0.28em;color:var(--ink);text-decoration:none;text-transform:uppercase;cursor:pointer}
+@media(max-width:600px){nav{padding:0 16px}}
+.nav-logo{font-weight:300;font-size:13px;letter-spacing:0.3em;color:var(--ink);text-decoration:none;text-transform:uppercase;cursor:pointer}
+@media(max-width:600px){.nav-logo{font-size:9px;letter-spacing:0.2em}}
 .nav-right{display:flex;align-items:center}
 .nav-item{font-size:9.5px;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink-dim);padding:5px 11px;cursor:pointer;text-decoration:none;transition:color 0.25s;white-space:nowrap;position:relative;line-height:1;display:flex;align-items:center}
 .nav-item::after{content:'';position:absolute;bottom:0;left:11px;right:11px;height:0.5px;background:var(--ink);transform:scaleX(0);transform-origin:left;transition:transform 0.28s cubic-bezier(0.16,1,0.3,1);opacity:0.5}
@@ -62,145 +62,86 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 .nav-item.active::after{transform:scaleX(1)}
 .nav-sep{width:0.5px;height:12px;background:rgba(0,0,0,0.12);margin:0 5px;flex-shrink:0}
 .nav-dd{position:relative;display:flex;align-items:center}
-.nav-dd-menu{display:none;position:absolute;top:calc(100% + 4px);left:50%;transform:translateX(-50%);background:var(--white);border-radius:4px;padding:4px 0;min-width:80px;width:max-content;z-index:300;box-shadow:0 4px 14px rgba(0,0,0,0.08)}
-.nav-dd-item{display:block;font-size:9px;letter-spacing:0.08em;color:var(--ink-mid);padding:5px 14px;cursor:pointer;transition:color 0.15s,background 0.15s;white-space:nowrap;text-transform:uppercase}
+/* ★ 드롭다운 메뉴 너비 줄임 */
+.nav-dd-menu{display:none;position:absolute;top:calc(100% + 6px);left:50%;transform:translateX(-50%);background:var(--white);border-radius:4px;padding:4px 0;min-width:90px;width:max-content;z-index:300;box-shadow:0 4px 14px rgba(0,0,0,0.07)}
+.nav-dd-item{display:block;font-size:9px;letter-spacing:0.08em;color:var(--ink-mid);padding:6px 14px;cursor:pointer;transition:color 0.15s,background 0.15s;white-space:nowrap;text-transform:uppercase}
 .nav-dd-item:hover{color:var(--ink);background:rgba(0,0,0,0.03)}
-
-/* ── 데스크탑 레이아웃 ── */
 .layout{position:fixed;top:var(--nav-h);left:0;right:0;bottom:0;display:flex;flex-direction:column}
+.top-header{flex-shrink:0;display:flex;align-items:center;gap:28px;padding:0 36px 0 var(--left-pad);height:52px}
+.header-title{font-family:'EB Garamond',serif;font-style:italic;font-size:18px;color:var(--ink);white-space:nowrap;flex-shrink:0}
+.body-row{flex:1;display:flex;overflow:hidden}
+.left-panel{width:var(--left-w);flex-shrink:0;display:flex;flex-direction:column;padding:20px 12px 16px var(--left-pad);overflow:hidden}
+.strip-row{display:flex;align-items:center;justify-content:space-between;min-height:18px;margin-bottom:6px}
+.clear-btn{font-size:7.5px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-dim);cursor:pointer;border:none;background:none;padding:0;transition:color 0.15s}
+.clear-btn:hover{color:var(--ink-mid)}
+.active-strip{display:flex;flex-wrap:wrap;gap:3px;align-items:center;margin-bottom:10px}
+.a-pill{font-size:7.5px;letter-spacing:0.03em;background:rgba(0,0,0,0.04);border-radius:20px;padding:2px 7px 2px 8px;display:flex;align-items:center;gap:3px;animation:pillIn 0.15s ease;color:var(--ink-mid)}
+@keyframes pillIn{from{opacity:0;transform:scale(0.85)}to{opacity:1;transform:scale(1)}}
+.a-pill-x{font-size:10px;opacity:0.35;cursor:pointer;line-height:1;transition:opacity 0.15s}
+.a-pill-x:hover{opacity:0.8}
+.cat-list-wrap{display:flex;flex-direction:column;flex:1;overflow-y:auto;scrollbar-width:none}
+.cat-list-wrap::-webkit-scrollbar{display:none}
+.cat-header{display:flex;align-items:center;justify-content:space-between;padding:10px 0 9px;cursor:pointer;user-select:none}
+.cat-header:hover .cat-title{color:var(--ink-mid)}
+.cat-title{font-size:9.5px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-dim);line-height:1.3;transition:color 0.2s}
+.cat-cell.open .cat-title,.cat-cell.has-sel .cat-title{color:var(--ink)}
+.cat-arrow{font-size:7px;opacity:0.25;transition:transform 0.25s ease,opacity 0.2s;flex-shrink:0}
+.cat-cell.open .cat-arrow{transform:rotate(180deg);opacity:0.5}
+.cat-list{max-height:0;overflow:hidden;transition:max-height 0.38s cubic-bezier(0.16,1,0.3,1);display:flex;flex-direction:column;padding:0 0 0 2px}
+.cat-cell.open .cat-list{max-height:300px;padding-bottom:8px}
+.cb-item{display:flex;align-items:center;gap:8px;padding:4px 0;cursor:pointer;user-select:none}
+.cb-item:hover .cb-label{color:var(--ink-mid)}
+.cb-box{width:12px;height:12px;border:0.5px solid rgba(0,0,0,0.22);border-radius:2px;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:background 0.15s,border-color 0.15s;margin-top:1px}
+.cb-item.checked .cb-box{background:var(--ink-dim);border-color:var(--ink-dim)}
+.cb-check{display:none}
+.cb-item.checked .cb-check{display:block}
+.cb-label{font-size:8.5px;color:var(--ink-dim);transition:color 0.15s;line-height:1.4;letter-spacing:0.03em}
+.cb-item.checked .cb-label{color:var(--ink-mid)}
+.result-count{font-size:7.5px;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-dim);margin-top:8px;text-align:right;flex-shrink:0}
+.right-panel{flex:1;min-width:0;position:relative;overflow:hidden}
+.float-zone{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;transition:opacity 0.4s ease;pointer-events:all}
+.float-zone.hidden{opacity:0;pointer-events:none}
 
-/* ── 상단 연도 바 (Year 레이블 + 연도 가로) ── */
-.year-bar{
-  flex-shrink:0;
-  min-height:var(--bar-h);
-  height:auto;
-  display:flex;
-  align-items:center;
-  flex-wrap:wrap;
-  padding:4px 36px;
-  border-bottom:0.5px solid rgba(0,0,0,0.07);
-  column-gap:0;
-  row-gap:0;
-  overflow:visible;
-}
-.year-bar::-webkit-scrollbar{display:none}
-.bar-title{
+/* ── PC float-zone 문구 오버레이 ── */
+.pc-float-text{
+  position:absolute;
+  bottom:8%;
+  left:5%;
+  z-index:2;
   font-family:'EB Garamond',serif;
   font-style:italic;
-  font-size:18px;
+  font-size:clamp(13px,1.4vw,18px);
   color:var(--ink);
-  margin-right:12px;
-  flex-shrink:0;
-  letter-spacing:0.04em;
-  line-height:var(--bar-h);
-}
-.bar-sep{width:0.5px;height:14px;background:rgba(0,0,0,0.12);margin-right:14px;flex-shrink:0;align-self:center}
-.yr-item{
-  cursor:pointer;
-  user-select:none;
-  padding:3px 6px;
-  position:relative;
-  flex-shrink:0;
-}
-.yr-label{
-  font-size:14px;
-  color:var(--ink-mid);
-  transition:color 0.18s;
-  line-height:1.4;
+  line-height:2;
   letter-spacing:0.03em;
-  font-family:'Cormorant Garamond',serif;
-  font-weight:500;
-  display:block;
-}
-.yr-item::after{
-  content:'';
-  position:absolute;
-  bottom:0;left:6px;right:6px;
-  height:0.5px;background:var(--ink);
-  transform:scaleX(0);transform-origin:left;
-  transition:transform 0.25s cubic-bezier(0.16,1,0.3,1);
-  opacity:0.4;
-}
-.yr-item:hover .yr-label{color:var(--ink)}
-.yr-item:hover::after{transform:scaleX(1)}
-.yr-item.checked .yr-label{color:var(--ink);font-weight:600;font-size:14.5px}
-.yr-item.checked::after{transform:scaleX(1)}
-
-/* ── body ── */
-.body-row{flex:1;display:flex;overflow:hidden;position:relative}
-
-/* ── preview zone ── */
-.preview-zone{
-  position:absolute;inset:0;
-  display:flex;align-items:flex-start;justify-content:center;
-  padding:clamp(12px,3vh,40px) 48px;
-  opacity:1;transition:opacity 0.5s ease;pointer-events:none;
-  overflow:hidden;
-}
-.preview-zone.hidden{opacity:0}
-/* ── preview 하단 Tactile Thinking ── */
-.preview-overlay-text{
-  position:absolute;
-  bottom:clamp(10px,2vh,24px);
-  right:clamp(8px,2%,24px);
-  font-family:'EB Garamond',serif;
-  font-style:italic;
-  font-size:clamp(18px,2vw,28px);
-  color:var(--ink);
-  letter-spacing:0.08em;
-  white-space:nowrap;
+  word-break:keep-all;
   pointer-events:none;
-  text-shadow:0 1px 18px rgba(247,246,243,0.95),0 0 30px rgba(247,246,243,0.8);
-  animation:previewFloat 9s ease-in-out infinite;
-  opacity:0;
-  transition:opacity 0.8s ease 0.5s;
+  animation:floatC 9s ease-in-out 0.6s infinite;
+  text-shadow:0 1px 18px rgba(247,246,243,0.9),0 0 30px rgba(247,246,243,0.7);
 }
-.preview-zone:not(.hidden) .preview-overlay-text{opacity:1}
-.preview-img-wrap{display:flex;flex-direction:column;align-items:flex-start;max-width:min(82%,680px);position:relative}
-
-/* ★ 이미지 10% 크게 + 움직임 강화 */
-.preview-img-wrap{
-  transition:transform 0.7s cubic-bezier(0.16,1,0.3,1);
-  cursor:pointer;
-}
-.preview-img-wrap:hover{
-  transform:scale(1.04);
-}
-.preview-img{
-  display:block;
-  max-height:calc(100vh - var(--nav-h) - var(--bar-h) - 60px);
-  max-width:100%;
-  width:auto;
-  object-fit:contain;
-  opacity:0;
-  transition:opacity 1s ease;
-  animation:previewFloat 9s ease-in-out infinite;
-}
-.preview-img.loaded{opacity:1}
-@keyframes previewFloat{
-  0%,100%{transform:translateY(0) rotate(0deg)}
-  35%{transform:translateY(-4px) rotate(0.12deg)}
-  70%{transform:translateY(2px) rotate(-0.08deg)}
-}
-
-.preview-caption{margin-top:10px;display:flex;flex-direction:column;gap:2px;opacity:0;transition:opacity 0.8s ease 0.4s}
-.preview-caption.show{opacity:1}
-.caption-title{font-family:'EB Garamond',serif;font-style:italic;font-size:11px;color:var(--ink-mid);letter-spacing:0.04em;line-height:1.4}
-.caption-sen{font-size:8.5px;letter-spacing:0.1em;color:var(--ink-dim);line-height:1.5}
-.empty-hint{font-family:'EB Garamond',serif;font-style:italic;font-size:13px;color:var(--ink-dim);letter-spacing:0.12em}
-
-/* ── grid zone ── */
-.grid-zone{position:absolute;inset:0;overflow-y:auto;padding:16px 10% 48px 36px;scrollbar-width:none;opacity:0;pointer-events:none;transition:opacity 0.5s ease}
+@keyframes floatA{0%,100%{transform:translateY(0)}35%{transform:translateY(-7px)}70%{transform:translateY(3px)}}
+@keyframes floatB{0%,100%{transform:translateY(0)}30%{transform:translateY(6px)}65%{transform:translateY(-8px)}}
+@keyframes floatC{0%,100%{transform:translateY(0)}40%{transform:translateY(-6px)}75%{transform:translateY(5px)}}
+.sub-card{position:absolute;overflow:hidden;cursor:pointer;opacity:1;transition:box-shadow 0.3s ease;background:rgba(0,0,0,0.06)}
+.sub-card.s1{width:35.5%;height:42.7%;top:6.6%;left:7.4%;animation:floatA 8s ease-in-out infinite}
+.sub-card.s2{width:42.3%;height:54.4%;top:3.7%;left:46.3%;animation:floatB 10s ease-in-out infinite}
+.sub-card.s3{width:54.7%;height:41.9%;top:51.5%;left:17.9%;animation:floatC 9s ease-in-out 0.6s infinite}
+.sub-card:hover{box-shadow:0 14px 40px rgba(0,0,0,0.12);z-index:10}
+.sub-img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.5s ease;position:relative;z-index:1}
+.sub-card:hover .sub-img{transform:scale(1.04)}
+.narrative-zone{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-start;padding:36px 52px 0;opacity:0;transform:translateY(18px);transition:opacity 0.7s cubic-bezier(0.16,1,0.3,1),transform 0.8s cubic-bezier(0.16,1,0.3,1);pointer-events:none}
+.narrative-zone.show{opacity:1;transform:translateY(0);pointer-events:all}
+.narrative-zone.rising{opacity:0;transform:translateY(-18px);transition:opacity 0.5s ease,transform 0.6s cubic-bezier(0.4,0,0.2,1)}
+.ns-label{font-family:'EB Garamond',serif;font-style:italic;font-size:10px;letter-spacing:0.28em;text-transform:uppercase;color:var(--ink-dim);margin-bottom:18px}
+.ns-text{font-family:'EB Garamond',serif;font-size:clamp(15px,1.8vw,21px);line-height:1.95;color:var(--ink);max-width:660px;word-break:keep-all}
+.ns-rule{width:0;height:0.5px;background:rgba(0,0,0,0.12);margin-top:22px;transition:width 1.1s cubic-bezier(0.16,1,0.3,1) 0.4s}
+.narrative-zone.show .ns-rule{width:28px}
+.grid-zone{position:absolute;inset:0;overflow-y:auto;padding:20px 7% 48px 20px;scrollbar-width:none;opacity:0;pointer-events:none;transition:opacity 0.5s ease}
 .grid-zone::-webkit-scrollbar{display:none}
 .grid-zone.open{opacity:1;pointer-events:all}
-.year-section{margin-bottom:40px}
-.year-section-header{width:80px;float:left;padding-top:4px;padding-right:16px}
-.year-section-grid{overflow:hidden}
-.yd-label{font-family:'EB Garamond',serif;font-style:italic;font-size:18px;color:var(--ink);letter-spacing:0.04em;line-height:1.3;display:block}
-.yd-count{font-size:9px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-mid);font-weight:500;display:block;margin-top:3px}
-.grid{display:grid;grid-template-columns:repeat(10,1fr);gap:4px}
-@media(max-width:1200px){.grid{grid-template-columns:repeat(8,1fr)}}
-@media(max-width:900px){.grid{grid-template-columns:repeat(6,1fr)}}
+.grid{display:grid;grid-template-columns:repeat(6,1fr);gap:5px}
+@media(max-width:1200px){.grid{grid-template-columns:repeat(5,1fr)}}
+@media(max-width:900px){.grid{grid-template-columns:repeat(4,1fr)}}
 .card{position:relative;overflow:hidden;cursor:pointer;background:rgba(0,0,0,0.04);aspect-ratio:3/4;opacity:0;transform:translateY(6px);transition:opacity 0.35s ease,transform 0.4s cubic-bezier(0.16,1,0.3,1)}
 .card.revealed{opacity:1;transform:translateY(0)}
 .card img{width:100%;height:100%;object-fit:cover;display:block;opacity:0;filter:blur(3px);transition:opacity 0.5s ease,filter 0.6s ease,transform 0.35s ease;position:absolute;inset:0}
@@ -212,51 +153,16 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 .card-meta{font-size:6.5px;letter-spacing:0.08em;color:rgba(255,255,255,0.5);text-transform:uppercase}
 .card-skeleton{position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,0.04) 25%,rgba(0,0,0,0.07) 50%,rgba(0,0,0,0.04) 75%);background-size:200% 100%;animation:cardShimmer 1.4s ease infinite}
 @keyframes cardShimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
-.load-sentinel{height:1px}
-.loading-msg{padding:40px;text-align:center;font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink-dim)}
-
-/* ── PC 모달 ── */
+.load-sentinel{grid-column:1/-1;height:1px}
+.loading-msg{grid-column:1/-1;padding:40px;text-align:center;font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink-dim)}
+/* PC 모달 */
 .modal-bg{position:fixed;inset:0;background:rgba(26,26,24,0.82);z-index:500;opacity:0;pointer-events:none;transition:opacity 0.3s ease;display:flex;align-items:center;justify-content:center;padding:5%}
 .modal-bg.open{opacity:1;pointer-events:all}
-/* ── 세로형 모달 ── */
-.modal{
-  background:var(--white);
-  max-width:660px;
-  width:100%;
-  max-height:90vh;
-  display:flex;
-  flex-direction:column;
-  overflow:hidden;
-  transform:translateY(16px) scale(0.976);
-  transition:transform 0.34s cubic-bezier(0.16,1,0.3,1);
-  position:relative;
-  border-radius:2px;
-}
+.modal{background:var(--white);max-width:660px;width:100%;max-height:90vh;display:flex;flex-direction:column;overflow:hidden;transform:translateY(16px) scale(0.976);transition:transform 0.34s cubic-bezier(0.16,1,0.3,1);position:relative;border-radius:2px}
 .modal-bg.open .modal{transform:translateY(0) scale(1)}
-.modal-img-area{
-  width:100%;
-  background:#f0efec;
-  display:flex;align-items:center;justify-content:center;
-  overflow:hidden;
-  padding:0;
-  max-height:58vh;
-  flex-shrink:0;
-}
-.modal-img-area img{
-  width:100%;height:100%;
-  object-fit:contain;
-  display:block;
-  max-height:58vh;
-  transition:opacity 0.3s ease;
-}
-.modal-panel{
-  width:100%;
-  padding:22px 28px 24px;
-  display:flex;flex-direction:column;
-  overflow-y:auto;
-  text-align:center;
-  align-items:center;
-}
+.modal-img-area{width:100%;background:#f0efec;display:flex;align-items:center;justify-content:center;overflow:hidden;padding:0;max-height:65vh;flex-shrink:0}
+.modal-img-area img{width:100%;height:100%;object-fit:contain;display:block;max-height:65vh;transition:opacity 0.3s ease}
+.modal-panel{width:100%;padding:22px 28px 24px;display:flex;flex-direction:column;overflow-y:auto;text-align:center;align-items:center}
 .modal-x{position:absolute;top:12px;right:14px;font-size:18px;line-height:1;color:rgba(26,26,24,0.4);cursor:pointer;background:none;border:none;font-family:serif;transition:color 0.15s;z-index:10}
 .modal-x:hover{color:var(--ink)}
 .m-title{font-family:'EB Garamond',serif;font-style:italic;font-size:18px;color:var(--ink);line-height:1.3;margin-bottom:6px}
@@ -269,56 +175,115 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 .modal-arr:hover{background:rgba(255,255,255,0.25)}
 .arr-prev{left:16px}
 .arr-next{right:16px}
-.m-year-bar{display:none}
-
-/* ── 모바일 ── */
-@media(max-width:480px){
+/* ★ mobile-hint: PC에서 숨김, 모바일에서만 표시 */
+.mobile-hint{display:none}
+/* ===================== 모바일 ===================== */
+@media(max-width:600px){
   html,body{overflow:auto;height:auto}
-  .layout{position:static;margin-top:calc(var(--nav-h) + 44px);height:auto;display:block}
-  .year-bar{display:none}
-  .body-row{display:block;overflow:visible;height:auto;position:static}
-  .preview-zone{display:none}
-  .preview-overlay-text{display:none}
-  .m-year-bar{
-    display:flex !important;
-    align-items:center;
-    padding:8px 12px;
-    border-bottom:0.5px solid rgba(0,0,0,0.08);
+  .layout{position:static;margin-top:var(--nav-h);height:auto;display:block}
+  .top-header{display:none}
+  .body-row{display:block;height:auto;overflow:visible}
+  .left-panel{width:100%;display:grid;grid-template-columns:1fr 1fr;gap:6px;padding:10px 12px;border-bottom:0.5px solid rgba(0,0,0,0.08);overflow:visible}
+  .strip-row{display:none}
+  .active-strip{display:none}
+  .result-count{display:none}
+  .cat-list-wrap{display:contents}
+  .cat-cell{position:relative}
+  .cat-header{display:flex;align-items:center;justify-content:space-between;padding:7px 10px;border:0.5px solid rgba(0,0,0,0.15);border-radius:20px;background:var(--white);cursor:pointer;user-select:none}
+  .cat-cell.open .cat-header,.cat-cell.has-sel .cat-header{border-color:var(--ink-dim);background:rgba(0,0,0,0.03)}
+  .cat-title{font-size:8px;letter-spacing:0.08em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .cat-arrow{font-size:7px;flex-shrink:0;margin-left:4px}
+  .cat-list{position:absolute;top:calc(100% + 4px);left:0;z-index:300;background:var(--white);border-radius:8px;box-shadow:0 6px 24px rgba(0,0,0,0.12);padding:6px 0;min-width:160px;max-height:none !important;overflow:visible !important;transition:none !important;display:none}
+  .cat-cell.open .cat-list{display:flex;flex-direction:column}
+  .cb-item{padding:9px 14px;gap:10px}
+  .cb-label{font-size:11px;letter-spacing:0.02em}
+  .cb-box{width:14px;height:14px}
+  .right-panel{position:static;width:100%;height:auto;overflow:visible}
+  .float-zone{display:none !important}
+  .pc-float-text{display:none}
+  /* 선택된 태그 표시 바 */
+  .m-selected-bar{
+    display:none;
+    padding:6px 12px 8px;
+    border-bottom:0.5px solid rgba(0,0,0,0.06);
     background:var(--bg);
-    position:fixed;
-    top:var(--nav-h);
-    left:0;right:0;
-    z-index:150;
-    overflow-x:auto;
-    scrollbar-width:none;
-    gap:0;
   }
-  .m-year-bar::-webkit-scrollbar{display:none}
-  .m-yr-active{font-family:'EB Garamond',serif;font-style:italic;font-size:26px;color:var(--ink);line-height:1;margin-right:16px;flex-shrink:0;cursor:default}
-  .m-yr-sep{width:0.5px;height:16px;background:rgba(0,0,0,0.15);margin-right:14px;flex-shrink:0}
-  .m-yr-list{display:flex;align-items:center;gap:2px;overflow-x:auto;scrollbar-width:none}
-  .m-yr-list::-webkit-scrollbar{display:none}
-  .m-yr-item{padding:3px 7px;font-size:11px;color:var(--ink-dim);cursor:pointer;font-family:'Cormorant Garamond',serif;transition:color 0.15s;white-space:nowrap;flex-shrink:0}
-  .m-yr-item:hover{color:var(--ink)}
-  .m-yr-item.checked{color:var(--ink);font-weight:500}
-  .grid-zone{position:static;opacity:1 !important;pointer-events:all;padding:60px 16px 120px;display:block !important;transition:filter 0.3s ease}
+  .m-selected-bar.show{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+  .m-sel-label{display:none}
+  .m-sel-tag{
+    font-family:'EB Garamond',serif;font-style:italic;
+    font-size:12px;color:var(--ink-mid);
+    background:rgba(0,0,0,0.04);
+    border-radius:20px;padding:2px 10px;
+    display:flex;align-items:center;gap:4px;
+  }
+  .m-sel-x{font-size:11px;opacity:0.4;cursor:pointer;font-style:normal}
+  .m-sel-x:hover{opacity:0.8}
+  /* ★ mobile-hint 모바일에서만 보임 */
+  .mobile-hint{display:flex;flex-direction:column;align-items:center;padding:0;position:relative}
+  .mobile-hint-marquee-wrap{display:none !important}
+  .mobile-hint-marquee{display:none}
+  .mobile-hint-static{display:none}
+  /* 이미지+텍스트 wrapper */
+  .hint-img-wrap{
+    position:relative;
+    width:90vw;
+    max-height:70vh;
+    margin:12px auto 20px;
+    display:block;
+    overflow:hidden;
+    animation:hintFloat 6s ease-in-out infinite;
+  }
+  /* 하단 그라디언트 */
+  .hint-img-wrap::after{
+    content:'';
+    position:absolute;
+    bottom:0;left:0;right:0;
+    height:45%;
+    background:linear-gradient(to top, rgba(247,246,243,0.82) 0%, transparent 100%);
+    pointer-events:none;
+  }
+  .mobile-hint-img{
+    width:100%;
+    max-height:70vh;
+    object-fit:contain;
+    display:block;
+    opacity:0;
+    transition:opacity 0.6s ease;
+  }
+  .mobile-hint-img.loaded{opacity:1}
+  /* 이미지 하단 오버레이 텍스트 */
+  .hint-overlay-text{
+    position:absolute;
+    bottom:14px;
+    left:12px;
+    right:12px;
+    z-index:2;
+    font-family:'EB Garamond',serif;
+    font-style:italic;
+    font-size:12px;
+    color:var(--ink);
+    line-height:1.9;
+    letter-spacing:0.02em;
+    word-break:keep-all;
+  }
+  @keyframes hintFloat{0%,100%{transform:translateY(0px) rotate(0deg)}30%{transform:translateY(-8px) rotate(0.4deg)}65%{transform:translateY(5px) rotate(-0.3deg)}}
+  .narrative-zone{position:static !important;opacity:1 !important;transform:none !important;pointer-events:all !important;padding:32px 20px 16px;display:none}
+  .narrative-zone.show{display:block}
+  .grid-zone{position:static !important;opacity:1 !important;pointer-events:all !important;padding:8px 8px 120px;overflow:visible;display:none}
+  .grid-zone.open{display:block !important}
   .grid{display:block;column-count:2;column-gap:5px}
-  .year-divider{display:none}
-  .card{aspect-ratio:unset;background:rgba(0,0,0,0.04);display:inline-block;width:100%;break-inside:avoid;margin-bottom:5px}
-  .card img{position:static;width:100%;height:auto;display:block;filter:none}
-  .card img.loaded{filter:none}
-  .card:hover img{transform:none}
-  .card-overlay{display:none}
+  .card{display:inline-block;width:100%;aspect-ratio:unset;break-inside:avoid;margin-bottom:5px}
+  .card img{position:static;width:100%;height:auto;display:block}
   .load-sentinel{column-span:all}
   .modal-bg{display:none !important}
-  body.sheet-open .grid-zone{filter:blur(3px)}
-  .bs-sheet{position:fixed;left:0;right:0;bottom:0;z-index:600;background:var(--white);border-radius:16px 16px 0 0;transform:translateY(100%);transition:transform 0.38s cubic-bezier(0.16,1,0.3,1);will-change:transform;overflow-y:auto;max-height:92vh}
+  .bs-sheet{position:fixed;left:0;right:0;bottom:0;z-index:600;background:var(--white);border-radius:16px 16px 0 0;transform:translateY(100%);transition:transform 0.38s cubic-bezier(0.16,1,0.3,1);will-change:transform;touch-action:none;overflow-y:auto;max-height:92vh}
   .bs-sheet.half{transform:translateY(8%)}
   .bs-sheet.full{transform:translateY(0)}
   .bs-handle-wrap{display:flex;justify-content:center;padding:10px 0 6px;cursor:grab}
   .bs-handle{width:36px;height:4px;border-radius:2px;background:rgba(0,0,0,0.15)}
   .bs-img-area{width:100%;padding:0 20px 12px;display:flex;align-items:center;justify-content:center}
-  .bs-img-area img{max-width:100%;max-height:48vh;object-fit:contain;display:block;opacity:0;transition:opacity 0.3s ease}
+  .bs-img-area img{max-width:100%;max-height:48vh;object-fit:contain;display:block}
   .bs-info{padding:0 20px 40px;overflow-y:auto;max-height:none}
   .bs-title{font-family:'EB Garamond',serif;font-style:italic;font-size:20px;color:var(--ink);line-height:1.3;margin-bottom:6px}
   .bs-meta{font-size:8px;letter-spacing:0.14em;color:var(--ink-dim);text-transform:uppercase;margin-bottom:2px}
@@ -330,6 +295,9 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
   .bs-nav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(0,0,0,0.06);border:none;width:36px;height:36px;border-radius:50%;font-size:20px;color:var(--ink-mid);cursor:pointer;display:flex;align-items:center;justify-content:center;font-family:serif}
   .bs-prev{left:10px}
   .bs-next{right:10px}
+  .grid-zone{transition:filter 0.3s ease}
+  body.sheet-open .grid-zone{filter:blur(3px)}
+  body.sheet-open .mobile-hint{filter:blur(3px);transition:filter 0.3s ease}
 }
 
 /* ── 페이지 전환 fade ── */
@@ -394,8 +362,8 @@ body.fade-out{opacity:0;transition:opacity 0.3s ease}
     <div class="nav-dd" id="navArchive">
       <span class="nav-item active">Archive</span>
       <div class="nav-dd-menu">
-        <span class="nav-dd-item" onclick="go('year')" style="color:var(--ink);font-weight:500">Year</span>
-        <span class="nav-dd-item" onclick="go('context')">Context</span>
+        <span class="nav-dd-item" onclick="go('year')">Year</span>
+        <span class="nav-dd-item" onclick="go('context')" style="color:var(--ink);font-weight:500">Context</span>
       </div>
     </div>
     <div class="nav-sep"></div>
@@ -404,37 +372,80 @@ body.fade-out{opacity:0;transition:opacity 0.3s ease}
     <span class="nav-item" onclick="go('about')">About</span>
   </div>
 </nav>
-
-<!-- 모바일 연도 바 (layout 밖) -->
-<div class="m-year-bar" id="mYearBar">
-  <div class="m-yr-active" id="mYrActive"></div>
-  <div class="m-yr-sep"></div>
-  <div class="m-yr-list" id="mYrList"></div>
-</div>
-
 <div class="layout">
-  <!-- ★ 상단 가로 연도 바 -->
-  <div class="year-bar" id="yearBar">
-    <span class="bar-title">Year</span>
-    <div class="bar-sep"></div>
-    <div class="year-grid" id="yearGrid" style="display:flex;flex-direction:row;flex-wrap:wrap;gap:0;flex:1;min-width:0"></div>
+  <div class="top-header">
+    <div class="header-title">Tactile Thinking</div>
   </div>
-
   <div class="body-row">
-    <div class="right-panel" style="flex:1;min-width:0;position:relative;overflow:hidden">
-      <div class="preview-zone" id="previewZone">
-        <div class="preview-img-wrap">
-          <img class="preview-img" id="previewImg" src="" alt="">
-          <div class="preview-caption" id="previewCaption">
-            <div class="caption-title" id="captionTitle"></div>
-            <div class="caption-sen" id="captionSen"></div>
+    <div class="left-panel">
+      <div class="strip-row">
+        <button class="clear-btn" id="clearBtn" style="display:none" onclick="clearAll()">Clear all</button>
+      </div>
+      <div class="active-strip" id="activeStrip"></div>
+      <div class="cat-list-wrap">
+        <div class="cat-cell" id="cell-THE">
+          <div class="cat-header" onclick="toggleCat('THE')">
+            <span class="cat-title">Thought &amp; Being</span>
+            <span class="cat-arrow">▾</span>
           </div>
-          <span class="empty-hint" id="emptyHint" style="display:none">연도를 선택하세요</span>
-          <div class="preview-overlay-text">Tactile Thinking</div>
+          <div class="cat-list" id="list-THE"></div>
+        </div>
+        <div class="cat-cell" id="cell-SER">
+          <div class="cat-header" onclick="toggleCat('SER')">
+            <span class="cat-title">Traces &amp; Memory</span>
+            <span class="cat-arrow">▾</span>
+          </div>
+          <div class="cat-list" id="list-SER"></div>
+        </div>
+        <div class="cat-cell" id="cell-MAT">
+          <div class="cat-header" onclick="toggleCat('MAT')">
+            <span class="cat-title">Matter &amp; Touch</span>
+            <span class="cat-arrow">▾</span>
+          </div>
+          <div class="cat-list" id="list-MAT"></div>
+        </div>
+        <div class="cat-cell" id="cell-SEN">
+          <div class="cat-header" onclick="toggleCat('SEN')">
+            <span class="cat-title">Sense &amp; Silence</span>
+            <span class="cat-arrow">▾</span>
+          </div>
+          <div class="cat-list" id="list-SEN"></div>
         </div>
       </div>
+      <div class="result-count" id="resultCount"></div>
+    </div>
+    <div class="right-panel">
+      <!-- 모바일 선택된 태그 표시 -->
+      <div class="m-selected-bar" id="mSelectedBar"></div>
+      <!-- ★ mobile-hint: 모바일에서만 보임 (PC에서는 display:none) -->
+      <div class="mobile-hint" id="mobileHint">
+        <div class="mobile-hint-marquee-wrap">
+          <div class="mobile-hint-marquee"></div>
+          <span class="mobile-hint-static">카테고리를 선택하면 작품이 나타납니다</span>
+        </div>
+        <div class="hint-img-wrap">
+          <img class="mobile-hint-img" id="hintImg" src="" alt="">
+          <div class="hint-overlay-text" id="hintOverlayText">
+            우연의 캔버스 위에 스며든 필연의 숨결,<br>비결정적 순간이 빚어낸 견고한 정원
+          </div>
+        </div>
+      </div>
+      <div class="float-zone" id="floatZone">
+        <div class="sub-card s1" onclick="go('index')"><img class="sub-img" id="subImg1" alt=""></div>
+        <div class="sub-card s2" onclick="go('index')"><img class="sub-img" id="subImg2" alt=""></div>
+        <div class="sub-card s3" onclick="go('index')"><img class="sub-img" id="subImg3" alt=""></div>
+        <!-- PC 문구 오버레이 -->
+        <div class="pc-float-text">
+          우연의 캔버스 위에 스며든 필연의 숨결,<br>비결정적 순간이 빚어낸 견고한 정원
+        </div>
+      </div>
+      <div class="narrative-zone" id="narrativeZone">
+        <div class="ns-label" id="nsLabel"></div>
+        <div class="ns-text" id="nsText"></div>
+        <div class="ns-rule"></div>
+      </div>
       <div class="grid-zone" id="gridZone">
-        <div id="gridContainer"></div>
+        <div class="grid" id="grid"></div>
       </div>
     </div>
   </div>
@@ -444,13 +455,12 @@ body.fade-out{opacity:0;transition:opacity 0.3s ease}
 <div class="modal-bg" id="modalBg" onclick="bgClose(event)">
   <div class="modal">
     <button class="modal-arr arr-prev" id="arrPrev" onclick="navModal(-1)">‹</button>
-    <div class="modal-img-area"><img id="mImg" src="" alt="" style="opacity:0"></div>
+    <div class="modal-img-area"><img id="mImg" src="" alt=""></div>
     <div class="modal-panel">
       <button class="modal-x" onclick="closeModal()">×</button>
       <div class="m-title" id="mTitle"></div>
       <div class="m-meta" id="mYear"></div>
       <div class="m-meta" id="mMedium"></div>
-      <div class="m-meta" id="mDim"></div>
       <div class="m-rule"></div>
       <div class="m-desc" id="mDesc"></div>
       <div class="m-tags" id="mTags"></div>
@@ -470,7 +480,6 @@ body.fade-out{opacity:0;transition:opacity 0.3s ease}
     <div class="bs-title" id="bsTitle"></div>
     <div class="bs-meta" id="bsYear"></div>
     <div class="bs-meta" id="bsMedium"></div>
-    <div class="bs-meta" id="bsDim"></div>
     <div class="bs-rule"></div>
     <div class="bs-desc" id="bsDesc"></div>
     <div class="bs-tags" id="bsTags"></div>
@@ -478,13 +487,43 @@ body.fade-out{opacity:0;transition:opacity 0.3s ease}
 </div>
 
 <script>
-var ALL_YEARS=[],selectedYears=[],allFiltered=[],flatFiltered=[],modalIdx=0;
-var CHUNK_SIZE=24,chunkSentinel=null,chunkObserver=null,yearRendered={};
+var TAGS_THE=[],TAGS_SER=[],TAGS_MAT=[],TAGS_SEN=[];
+var selected={THE:[],SER:[],MAT:[],SEN:[]};
+var filtered=[],modalIdx=0,narrativeTimer=null,pendingTag=null;
+var CHUNK_SIZE=24,renderedCount=0,chunkSentinel=null,chunkObserver=null;
 var allWorks=[];
-var sheetState='closed',dragStartY=0,dragStartState='';
+var isMobile=function(){return window.innerWidth<=600;};
+
+var TAG_DESC={
+  '비결정적 순간':'정의되지 않은 우연과 필연의 경계, 그 찰나에 포착된 존재의 흔적.',
+  '촉각적 사고':'눈이 아닌 손끝으로 먼저 반응하는 사유. 물성과 감각이 만나는 지점.',
+  '윤슬의 사유':'찰나의 빛과 물결을 통한 명상적 시선. 반짝임 속에서 발견하는 고요.',
+  '숨의 궤적':'생명체 고유의 호흡과 생명력의 흐름. 보이지 않는 것이 남긴 자국.',
+  '잔상':'망막과 기억에 지워지지 않고 남은 흔적. 사라진 것들이 여전히 머무는 자리.',
+  '회귀':'본질과 근원으로 돌아가려는 의지. 처음 그 자리로 향하는 조용한 운동.',
+  '침잠':'깊은 고요 속으로 스스로를 던지는 상태. 아래로, 더 아래로 내려가는 사유.',
+  '부유하는 계절':'고정되지 않고 흐르는 시간의 편린들. 어느 계절에도 속하지 않는 순간.',
+  '식물의 고독':'정적인 대상에서 발견하는 주체적인 생명감. 혼자이지만 충만한 존재.',
+  '무질서의 질서':'우연한 흔적들이 모여 이루는 새로운 조화. 혼돈 속의 내밀한 구조.',
+  '여백의 밀도':'비어 있는 공간 속에 응축된 심리적 무게. 침묵이 말하는 방식.',
+  '잊혀진 것들의 초상':'소외된 기억과 사물을 향한 따뜻한 시선. 잊힌 것들에게 보내는 헌사.',
+  '디지털 지문':'기기를 통해 남겨진 작가만의 고유한 흔적. 디지털이 빚어낸 촉감.',
+  '물성의 발현':'흙과 재료가 가진 원초적인 질감. 물질이 스스로 드러내는 언어.',
+  '스며듦과 번짐':'수성 매체가 종이 위에서 자생적으로 만드는 길. 통제를 벗어난 아름다움.',
+  '마찰의 기록':'펜 끝과 화면이 만나 발생한 촉각적 에너지. 접촉의 순간이 남긴 기억.',
+  '가변적 형태':'공간과 환경에 따라 유동적으로 변하는 입체의 속성. 고정되기를 거부하는 형태.',
+  '조용한 소란':'정적인 화면 너머에서 느껴지는 내면의 진동. 고요함이 숨긴 소음.',
+  '잔향의 기억':'소리가 사라진 뒤에도 남아있는 울림. 감각이 기억으로 전환되는 순간.',
+  '온도의 기억':'특정 공간이나 순간이 지녔던 따스함의 기록. 피부가 기억하는 온도.',
+  '푸른 우울':'단순한 색상을 넘어선 감정적 깊이. 차갑고도 아름다운 멜랑콜리.',
+  '빛의 파편':'부서져 내리는 강렬한 색채의 입자들. 빛이 조각났을 때 태어나는 것들.',
+  '바람의 결':'보이지 않는 흐름을 시각적 선으로 치환한 감각. 공기가 그리는 선.',
+  '살결':'인물이나 사물에서 느껴지는 생생한 피부의 촉감. 표면이 전달하는 온기.'
+};
+
+var CAT_COL={THE:'Thought & Being',SER:'Traces & Memory',MAT:'Matter & Touch',SEN:'Sense & Silence'};
 
 function sel(id){return document.getElementById(id);}
-function isMobile(){return window.innerWidth<=600;}
 
 /* ── 페이지 전환 ── */
 function go(page){
@@ -495,150 +534,131 @@ document.addEventListener('DOMContentLoaded',function(){
   document.body.classList.add('page-fade');
 });
 
+function parseTags(str){if(!str)return[];return String(str).split(/[,\n]/).map(function(t){return t.trim();}).filter(Boolean);}
+function allRowTags(row){var arr=[];Object.keys(CAT_COL).forEach(function(cat){parseTags(row[CAT_COL[cat]]).forEach(function(t){arr.push(t);});});return arr;}
+function thumbUrl(row){return row['thumb']||'';}
+function fullUrl(row){return row['full']||row['thumb']||'';}
 
-function initPreview(works){
-  var found=null;
-  var sorted=works.slice().sort(function(a,b){return(parseInt(b['year']||0))-(parseInt(a['year']||0));});
-  for(var i=0;i<sorted.length;i++){if((sorted[i]['page']||'').trim()==='py'){found=sorted[i];break;}}
-  var img=sel('previewImg');
-  if(!found){img.style.display='none';sel('emptyHint').style.display='block';return;}
-  var url=found['full']||found['thumb']||'';
-  if(!url){img.style.display='none';sel('emptyHint').style.display='block';return;}
-  img.onload=function(){
-    img.classList.add('loaded');
-    var title=found['title']||'',sen=found['THE']||found['SER']||'';
-    if(title)sel('captionTitle').textContent=title;
-    if(sen)sel('captionSen').textContent=sen.split(/[,\n]/)[0].trim();
-    if(title||sen)sel('previewCaption').classList.add('show');
-  };
-  img.onerror=function(){
-    var m=url.match(/[?&]id=([a-zA-Z0-9_-]{10,})/);
-    if(m&&img.src.indexOf('w800')===-1){img.src='https://drive.google.com/thumbnail?id='+m[1]+'&sz=w800';}
-    else{img.style.display='none';sel('emptyHint').style.display='block';}
-  };
+function loadSubImg(imgId,url){
+  if(!url)return;
+  var img=sel(imgId);
+  img.style.opacity='0';img.style.transition='opacity 0.8s ease';
+  img.onload=function(){this.style.opacity='1';};
+  img.onerror=function(){var m=url.match(/\/d\/([a-zA-Z0-9_-]{10,})/);if(m&&this.src.indexOf('export')===-1){this.src='https://drive.google.com/uc?export=view&id='+m[1];}};
   img.src=url;
 }
 
-function buildYearGrid(){
-  var grid=sel('yearGrid');
-  if(!ALL_YEARS.length){grid.innerHTML='<div style="font-size:8px;color:var(--ink-dim)">연도 없음</div>';return;}
-  grid.innerHTML=ALL_YEARS.map(function(yr){
-    return '<div class="yr-item" id="yr-'+yr+'" onclick="toggleYear('+yr+',this)"><span class="yr-label">'+yr+'</span></div>';
+function buildList(listId,tags,cat){
+  var el=sel(listId);
+  el.innerHTML=tags.map(function(tag){
+    var enc=encodeURIComponent(tag);
+    return '<div class="cb-item" id="cb-'+cat+'-'+enc+'" onclick="toggleTag(\''+cat+'\',\''+enc+'\',this)">'
+      +'<div class="cb-box"><svg class="cb-check" width="8" height="6" viewBox="0 0 8 6" fill="none">'
+      +'<polyline points="1,3 3,5 7,1" stroke="white" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>'
+      +'</svg></div><span class="cb-label">'+tag+'</span></div>';
   }).join('');
-  buildMobileYearBar();
 }
 
-function buildMobileYearBar(){
-  var activeEl=sel('mYrActive'),listEl=sel('mYrList');
-  if(!activeEl||!listEl)return;
-  var curYr=selectedYears.length?selectedYears[0]:(ALL_YEARS[0]||'');
-  activeEl.textContent=curYr;
-  listEl.innerHTML='';
-  ALL_YEARS.forEach(function(yr){
-    if(yr===curYr)return;
-    var div=document.createElement('div');
-    div.className='m-yr-item';div.id='m-yr-'+yr;div.textContent=yr;
-    div.addEventListener('click',function(){toggleYear(yr,sel('yr-'+yr));});
-    listEl.appendChild(div);
-  });
+function toggleCat(cat){
+  var cell=sel('cell-'+cat);
+  var isOpen=cell.classList.contains('open');
+  ['THE','SER','MAT','SEN'].forEach(function(c){sel('cell-'+c).classList.remove('open');});
+  if(!isOpen)cell.classList.add('open');
 }
 
-function updateMobileYearBar(){
-  var activeEl=sel('mYrActive'),listEl=sel('mYrList');
-  if(!activeEl||!listEl)return;
-  var curYr=selectedYears.length?selectedYears[0]:(ALL_YEARS[0]||'');
-  activeEl.textContent=curYr;
-  listEl.innerHTML='';
-  ALL_YEARS.forEach(function(yr){
-    if(yr===curYr)return;
-    var div=document.createElement('div');
-    div.className='m-yr-item';div.id='m-yr-'+yr;div.textContent=yr;
-    div.addEventListener('click',function(){toggleYear(yr,sel('yr-'+yr));});
-    listEl.appendChild(div);
-  });
-}
-
-function toggleYear(yr,el){
-  var already=selectedYears.length===1&&selectedYears[0]===yr;
-  ALL_YEARS.forEach(function(y){var e=sel('yr-'+y);if(e)e.classList.remove('checked');});
-  if(already){selectedYears=[];}
-  else{selectedYears=[yr];if(el)el.classList.add('checked');}
-  if(isMobile())updateMobileYearBar();
-  fetchAndRender();
-}
-
-function fetchAndRender(){
-  disconnectChunkObserver();
-  if(!selectedYears.length){
-    sel('gridZone').classList.remove('open');
-    if(!isMobile()){var pz=sel('previewZone');pz.classList.remove('hidden');pz.style.display='';}
-    sel('gridContainer').innerHTML='';allFiltered=[];flatFiltered=[];return;
+function toggleTag(cat,enc,el){
+  var tag=decodeURIComponent(enc);
+  var arr=selected[cat];
+  var already=arr.length===1&&arr[0]===tag;
+  if(already){selected[cat]=[];el.classList.remove('checked');}
+  else{
+    document.querySelectorAll('#list-'+cat+' .cb-item').forEach(function(i){i.classList.remove('checked');});
+    selected[cat]=[tag];el.classList.add('checked');
   }
-  if(!isMobile())sel('previewZone').classList.add('hidden');
+  if(isMobile()){sel('cell-'+cat).classList.remove('open');}
+  updateBadge(cat);updatePills();applyFilter();
+}
+
+function updateBadge(cat){sel('cell-'+cat).classList.toggle('has-sel',selected[cat].length>0);}
+
+function updatePills(){
+  var strip=sel('activeStrip');strip.innerHTML='';
+  var total=0;
+  ['THE','SER','MAT','SEN'].forEach(function(cat){
+    selected[cat].forEach(function(tag){
+      total++;
+      var p=document.createElement('div');p.className='a-pill';
+      var enc=encodeURIComponent(tag);
+      p.innerHTML=tag+'<span class="a-pill-x" onclick="removePill(\''+cat+'\',\''+enc+'\')">×</span>';
+      strip.appendChild(p);
+    });
+  });
+  sel('clearBtn').style.display=total>0?'inline-block':'none';
+}
+
+function removePill(cat,enc){
+  var tag=decodeURIComponent(enc);
+  var idx=selected[cat].indexOf(tag);
+  if(idx>=0)selected[cat].splice(idx,1);
+  var cbEl=document.getElementById('cb-'+cat+'-'+enc);
+  if(cbEl)cbEl.classList.remove('checked');
+  updateBadge(cat);updatePills();applyFilter();
+}
+
+function clearAll(){
+  ['THE','SER','MAT','SEN'].forEach(function(cat){
+    selected[cat]=[];updateBadge(cat);
+    document.querySelectorAll('#list-'+cat+' .cb-item').forEach(function(el){el.classList.remove('checked');});
+  });
+  updatePills();applyFilter();
+}
+
+function applyFilter(){
+  var activeCats=['THE','SER','MAT','SEN'].filter(function(cat){return selected[cat].length>0;});
+  if(!activeCats.length){showFloat();sel('resultCount').textContent='';return;}
+  var firstTag=selected[activeCats[0]][0];
+  if(pendingTag!==firstTag){pendingTag=firstTag;runNarrativeThenGrid(firstTag);}
+  else{renderFiltered();}
+}
+
+function renderFiltered(){
+  var activeCats=['THE','SER','MAT','SEN'].filter(function(cat){return selected[cat].length>0;});
+  filtered=allWorks.filter(function(row){
+    if(row.pub&&row.pub!=='y')return false;
+    return activeCats.every(function(ac){
+      var ct=parseTags(row[ac]);
+      return selected[ac].some(function(t){return ct.indexOf(t)>=0;});
+    });
+  }).map(function(row){
+    return{Title:row.title,Year:row.year,Medium:row.medium,Description:row.desc,
+      thumb:row.thumb,full:row.full,
+      'Thought & Being':row.THE,'Traces & Memory':row.SER,
+      'Matter & Touch':row.MAT,'Sense & Silence':row.SEN};
+  }).sort(function(a,b){return(parseInt(b.Year)||0)-(parseInt(a.Year)||0);});
+  sel('resultCount').textContent=filtered.length+' works';
+  renderedCount=0;
+  var grid=sel('grid');grid.innerHTML='';
   sel('gridZone').classList.add('open');
-  sel('gridContainer').innerHTML='<div class="loading-msg">Loading…</div>';
-  var yearsDesc=selectedYears.slice().sort(function(a,b){return b-a;});
-  allFiltered=[];flatFiltered=[];
-  yearsDesc.forEach(function(yr){
-    var rows=allWorks.filter(function(w){return parseInt(w['year']||0)===yr;});
-    if(rows.length)allFiltered.push({year:yr,rows:rows});
-    rows.forEach(function(r){flatFiltered.push(r);});
-  });
-  yearRendered={};renderAll();
+  disconnectChunkObserver();
+  renderNextChunk(true);
 }
 
-function renderAll(){
-  var con=sel('gridContainer');con.innerHTML='';disconnectChunkObserver();
-  if(!allFiltered.length){
-    con.innerHTML='<div style="padding:60px 0;text-align:center;font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink-dim)">No works found</div>';
-    return;
-  }
-  allFiltered.forEach(function(g){
-    if(!isMobile()){
-      var section=document.createElement('div');section.className='year-section';
-      var header=document.createElement('div');header.className='year-section-header';
-      header.innerHTML='<span class="yd-label">'+g.year+'</span><span class="yd-count">'+g.rows.length+' works</span>';
-      var gridWrap=document.createElement('div');gridWrap.className='year-section-grid';
-      var grid=document.createElement('div');grid.className='grid';grid.id='grid-'+g.year;
-      gridWrap.appendChild(grid);
-      section.appendChild(header);
-      section.appendChild(gridWrap);
-      con.appendChild(section);
-    } else {
-      var grid=document.createElement('div');grid.className='grid';grid.id='grid-'+g.year;
-      con.appendChild(grid);
-    }
-    yearRendered[g.year]=0;
-  });
-  renderNextChunk();
-}
-
-function renderNextChunk(){
-  var rem=CHUNK_SIZE;
-  allFiltered.forEach(function(g){
-    if(rem<=0)return;
-    var grid=sel('grid-'+g.year);if(!grid)return;
-    var start=yearRendered[g.year],end=Math.min(start+rem,g.rows.length);
-    for(var i=start;i<end;i++)grid.appendChild(makeCard(g.rows[i],getFlatIndex(g.year,i),i-start));
-    rem-=(end-start);yearRendered[g.year]=end;
-  });
+function renderNextChunk(animate){
+  var grid=sel('grid');
+  var start=renderedCount,end=Math.min(start+CHUNK_SIZE,filtered.length);
+  for(var i=start;i<end;i++)grid.appendChild(makeCard(filtered[i],i,animate));
+  renderedCount=end;
   if(chunkSentinel)chunkSentinel.remove();chunkSentinel=null;
-  if(allFiltered.some(function(g){return yearRendered[g.year]<g.rows.length;})){
+  if(renderedCount<filtered.length){
     chunkSentinel=document.createElement('div');chunkSentinel.className='load-sentinel';
-    sel('gridContainer').appendChild(chunkSentinel);connectChunkObserver();
+    grid.appendChild(chunkSentinel);connectChunkObserver();
   }
-}
-
-function getFlatIndex(year,rowIdx){
-  var off=0;
-  for(var i=0;i<allFiltered.length;i++){if(allFiltered[i].year===year)return off+rowIdx;off+=allFiltered[i].rows.length;}
-  return off+rowIdx;
 }
 
 function connectChunkObserver(){
   if(chunkObserver)chunkObserver.disconnect();
   chunkObserver=new IntersectionObserver(function(entries){
-    entries.forEach(function(e){if(!e.isIntersecting)return;chunkObserver.disconnect();chunkObserver=null;renderNextChunk();});
+    entries.forEach(function(e){if(!e.isIntersecting)return;chunkObserver.disconnect();chunkObserver=null;renderNextChunk(true);});
   },{rootMargin:'300px'});
   if(chunkSentinel)chunkObserver.observe(chunkSentinel);
 }
@@ -648,23 +668,22 @@ function disconnectChunkObserver(){
   if(chunkSentinel){chunkSentinel.remove();chunkSentinel=null;}
 }
 
-function makeCard(row,flatIdx,animOffset){
+function makeCard(row,idx,animate){
   var card=document.createElement('div');card.className='card';
-  var title=row['title']||'',yr=row['year']||'',medium=row['medium']||'',thumb=row['thumb']||'';
-  var altText='조원정'+(title?' '+title:'')+(yr?' '+yr:'')+(medium?' '+medium:'');
+  var title=row['Title']||'',year=row['Year']||'',medium=row['Medium']||'',thumb=thumbUrl(row);
+  var altText='조원정'+(title?' '+title:'')+(year?' '+year:'')+(medium?' '+medium:'');
   var sk=document.createElement('div');sk.className='card-skeleton';card.appendChild(sk);
   var img=document.createElement('img');img.alt=altText;
-  img.onload=function(){if(sk.parentNode)sk.parentNode.removeChild(sk);img.classList.add('loaded');};
+  img.onload=function(){if(sk.parentNode)sk.parentNode.removeChild(sk);};
   img.onerror=function(){if(sk.parentNode)sk.parentNode.removeChild(sk);};
   if(thumb){lazyLoad(img,thumb);}else{img.classList.add('loaded');}
   card.appendChild(img);
-  if(!isMobile()){
-    var ov=document.createElement('div');ov.className='card-overlay';
-    ov.innerHTML='<div class="card-title">'+title+'</div><div class="card-meta">'+yr+(medium?' · '+medium:'')+'</div>';
-    card.appendChild(ov);
-  }
-  (function(idx){card.addEventListener('click',function(){openModal(idx);});})(flatIdx);
-  setTimeout(function(){card.classList.add('revealed');},Math.min(animOffset*25,400));
+  var ov=document.createElement('div');ov.className='card-overlay';
+  ov.innerHTML='<div class="card-title">'+title+'</div><div class="card-meta">'+year+(medium?' · '+medium:'')+'</div>';
+  card.appendChild(ov);
+  (function(i){card.addEventListener('click',function(){openModal(i);});})(idx);
+  var delay=animate?Math.min((idx-(renderedCount-CHUNK_SIZE))*25,400):0;
+  setTimeout(function(){card.classList.add('revealed');},delay);
   return card;
 }
 
@@ -680,6 +699,24 @@ var imgObserver=new IntersectionObserver(function(entries,obs){
 
 function lazyLoad(img,url){if(!url){img.classList.add('loaded');return;}img.dataset.src=url;imgObserver.observe(img);}
 
+function runNarrativeThenGrid(tag){
+  if(narrativeTimer){clearTimeout(narrativeTimer);narrativeTimer=null;}
+  var hint=sel('mobileHint');if(hint)hint.style.display='none';
+  sel('floatZone').classList.add('hidden');
+  sel('narrativeZone').classList.remove('show','rising');
+  renderFiltered();
+}
+
+function showFloat(){
+  if(narrativeTimer){clearTimeout(narrativeTimer);narrativeTimer=null;}
+  pendingTag=null;disconnectChunkObserver();
+  sel('narrativeZone').classList.remove('show','rising');
+  sel('gridZone').classList.remove('open');
+  sel('floatZone').classList.remove('hidden');
+  var hint=sel('mobileHint');
+  if(hint&&isMobile())hint.style.display='flex';
+}
+
 function openModal(idx){
   modalIdx=idx;
   if(isMobile()){openSheet(idx);return;}
@@ -689,53 +726,56 @@ function openModal(idx){
 }
 function closeModal(){sel('modalBg').classList.remove('open');document.body.style.overflow='';}
 function bgClose(e){if(e.target===sel('modalBg'))closeModal();}
-function navModal(d){modalIdx=(modalIdx+d+flatFiltered.length)%flatFiltered.length;paintModal();}
+function navModal(d){modalIdx=(modalIdx+d+filtered.length)%filtered.length;paintModal();}
 
 function paintModal(){
-  var row=flatFiltered[modalIdx];
+  var row=filtered[modalIdx];
   var mImg=sel('mImg');mImg.style.opacity='0';
-  var fullSrc=row['full']||row['thumb']||'';
-  mImg.onload=function(){mImg.style.opacity='1';};
-  mImg.onerror=function(){var m=fullSrc.match(/[?&]id=([a-zA-Z0-9_-]{10,})/);if(m&&mImg.src.indexOf('w800')===-1)mImg.src='https://drive.google.com/thumbnail?id='+m[1]+'&sz=w800';};
-  mImg.src=fullSrc;
-  sel('mTitle').textContent=row['title']||'';
-  sel('mYear').textContent=row['year']||'';
-  sel('mMedium').textContent=row['medium']||'';
-  sel('mDim').textContent=row['dim']||row['dimensions']||'';
-  sel('mDesc').textContent=row['desc']||'';
-  var tags=[];
-  ['THE','SER','MAT','SEN'].forEach(function(k){var v=row[k]||'';v.split(/[,\n]/).forEach(function(t){t=t.trim();if(t)tags.push(t);});});
-  sel('mTags').innerHTML=tags.map(function(t){return'<span class="m-tag">'+t+'</span>';}).join('');
-  sel('arrPrev').style.display=flatFiltered.length>1?'flex':'none';
-  sel('arrNext').style.display=flatFiltered.length>1?'flex':'none';
+  var imgUrl=fullUrl(row);
+  var mArea=mImg.parentElement;
+  mArea.style.background='linear-gradient(90deg,rgba(0,0,0,0.04) 25%,rgba(0,0,0,0.07) 50%,rgba(0,0,0,0.04) 75%)';
+  mArea.style.backgroundSize='200% 100%';mArea.style.animation='cardShimmer 1.4s ease infinite';
+  mImg.onload=function(){mImg.style.opacity='1';mArea.style.background='#f7f6f3';mArea.style.animation='none';};
+  mImg.onerror=function(){var id=row['thumb']&&row['thumb'].match(/[?&]id=([a-zA-Z0-9_-]{10,})/);if(id&&mImg.src.indexOf('w800')===-1){mImg.src='https://drive.google.com/thumbnail?id='+id[1]+'&sz=w800';}};
+  mImg.src=imgUrl;
+  sel('mTitle').textContent=row['Title']||'';
+  sel('mYear').textContent=row['Year']||'';
+  sel('mMedium').textContent=row['Medium']||'';
+  sel('mDesc').textContent=row['Description']||'';
+  sel('mTags').innerHTML=allRowTags(row).map(function(t){return'<span class="m-tag">'+t+'</span>';}).join('');
+  sel('arrPrev').style.display=filtered.length>1?'flex':'none';
+  sel('arrNext').style.display=filtered.length>1?'flex':'none';
 }
+
+var sheetState='closed',dragStartY=0,dragStartState='';
 
 function openSheet(idx){
   modalIdx=idx;paintSheet();
   var sheet=sel('bsSheet');
   sheet.classList.remove('half','full');
   requestAnimationFrame(function(){sheet.classList.add('half');});
-  sheetState='half';document.body.classList.add('sheet-open');
+  sheetState='half';
+  document.body.classList.add('sheet-open');
 }
-function closeSheet(){sel('bsSheet').classList.remove('half','full');sheetState='closed';document.body.classList.remove('sheet-open');}
-function navSheet(d){modalIdx=(modalIdx+d+flatFiltered.length)%flatFiltered.length;paintSheet();}
+function closeSheet(){
+  sel('bsSheet').classList.remove('half','full');
+  sheetState='closed';
+  document.body.classList.remove('sheet-open');
+}
+function navSheet(d){modalIdx=(modalIdx+d+filtered.length)%filtered.length;paintSheet();}
 
 function paintSheet(){
-  var row=flatFiltered[modalIdx];
+  var row=filtered[modalIdx];
   var bsImg=sel('bsImg');bsImg.style.opacity='0';
-  var imgUrl=row['full']||row['thumb']||'';
   bsImg.onload=function(){bsImg.style.opacity='1';};
-  bsImg.onerror=function(){var m=imgUrl.match(/[?&]id=([a-zA-Z0-9_-]{10,})/);if(m&&bsImg.src.indexOf('w800')===-1){bsImg.src='https://drive.google.com/thumbnail?id='+m[1]+'&sz=w800';}};
-  bsImg.src=imgUrl;
-  sel('bsTitle').textContent=row['title']||'';
-  sel('bsYear').textContent=row['year']||'';
-  sel('bsMedium').textContent=row['medium']||'';
-  sel('bsDim').textContent=row['dim']||row['dimensions']||'';
-  sel('bsDesc').textContent=row['desc']||'';
-  var tags=[];
-  ['THE','SER','MAT','SEN'].forEach(function(k){var v=row[k]||'';v.split(/[,\n]/).forEach(function(t){t=t.trim();if(t)tags.push(t);});});
-  sel('bsTags').innerHTML=tags.map(function(t){return'<span class="bs-tag">'+t+'</span>';}).join('');
-  var showNav=flatFiltered.length>1;
+  bsImg.onerror=function(){var id=row['thumb']&&row['thumb'].match(/[?&]id=([a-zA-Z0-9_-]{10,})/);if(id&&bsImg.src.indexOf('w800')===-1){bsImg.src='https://drive.google.com/thumbnail?id='+id[1]+'&sz=w800';}};
+  bsImg.src=fullUrl(row);
+  sel('bsTitle').textContent=row['Title']||'';
+  sel('bsYear').textContent=row['Year']||'';
+  sel('bsMedium').textContent=row['Medium']||'';
+  sel('bsDesc').textContent=row['Description']||'';
+  sel('bsTags').innerHTML=allRowTags(row).map(function(t){return'<span class="bs-tag">'+t+'</span>';}).join('');
+  var showNav=filtered.length>1;
   sel('bsPrev').style.display=showNav?'flex':'none';
   sel('bsNext').style.display=showNav?'flex':'none';
 }
@@ -769,34 +809,32 @@ document.querySelectorAll('.nav-dd').forEach(function(dd){
     if(!isOpen)menu.style.display='block';
   });
 });
+
 document.addEventListener('click',function(e){
   if(!e.target.closest||!e.target.closest('.nav-dd'))
     document.querySelectorAll('.nav-dd-menu').forEach(function(m){m.style.display='none';});
+  if(!e.target.closest||!e.target.closest('.cat-cell'))
+    document.querySelectorAll('.cat-cell').forEach(function(c){c.classList.remove('open');});
 });
 
-fetch('./data/works.json')
-  .then(function(r){return r.json();})
-  .then(function(works){
-    allWorks=works;
-    var yearSet={};
-    works.forEach(function(w){var y=parseInt(w['year']||0);if(y)yearSet[y]=1;});
-    ALL_YEARS=Object.keys(yearSet).map(Number).sort(function(a,b){return b-a;});
-    buildYearGrid();
-    if(isMobile()){
-      if(ALL_YEARS.length){
-        selectedYears=[ALL_YEARS[0]];
-        var el=sel('yr-'+ALL_YEARS[0]);
-        if(el)el.classList.add('checked');
-        updateMobileYearBar();
-        fetchAndRender();
-      }
-    } else {
-      initPreview(works);
-    }
-  })
-  .catch(function(){
-    sel('yearGrid').innerHTML='<div style="font-size:8px;color:var(--ink-dim)">로딩 오류</div>';
-  });
+Promise.all([
+  fetch('./data/tags.json').then(function(r){return r.json();}),
+  fetch('./data/works.json').then(function(r){return r.json();})
+]).then(function(results){
+  var tags=results[0];allWorks=results[1];
+  TAGS_THE=tags.THE||[];TAGS_SER=tags.SER||[];TAGS_MAT=tags.MAT||[];TAGS_SEN=tags.SEN||[];
+  buildList('list-THE',TAGS_THE,'THE');
+  buildList('list-SER',TAGS_SER,'SER');
+  buildList('list-MAT',TAGS_MAT,'MAT');
+  buildList('list-SEN',TAGS_SEN,'SEN');
+  var sorted=allWorks.slice().sort(function(a,b){return(parseInt(b.year||0))-(parseInt(a.year||0));});
+  var subs=[];
+  for(var i=0;i<sorted.length&&subs.length<3;i++){if((sorted[i].page||'').trim()==='서브')subs.push(sorted[i]);}
+  if(subs[0])loadSubImg('subImg1',subs[0].thumb||subs[0].full||'');
+  if(subs[1])loadSubImg('subImg2',subs[1].thumb||subs[1].full||'');
+  if(subs[2])loadSubImg('subImg3',subs[2].thumb||subs[2].full||'');
+  if(subs[0]){var hi=sel('hintImg');if(hi){var hUrl=subs[0].thumb||subs[0].full||'';hi.onload=function(){hi.classList.add('loaded');};hi.src=hUrl;}}
+}).catch(function(){console.error('데이터 로딩 오류');});
 
 /* ── 로딩 화면 제거 ── */
 window.addEventListener('load', function(){
