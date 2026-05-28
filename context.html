@@ -3,48 +3,28 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Context Archive — Won Jeong Cho</title>
+<title>Context — WON JEONG CHO</title>
   <!-- SEO Meta -->
-  <meta name="description" content="조원정 작가의 주제별 작품 아카이브. 테마, 시리즈, 물성, 감각을 기준으로 작품을 탐색합니다.">
+  <meta name="description" content="조원정 작가의 주제별 작품 아카이브.">
   <meta name="keywords" content="조원정, Won Jeong Cho, 작가, artist, 회화, painting, 추상, abstract, Tactile Thinking, 촉각적 사고, 한국 현대미술, Korean contemporary art">
   <meta name="author" content="Won Jeong Cho">
   <meta name="robots" content="index, follow">
-  <!-- Open Graph -->
   <meta property="og:type" content="website">
   <meta property="og:title" content="Context Archive — Won Jeong Cho">
-  <meta property="og:description" content="Thematic archive of works by Won Jeong Cho, organized by themes, series, materiality, and emotions.">
+  <meta property="og:description" content="Thematic archive of works by Won Jeong Cho.">
   <meta property="og:url" content="https://www.chowonjeong.org/context.html">
   <meta property="og:image" content="https://www.chowonjeong.org/og-image.jpg">
   <meta property="og:site_name" content="Won Jeong Cho">
-  <meta property="og:locale" content="ko_KR">
-  <meta property="og:locale:alternate" content="en_US">
-  <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Context Archive — Won Jeong Cho">
-  <meta name="twitter:description" content="Thematic archive of works by Won Jeong Cho, organized by themes, series, materiality, and emotions.">
+  <meta name="twitter:description" content="Thematic archive of works by Won Jeong Cho.">
   <meta name="twitter:image" content="https://www.chowonjeong.org/og-image.jpg">
-  <!-- Canonical -->
   <link rel="canonical" href="https://www.chowonjeong.org/context.html">
-  <!-- JSON-LD -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Person",
-    "name": "Won Jeong Cho",
-    "alternateName": "조원정",
-    "jobTitle": "Visual Artist",
-    "url": "https://www.chowonjeong.org/",
-    "sameAs": [
-      "https://www.instagram.com/wonjeong.cho/",
-      "https://www.saatchiart.com/en-kr/chowonjeong"
-    ],
-    "knowsAbout": ["Painting", "Abstract Art", "Tactile Thinking", "Contemporary Art"]
-  }
-  </script>
+  <link rel="prefetch" href="./data/works.json">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;1,400&family=Cormorant+Garamond:wght@300;400&display=swap&font-display=swap" onload="this.rel='stylesheet'">
-<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;1,400&family=Cormorant+Garamond:wght@300;400&display=swap&font-display=swap"></noscript>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;1,400&family=Cormorant+Garamond:wght@300;400&display=swap" onload="this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;1,400&family=Cormorant+Garamond:wght@300;400&display=swap"></noscript>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{--ink:#1a1a18;--ink-mid:#6b6b68;--ink-dim:#aaa9a2;--bg:#f7f6f3;--white:#fff;--nav-h:50px;--left-w:200px;--left-pad:28px}
@@ -54,7 +34,7 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 .nav-logo{font-weight:300;font-size:13px;letter-spacing:0.3em;color:var(--ink);text-decoration:none;text-transform:uppercase;cursor:pointer}
 @media(max-width:600px){.nav-logo{font-size:9px;letter-spacing:0.2em}}
 .nav-right{display:flex;align-items:center}
-.nav-item{font-size:9.5px;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink-dim);padding:5px 11px;cursor:pointer;text-decoration:none;transition:color 0.25s;white-space:nowrap;position:relative;line-height:1;display:flex;align-items:center}
+.nav-item{font-size:9.5px;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink-dim);padding:5px 11px;cursor:pointer;text-decoration:none;transition:color 0.25s;white-space:nowrap;position:relative}
 .nav-item::after{content:'';position:absolute;bottom:0;left:11px;right:11px;height:0.5px;background:var(--ink);transform:scaleX(0);transform-origin:left;transition:transform 0.28s cubic-bezier(0.16,1,0.3,1);opacity:0.5}
 .nav-item:hover{color:var(--ink)}
 .nav-item:hover::after{transform:scaleX(1)}
@@ -81,7 +61,7 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 .a-pill-x:hover{opacity:0.8}
 .cat-list-wrap{display:flex;flex-direction:column;flex:1;overflow-y:auto;scrollbar-width:none}
 .cat-list-wrap::-webkit-scrollbar{display:none}
-.cat-header{display:flex;align-items:center;justify-content:space-between;padding:10px 0 9px;cursor:pointer;user-select:none}
+.cat-header{display:flex;align-items:center;justify-content:space-between;padding:8px 0 7px;cursor:pointer;user-select:none}
 .cat-header:hover .cat-title{color:var(--ink-mid)}
 .cat-title{font-size:9.5px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-dim);line-height:1.3;transition:color 0.2s}
 .cat-cell.open .cat-title,.cat-cell.has-sel .cat-title{color:var(--ink)}
@@ -278,7 +258,7 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
   .load-sentinel{column-span:all}
   .modal-bg{display:none !important}
   .bs-sheet{position:fixed;left:0;right:0;bottom:0;z-index:600;background:var(--white);border-radius:16px 16px 0 0;transform:translateY(100%);transition:transform 0.38s cubic-bezier(0.16,1,0.3,1);will-change:transform;touch-action:none;overflow-y:auto;max-height:92vh}
-  .bs-sheet.half{transform:translateY(5%)}
+  .bs-sheet.half{transform:translateY(8%)}
   .bs-sheet.full{transform:translateY(0)}
   .bs-handle-wrap{display:flex;justify-content:center;padding:10px 0 6px;cursor:grab}
   .bs-handle{width:36px;height:4px;border-radius:2px;background:rgba(0,0,0,0.15)}
@@ -306,35 +286,11 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 body.fade-out{opacity:0;transition:opacity 0.3s ease}
 
 /* ── 로딩 화면 ── */
-#page-loader{
-  position:fixed;inset:0;
-  background:var(--bg);
-  display:flex;align-items:center;justify-content:center;
-  z-index:9999;
-  opacity:1;
-  transition:opacity 0.6s cubic-bezier(0.16,1,0.3,1);
-  pointer-events:all;
-}
+#page-loader{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:9999;opacity:1;transition:opacity 0.6s cubic-bezier(0.16,1,0.3,1);pointer-events:all}
 #page-loader.hidden{opacity:0;pointer-events:none}
-.loader-inner{
-  display:flex;flex-direction:column;align-items:center;gap:20px;
-}
-.loader-name{
-  font-family:'EB Garamond',serif;
-  font-style:italic;
-  font-size:clamp(18px,3vw,28px);
-  letter-spacing:0.18em;
-  color:var(--ink);
-  opacity:0;
-  animation:loaderFadeIn 0.8s ease 0.2s forwards;
-}
-.loader-line{
-  width:0;
-  height:0.5px;
-  background:var(--ink);
-  opacity:0.3;
-  animation:loaderLine 1s cubic-bezier(0.16,1,0.3,1) 0.4s forwards;
-}
+.loader-inner{display:flex;flex-direction:column;align-items:center;gap:20px}
+.loader-name{font-family:'EB Garamond',serif;font-style:italic;font-size:clamp(18px,3vw,28px);letter-spacing:0.18em;color:var(--ink);opacity:0;animation:loaderFadeIn 0.8s ease 0.2s forwards}
+.loader-line{width:0;height:0.5px;background:var(--ink);opacity:0.3;animation:loaderLine 1s cubic-bezier(0.16,1,0.3,1) 0.4s forwards}
 @keyframes loaderFadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 @keyframes loaderLine{from{width:0}to{width:clamp(80px,12vw,140px)}}
 </style>
@@ -524,8 +480,6 @@ var TAG_DESC={
 var CAT_COL={THE:'Thought & Being',SER:'Traces & Memory',MAT:'Matter & Touch',SEN:'Sense & Silence'};
 
 function sel(id){return document.getElementById(id);}
-
-/* ── 페이지 전환 ── */
 function go(page){
   document.body.classList.add('fade-out');
   setTimeout(function(){window.location.href=page+'.html';},280);
@@ -533,7 +487,6 @@ function go(page){
 document.addEventListener('DOMContentLoaded',function(){
   document.body.classList.add('page-fade');
 });
-
 function parseTags(str){if(!str)return[];return String(str).split(/[,\n]/).map(function(t){return t.trim();}).filter(Boolean);}
 function allRowTags(row){var arr=[];Object.keys(CAT_COL).forEach(function(cat){parseTags(row[CAT_COL[cat]]).forEach(function(t){arr.push(t);});});return arr;}
 function thumbUrl(row){return row['thumb']||'';}
@@ -671,9 +624,8 @@ function disconnectChunkObserver(){
 function makeCard(row,idx,animate){
   var card=document.createElement('div');card.className='card';
   var title=row['Title']||'',year=row['Year']||'',medium=row['Medium']||'',thumb=thumbUrl(row);
-  var altText='조원정'+(title?' '+title:'')+(year?' '+year:'')+(medium?' '+medium:'');
   var sk=document.createElement('div');sk.className='card-skeleton';card.appendChild(sk);
-  var img=document.createElement('img');img.alt=altText;
+  var img=document.createElement('img');img.alt=title;
   img.onload=function(){if(sk.parentNode)sk.parentNode.removeChild(sk);};
   img.onerror=function(){if(sk.parentNode)sk.parentNode.removeChild(sk);};
   if(thumb){lazyLoad(img,thumb);}else{img.classList.add('loaded');}
@@ -784,7 +736,7 @@ function paintSheet(){
   var handle=sel('bsHandle'),sheet=sel('bsSheet');
   if(!handle||!sheet)return;
   function onStart(e){dragStartY=e.touches?e.touches[0].clientY:e.clientY;dragStartState=sheetState;document.addEventListener('touchmove',onMove,{passive:false});document.addEventListener('touchend',onEnd);document.addEventListener('mousemove',onMove);document.addEventListener('mouseup',onEnd);}
-  function onMove(e){e.preventDefault();var y=e.touches?e.touches[0].clientY:e.clientY,dy=y-dragStartY;if(dy<-60){sheet.style.transform='translateY(0)';sheetState='full';}else if(dy>60&&dragStartState==='full'){sheet.style.transform='translateY(5%)';sheetState='half';}else if(dy>100&&dragStartState==='half'){closeSheet();}}
+  function onMove(e){e.preventDefault();var y=e.touches?e.touches[0].clientY:e.clientY,dy=y-dragStartY;if(dy<-60){sheet.classList.remove('half');sheet.classList.add('full');sheetState='full';}else if(dy>60&&dragStartState==='full'){sheet.classList.remove('full');sheet.classList.add('half');sheetState='half';}else if(dy>100&&dragStartState==='half'){closeSheet();}}
   function onEnd(){document.removeEventListener('touchmove',onMove);document.removeEventListener('touchend',onEnd);document.removeEventListener('mousemove',onMove);document.removeEventListener('mouseup',onEnd);}
   handle.addEventListener('touchstart',onStart,{passive:true});
   handle.addEventListener('mousedown',onStart);
