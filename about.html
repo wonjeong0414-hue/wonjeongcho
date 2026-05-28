@@ -207,9 +207,29 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
   :root{--pad:22px}
   nav{padding:0 12px}
   .lang-bar{padding:0 16px;height:40px}
-  .main-grid{grid-template-columns:1fr;gap:40px 0}
+  /* 모바일 전체 스크롤 */
+  body{overflow:auto !important;height:auto !important}
+  .page-wrap{padding-top:calc(var(--nav-h) + 40px + 24px)}
+  /* 학력/소장인 숨기기 (모바일에서 좌측 컬럼 불필요) */
+  .left-col{display:none}
+  /* main-grid 1단 */
+  .main-grid{grid-template-columns:1fr;gap:0}
+  /* cv-tabs: nav 바로 아래 sticky */
+  .cv-tabs{
+    position:sticky;
+    top:var(--nav-h);
+    z-index:100;
+    background:var(--bg);
+    padding:8px 0 6px;
+    margin-bottom:16px;
+    border-bottom:0.5px solid rgba(0,0,0,0.07);
+  }
   .cv-footer{flex-direction:column;align-items:flex-start}
   .cv-row-item{grid-template-columns:38px 1fr;gap:0 10px}
+  /* 스크롤 제한 JS 비활성화 */
+  .bio-section{margin-bottom:24px}
+  .cv-summary-section{margin-bottom:28px}
+  .sec-divider{margin:0 0 24px}
 }
 @media(max-width:480px){
   .nav-logo{font-size:10px;letter-spacing:0.18em}
@@ -376,6 +396,9 @@ function go(page){
 }
 document.addEventListener('DOMContentLoaded',function(){
   document.body.classList.add('page-fade');
+  setTimeout(function(){
+    document.body.classList.remove('page-fade');
+  }, 500);
 });
 
 
@@ -505,12 +528,13 @@ function render(){
   document.getElementById('pdfLabel').textContent=ko?'CV 전체 다운로드':'Download Full CV';
 }
 
-// 스크롤 main-grid 상단에서 멈추기
+// 스크롤 main-grid 상단에서 멈추기 (PC only)
 window.addEventListener('scroll', function(){
+  if(window.innerWidth <= 600) return;
   var grid = document.getElementById('mainGrid');
   if(!grid) return;
   var gridTop = grid.getBoundingClientRect().top + window.scrollY
-                - (50 + 44); // nav + lang-bar 높이
+                - (50 + 44);
   if(window.scrollY > gridTop){
     window.scrollTo({top: gridTop, behavior: 'instant'});
   }
