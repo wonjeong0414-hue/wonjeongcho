@@ -634,7 +634,7 @@ function renderFiltered(){
       thumb:row.thumb,full:row.full,
       'Thought & Being':row.THE,'Traces & Memory':row.SER,
       'Matter & Touch':row.MAT,'Sense & Silence':row.SEN};
-  });
+  }).sort(function(a,b){return(parseInt(b.Year)||0)-(parseInt(a.Year)||0);});
   sel('resultCount').textContent=filtered.length+' works';
   renderedCount=0;
   var grid=sel('grid');grid.innerHTML='';
