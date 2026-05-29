@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
@@ -80,8 +80,10 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 .critique-meta{font-size:10px;color:var(--ink-dim);letter-spacing:.04em;margin-bottom:24px}
 .critique-meta span{margin-right:12px}
 
-/* 이미지 (있는 경우) */
-.critique-img{width:100%;max-width:480px;display:block;margin:0 auto 28px;object-fit:cover}
+/* 이미지 + 본문 나란히 */
+.critique-content{display:grid;grid-template-columns:1fr 1fr;gap:0 40px;align-items:start}
+.critique-content.no-img{grid-template-columns:1fr}
+.critique-img{width:100%;display:block;object-fit:cover}
 
 /* 본문 단락 */
 .critique-body{font-family:'EB Garamond',serif;font-size:14px;line-height:2.1;color:var(--ink-mid);text-align:justify;word-break:keep-all}
@@ -99,6 +101,8 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
   .critique-title{font-size:17px}
   .critique-body{font-size:13px;line-height:1.9}
   .critique-item{margin-bottom:48px;padding-bottom:48px}
+  .critique-content{grid-template-columns:1fr}
+  .critique-img{margin-bottom:20px}
 }
 @media(max-width:480px){
   .nav-logo{font-size:10px;letter-spacing:.18em}
@@ -123,19 +127,19 @@ body.fade-out{opacity:0;transition:opacity .3s ease}
 <nav>
   <span class="nav-logo" onclick="go('index')">Won Jeong Cho</span>
   <div class="nav-right">
-    <div class="nav-dd">
+    <div class="nav-dd" id="navArchive">
       <span class="nav-item">Archive</span>
       <div class="nav-dd-menu">
-        <span class="nav-dd-item" onclick="go('year')">Year</span>
-        <span class="nav-dd-item" onclick="go('context')">Context</span>
+        <span class="nav-dd-item" onclick="go('year')" >Year</span>
+        <span class="nav-dd-item" onclick="go('context')" >Context</span>
       </div>
     </div>
     <div class="nav-sep"></div>
     <div class="nav-dd">
       <span class="nav-item active">Text</span>
       <div class="nav-dd-menu">
-        <span class="nav-dd-item" onclick="go('note')">작가노트</span>
-        <span class="nav-dd-item" onclick="go('critique')" style="color:var(--ink)">평론</span>
+        <span class="nav-dd-item" onclick="go('note')">Note</span>
+        <span class="nav-dd-item" onclick="go('critique')">Critique</span>
       </div>
     </div>
     <div class="nav-sep"></div>
@@ -199,14 +203,12 @@ function renderCritiques(){
   list.innerHTML=DATA.map(function(row){
     var title=ko?(row.title||row.filename||''):(row.title||row.filename||'');
     var desc=ko?(row.desc_ko||row.desc||''):(row.desc_en||row.desc||'');
-    /* 단락 분리 */
     var paras=desc.split(/\n\n+/).filter(function(p){return p.trim();});
     if(paras.length<=1) paras=desc.split(/\n/).filter(function(p){return p.trim();});
     var bodyHtml=paras.map(function(p){return'<p>'+p.trim()+'</p>';}).join('');
-    /* 이미지 */
     var imgHtml=row.img?'<img class="critique-img" src="'+driveThumb(row.img,'w800')+'" alt="'+title+'">':'';
-    /* PDF */
     var pdfHtml=row.link?'<a class="critique-pdf" href="'+row.link+'" target="_blank">PDF ↗</a>':'';
+    var hasImg=!!row.img;
     return '<div class="critique-item">'
       +'<div class="critique-title-row">'
         +'<div class="critique-title">'+title+'</div>'
@@ -217,8 +219,10 @@ function renderCritiques(){
         +(row.category?'<span>'+row.category+'</span>':'')
         +(row.place?'<span>'+row.place+'</span>':'')
       +'</div>'
-      +imgHtml
-      +'<div class="critique-body">'+bodyHtml+'</div>'
+      +'<div class="critique-content'+(hasImg?'':' no-img')+'">'
+        +(hasImg?'<div>'+imgHtml+'</div>':'')
+        +'<div class="critique-body">'+bodyHtml+'</div>'
+      +'</div>'
       +'</div>';
   }).join('');
 }
