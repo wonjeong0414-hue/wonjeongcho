@@ -3,7 +3,32 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Exhibition — WON JEONG CHO</title>
+<title>Exhibition — Won Jeong Cho</title>
+  <!-- SEO Meta -->
+  <meta name="description" content="조원정 작가의 전시 전경 사진 아카이브. 개인전 설치 및 회화 현장 이미지를 담았습니다.">
+  <meta name="keywords" content="조원정, Won Jeong Cho, 전시전경, exhibition view, 회화, painting, 설치, installation, 한국 현대미술, Korean contemporary art">
+  <meta name="author" content="Won Jeong Cho">
+  <meta name="robots" content="index, follow">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Exhibition — Won Jeong Cho">
+  <meta property="og:description" content="Exhibition view archive of Won Jeong Cho — installation, painting, and documentation from solo exhibitions.">
+  <meta property="og:url" content="https://www.chowonjeong.org/exhibition.html">
+  <meta property="og:image" content="https://www.chowonjeong.org/og-image.jpg">
+  <meta property="og:site_name" content="Won Jeong Cho">
+  <meta property="og:locale" content="ko_KR">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Exhibition — Won Jeong Cho">
+  <meta name="twitter:description" content="Exhibition view archive of Won Jeong Cho — installation, painting, and documentation from solo exhibitions.">
+  <meta name="twitter:image" content="https://www.chowonjeong.org/og-image.jpg">
+  <link rel="canonical" href="https://www.chowonjeong.org/exhibition.html">
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-YBRBFCMMCB"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-YBRBFCMMCB');</script>
+  <!-- JSON-LD -->
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"CollectionPage","name":"Exhibition Views — Won Jeong Cho","description":"Exhibition view archive of artist Won Jeong Cho","url":"https://www.chowonjeong.org/exhibition.html","creator":{"@type":"Person","name":"Won Jeong Cho","alternateName":"조원정","url":"https://www.chowonjeong.org/"}}
+  </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Cormorant+Garamond:wght@300;400&display=swap" onload="this.rel='stylesheet'">
@@ -262,7 +287,9 @@ function lbNav(dir){
 function renderLb(){
   var item=items[lbIndex];
   document.getElementById('lbImg').src=item.full||item.thumb;
-  document.getElementById('lbCaption').textContent=(item.type?item.type+' · ':'')+item.place;
+  var caption=[item.title, item.place, item.year].filter(Boolean).join(' · ');
+  if(item.type) caption+=(caption?' — ':'')+item.type;
+  document.getElementById('lbCaption').textContent=caption;
   document.getElementById('lbCounter').textContent=(lbIndex+1)+' / '+items.length;
 }
 document.addEventListener('keydown',function(e){
