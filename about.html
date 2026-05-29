@@ -138,23 +138,25 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 .panel-title{color:var(--ink)}
 .panel-place{font-size:10.5px;color:var(--ink-mid);text-align:right}
 
-/* ── 상단 네비 바 ── */
-.full-list-divider{display:none} /* 더 이상 사용 안 함 */
+/* ── 네비바 + 전체리스트 블록 ── */
+.full-list-divider{display:none}
+.full-list-block{
+  margin-top:20px;
+  border-top:.5px solid rgba(26,26,24,.1);
+}
 .full-list-wrap{
   display:flex;align-items:center;
-  padding:0 0 10px;
-  margin-bottom:14px;
-  border-bottom:.5px solid rgba(26,26,24,.1);
+  padding:10px 0;
+  border-bottom:.5px solid rgba(26,26,24,.07);
   gap:0;
 }
-/* "전시 전체 리스트" 레이블 — 굵고 색이 진해서 탭과 구분 */
+/* "전시 전체 리스트" 레이블 */
 .full-list-label{
   font-size:8px;letter-spacing:.22em;text-transform:uppercase;
   color:var(--ink);font-weight:600;
   white-space:nowrap;flex-shrink:0;
-  margin-right:0;
 }
-/* 레이블과 탭 사이 세로 구분선 */
+/* 세로 구분선 */
 .full-list-sep{
   width:.5px;height:10px;
   background:rgba(26,26,24,.25);
@@ -181,6 +183,9 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 }
 .back-btn:hover{color:var(--ink);border-color:rgba(26,26,24,.4)}
 .back-btn.visible{display:inline-block}
+
+/* 전체리스트 내용 영역 */
+.full-list-rows{margin-top:4px}
 
 /* ── footer ── */
 .cv-footer{
@@ -249,30 +254,27 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
   }
   .left-col{display:none}
 
-  /* ── right-col: 네비바(상단고정) + 리스트(스크롤) ── */
+  /* ── right-col ── */
   .right-col{
     flex:1;display:flex;flex-direction:column;
-    min-height:0;overflow:hidden;
+    min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;
   }
 
-  /* 현재연도/탭 헤더 */
+  /* 현재연도 헤더 */
   .latest-header-row{
-    flex-shrink:0;
     padding:8px 16px;margin-bottom:0;
     border-bottom:.5px solid rgba(26,26,24,.08);
+    border-top:.5px solid rgba(26,26,24,.06);
   }
   .latest-year-label{font-size:8px}
 
   /* 모바일 테이블 헤더 숨김 */
   .latest-table-head{display:none}
 
-  /* 리스트 스크롤 영역 */
-  .latest-rows-wrap{
-    flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;
-    padding:0 16px 8px;min-height:0;
-  }
+  /* 리스트 */
+  .latest-rows-wrap{padding:0 16px 4px}
 
-  /* 현재연도 행 — 3열(구분+제목+장소) */
+  /* 현재연도 행 */
   .latest-row{
     grid-template-columns:48px 1fr 70px;
     gap:0 6px;padding:5px 0;font-size:11.5px;
@@ -280,46 +282,35 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
   .latest-cell-date{display:none}
   .latest-cell-place{font-size:10px}
 
+  /* 전체리스트 블록 */
+  .full-list-block{
+    margin-top:0;
+    border-top:.5px solid rgba(26,26,24,.12);
+    padding:0 16px;
+  }
+  .full-list-wrap{
+    display:flex;align-items:center;
+    padding:8px 0;
+    border-bottom:.5px solid rgba(26,26,24,.07);
+    gap:0;overflow:hidden;
+  }
+  .full-list-label{font-size:7.5px;letter-spacing:.14em;flex-shrink:0}
+  .full-list-sep{width:.5px;height:9px;margin:0 10px}
+  .cv-tabs{display:flex;flex:1;gap:0;align-items:center;overflow:hidden}
+  .cv-tab{
+    font-size:7.5px;letter-spacing:.06em;
+    padding:0 8px 0 0;flex-shrink:0;white-space:nowrap;
+  }
+  .cv-tab.active{font-size:8px;font-weight:700;letter-spacing:.04em}
+  .back-btn{font-size:7px;padding:1px 6px;margin-left:auto;flex-shrink:0}
+
   /* 전체리스트 행 */
+  .full-list-rows{padding-bottom:24px}
   .panel-row{
     grid-template-columns:30px 1fr;
     gap:0 8px;padding:4px 0;font-size:11.5px;
   }
   .panel-place{display:none}
-
-  /* ── 상단 네비 바 (모바일) ── */
-  .full-list-wrap{
-    flex-shrink:0;
-    display:flex;align-items:center;
-    padding:0 16px;
-    height:38px;
-    border-bottom:.5px solid rgba(26,26,24,.1);
-    border-top:.5px solid rgba(26,26,24,.06);
-    margin-bottom:0;
-    background:var(--bg);
-    gap:0;overflow:hidden;
-  }
-  .full-list-label{
-    font-size:7.5px;letter-spacing:.14em;
-    flex-shrink:0;white-space:nowrap;
-  }
-  .full-list-sep{
-    width:.5px;height:9px;margin:0 10px;
-  }
-  .cv-tabs{
-    display:flex;flex:1;gap:0;align-items:center;
-    overflow:hidden;
-  }
-  .cv-tab{
-    font-size:7.5px;letter-spacing:.06em;
-    padding:0 8px 0 0;
-    flex-shrink:0;white-space:nowrap;
-  }
-  .cv-tab.active{font-size:8px;font-weight:700;letter-spacing:.04em}
-  .back-btn{
-    font-size:7px;padding:1px 6px;
-    margin-left:auto;flex-shrink:0;
-  }
 
   .cv-footer{display:none}
 }
@@ -400,19 +391,7 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
     <!-- 우측 -->
     <div class="right-col">
 
-      <!-- 네비 바: 리스트 위에 위치 -->
-      <div class="full-list-wrap">
-        <span class="full-list-label" id="labelFullList">전시 전체 리스트</span>
-        <div class="full-list-sep"></div>
-        <div class="cv-tabs">
-          <div class="cv-tab" id="tabSolo"  onclick="setCvTab('solo')"><span id="labelSolo">개인 및 초대전</span></div>
-          <div class="cv-tab" id="tabGroup" onclick="setCvTab('group')"><span id="labelGroup">단체전</span></div>
-          <div class="cv-tab" id="tabFair"  onclick="setCvTab('fair')">Art Fair</div>
-        </div>
-        <button class="back-btn" id="backBtn" onclick="showLatestYear()">← 현재 연도</button>
-      </div>
-
-      <!-- 메인 표시 영역: 현재연도 or 전체리스트 -->
+      <!-- 현재연도 리스트 (기본 표시, 탭 클릭 시 숨김) -->
       <div class="latest-section" id="latestSection">
         <div class="latest-header-row">
           <span class="latest-year-label" id="latestYearLabel">2026년 전시</span>
@@ -426,6 +405,22 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
         <div class="latest-rows-wrap">
           <div id="latestRows"><div class="loading">Loading…</div></div>
         </div>
+      </div>
+
+      <!-- 네비 바 + 전체리스트 영역 -->
+      <div class="full-list-block" id="fullListBlock">
+        <div class="full-list-wrap">
+          <span class="full-list-label" id="labelFullList">전시 전체 리스트</span>
+          <div class="full-list-sep"></div>
+          <div class="cv-tabs">
+            <div class="cv-tab" id="tabSolo"  onclick="setCvTab('solo')"><span id="labelSolo">개인 및 초대전</span></div>
+            <div class="cv-tab" id="tabGroup" onclick="setCvTab('group')"><span id="labelGroup">단체전</span></div>
+            <div class="cv-tab" id="tabFair"  onclick="setCvTab('fair')">Art Fair</div>
+          </div>
+          <button class="back-btn" id="backBtn" onclick="showLatestYear()">← 현재 연도</button>
+        </div>
+        <!-- 전체리스트 내용 (탭 클릭 시 표시) -->
+        <div class="full-list-rows" id="fullListRows" style="display:none"></div>
       </div>
 
       <div style="display:none" id="panelSolo"></div>
@@ -482,7 +477,7 @@ function setLang(l){
   if(D) render();
 }
 
-/* ── 탭 클릭: 해당 전체 리스트로 메인 영역 교체 ── */
+/* ── 탭 클릭: 현재연도 숨기고 전체리스트 표시 ── */
 function setCvTab(t){
   activeTab=t;
   ['solo','group','fair'].forEach(function(k){
@@ -490,7 +485,11 @@ function setCvTab(t){
     if(el) el.classList.toggle('active', k===t);
   });
   document.getElementById('backBtn').classList.add('visible');
-  renderMainArea();
+  /* 현재연도 섹션 숨김 */
+  document.getElementById('latestSection').style.display='none';
+  /* 전체리스트 표시 */
+  document.getElementById('fullListRows').style.display='block';
+  renderFullList();
 }
 
 /* ← 현재 연도: 현재연도 뷰 복귀 */
@@ -501,10 +500,38 @@ function showLatestYear(){
     if(el) el.classList.remove('active');
   });
   document.getElementById('backBtn').classList.remove('visible');
-  renderMainArea();
+  /* 현재연도 섹션 다시 표시 */
+  document.getElementById('latestSection').style.display='';
+  /* 전체리스트 숨김 */
+  document.getElementById('fullListRows').style.display='none';
 }
 
-/* ── 메인 영역 렌더 ── */
+/* ── 전체리스트 렌더 ── */
+function renderFullList(){
+  if(!D||!activeTab) return;
+  var ko=(lang==='ko');
+  var src={solo:D.solo||[], group:D.group||[], fair:D.fair||[]};
+  var list=src[activeTab]||[];
+  var el=document.getElementById('fullListRows');
+  if(!list.length){
+    el.innerHTML='<div style="font-size:11px;color:var(--ink-dim);padding:8px 0">—</div>';
+    return;
+  }
+  el.innerHTML=list.map(function(item){
+    var t=ko?(item.ko||''):(item.en||item.ko||'');
+    var p=ko?(item.placeKo||''):(item.placeEn||item.placeKo||'');
+    var c=ko?(item.cityKo||''):(item.cityEn||item.cityKo||'');
+    if(!t) return '';
+    var v=[p,c].filter(Boolean).join(' ');
+    return '<div class="panel-row">'
+      +'<div class="panel-year">'+(item.year||'')+'</div>'
+      +'<div class="panel-title">'+t+'</div>'
+      +'<div class="panel-place">'+v+'</div>'
+      +'</div>';
+  }).join('');
+}
+
+/* ── 현재연도 렌더 ── */
 function renderMainArea(){
   if(!D) return;
   var ko=(lang==='ko');
@@ -512,66 +539,41 @@ function renderMainArea(){
   var headEl=document.getElementById('latestTableHead');
   var rowsEl=document.getElementById('latestRows');
 
-  if(!activeTab){
-    /* 현재연도 뷰 */
-    labelEl.textContent=latestYear
-      ? (ko ? latestYear+'년 전시' : latestYear+' Exhibitions')
-      : (ko ? '최근 전시' : 'Recent Exhibitions');
-    if(headEl) headEl.style.display='';
+  labelEl.textContent=latestYear
+    ? (ko ? latestYear+'년 전시' : latestYear+' Exhibitions')
+    : (ko ? '최근 전시' : 'Recent Exhibitions');
+  if(headEl) headEl.style.display='';
 
-    var typeL={solo:ko?'개인·초대':'Solo', group:ko?'단체전':'Group', fair:'Art Fair'};
-    var allItems=[]
-      .concat((D.solo||[]).map(function(i){return Object.assign({},i,{_t:'solo'});}))
-      .concat((D.group||[]).map(function(i){return Object.assign({},i,{_t:'group'});}))
-      .concat((D.fair||[]).map(function(i){return Object.assign({},i,{_t:'fair'});}));
-    var filtered=latestYear
-      ? allItems.filter(function(i){return String(i.year)===String(latestYear);})
-      : [];
-    if(!filtered.length){
-      rowsEl.innerHTML='<div style="font-size:11px;color:var(--ink-dim);padding:8px 0">—</div>';
-      return;
-    }
-    rowsEl.innerHTML=filtered.map(function(item){
-      var t=ko?(item.ko||''):(item.en||item.ko||'');
-      var p=ko?(item.placeKo||''):(item.placeEn||item.placeKo||'');
-      var c=ko?(item.cityKo||''):(item.cityEn||item.cityKo||'');
-      var v=[p,c].filter(Boolean).join(' ');
-      return '<div class="latest-row">'
-        +'<div class="latest-cell-type">'+(typeL[item._t]||'')+'</div>'
-        +'<div class="latest-cell-title">'+t+'</div>'
-        +'<div class="latest-cell-place">'+v+'</div>'
-        +'<div class="latest-cell-date">'+(item.date||'')+'</div>'
-        +'</div>';
-    }).join('');
+  var typeL={solo:ko?'개인·초대':'Solo', group:ko?'단체전':'Group', fair:'Art Fair'};
+  var allItems=[]
+    .concat((D.solo||[]).map(function(i){return Object.assign({},i,{_t:'solo'});}))
+    .concat((D.group||[]).map(function(i){return Object.assign({},i,{_t:'group'});}))
+    .concat((D.fair||[]).map(function(i){return Object.assign({},i,{_t:'fair'});}));
+  var filtered=latestYear
+    ? allItems.filter(function(i){return String(i.year)===String(latestYear);})
+    : [];
+  if(!filtered.length){
+    rowsEl.innerHTML='<div style="font-size:11px;color:var(--ink-dim);padding:8px 0">—</div>';
+    return;
+  }
+  rowsEl.innerHTML=filtered.map(function(item){
+    var t=ko?(item.ko||''):(item.en||item.ko||'');
+    var p=ko?(item.placeKo||''):(item.placeEn||item.placeKo||'');
+    var c=ko?(item.cityKo||''):(item.cityEn||item.cityKo||'');
+    var v=[p,c].filter(Boolean).join(' ');
+    return '<div class="latest-row">'
+      +'<div class="latest-cell-type">'+(typeL[item._t]||'')+'</div>'
+      +'<div class="latest-cell-title">'+t+'</div>'
+      +'<div class="latest-cell-place">'+v+'</div>'
+      +'<div class="latest-cell-date">'+(item.date||'')+'</div>'
+      +'</div>';
+  }).join('');
 
-  } else {
-    /* 탭 뷰: 해당 전체 리스트 */
-    var tabNameL={
-      solo: ko?'개인 및 초대전':'Solo & Invitational',
-      group:ko?'단체전':'Group Exhibitions',
-      fair: 'Art Fair'
-    };
-    labelEl.textContent=tabNameL[activeTab]||'';
-    if(headEl) headEl.style.display='none';
-
-    var src={solo:D.solo||[], group:D.group||[], fair:D.fair||[]};
-    var list=src[activeTab]||[];
-    if(!list.length){
-      rowsEl.innerHTML='<div style="font-size:11px;color:var(--ink-dim);padding:8px 0">—</div>';
-      return;
-    }
-    rowsEl.innerHTML=list.map(function(item){
-      var t=ko?(item.ko||''):(item.en||item.ko||'');
-      var p=ko?(item.placeKo||''):(item.placeEn||item.placeKo||'');
-      var c=ko?(item.cityKo||''):(item.cityEn||item.cityKo||'');
-      if(!t) return '';
-      var v=[p,c].filter(Boolean).join(' ');
-      return '<div class="panel-row">'
-        +'<div class="panel-year">'+(item.year||'')+'</div>'
-        +'<div class="panel-title">'+t+'</div>'
-        +'<div class="panel-place">'+v+'</div>'
-        +'</div>';
-    }).join('');
+  /* 언어 전환 시 탭 뷰 상태 유지 */
+  if(activeTab){
+    document.getElementById('latestSection').style.display='none';
+    document.getElementById('fullListRows').style.display='block';
+    renderFullList();
   }
 }
 
