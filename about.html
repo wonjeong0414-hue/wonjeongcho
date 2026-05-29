@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
@@ -71,7 +71,7 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 .sec-divider{width:100%;height:.5px;background:rgba(26,26,24,.1);margin:0 0 40px}
 
 /* ── 메인 그리드 ── */
-.main-grid{display:grid;grid-template-columns:200px minmax(0,520px);gap:0 48px;align-items:start}
+.main-grid{display:grid;grid-template-columns:200px minmax(0,1fr);gap:0 48px;align-items:start}
 
 /* ── 좌측 ── */
 .left-col{padding-top:2px}
@@ -107,7 +107,7 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 /* 리스트 공통 행 — compact */
 .latest-row{
   display:grid;
-  grid-template-columns:62px minmax(0,1fr) 160px 100px;
+  grid-template-columns:62px minmax(0,1fr) 200px 100px;
   gap:0 8px;
   padding:4px 0;
   border-bottom:.5px solid rgba(26,26,24,.04);
@@ -125,7 +125,7 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 .latest-rows-wrap{overflow:visible}
 .panel-row{
   display:grid;
-  grid-template-columns:36px minmax(0,1fr) 160px;
+  grid-template-columns:36px minmax(0,1fr) 200px;
   gap:0 8px;
   padding:3px 0;
   border-bottom:.5px solid rgba(26,26,24,.04);
