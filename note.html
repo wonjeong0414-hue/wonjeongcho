@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>작가노트 — Won Jeong Cho</title>
+<meta name="description" content="조원정 작가의 작가노트 및 아티스트 스테이트먼트 아카이브입니다.">
+<meta name="author" content="Won Jeong Cho">
+<meta name="robots" content="index, follow">
+<meta property="og:type" content="website">
+<meta property="og:title" content="작가노트 — Won Jeong Cho">
+<meta property="og:description" content="Artist notes and statements by Won Jeong Cho.">
+<meta property="og:url" content="https://www.chowonjeong.org/note.html">
+<meta property="og:image" content="https://www.chowonjeong.org/og-image.jpg">
+<meta property="og:site_name" content="Won Jeong Cho">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://www.chowonjeong.org/og-image.jpg">
+<link rel="canonical" href="https://www.chowonjeong.org/note.html">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YBRBFCMMCB"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-YBRBFCMMCB');</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Cormorant+Garamond:wght@300;400&display=swap&font-display=swap" onload="this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Cormorant+Garamond:wght@300;400&display=swap&font-display=swap"></noscript>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--ink:#1a1a18;--ink-mid:#4a4a47;--ink-dim:#7a7a74;--bg:#f7f6f3;--white:#fff;--nav-h:50px;--lang-h:44px}
+html,body{height:100%;background:var(--bg);font-family:'Cormorant Garamond',serif;color:var(--ink)}
+
+/* ── nav ── */
+nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-items:center;justify-content:space-between;padding:0 36px;z-index:300;background:var(--bg);border-bottom:.5px solid rgba(26,26,24,.07)}
+.nav-logo{font-weight:400;font-size:13px;letter-spacing:.3em;color:var(--ink);text-transform:uppercase;cursor:pointer;transition:opacity .2s}
+.nav-logo:hover{opacity:.45}
+.nav-right{display:flex;align-items:center}
+.nav-item{font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-dim);padding:5px 11px;cursor:pointer;text-decoration:none;transition:color .25s;white-space:nowrap;position:relative}
+.nav-item::after{content:'';position:absolute;bottom:0;left:11px;right:11px;height:.5px;background:var(--ink);transform:scaleX(0);transform-origin:left;transition:transform .28s cubic-bezier(.16,1,.3,1);opacity:.5}
+.nav-item:hover{color:var(--ink)}
+.nav-item:hover::after,.nav-item.active::after{transform:scaleX(1)}
+.nav-item.active{color:var(--ink)}
+.nav-sep{width:.5px;height:12px;background:rgba(0,0,0,.12);margin:0 5px;flex-shrink:0}
+.nav-dd{position:relative;display:flex;align-items:center}
+.nav-dd-menu{display:none;position:absolute;top:calc(100% + 4px);left:50%;transform:translateX(-50%);background:var(--white);border-radius:4px;padding:4px 0;min-width:80px;z-index:400;box-shadow:0 4px 16px rgba(0,0,0,.08)}
+.nav-dd-item{display:block;font-size:9px;letter-spacing:.08em;color:var(--ink-mid);padding:5px 14px;cursor:pointer;transition:color .15s,background .15s;white-space:nowrap;text-transform:uppercase}
+.nav-dd-item:hover{color:var(--ink);background:rgba(0,0,0,.03)}
+
+/* ── lang bar ── */
+.lang-bar{position:fixed;top:var(--nav-h);left:0;right:0;height:var(--lang-h);display:flex;align-items:center;justify-content:flex-end;padding:0 36px;background:var(--bg);border-bottom:.5px solid rgba(26,26,24,.07);z-index:200}
+.lang-toggle{display:flex;border:.5px solid rgba(26,26,24,.2);border-radius:2px;overflow:hidden}
+.lang-btn{font-family:'Cormorant Garamond',serif;font-size:8px;letter-spacing:.12em;text-transform:uppercase;padding:4px 10px;cursor:pointer;background:transparent;color:var(--ink-dim);border:none;transition:background .15s,color .15s}
+.lang-btn.active{background:rgba(26,26,24,.62);color:var(--bg)}
+.lang-btn:not(.active):hover{color:var(--ink)}
+
+/* ── 페이지 레이아웃 ── */
+.page-body{
+  position:fixed;top:calc(var(--nav-h) + var(--lang-h));
+  left:0;right:0;bottom:0;
+  display:flex;flex-direction:column;
+  overflow:hidden;z-index:1;
+}
+
+/* ── Statement 블록 (전체 표시) ── */
+.stmt-block{
+  flex-shrink:0;
+  padding:28px 48px 24px 168px;
+  border-bottom:.5px solid rgba(0,0,0,.08);
+  overflow-y:auto;scrollbar-width:none;
+  max-height:45vh;
+}
+.stmt-block::-webkit-scrollbar{display:none}
+.stmt-label{font-size:8.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-dim);margin-bottom:14px}
+.stmt-text{font-family:'EB Garamond',serif;font-size:14px;line-height:2.0;color:var(--ink);white-space:pre-wrap;word-break:keep-all;text-align:justify}
+.stmt-link{display:inline-flex;align-items:center;gap:4px;margin-top:14px;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-mid);text-decoration:none;padding:0 1px;border:.3px solid rgba(74,74,71,.25);border-radius:2px;transition:background .15s}
+.stmt-link:hover{background:rgba(74,74,71,.06)}
+
+/* ── 3단: 리스트 + 상세 ── */
+.content-row{flex:1;display:flex;min-height:0;overflow:hidden}
+
+/* ── 리스트 컬럼 ── */
+.list-col{width:40%;flex-shrink:0;padding:16px 20px 40px 48px;border-right:.5px solid rgba(0,0,0,.07);overflow-y:auto;scrollbar-width:none}
+.list-col::-webkit-scrollbar{display:none}
+.list-header{display:grid;grid-template-columns:44px 60px 1fr;gap:0 8px;padding:0 0 6px;border-bottom:.5px solid rgba(0,0,0,.1);margin-bottom:2px}
+.list-th{font-size:7.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-dim)}
+.file-list{display:flex;flex-direction:column}
+.file-row{display:grid;grid-template-columns:44px 60px 1fr;gap:0 8px;padding:6px 0;cursor:pointer;border-bottom:.5px solid rgba(0,0,0,.05);align-items:baseline}
+.file-row:hover .file-title{color:var(--ink)}
+.file-row.active-row .file-title{color:var(--ink);font-weight:500}
+.file-year{font-size:10px;color:var(--ink-dim);font-family:'EB Garamond',serif}
+.file-cat{font-size:10px;color:var(--ink-dim);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.file-title{font-family:'EB Garamond',serif;font-size:12px;color:var(--ink-mid);line-height:1.4;transition:color .15s}
+
+/* ── 상세 컬럼 ── */
+.detail-col{flex:1;min-width:0;padding:16px 48px 40px 36px;overflow-y:auto;scrollbar-width:none}
+.detail-col::-webkit-scrollbar{display:none}
+.detail-panel{opacity:0;transition:opacity .4s ease;pointer-events:none}
+.detail-panel.visible{opacity:1;pointer-events:all}
+.detail-year{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-mid);margin-bottom:4px}
+.detail-cat{font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-dim);margin-bottom:12px}
+.detail-title{font-family:'EB Garamond',serif;font-size:19px;color:var(--ink);line-height:1.4;margin-bottom:16px}
+.detail-img{width:100%;max-width:360px;display:block;margin-bottom:16px;object-fit:cover}
+.detail-desc{font-family:'EB Garamond',serif;font-size:14px;color:var(--ink-mid);line-height:1.9;margin-bottom:16px;white-space:pre-wrap;text-align:justify;word-break:keep-all}
+.detail-place{font-size:12px;color:var(--ink-dim);margin-bottom:12px;font-family:'EB Garamond',serif}
+.detail-link{display:inline-flex;align-items:center;gap:4px;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-mid);text-decoration:none;padding:0 1px;border:.3px solid rgba(74,74,71,.25);border-radius:2px;transition:background .15s}
+.detail-link:hover{background:rgba(74,74,71,.06)}
+.empty-state{padding:40px 0;font-family:'EB Garamond',serif;font-style:italic;font-size:13px;color:var(--ink-dim);letter-spacing:.1em}
+.loading{padding:40px 0;font-size:8.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-dim)}
+
+/* ── 모바일 ── */
+@media(max-width:600px){
+  html,body{overflow:auto !important;height:auto !important}
+  .page-body{position:static;padding-top:calc(var(--nav-h) + var(--lang-h));display:block;overflow:visible}
+  :root{--lang-h:40px}
+  nav{padding:0 16px}
+  .lang-bar{padding:0 16px}
+  .stmt-block{max-height:none;padding:20px 20px 16px;border-bottom:.5px solid rgba(0,0,0,.08)}
+  .stmt-text{font-size:12px;line-height:1.8}
+  .content-row{display:block}
+  .list-col{width:100%;border-right:none;padding:12px 20px 8px;overflow:visible}
+  .list-header{grid-template-columns:36px 52px 1fr;gap:0 6px;padding:6px 0}
+  .file-row{grid-template-columns:36px 52px 1fr;gap:0 6px;padding:8px 0}
+  .file-year{font-size:9.5px}
+  .file-cat{font-size:9px}
+  .file-title{font-size:12px}
+  .detail-col{display:none}
+  .m-inline-detail{display:none;padding:12px 14px 18px 8px;border-bottom:.5px solid rgba(0,0,0,.06);background:rgba(255,255,255,.55);animation:mFadeIn .22s ease}
+  .m-inline-detail.open{display:block}
+  @keyframes mFadeIn{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+  .m-detail-year{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-mid);margin-bottom:4px}
+  .m-detail-cat{font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-dim);margin-bottom:8px}
+  .m-detail-title{font-family:'EB Garamond',serif;font-size:14px;color:var(--ink);line-height:1.4;margin-bottom:10px}
+  .m-detail-img{width:100%;max-width:100%;display:block;margin-bottom:12px}
+  .m-detail-desc{font-family:'EB Garamond',serif;font-size:12px;color:var(--ink-mid);line-height:1.9;margin-bottom:10px;white-space:pre-wrap}
+  .m-detail-place{font-size:10px;color:var(--ink-dim);margin-bottom:10px}
+  .m-detail-link{display:inline-flex;align-items:center;gap:4px;margin-top:8px;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-mid);text-decoration:none;padding:0 1px;border:.3px solid rgba(74,74,71,.25);border-radius:2px}
+}
+@media(max-width:480px){
+  .nav-logo{font-size:10px;letter-spacing:.18em}
+  .nav-item{font-size:8px;padding:5px 6px}
+  .nav-sep{margin:0 1px}
+}
+
+/* 로딩 */
+#page-loader{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:9999;opacity:1;transition:opacity .6s cubic-bezier(.16,1,.3,1);pointer-events:all}
+#page-loader.hidden{opacity:0;pointer-events:none}
+.loader-inner{display:flex;flex-direction:column;align-items:center;gap:20px}
+.loader-name{font-family:'EB Garamond',serif;font-style:italic;font-size:clamp(18px,3vw,28px);letter-spacing:.18em;color:var(--ink);opacity:0;animation:loaderFadeIn .8s ease .2s forwards}
+.loader-line{width:0;height:.5px;background:var(--ink);opacity:.3;animation:loaderLine 1s cubic-bezier(.16,1,.3,1) .4s forwards}
+@keyframes loaderFadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+@keyframes loaderLine{from{width:0}to{width:clamp(80px,12vw,140px)}}
+body.fade-out{opacity:0;transition:opacity .3s ease}
+</style>
+</head>
+<body>
+<div id="page-loader"><div class="loader-inner"><div class="loader-name">Won Jeong Cho</div><div class="loader-line"></div></div></div>
+
+<nav>
+  <span class="nav-logo" onclick="go('index')">Won Jeong Cho</span>
+  <div class="nav-right">
+    <div class="nav-dd">
+      <span class="nav-item">Archive</span>
+      <div class="nav-dd-menu">
+        <span class="nav-dd-item" onclick="go('year')">Year</span>
+        <span class="nav-dd-item" onclick="go('context')">Context</span>
+      </div>
+    </div>
+    <div class="nav-sep"></div>
+    <div class="nav-dd">
+      <span class="nav-item active">Text</span>
+      <div class="nav-dd-menu">
+        <span class="nav-dd-item" onclick="go('note')" style="color:var(--ink)">작가노트</span>
+        <span class="nav-dd-item" onclick="go('critique')">평론</span>
+      </div>
+    </div>
+    <div class="nav-sep"></div>
+    <span class="nav-item" onclick="go('about')">About</span>
+  </div>
+</nav>
+
+<div class="lang-bar">
+  <div class="lang-toggle">
+    <button class="lang-btn active" id="btnKo" onclick="setLang('ko')">한국어</button>
+    <button class="lang-btn" id="btnEn" onclick="setLang('en')">English</button>
+  </div>
+</div>
+
+<div class="page-body">
+  <!-- Statement -->
+  <div class="stmt-block" id="stmtBlock" style="display:none">
+    <div class="stmt-label">Artist Statement</div>
+    <div class="stmt-text" id="stmtText"></div>
+    <a class="stmt-link" id="stmtLink" href="#" target="_blank" style="display:none">PDF 열기 ↗</a>
+  </div>
+
+  <!-- 리스트 + 상세 -->
+  <div class="content-row">
+    <div class="list-col">
+      <div class="list-header">
+        <span class="list-th" id="thYear">년도</span>
+        <span class="list-th" id="thCat">구분</span>
+        <span class="list-th" id="thTitle">제목</span>
+      </div>
+      <div id="listInner"><div class="loading">Loading…</div></div>
+    </div>
+    <div class="detail-col">
+      <div class="detail-panel" id="detailPanel">
+        <div class="detail-year" id="detailYear"></div>
+        <div class="detail-cat" id="detailCat"></div>
+        <div class="detail-title" id="detailTitle"></div>
+        <img class="detail-img" id="detailImg" src="" alt="" style="display:none">
+        <div class="detail-desc" id="detailDesc"></div>
+        <div class="detail-place" id="detailPlace" style="display:none"></div>
+        <a class="detail-link" id="detailLink" href="#" target="_blank" style="display:none">PDF 열기 ↗</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+var DATA=[], STATEMENT={ko:'',en:''}, lang='ko', mOpenIdx=null, currentRow=null;
+
+function go(p){document.body.classList.add('fade-out');setTimeout(function(){window.location.href=p+'.html';},280);}
+function sel(id){return document.getElementById(id);}
+function isMobile(){return window.innerWidth<=600;}
+function escH(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+document.querySelectorAll('.nav-dd').forEach(function(dd){
+  var menu=dd.querySelector('.nav-dd-menu'),timer;
+  dd.addEventListener('mouseenter',function(){clearTimeout(timer);menu.style.display='block';});
+  dd.addEventListener('mouseleave',function(){timer=setTimeout(function(){menu.style.display='none';},150);});
+  menu.addEventListener('mouseenter',function(){clearTimeout(timer);});
+  menu.addEventListener('mouseleave',function(){timer=setTimeout(function(){menu.style.display='none';},150);});
+  dd.querySelector('.nav-item').addEventListener('click',function(e){
+    e.stopPropagation();
+    var isOpen=menu.style.display==='block';
+    document.querySelectorAll('.nav-dd-menu').forEach(function(m){m.style.display='none';});
+    if(!isOpen)menu.style.display='block';
+  });
+});
+document.addEventListener('click',function(e){
+  if(!e.target.closest||!e.target.closest('.nav-dd'))
+    document.querySelectorAll('.nav-dd-menu').forEach(function(m){m.style.display='none';});
+});
+
+function setLang(l){
+  if(lang===l)return;
+  lang=l;
+  sel('btnKo').classList.toggle('active',l==='ko');
+  sel('btnEn').classList.toggle('active',l==='en');
+  renderStmt();
+  renderList();
+  if(!isMobile()&&sel('detailPanel').classList.contains('visible'))renderDetail(currentRow);
+}
+
+function driveThumb(url,sz){
+  if(!url)return'';
+  var m=url.match(/\/d\/([a-zA-Z0-9_-]{10,})/);
+  return m?'https://drive.google.com/thumbnail?id='+m[1]+'&sz='+(sz||'w600'):url;
+}
+
+function renderStmt(){
+  var txt=lang==='ko'?(STATEMENT.ko||STATEMENT.en):(STATEMENT.en||STATEMENT.ko);
+  if(!txt){sel('stmtBlock').style.display='none';return;}
+  sel('stmtBlock').style.display='block';
+  var el=sel('stmtText');
+  el.style.opacity='0';
+  setTimeout(function(){el.textContent=txt;el.style.opacity='1';},180);
+}
+
+function renderList(){
+  var inner=sel('listInner');
+  var ko=(lang==='ko');
+  if(!DATA.length){inner.innerHTML='<div class="empty-state">—</div>';return;}
+  if(isMobile()){
+    inner.innerHTML='<div class="file-list">'+DATA.map(function(row,i){
+      var title=ko?(row.title||row.filename||''):(row.title||row.filename||'');
+      var desc=ko?(row.desc_ko||row.desc||''):(row.desc_en||row.desc||'');
+      var imgHtml=row.img?'<img class="m-detail-img" src="'+driveThumb(row.img)+'">':'';
+      return '<div class="file-row" id="row-'+i+'" onclick="toggleMobile('+i+')">'
+        +'<span class="file-year">'+(row.year||'')+'</span>'
+        +'<span class="file-cat">'+escH(row.category||'')+'</span>'
+        +'<span class="file-title">'+escH(title)+'</span>'
+        +'</div>'
+        +'<div class="m-inline-detail" id="m-detail-'+i+'">'
+        +'<div class="m-detail-year">'+(row.year||'')+'</div>'
+        +'<div class="m-detail-cat">'+escH(row.category||'')+'</div>'
+        +'<div class="m-detail-title">'+escH(title)+'</div>'
+        +imgHtml
+        +'<div class="m-detail-desc" id="m-desc-'+i+'">'+escH(desc)+'</div>'
+        +(row.place?'<div class="m-detail-place">'+escH(row.place)+'</div>':'')
+        +(row.link?'<a class="m-detail-link" href="'+row.link+'" target="_blank">PDF ↗</a>':'')
+        +'</div>';
+    }).join('')+'</div>';
+  } else {
+    inner.innerHTML='<div class="file-list">'+DATA.map(function(row,i){
+      var title=ko?(row.title||row.filename||''):(row.title||row.filename||'');
+      return '<div class="file-row" id="row-'+i+'" onclick="showDetail('+i+')">'
+        +'<span class="file-year">'+(row.year||'')+'</span>'
+        +'<span class="file-cat">'+escH(row.category||'')+'</span>'
+        +'<span class="file-title">'+escH(title)+'</span>'
+        +'</div>';
+    }).join('')+'</div>';
+  }
+}
+
+function toggleMobile(idx){
+  if(mOpenIdx===idx){
+    sel('m-detail-'+idx).classList.remove('open');
+    sel('row-'+idx).classList.remove('active-row');
+    mOpenIdx=null;return;
+  }
+  if(mOpenIdx!==null){
+    sel('m-detail-'+mOpenIdx).classList.remove('open');
+    sel('row-'+mOpenIdx).classList.remove('active-row');
+  }
+  mOpenIdx=idx;
+  sel('m-detail-'+idx).classList.add('open');
+  sel('row-'+idx).classList.add('active-row');
+  var row=DATA[idx];
+  if(row){
+    var desc=lang==='ko'?(row.desc_ko||row.desc||''):(row.desc_en||row.desc||'');
+    var el=sel('m-desc-'+idx);if(el)el.textContent=desc;
+  }
+  setTimeout(function(){var el=sel('m-detail-'+idx);if(el)el.scrollIntoView({behavior:'smooth',block:'nearest'});},50);
+}
+
+function showDetail(idx){
+  var row=DATA[idx];if(!row)return;
+  document.querySelectorAll('.file-row').forEach(function(r){r.classList.remove('active-row');});
+  var ar=sel('row-'+idx);if(ar)ar.classList.add('active-row');
+  currentRow=row;
+  renderDetail(row);
+  sel('detailPanel').classList.add('visible');
+}
+
+function renderDetail(row){
+  if(!row)return;
+  var ko=(lang==='ko');
+  var title=ko?(row.title||row.filename||''):(row.title||row.filename||'');
+  var desc=ko?(row.desc_ko||row.desc||''):(row.desc_en||row.desc||'');
+  sel('detailYear').textContent=row.year||'';
+  sel('detailCat').textContent=row.category||'';
+  sel('detailTitle').textContent=title;
+  sel('detailDesc').textContent=desc;
+  var imgEl=sel('detailImg');
+  if(row.img){imgEl.src=driveThumb(row.img,'w600');imgEl.style.display='block';}
+  else{imgEl.src='';imgEl.style.display='none';}
+  var placeEl=sel('detailPlace');
+  if(row.place){placeEl.textContent=row.place;placeEl.style.display='block';}
+  else placeEl.style.display='none';
+  var lk=sel('detailLink');
+  if(row.link){lk.href=row.link;lk.style.display='inline-flex';}
+  else lk.style.display='none';
+}
+
+fetch('./data/text.json?v='+Date.now(),{cache:'no-store'})
+  .then(function(r){return r.json();})
+  .then(function(result){
+    var d=result.data||{};
+    DATA=d['작가노트']||[];
+    STATEMENT=result.statement||{ko:'',en:''};
+    renderStmt();
+    renderList();
+    sel('thYear').textContent=lang==='ko'?'년도':'Year';
+    sel('thCat').textContent=lang==='ko'?'구분':'Type';
+    sel('thTitle').textContent=lang==='ko'?'제목':'Title';
+  })
+  .catch(function(){sel('listInner').innerHTML='<div class="loading">데이터를 불러올 수 없습니다.</div>';});
+
+window.addEventListener('load',function(){
+  var loader=document.getElementById('page-loader');
+  if(loader){setTimeout(function(){loader.classList.add('hidden');setTimeout(function(){loader.style.display='none';},650);},400);}
+});
+</script>
+</body>
+</html>
