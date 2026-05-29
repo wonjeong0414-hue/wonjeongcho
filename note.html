@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
@@ -58,16 +58,16 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
   overflow:hidden;z-index:1;
 }
 
-/* ── Statement 블록 (전체 표시) ── */
+/* ── Statement 블록 ── */
 .stmt-block{
   flex-shrink:0;
-  padding:28px 48px 24px 168px;
+  padding:28px 48px 24px 48px;
   border-bottom:.5px solid rgba(0,0,0,.08);
   overflow-y:auto;scrollbar-width:none;
-  max-height:45vh;
 }
 .stmt-block::-webkit-scrollbar{display:none}
-.stmt-label{font-size:8.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-dim);margin-bottom:14px}
+.stmt-inner{display:grid;grid-template-columns:120px 1fr;gap:0 24px;align-items:start}
+.stmt-label{font-size:8.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-dim);padding-top:4px}
 .stmt-text{font-family:'EB Garamond',serif;font-size:14px;line-height:2.0;color:var(--ink);white-space:pre-wrap;word-break:keep-all;text-align:justify}
 .stmt-link{display:inline-flex;align-items:center;gap:4px;margin-top:14px;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-mid);text-decoration:none;padding:0 1px;border:.3px solid rgba(74,74,71,.25);border-radius:2px;transition:background .15s}
 .stmt-link:hover{background:rgba(74,74,71,.06)}
@@ -78,7 +78,9 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 /* ── 리스트 컬럼 ── */
 .list-col{width:40%;flex-shrink:0;padding:16px 20px 40px 48px;border-right:.5px solid rgba(0,0,0,.07);overflow-y:auto;scrollbar-width:none}
 .list-col::-webkit-scrollbar{display:none}
-.list-header{display:grid;grid-template-columns:44px 60px 1fr;gap:0 8px;padding:0 0 6px;border-bottom:.5px solid rgba(0,0,0,.1);margin-bottom:2px}
+/* 리스트 내용을 stmt-text와 정렬 (label 120px + gap 24px = 144px, list-col left pad 48px 이미 있으므로 96px 추가) */
+.list-header{display:grid;grid-template-columns:44px 60px 1fr;gap:0 8px;padding:0 0 6px;border-bottom:.5px solid rgba(0,0,0,.1);margin-bottom:2px;margin-left:96px}
+.file-list{margin-left:96px}
 .list-th{font-size:7.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-dim)}
 .file-list{display:flex;flex-direction:column}
 .file-row{display:grid;grid-template-columns:44px 60px 1fr;gap:0 8px;padding:6px 0;cursor:pointer;border-bottom:.5px solid rgba(0,0,0,.05);align-items:baseline}
@@ -112,6 +114,7 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
   nav{padding:0 16px}
   .lang-bar{padding:0 16px}
   .stmt-block{max-height:none;padding:20px 20px 16px;border-bottom:.5px solid rgba(0,0,0,.08)}
+  .stmt-inner{grid-template-columns:1fr;gap:8px 0}
   .stmt-text{font-size:12px;line-height:1.8}
   .content-row{display:block}
   .list-col{width:100%;border-right:none;padding:12px 20px 8px;overflow:visible}
@@ -185,9 +188,13 @@ body.fade-out{opacity:0;transition:opacity .3s ease}
 <div class="page-body">
   <!-- Statement -->
   <div class="stmt-block" id="stmtBlock" style="display:none">
-    <div class="stmt-label">Artist Statement</div>
-    <div class="stmt-text" id="stmtText"></div>
-    <a class="stmt-link" id="stmtLink" href="#" target="_blank" style="display:none">PDF 열기 ↗</a>
+    <div class="stmt-inner">
+      <div class="stmt-label">Artist Statement</div>
+      <div>
+        <div class="stmt-text" id="stmtText"></div>
+        <a class="stmt-link" id="stmtLink" href="#" target="_blank" style="display:none">PDF 열기 ↗</a>
+      </div>
+    </div>
   </div>
 
   <!-- 리스트 + 상세 -->
