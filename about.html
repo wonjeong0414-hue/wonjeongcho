@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
@@ -179,10 +179,10 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
   .latest-cell-date{display:none}
   .place-city{font-size:9.5px}
 
-  /* 네비바 sticky */
+  /* 네비바 — 스크롤과 함께 자연스럽게 */
   .full-list-block{margin-top:20px}
   .full-list-wrap{
-    position:sticky;top:calc(var(--nav-h) + var(--lang-h));
+    position:static;
     background:var(--bg);z-index:100;
     padding:8px 0;
     border-top:.5px solid rgba(26,26,24,.1);
