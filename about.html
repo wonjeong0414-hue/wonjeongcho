@@ -1,4 +1,4 @@
-  <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
@@ -89,9 +89,7 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
   margin-bottom:10px;padding-bottom:8px;
   border-bottom:.5px solid rgba(26,26,24,.08);
 }
-.latest-year-label{
-  font-size:8px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-dim);
-}
+.latest-year-label{font-size:8px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-dim)}
 
 /* 테이블 헤더 */
 .latest-table-head{
@@ -104,7 +102,7 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 }
 .latest-th{font-size:7.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-dim)}
 
-/* 리스트 공통 행 — compact */
+/* 리스트 공통 행 */
 .latest-row{
   display:grid;
   grid-template-columns:62px minmax(0,1fr) 180px 96px;
@@ -117,12 +115,18 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 }
 .latest-row:last-child{border-bottom:none}
 .latest-cell-type{font-size:10px;color:var(--ink-dim);white-space:nowrap}
+/* 데스크탑: title-wrap은 단순 block */
+.latest-cell-title-wrap{display:block;min-width:0}
 .latest-cell-title{color:var(--ink)}
+/* 모바일 서브라인 — 데스크탑에서 숨김 */
+.latest-cell-sub{display:none}
 .latest-cell-place{font-size:10.5px;color:var(--ink-mid)}
-.latest-cell-date{font-size:10px;color:var(--ink-dim);letter-spacing:.01em;white-space:nowrap}
+/* [FIX] 데스크탑에서 날짜 항상 표시 */
+.latest-cell-date{font-size:10px;color:var(--ink-dim);letter-spacing:.01em;white-space:nowrap;display:block}
 
-/* 행 목록 래퍼 */
 .latest-rows-wrap{overflow:visible}
+
+/* 전체리스트 패널 행 */
 .panel-row{
   display:grid;
   grid-template-columns:36px minmax(0,1fr) 200px;
@@ -137,32 +141,23 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 .panel-year{font-size:10px;color:var(--ink-dim);letter-spacing:.03em}
 .panel-title{color:var(--ink)}
 .panel-place{font-size:10.5px;color:var(--ink-mid);text-align:left}
+.place-sep{color:var(--ink-dim);opacity:.5;font-size:9px}
+.place-city{font-size:10px;color:var(--ink-dim)}
 
 /* ── 네비바 + 전체리스트 블록 ── */
-.full-list-divider{display:none}
-.full-list-block{
-  margin-top:20px;
-  border-top:.5px solid rgba(26,26,24,.1);
-}
+.full-list-block{margin-top:20px;border-top:.5px solid rgba(26,26,24,.1)}
 .full-list-wrap{
   display:flex;align-items:center;
   padding:10px 0;
   border-bottom:.5px solid rgba(26,26,24,.07);
   gap:0;
 }
-/* "전시 전체 리스트" 레이블 */
 .full-list-label{
   font-size:8px;letter-spacing:.22em;text-transform:uppercase;
   color:var(--ink);font-weight:600;
   white-space:nowrap;flex-shrink:0;
 }
-/* 세로 구분선 */
-.full-list-sep{
-  width:.5px;height:10px;
-  background:rgba(26,26,24,.25);
-  margin:0 14px;flex-shrink:0;
-}
-/* 탭 */
+.full-list-sep{width:.5px;height:10px;background:rgba(26,26,24,.25);margin:0 14px;flex-shrink:0}
 .cv-tabs{display:flex;gap:0;align-items:center;flex:1}
 .cv-tab{
   font-size:8px;letter-spacing:.18em;text-transform:uppercase;
@@ -171,8 +166,6 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 }
 .cv-tab:hover{color:var(--ink-mid)}
 .cv-tab.active{color:var(--ink);font-weight:700;letter-spacing:.13em;font-size:8.5px}
-.cv-panel{display:none}
-/* ← 현재 연도 버튼 */
 .back-btn{
   display:none;font-size:7.5px;letter-spacing:.12em;text-transform:uppercase;
   color:var(--ink-dim);cursor:pointer;white-space:nowrap;
@@ -183,8 +176,6 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 }
 .back-btn:hover{color:var(--ink);border-color:rgba(26,26,24,.4)}
 .back-btn.visible{display:inline-block}
-
-/* 전체리스트 내용 영역 */
 .full-list-rows{margin-top:4px}
 
 /* ── footer ── */
@@ -201,12 +192,8 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 .social-link:hover{color:var(--ink);border-color:rgba(26,26,24,.45);background:rgba(26,26,24,.05)}
 .social-link svg{width:10px;height:10px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;opacity:.7}
 
-/* bio 미니바 — 모바일 전용, 데스크탑에서 숨김 */
+/* bio 미니바 — 데스크탑 숨김 */
 .bio-mini-bar{display:none}
-.latest-cell-title-wrap{display:contents}
-.latest-cell-sub{display:none}
-.place-sep{color:var(--ink-dim);opacity:.5;font-size:9px}
-.place-city{font-size:10px;color:var(--ink-dim)}
 
 .loading{padding:60px 0;text-align:center;font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-dim)}
 
@@ -214,139 +201,104 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
    모바일 (≤600px)
 ════════════════════════════ */
 @media(max-width:600px){
-  :root{--pad:0px;--lang-h:40px}
+  :root{--pad:20px;--lang-h:40px}
   nav{padding:0 16px}
   .lang-bar{padding:0 16px}
 
-  html,body{overflow:hidden !important;height:100% !important}
-
+  /* 일반 스크롤 */
+  html,body{overflow:auto !important;height:auto !important}
   .page-wrap{
-    position:fixed;
-    top:calc(var(--nav-h) + var(--lang-h));
-    left:0;right:0;bottom:0;
-    display:flex;flex-direction:column;
-    overflow:hidden;padding:0;max-width:100%;margin:0;
+    position:static;
+    padding:calc(var(--nav-h) + var(--lang-h) + 24px) var(--pad) 80px;
+    max-width:100%;margin:0;
   }
 
-  /* ── Bio 접기/펼치기 ── */
-  .bio-cv-wrap{
-    flex-shrink:0;overflow:hidden;
-    max-height:36px;
-    transition:max-height .35s ease;
-    border-bottom:.5px solid rgba(26,26,24,.08);
-  }
-  .bio-cv-wrap.expanded{max-height:60vh;overflow-y:auto}
-  .bio-cv-wrap::-webkit-scrollbar{display:none}
-  .bio-mini-bar{
-    display:flex;align-items:center;justify-content:space-between;
-    padding:9px 16px;
-    font-size:8px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-dim);
-  }
-  .bio-mini-arrow{font-size:8px;transition:transform .3s;display:inline-block;opacity:.6}
-  .bio-cv-wrap.expanded .bio-mini-arrow{transform:rotate(180deg)}
-  .bio-section{padding:0 16px 12px;margin-bottom:0}
-  .bio-title{font-size:12.5px;margin-bottom:.7em}
-  .bio-body{font-size:11px;line-height:1.7}
-  .cv-summary-section{padding:0 16px 12px}
-  .cv-summary{font-size:11px;line-height:1.7}
-  .stmt-section{padding:0 16px 12px}
+  /* Bio 영역 */
+  .bio-mini-bar{display:none}
+  .bio-section{margin-bottom:20px}
+  .bio-title{font-size:13px;margin-bottom:.7em}
+  .bio-body{font-size:11.5px;line-height:1.75}
+  .cv-summary-section{margin-bottom:24px}
+  .cv-summary{font-size:11.5px;line-height:1.75}
+  .stmt-section{margin-bottom:20px}
 
-  .sec-divider{display:none}
-
-  /* ── main-grid → 세로 flex ── */
-  .main-grid{
-    flex:1;display:flex;flex-direction:column;
-    min-height:0;overflow:hidden;
-    grid-template-columns:1fr;gap:0;padding:0;
-  }
+  .sec-divider{margin:0 0 24px}
   .left-col{display:none}
+  .main-grid{display:block}
 
-  /* bio 미니바 표시 */
-  .bio-mini-bar{display:flex}
-
-  /* ── right-col: flex column, 스크롤 안에 네비바 분리 ── */
-  .right-col{
-    flex:1;display:flex;flex-direction:column;
-    min-height:0;overflow:hidden;
-  }
-  .right-col::-webkit-scrollbar{display:none}
-
-  /* 리스트 영역만 스크롤 */
-  .latest-section{
-    flex:1;overflow-y:auto;
-    -webkit-overflow-scrolling:touch;
-    min-height:0;
-  }
-  .latest-section::-webkit-scrollbar{display:none}
-
-  /* 현재연도 헤더 */
+  /* 현재연도 헤더 sticky */
   .latest-header-row{
-    padding:8px 16px 6px;margin-bottom:0;
-    border-bottom:.5px solid rgba(26,26,24,.07);
-    border-top:.5px solid rgba(26,26,24,.06);
+    position:sticky;
+    top:calc(var(--nav-h) + var(--lang-h));
+    background:var(--bg);
+    z-index:100;
+    padding:8px 0 6px;
+    margin-bottom:0;
+    border-bottom:.5px solid rgba(26,26,24,.08);
   }
   .latest-year-label{font-size:8px;letter-spacing:.2em}
 
-  /* 테이블 헤더 숨김 */
-  .latest-table-head{display:none}
-
-  /* 현재연도 리스트 */
-  .latest-rows-wrap{padding:0 16px 8px}
-  .latest-row{
-    grid-template-columns:46px 1fr;
-    gap:0 8px;padding:6px 0;font-size:12px;
-    align-items:start;
-  }
-  .latest-cell-type{font-size:9.5px;padding-top:1px}
-  .latest-cell-title-wrap{display:flex;flex-direction:column;gap:2px}
-  .latest-cell-title{color:var(--ink);line-height:1.5}
-  .latest-cell-sub{display:block;font-size:9.5px;color:var(--ink-dim);line-height:1.4}
-  .latest-cell-place,.latest-cell-date{display:none}
-
-  /* 전체리스트 블록 — 스크롤 밖 하단 고정 */
-  .full-list-block{
-    flex-shrink:0;
-    margin-top:0;
-    border-top:.5px solid rgba(26,26,24,.1);
-  }
-  .full-list-wrap{
-    display:flex;align-items:center;
-    padding:7px 16px;
-    border-bottom:.5px solid rgba(26,26,24,.07);
-    gap:0;overflow:hidden;
+  /* [FIX] 모바일 테이블 헤더 — 3열 (날짜 숨김) */
+  .latest-table-head{
+    display:grid;
+    grid-template-columns:52px 1fr 100px;
+    gap:0 6px;
+    padding:5px 0 4px;
+    border-bottom:.5px solid rgba(26,26,24,.1);
+    position:sticky;
+    top:calc(var(--nav-h) + var(--lang-h) + 34px);
     background:var(--bg);
-    position:static;
+    z-index:99;
   }
-  .full-list-label{
-    font-size:7px;letter-spacing:.16em;
-    flex-shrink:0;white-space:nowrap;font-weight:600;
-  }
-  .full-list-sep{width:.5px;height:8px;margin:0 8px;background:rgba(26,26,24,.25)}
-  .cv-tabs{display:flex;flex:1;gap:0;align-items:center;overflow:hidden}
-  .cv-tab{
-    font-size:7px;letter-spacing:.05em;
-    padding:0 7px 0 0;flex-shrink:0;white-space:nowrap;
-  }
-  .cv-tab.active{font-size:7.5px;font-weight:700;letter-spacing:.03em}
-  .back-btn{font-size:6.5px;padding:1px 5px;margin-left:auto;flex-shrink:0}
+  /* 날짜 헤더 숨김 */
+  #thDate{display:none}
 
-  /* 전체리스트 행 — full-list-block 안에서 스크롤 */
-  .full-list-rows{
-    overflow-y:auto;-webkit-overflow-scrolling:touch;
-    max-height:calc(100vh - 280px);
-    padding:4px 16px 24px;
+  /* [FIX] 모바일 현재연도 행 — 3열 */
+  .latest-rows-wrap{padding:0}
+  .latest-row{
+    display:grid;
+    grid-template-columns:52px minmax(0,1fr) 100px;
+    gap:0 6px;padding:5px 0;font-size:11.5px;
+    align-items:baseline;
   }
-  .full-list-rows::-webkit-scrollbar{display:none}
+  .latest-cell-type{font-size:9.5px;color:var(--ink-dim)}
+  .latest-cell-title-wrap{display:block;min-width:0}
+  .latest-cell-title{color:var(--ink);line-height:1.5}
+  .latest-cell-sub{display:none}
+  /* [FIX] 모바일에서 place 표시, date 숨김 */
+  .latest-cell-place{display:block;font-size:10px;color:var(--ink-mid)}
+  .latest-cell-date{display:none}
+  .place-city{font-size:9.5px}
+
+  /* 전체리스트 블록 */
+  .full-list-block{margin-top:20px}
+  .full-list-wrap{
+    position:sticky;
+    top:calc(var(--nav-h) + var(--lang-h));
+    background:var(--bg);
+    z-index:100;
+    padding:8px 0;
+    border-top:.5px solid rgba(26,26,24,.1);
+    border-bottom:.5px solid rgba(26,26,24,.07);
+    flex-wrap:nowrap;
+  }
+  .full-list-label{font-size:7px;letter-spacing:.14em;font-weight:600}
+  .full-list-sep{width:.5px;height:8px;margin:0 8px}
+  .cv-tabs{display:flex;flex:1;gap:0;align-items:center;overflow:hidden}
+  .cv-tab{font-size:7px;letter-spacing:.05em;padding:0 7px 0 0;flex-shrink:0;white-space:nowrap}
+  .cv-tab.active{font-size:7.5px;font-weight:700}
+  .back-btn{font-size:7px;padding:1px 6px;margin-left:auto;flex-shrink:0}
+
+  /* 전체리스트 행 */
+  .full-list-rows{padding:4px 0 40px}
   .panel-row{
-    grid-template-columns:28px 1fr;
-    gap:0 8px;padding:5px 0;font-size:12px;align-items:start;
+    display:grid;
+    grid-template-columns:28px 1fr 100px;
+    gap:0 6px;padding:5px 0;font-size:11.5px;align-items:baseline;
   }
-  .panel-year{font-size:9.5px;padding-top:1px}
-  .panel-title{line-height:1.5}
-  .panel-place{
-    display:block;grid-column:2;
-    font-size:10px;color:var(--ink-dim);margin-top:1px;
-  }
+  .panel-year{font-size:9.5px;color:var(--ink-dim)}
+  .panel-title{color:var(--ink);line-height:1.5}
+  .panel-place{display:block;font-size:10px;color:var(--ink-mid);text-align:left}
   .place-city{font-size:9.5px}
 
   .cv-footer{display:none}
@@ -386,16 +338,12 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 
 <div class="page-wrap">
 
-  <!-- Bio + CV요약 묶음 -->
   <div class="bio-cv-wrap" id="bioCvWrap">
-    <!-- 모바일 미니바 (클릭으로 펼침) -->
     <div class="bio-mini-bar" id="bioMiniBar" onclick="toggleBio()">
       <span id="bioMiniLabel">조원정 · Artist Bio</span>
       <span class="bio-mini-arrow">∨</span>
     </div>
-
     <div class="bio-section" id="bioSection"></div>
-
     <div class="stmt-section" id="stmtSection" style="display:none">
       <div class="stmt-header-row">
         <span class="stmt-lbl">Artist Statement</span>
@@ -403,16 +351,13 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
       </div>
       <div class="stmt-body" id="stmtBody"></div>
     </div>
-
     <div class="cv-summary-section" id="cvSummarySection" style="display:none"></div>
   </div>
 
   <div class="sec-divider"></div>
 
-  <!-- 메인: 좌(학력+소장인) / 우(CV 리스트) -->
   <div class="main-grid" id="mainGrid">
 
-    <!-- 좌측 -->
     <div class="left-col">
       <div class="left-section">
         <div class="left-label" id="labelEdu">학력</div>
@@ -425,10 +370,9 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
       </div>
     </div>
 
-    <!-- 우측 -->
     <div class="right-col">
 
-      <!-- 현재연도 리스트 (기본 표시, 탭 클릭 시 숨김) -->
+      <!-- 현재연도 리스트 -->
       <div class="latest-section" id="latestSection">
         <div class="latest-header-row">
           <span class="latest-year-label" id="latestYearLabel">2026년 전시</span>
@@ -444,7 +388,7 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
         </div>
       </div>
 
-      <!-- 네비 바 + 전체리스트 영역 -->
+      <!-- 전체리스트 블록 -->
       <div class="full-list-block" id="fullListBlock">
         <div class="full-list-wrap">
           <span class="full-list-label" id="labelFullList">전시 전체 리스트</span>
@@ -456,18 +400,12 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
           </div>
           <button class="back-btn" id="backBtn" onclick="showLatestYear()">← 현재 연도</button>
         </div>
-        <!-- 전체리스트 내용 (탭 클릭 시 표시) -->
         <div class="full-list-rows" id="fullListRows" style="display:none"></div>
       </div>
-
-      <div style="display:none" id="panelSolo"></div>
-      <div style="display:none" id="panelGroup"></div>
-      <div style="display:none" id="panelFair"></div>
 
     </div><!-- /right-col -->
   </div><!-- /main-grid -->
 
-  <!-- footer -->
   <div class="cv-footer">
     <a class="cv-pdf-link" id="pdfLink" href="#" target="_blank" style="display:none">
       <svg width="10" height="12" viewBox="0 0 10 12" fill="none"><rect x=".5" y=".5" width="9" height="11" rx="1" stroke="currentColor" stroke-width=".8"/><line x1="2" y1="4" x2="8" y2="4" stroke="currentColor" stroke-width=".8"/><line x1="2" y1="6" x2="8" y2="6" stroke="currentColor" stroke-width=".8"/><line x1="2" y1="8" x2="5.5" y2="8" stroke="currentColor" stroke-width=".8"/></svg>
@@ -501,12 +439,10 @@ document.querySelectorAll('.nav-dd').forEach(function(dd){
   menu.addEventListener('mouseleave',function(){timer=setTimeout(function(){menu.style.display='none';},150);});
 });
 
-/* Bio 토글 (모바일) */
 function toggleBio(){
   document.getElementById('bioCvWrap').classList.toggle('expanded');
 }
 
-/* 언어 전환 */
 function setLang(l){
   lang=l;
   document.getElementById('btnKo').classList.toggle('active',l==='ko');
@@ -514,7 +450,7 @@ function setLang(l){
   if(D) render();
 }
 
-/* ── 탭 클릭: 현재연도 숨기고 전체리스트 표시 ── */
+/* ── 탭 클릭 ── */
 function setCvTab(t){
   activeTab=t;
   ['solo','group','fair'].forEach(function(k){
@@ -522,14 +458,15 @@ function setCvTab(t){
     if(el) el.classList.toggle('active', k===t);
   });
   document.getElementById('backBtn').classList.add('visible');
-  /* 현재연도 섹션 숨김 */
   document.getElementById('latestSection').style.display='none';
-  /* 전체리스트 표시 */
-  document.getElementById('fullListRows').style.display='block';
+  /* [FIX] 전체리스트 항상 block으로 초기화 후 렌더 */
+  var fr=document.getElementById('fullListRows');
+  fr.style.display='block';
+  fr.innerHTML='';
   renderFullList();
 }
 
-/* ← 현재 연도: 현재연도 뷰 복귀 */
+/* ← 현재 연도 */
 function showLatestYear(){
   activeTab=null;
   ['Solo','Group','Fair'].forEach(function(n){
@@ -537,9 +474,7 @@ function showLatestYear(){
     if(el) el.classList.remove('active');
   });
   document.getElementById('backBtn').classList.remove('visible');
-  /* 현재연도 섹션 다시 표시 */
   document.getElementById('latestSection').style.display='';
-  /* 전체리스트 숨김 */
   document.getElementById('fullListRows').style.display='none';
 }
 
@@ -559,7 +494,9 @@ function renderFullList(){
     var p=ko?(item.placeKo||''):(item.placeEn||item.placeKo||'');
     var c=ko?(item.cityKo||''):(item.cityEn||item.cityKo||'');
     if(!t) return '';
-    var placeHtml=p?('<span class="place-name">'+p+'</span>'+(c?'<span class="place-sep"> · </span><span class="place-city">'+c+'</span>':'')):(c||'');
+    var placeHtml=p
+      ?('<span class="place-name">'+p+'</span>'+(c?'<span class="place-sep"> · </span><span class="place-city">'+c+'</span>':''))
+      :(c||'');
     return '<div class="panel-row">'
       +'<div class="panel-year">'+(item.year||'')+'</div>'
       +'<div class="panel-title">'+t+'</div>'
@@ -573,44 +510,47 @@ function renderMainArea(){
   if(!D) return;
   var ko=(lang==='ko');
   var labelEl=document.getElementById('latestYearLabel');
-  var headEl=document.getElementById('latestTableHead');
   var rowsEl=document.getElementById('latestRows');
 
   labelEl.textContent=latestYear
-    ? (ko ? latestYear+'년 전시' : latestYear+' Exhibitions')
-    : (ko ? '최근 전시' : 'Recent Exhibitions');
-  if(headEl) headEl.style.display='';
+    ?(ko?latestYear+'년 전시':latestYear+' Exhibitions')
+    :(ko?'최근 전시':'Recent Exhibitions');
 
   var typeL={solo:ko?'개인·초대':'Solo', group:ko?'단체전':'Group', fair:'Art Fair'};
+
+  /* [FIX] solo/group/fair 모두 합쳐서 최신연도 필터 */
   var allItems=[]
     .concat((D.solo||[]).map(function(i){return Object.assign({},i,{_t:'solo'});}))
     .concat((D.group||[]).map(function(i){return Object.assign({},i,{_t:'group'});}))
     .concat((D.fair||[]).map(function(i){return Object.assign({},i,{_t:'fair'});}));
+
   var filtered=latestYear
-    ? allItems.filter(function(i){return String(i.year)===String(latestYear);})
-    : [];
+    ?allItems.filter(function(i){return String(i.year)===String(latestYear);})
+    :[];
+
   if(!filtered.length){
     rowsEl.innerHTML='<div style="font-size:11px;color:var(--ink-dim);padding:8px 0">—</div>';
     return;
   }
+
   rowsEl.innerHTML=filtered.map(function(item){
     var t=ko?(item.ko||''):(item.en||item.ko||'');
     var p=ko?(item.placeKo||''):(item.placeEn||item.placeKo||'');
     var c=ko?(item.cityKo||''):(item.cityEn||item.cityKo||'');
-    var placeHtml=p?('<span class="place-name">'+p+'</span>'+(c?'<span class="place-sep"> · </span><span class="place-city">'+c+'</span>':'')):(c||'');
-    var subLine=placeHtml?'<div class="latest-cell-sub">'+placeHtml+'</div>':'';
+    var placeHtml=p
+      ?('<span class="place-name">'+p+'</span>'+(c?'<span class="place-sep"> · </span><span class="place-city">'+c+'</span>':''))
+      :(c||'');
     return '<div class="latest-row">'
       +'<div class="latest-cell-type">'+(typeL[item._t]||'')+'</div>'
       +'<div class="latest-cell-title-wrap">'
         +'<div class="latest-cell-title">'+t+'</div>'
-        +subLine
       +'</div>'
       +'<div class="latest-cell-place">'+placeHtml+'</div>'
       +'<div class="latest-cell-date">'+(item.date||'')+'</div>'
       +'</div>';
   }).join('');
 
-  /* 언어 전환 시 탭 뷰 상태 유지 */
+  /* 언어 전환 시 탭 뷰 유지 */
   if(activeTab){
     document.getElementById('latestSection').style.display='none';
     document.getElementById('fullListRows').style.display='block';
@@ -651,7 +591,7 @@ function render(){
 
   var stmtText=ko?(D.statementKo||''):(D.statementEn||D.statementKo||'');
   var stmtSec=document.getElementById('stmtSection');
-  if(stmtText.trim()){
+  if(stmtText&&stmtText.trim()){
     document.getElementById('stmtBody').textContent=stmtText;
     var pl=document.getElementById('stmtPdfLink');
     if(D.statementLink){pl.href=D.statementLink;pl.style.display='inline';}
@@ -661,7 +601,7 @@ function render(){
 
   var cvText=ko?(D.cvKo||''):(D.cvEn||'');
   var cvSec=document.getElementById('cvSummarySection');
-  if(cvText.trim()){
+  if(cvText&&cvText.trim()){
     var cvP=cvText.split(/\n\n+/).filter(function(p){return p.trim();});
     if(cvP.length<=1) cvP=cvText.split(/\n/).filter(function(p){return p.trim();});
     cvSec.innerHTML='<div class="cv-summary">'+cvP.map(function(p){return'<p>'+p.trim()+'</p>';}).join('')+'</div>';
@@ -679,13 +619,12 @@ function render(){
     ?collLines.map(function(l){return'<div class="left-item">'+l.trim()+'</div>';}).join('')
     :'<div class="left-item">—</div>';
 
-  /* 최신연도 계산 — 문자열로 통일 */
+  /* [FIX] 최신연도 계산 — NaN 제거 후 max */
   var allForYear=[].concat(D.solo||[], D.group||[], D.fair||[]);
-  var yrs=allForYear.map(function(i){return parseInt(i.year,10)||0;});
+  var yrs=allForYear.map(function(i){return parseInt(i.year,10);}).filter(function(y){return !isNaN(y);});
   var maxY=yrs.length?Math.max.apply(null,yrs):null;
   latestYear=maxY?String(maxY):null;
 
-  /* 레이블 텍스트 */
   document.getElementById('thType').textContent=ko?'구분':'Type';
   document.getElementById('thTitle').textContent=ko?'제목':'Title';
   document.getElementById('thPlace').textContent=ko?'장소':'Venue';
@@ -695,10 +634,8 @@ function render(){
   document.getElementById('labelGroup').textContent=ko?'단체전':'Group';
   document.getElementById('backBtn').textContent='← '+(ko?'현재 연도':'Current Year');
 
-  /* 메인 영역 */
   renderMainArea();
 
-  /* PDF */
   if(D.pdfUrl){
     document.getElementById('pdfLink').href=D.pdfUrl;
     document.getElementById('pdfLink').style.display='inline-flex';
