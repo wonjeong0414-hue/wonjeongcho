@@ -201,8 +201,10 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 .social-link:hover{color:var(--ink);border-color:rgba(26,26,24,.45);background:rgba(26,26,24,.05)}
 .social-link svg{width:10px;height:10px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;opacity:.7}
 
-.latest-cell-title-wrap{display:contents} /* 데스크탑: 기존 동작 유지 */
-.latest-cell-sub{display:none} /* 데스크탑: 숨김 */
+/* bio 미니바 — 모바일 전용, 데스크탑에서 숨김 */
+.bio-mini-bar{display:none}
+.latest-cell-title-wrap{display:contents}
+.latest-cell-sub{display:none}
 .place-sep{color:var(--ink-dim);opacity:.5;font-size:9px}
 .place-city{font-size:10px;color:var(--ink-dim)}
 
@@ -259,20 +261,29 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
   }
   .left-col{display:none}
 
-  /* ── right-col: 전체 스크롤 ── */
+  /* bio 미니바 표시 */
+  .bio-mini-bar{display:flex}
+
+  /* ── right-col: flex column, 스크롤 안에 네비바 분리 ── */
   .right-col{
     flex:1;display:flex;flex-direction:column;
-    min-height:0;overflow-y:auto;
-    -webkit-overflow-scrolling:touch;
+    min-height:0;overflow:hidden;
   }
   .right-col::-webkit-scrollbar{display:none}
+
+  /* 리스트 영역만 스크롤 */
+  .latest-section{
+    flex:1;overflow-y:auto;
+    -webkit-overflow-scrolling:touch;
+    min-height:0;
+  }
+  .latest-section::-webkit-scrollbar{display:none}
 
   /* 현재연도 헤더 */
   .latest-header-row{
     padding:8px 16px 6px;margin-bottom:0;
     border-bottom:.5px solid rgba(26,26,24,.07);
     border-top:.5px solid rgba(26,26,24,.06);
-    position:sticky;top:0;background:var(--bg);z-index:10;
   }
   .latest-year-label{font-size:8px;letter-spacing:.2em}
 
@@ -290,21 +301,21 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
   .latest-cell-title-wrap{display:flex;flex-direction:column;gap:2px}
   .latest-cell-title{color:var(--ink);line-height:1.5}
   .latest-cell-sub{display:block;font-size:9.5px;color:var(--ink-dim);line-height:1.4}
-  /* 모바일: 장소+날짜 컬럼 숨김 (서브라인으로 대체) */
   .latest-cell-place,.latest-cell-date{display:none}
 
-  /* 전체리스트 블록 */
+  /* 전체리스트 블록 — 스크롤 밖 하단 고정 */
   .full-list-block{
-    margin-top:4px;
-    border-top:.5px solid rgba(26,26,24,.1);
     flex-shrink:0;
+    margin-top:0;
+    border-top:.5px solid rgba(26,26,24,.1);
   }
   .full-list-wrap{
     display:flex;align-items:center;
     padding:7px 16px;
     border-bottom:.5px solid rgba(26,26,24,.07);
     gap:0;overflow:hidden;
-    position:sticky;bottom:0;background:var(--bg);z-index:10;
+    background:var(--bg);
+    position:static;
   }
   .full-list-label{
     font-size:7px;letter-spacing:.16em;
@@ -319,8 +330,13 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
   .cv-tab.active{font-size:7.5px;font-weight:700;letter-spacing:.03em}
   .back-btn{font-size:6.5px;padding:1px 5px;margin-left:auto;flex-shrink:0}
 
-  /* 전체리스트 행 */
-  .full-list-rows{padding:4px 16px 32px}
+  /* 전체리스트 행 — full-list-block 안에서 스크롤 */
+  .full-list-rows{
+    overflow-y:auto;-webkit-overflow-scrolling:touch;
+    max-height:calc(100vh - 280px);
+    padding:4px 16px 24px;
+  }
+  .full-list-rows::-webkit-scrollbar{display:none}
   .panel-row{
     grid-template-columns:28px 1fr;
     gap:0 8px;padding:5px 0;font-size:12px;align-items:start;
@@ -328,10 +344,8 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
   .panel-year{font-size:9.5px;padding-top:1px}
   .panel-title{line-height:1.5}
   .panel-place{
-    display:block;
-    grid-column:2;
-    font-size:10px;color:var(--ink-dim);
-    margin-top:1px;
+    display:block;grid-column:2;
+    font-size:10px;color:var(--ink-dim);margin-top:1px;
   }
   .place-city{font-size:9.5px}
 
