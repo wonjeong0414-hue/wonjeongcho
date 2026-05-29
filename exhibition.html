@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
@@ -335,20 +335,17 @@ function renderGrid(){
 }
 
 /* 초기화 */
-var titleParam=decodeURIComponent(getParam('title'));
-document.getElementById('exhTitle').textContent=titleParam||'—';
+var keyParam=decodeURIComponent(getParam('key'));
 
 fetch('./data/exhibition.json?v='+Date.now(),{cache:'no-store'})
   .then(function(r){return r.json();})
   .then(function(data){
-    /* title로 필터링 */
-    items=data.filter(function(d){
-      return d.title===titleParam && d.year; /* 영상 포함, year 없는 항목 제외 */
-    });
-    /* title 없으면 전체 */
-    if(!titleParam) items=data.filter(function(d){return d.year;});
-
-    /* 헤더 메타 */
+    if(keyParam){
+      items=data.filter(function(d){return d.title===keyParam && d.year;});
+    } else {
+      items=data.filter(function(d){return d.year;});
+    }
+    document.getElementById('exhTitle').textContent=keyParam||'—';
     if(items.length){
       document.getElementById('exhYear').textContent=items[0].year;
       document.getElementById('exhPlace').textContent=items[0].place;
