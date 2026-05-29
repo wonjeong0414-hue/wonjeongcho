@@ -1,34 +1,9 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>About — Won Jeong Cho</title>
-  <!-- SEO Meta -->
-  <meta name="description" content="조원정 작가 소개. 학력, 주요 전시 이력, 소장처, 작가 노트를 담은 공식 CV 페이지입니다.">
-  <meta name="keywords" content="조원정, Won Jeong Cho, 작가, artist, CV, 전시이력, 회화, painting, Tactile Thinking, 촉각적 사고, 한국 현대미술, Korean contemporary art">
-  <meta name="author" content="Won Jeong Cho">
-  <meta name="robots" content="index, follow">
-  <meta property="og:type" content="profile">
-  <meta property="og:title" content="About — Won Jeong Cho">
-  <meta property="og:description" content="Artist CV and biography of Won Jeong Cho — painter working with Tactile Thinking, based in Seoul.">
-  <meta property="og:url" content="https://www.chowonjeong.org/about.html">
-  <meta property="og:image" content="https://www.chowonjeong.org/og-image.jpg">
-  <meta property="og:site_name" content="Won Jeong Cho">
-  <meta property="og:locale" content="ko_KR">
-  <meta property="og:locale:alternate" content="en_US">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="About — Won Jeong Cho">
-  <meta name="twitter:description" content="Artist CV and biography of Won Jeong Cho — painter working with Tactile Thinking, based in Seoul.">
-  <meta name="twitter:image" content="https://www.chowonjeong.org/og-image.jpg">
-  <link rel="canonical" href="https://www.chowonjeong.org/about.html">
-  <!-- Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-YBRBFCMMCB"></script>
-  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-YBRBFCMMCB');</script>
-  <!-- JSON-LD -->
-  <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"Person","name":"Won Jeong Cho","alternateName":"조원정","jobTitle":"Visual Artist","url":"https://www.chowonjeong.org/","alumniOf":[{"@type":"CollegeOrUniversity","name":"Hongik University Graduate School of Fine Arts"},{"@type":"CollegeOrUniversity","name":"Ewha Womans University"}],"sameAs":["https://www.instagram.com/wonjeong.cho/","https://www.saatchiart.com/en-kr/chowonjeong"],"knowsAbout":["Painting","Abstract Art","Tactile Thinking","Contemporary Art","Installation"]}
-  </script>
+<title>About — WON JEONG CHO</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Cormorant+Garamond:wght@300;400&display=swap" onload="this.rel='stylesheet'">
@@ -67,7 +42,9 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 .page-wrap{max-width:var(--max-w);margin:0 auto;padding:calc(var(--nav-h) + var(--lang-h) + 40px) var(--pad) 100px}
 
 /* ── Bio ── */
-.bio-section{margin-bottom:40px}
+.bio-with-img{display:grid;grid-template-columns:1fr 260px;gap:0 48px;align-items:start;margin-bottom:40px}
+.bio-img-wrap img{width:100%;display:block;object-fit:cover;max-height:360px}
+.bio-section{margin-bottom:0}
 .bio-text{font-family:'EB Garamond',serif;color:#2a2a27;word-break:keep-all}
 .bio-title{font-size:15px;font-weight:500;line-height:1.7;margin-bottom:1em;letter-spacing:.01em}
 .bio-body{font-size:13px;line-height:2.0;color:var(--ink-mid);text-align:justify}
@@ -167,6 +144,9 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
   .page-wrap{position:static;padding:calc(var(--nav-h) + var(--lang-h) + 24px) var(--pad) 80px;max-width:100%;margin:0}
 
   /* Bio 자연스럽게 */
+  .bio-with-img{grid-template-columns:1fr;gap:20px 0}
+  .bio-img-wrap{order:-1}
+  .bio-img-wrap img{max-height:240px;width:100%;object-fit:cover}
   .bio-section{margin-bottom:20px}
   .bio-title{font-size:13px;margin-bottom:.7em}
   .bio-body{font-size:11.5px;line-height:1.75}
@@ -273,7 +253,10 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 
   <div class="bio-cv-wrap" id="bioCvWrap">
     <div class="bio-mini-bar" id="bioMiniBar"></div>
-    <div class="bio-section" id="bioSection"></div>
+    <div class="bio-with-img">
+      <div class="bio-section" id="bioSection"></div>
+      <div class="bio-img-wrap" id="bioImgWrap" style="display:none"><img id="bioImg" src="" alt=""></div>
+    </div>
     <div class="stmt-section" id="stmtSection" style="display:none">
       <div class="stmt-header-row">
         <span class="stmt-lbl">Artist Statement</span>
@@ -404,11 +387,10 @@ function makePlace(p,c){
     +(c?'<span class="place-sep"> · </span><span class="place-city">'+c+'</span>':'');
 }
 
-/* 전시 제목 → exhibition 링크 생성 */
-function exhLink(koTitle, enTitle){
-  /* about.json ko 제목에서 「」 제거해서 exhibition.json title과 매핑 */
-  var raw=koTitle.replace(/[「」]/g,'').trim();
-  return 'exhibition.html?title='+encodeURIComponent(raw);
+/* 전시 제목 → exhibition 링크 생성 (cvKey 기반) */
+function exhLink(cvKey){
+  if(!cvKey) return '#';
+  return 'exhibition.html?key='+encodeURIComponent(cvKey);
 }
 
 function renderFullList(){
@@ -422,7 +404,7 @@ function renderFullList(){
     if(!t) return '';
     var p=ko?(item.placeKo||''):(item.placeEn||item.placeKo||'');
     var c=ko?(item.cityKo||''):(item.cityEn||item.cityKo||'');
-    var link=exhLink(item.ko||'', item.en||'');
+    var link=item.cvKey?exhLink(item.cvKey):'';
     return '<div class="panel-row">'
       +'<div class="panel-year">'+(item.year||'')+'</div>'
       +'<div class="panel-title"><a class="exh-link" href="'+link+'">'+t+'</a></div>'
@@ -449,7 +431,7 @@ function renderMainArea(){
     var t=ko?(item.ko||''):(item.en||item.ko||'');
     var p=ko?(item.placeKo||''):(item.placeEn||item.placeKo||'');
     var c=ko?(item.cityKo||''):(item.cityEn||item.cityKo||'');
-    var link=exhLink(item.ko||'', item.en||'');
+    var link=item.cvKey?exhLink(item.cvKey):'';
     return '<div class="latest-row">'
       +'<div class="latest-cell-type">'+(typeL[item._t]||'')+'</div>'
       +'<div class="latest-cell-title"><a class="exh-link" href="'+link+'">'+t+'</a></div>'
@@ -531,6 +513,12 @@ function render(){
   document.getElementById('backBtn').textContent='← '+(ko?'현재 연도':'Current Year');
   renderMainArea();
   if(D.pdfUrl){document.getElementById('pdfLink').href=D.pdfUrl;document.getElementById('pdfLink').style.display='inline-flex';}
+  if(D.aboutImg){
+    var m=D.aboutImg.match(/\/d\/([a-zA-Z0-9_-]{10,})/);
+    var imgUrl=m?'https://drive.google.com/thumbnail?id='+m[1]+'&sz=w600':D.aboutImg;
+    var bi=document.getElementById('bioImg'),bw=document.getElementById('bioImgWrap');
+    if(bi&&bw){bi.src=imgUrl;bw.style.display='block';}
+  }
   document.getElementById('pdfLabel').textContent=ko?'CV 전체 다운로드':'Download Full CV';
 }
 
