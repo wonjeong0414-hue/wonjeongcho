@@ -254,16 +254,19 @@ function renderCritiques(){
         +'<div class="critique-title">'+title+'</div>'
         +pdfHtml
       +'</div>'
-      +'<div class="critique-meta">'
-       +(row.year?'<span>'+row.year+'</span>':'')
-       +(row.category?'<span class="meta-sep">·</span><span>'+row.category+'</span>':'')
-       +(row.place?'<span class="meta-sep">·</span><span>'+row.place+'</span>':'')
-      +'</div>'
-      +'<div class="critique-content'+(hasImg?'':' no-img')+'">'
-        +(hasImg?'<div>'+imgHtml+'</div>':'')
-        +'<div class="critique-body">'+bodyHtml+'</div>'
-      +'</div>'
-      +'</div>';
+     +'<div class="critique-content"+(hasImg?'':' no-img')+">'
+  +(hasImg?'<div>'+imgHtml+'</div>':'')
+  +'<div class="critique-body">'+bodyHtml
+    // ↓ critique-body 닫기 전에 meta 삽입
+    +'<div class="critique-meta">'
+      +(row.year?'<span>'+row.year+'</span>':'')
+      +(row.category?'<span class="meta-sep">·</span><span>'+row.category+'</span>':'')
+      +(row.place?'<span class="meta-sep">·</span><span>'+row.place+'</span>':'')
+    +'</div>'
+   +'</div>'
+  +'</div>'
+ +'</div>'
++'</div>';
   }).join('');
 }
 
