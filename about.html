@@ -627,11 +627,11 @@ function render(){
     ?collLines.map(function(l){return'<div class="left-item">'+l.trim()+'</div>';}).join('')
     :'<div class="left-item">—</div>';
 
-  /* 최신연도 계산 */
+  /* 최신연도 계산 — 문자열로 통일 */
   var allForYear=[].concat(D.solo||[], D.group||[], D.fair||[]);
   var yrs=allForYear.map(function(i){return parseInt(i.year,10)||0;});
-  var maxYear=yrs.length ? Math.max.apply(null,yrs) : null;
-  latestYear=maxYear ? String(maxYear) : null;
+  var maxY=yrs.length?Math.max.apply(null,yrs):null;
+  latestYear=maxY?String(maxY):null;
 
   /* 레이블 텍스트 */
   document.getElementById('thType').textContent=ko?'구분':'Type';
