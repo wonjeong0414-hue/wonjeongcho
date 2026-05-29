@@ -287,7 +287,7 @@ function lbNav(dir){
 function renderLb(){
   var item=items[lbIndex];
   document.getElementById('lbImg').src=item.full||item.thumb;
-  var caption=[item.title, item.place, item.year].filter(Boolean).join(' · ');
+  var caption=[item.keyword, item.place, item.year].filter(Boolean).join(' · ');
   if(item.type) caption+=(caption?' — ':'')+item.type;
   document.getElementById('lbCaption').textContent=caption;
   document.getElementById('lbCounter').textContent=(lbIndex+1)+' / '+items.length;
@@ -341,7 +341,7 @@ fetch('./data/exhibition.json?v='+Date.now(),{cache:'no-store'})
   .then(function(r){return r.json();})
   .then(function(data){
     if(keyParam){
-      items=data.filter(function(d){return d.title===keyParam && d.year;});
+      items=data.filter(function(d){return d.keyword===keyParam && d.year;});
     } else {
       items=data.filter(function(d){return d.year;});
     }
