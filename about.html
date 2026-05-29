@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
@@ -10,11 +10,7 @@
 <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Cormorant+Garamond:wght@300;400&display=swap"></noscript>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --ink:#1a1a18;--ink-mid:#4a4a47;--ink-dim:#7a7a74;
-  --bg:#f7f6f3;--white:#fff;
-  --nav-h:50px;--lang-h:44px;--max-w:960px;--pad:48px;
-}
+:root{--ink:#1a1a18;--ink-mid:#4a4a47;--ink-dim:#7a7a74;--bg:#f7f6f3;--white:#fff;--nav-h:50px;--lang-h:44px;--max-w:960px;--pad:48px}
 html{background:var(--bg);scrollbar-width:none}
 html::-webkit-scrollbar,body::-webkit-scrollbar{display:none}
 body{background:var(--bg);font-family:'Cormorant Garamond',serif;color:var(--ink);min-height:100vh}
@@ -52,14 +48,10 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 .bio-body{font-size:13px;line-height:2.0;color:var(--ink-mid);text-align:justify}
 .bio-body p{margin-bottom:1.2em}
 .bio-body p:last-child{margin-bottom:0}
-
-/* ── CV 요약 ── */
 .cv-summary-section{margin-bottom:48px}
 .cv-summary{font-family:'EB Garamond',serif;font-size:13px;line-height:2.0;color:var(--ink-mid);word-break:keep-all;text-align:justify}
 .cv-summary p{margin-bottom:1em}
 .cv-summary p:last-child{margin-bottom:0}
-
-/* ── Artist Statement ── */
 .stmt-section{margin-bottom:36px}
 .stmt-header-row{display:flex;align-items:baseline;gap:12px;margin-bottom:12px}
 .stmt-lbl{font-size:8.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-dim)}
@@ -71,234 +63,146 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 .sec-divider{width:100%;height:.5px;background:rgba(26,26,24,.1);margin:0 0 40px}
 
 /* ── 메인 그리드 ── */
-.main-grid{display:grid;grid-template-columns:200px 1fr;gap:0 48px;align-items:start;max-width:var(--max-w)}
-
-/* ── 좌측 ── */
+.main-grid{display:grid;grid-template-columns:200px 1fr;gap:0 48px;align-items:start}
 .left-col{padding-top:2px}
 .left-section{margin-bottom:36px}
 .left-label{font-size:8px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-dim);margin-bottom:12px}
 .left-item{font-family:'EB Garamond',serif;font-size:12px;line-height:1.65;color:var(--ink-mid);padding:4px 0;border-bottom:.5px solid rgba(26,26,24,.06)}
 .left-item:last-child{border-bottom:none}
-
-/* ── 우측 전시 영역 ── */
 .right-col{}
 
-/* 현재연도 헤더 행 */
-.latest-header-row{
-  display:flex;align-items:center;justify-content:space-between;
-  margin-bottom:10px;padding-bottom:8px;
-  border-bottom:.5px solid rgba(26,26,24,.08);
-}
+/* ── 현재연도 헤더 ── */
+.latest-header-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;padding-bottom:8px;border-bottom:.5px solid rgba(26,26,24,.08)}
 .latest-year-label{font-size:8px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-dim)}
 
-/* 테이블 헤더 */
-.latest-table-head{
-  display:grid;
-  grid-template-columns:62px 1fr 180px 96px;
-  gap:0 6px;
-  padding:0 0 5px;
-  border-bottom:.5px solid rgba(26,26,24,.1);
-  margin-bottom:0;
-}
+/* ── 테이블 헤더 ── */
+.latest-table-head{display:grid;grid-template-columns:62px 1fr 180px 96px;gap:0 6px;padding:0 0 5px;border-bottom:.5px solid rgba(26,26,24,.1);margin-bottom:0}
 .latest-th{font-size:7.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-dim)}
 
-/* 리스트 공통 행 */
-.latest-row{
-  display:grid;
-  grid-template-columns:62px minmax(0,1fr) 180px 96px;
-  gap:0 6px;
-  padding:4px 0;
-  border-bottom:.5px solid rgba(26,26,24,.04);
-  font-family:'EB Garamond',serif;
-  font-size:12px;line-height:1.55;color:var(--ink);
-  align-items:baseline;
-}
+/* ── 현재연도 행 ── */
+.latest-rows-wrap{overflow:visible}
+.latest-row{display:grid;grid-template-columns:62px minmax(0,1fr) 180px 96px;gap:0 6px;padding:4px 0;border-bottom:.5px solid rgba(26,26,24,.04);font-family:'EB Garamond',serif;font-size:12px;line-height:1.55;color:var(--ink);align-items:baseline}
 .latest-row:last-child{border-bottom:none}
 .latest-cell-type{font-size:10px;color:var(--ink-dim);white-space:nowrap}
-/* 데스크탑: title-wrap은 단순 block */
-.latest-cell-title-wrap{display:block;min-width:0}
 .latest-cell-title{color:var(--ink)}
-/* 모바일 서브라인 — 데스크탑에서 숨김 */
-.latest-cell-sub{display:none}
 .latest-cell-place{font-size:10.5px;color:var(--ink-mid)}
-/* [FIX] 데스크탑에서 날짜 항상 표시 */
-.latest-cell-date{font-size:10px;color:var(--ink-dim);letter-spacing:.01em;white-space:nowrap;display:block}
+.latest-cell-date{font-size:10px;color:var(--ink-dim);letter-spacing:.01em;white-space:nowrap}
 
-.latest-rows-wrap{overflow:visible}
-
-/* 전체리스트 패널 행 */
-.panel-row{
-  display:grid;
-  grid-template-columns:36px minmax(0,1fr) 200px;
-  gap:0 6px;
-  padding:3px 0;
-  border-bottom:.5px solid rgba(26,26,24,.04);
-  font-family:'EB Garamond',serif;
-  font-size:12px;line-height:1.55;
-  align-items:baseline;
-}
+/* ── 전체리스트 행 ── */
+.panel-row{display:grid;grid-template-columns:36px minmax(0,1fr) 200px;gap:0 6px;padding:3px 0;border-bottom:.5px solid rgba(26,26,24,.04);font-family:'EB Garamond',serif;font-size:12px;line-height:1.55;align-items:baseline}
 .panel-row:last-child{border-bottom:none}
 .panel-year{font-size:10px;color:var(--ink-dim);letter-spacing:.03em}
 .panel-title{color:var(--ink)}
 .panel-place{font-size:10.5px;color:var(--ink-mid);text-align:left}
-.place-sep{color:var(--ink-dim);opacity:.5;font-size:9px}
-.place-city{font-size:10px;color:var(--ink-dim)}
 
-/* ── 네비바 + 전체리스트 블록 ── */
+/* ── 네비바 블록 ── */
 .full-list-block{margin-top:20px;border-top:.5px solid rgba(26,26,24,.1)}
-.full-list-wrap{
-  display:flex;align-items:center;
-  padding:10px 0;
-  border-bottom:.5px solid rgba(26,26,24,.07);
-  gap:0;
-}
-.full-list-label{
-  font-size:8px;letter-spacing:.22em;text-transform:uppercase;
-  color:var(--ink);font-weight:600;
-  white-space:nowrap;flex-shrink:0;
-}
+.full-list-wrap{display:flex;align-items:center;padding:10px 0;border-bottom:.5px solid rgba(26,26,24,.07);gap:0}
+.full-list-label{font-size:8px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink);font-weight:600;white-space:nowrap;flex-shrink:0}
 .full-list-sep{width:.5px;height:10px;background:rgba(26,26,24,.25);margin:0 14px;flex-shrink:0}
 .cv-tabs{display:flex;gap:0;align-items:center;flex:1}
-.cv-tab{
-  font-size:8px;letter-spacing:.18em;text-transform:uppercase;
-  color:var(--ink-dim);padding:2px 12px 2px 0;
-  cursor:pointer;transition:color .2s;white-space:nowrap;
-}
+.cv-tab{font-size:8px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-dim);padding:2px 12px 2px 0;cursor:pointer;transition:color .2s;white-space:nowrap}
 .cv-tab:hover{color:var(--ink-mid)}
 .cv-tab.active{color:var(--ink);font-weight:700;letter-spacing:.13em;font-size:8.5px}
-.back-btn{
-  display:none;font-size:7.5px;letter-spacing:.12em;text-transform:uppercase;
-  color:var(--ink-dim);cursor:pointer;white-space:nowrap;
-  border:.5px solid rgba(26,26,24,.2);border-radius:2px;
-  padding:2px 8px;background:transparent;
-  font-family:'Cormorant Garamond',serif;
-  transition:color .15s,border-color .15s;margin-left:auto;
-}
+.cv-panel{display:none}
+.back-btn{display:none;font-size:7.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-dim);cursor:pointer;white-space:nowrap;border:.5px solid rgba(26,26,24,.2);border-radius:2px;padding:2px 8px;background:transparent;font-family:'Cormorant Garamond',serif;transition:color .15s,border-color .15s;margin-left:auto}
 .back-btn:hover{color:var(--ink);border-color:rgba(26,26,24,.4)}
 .back-btn.visible{display:inline-block}
 .full-list-rows{margin-top:4px}
 
+/* ── place 구분 ── */
+.place-sep{color:var(--ink-dim);opacity:.5;font-size:9px}
+.place-city{font-size:10px;color:var(--ink-dim)}
+
+/* 모바일 전용 요소 숨김 */
+.bio-mini-bar{display:none}
+
 /* ── footer ── */
-.cv-footer{
-  margin-top:56px;padding-top:28px;
-  border-top:.5px solid rgba(26,26,24,.1);
-  display:flex;justify-content:space-between;align-items:center;
-  flex-wrap:wrap;gap:20px;
-}
+.cv-footer{margin-top:56px;padding-top:28px;border-top:.5px solid rgba(26,26,24,.1);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px}
 .cv-pdf-link{display:inline-flex;align-items:center;gap:7px;font-family:'Cormorant Garamond',serif;font-size:8px;letter-spacing:.14em;text-transform:uppercase;color:var(--bg);text-decoration:none;background:rgba(26,26,24,.55);padding:4px 12px 4px 10px;border-radius:2px;transition:background .2s}
 .cv-pdf-link:hover{background:rgba(26,26,24,.75)}
 .social-links{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
 .social-link{display:inline-flex;align-items:center;gap:6px;text-decoration:none;font-size:8px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-mid);padding:4px 10px;border:.5px solid rgba(26,26,24,.22);border-radius:2px;background:transparent;transition:color .2s,border-color .2s,background .2s}
 .social-link:hover{color:var(--ink);border-color:rgba(26,26,24,.45);background:rgba(26,26,24,.05)}
 .social-link svg{width:10px;height:10px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;opacity:.7}
-
-/* bio 미니바 — 데스크탑 숨김 */
-.bio-mini-bar{display:none}
-
 .loading{padding:60px 0;text-align:center;font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-dim)}
 
-/* ════════════════════════════
-   모바일 (≤600px)
-════════════════════════════ */
+/* ════════════════════
+   모바일 ≤600px
+════════════════════ */
 @media(max-width:600px){
   :root{--pad:20px;--lang-h:40px}
   nav{padding:0 16px}
   .lang-bar{padding:0 16px}
-
-  /* 일반 스크롤 */
   html,body{overflow:auto !important;height:auto !important}
-  .page-wrap{
-    position:static;
-    padding:calc(var(--nav-h) + var(--lang-h) + 24px) var(--pad) 80px;
-    max-width:100%;margin:0;
-  }
+  .page-wrap{position:static;padding:calc(var(--nav-h) + var(--lang-h) + 24px) var(--pad) 80px;max-width:100%;margin:0}
 
-  /* Bio 영역 */
-  .bio-mini-bar{display:none}
+  /* Bio 자연스럽게 */
   .bio-section{margin-bottom:20px}
   .bio-title{font-size:13px;margin-bottom:.7em}
   .bio-body{font-size:11.5px;line-height:1.75}
   .cv-summary-section{margin-bottom:24px}
   .cv-summary{font-size:11.5px;line-height:1.75}
-  .stmt-section{margin-bottom:20px}
-
   .sec-divider{margin:0 0 24px}
   .left-col{display:none}
   .main-grid{display:block}
 
   /* 현재연도 헤더 sticky */
   .latest-header-row{
-    position:sticky;
-    top:calc(var(--nav-h) + var(--lang-h));
-    background:var(--bg);
-    z-index:100;
-    padding:8px 0 6px;
-    margin-bottom:0;
+    position:sticky;top:calc(var(--nav-h) + var(--lang-h));
+    background:var(--bg);z-index:100;
+    padding:8px 0 6px;margin-bottom:0;
     border-bottom:.5px solid rgba(26,26,24,.08);
+    display:flex;align-items:center;justify-content:space-between;
   }
   .latest-year-label{font-size:8px;letter-spacing:.2em}
 
-  /* [FIX] 모바일 테이블 헤더 — 3열 (날짜 숨김) */
+  /* 테이블 헤더 sticky */
   .latest-table-head{
     display:grid;
-    grid-template-columns:52px 1fr 100px;
-    gap:0 6px;
-    padding:5px 0 4px;
+    grid-template-columns:52px minmax(0,1fr) 100px;
+    gap:0 6px;padding:5px 0 4px;
     border-bottom:.5px solid rgba(26,26,24,.1);
-    position:sticky;
-    top:calc(var(--nav-h) + var(--lang-h) + 34px);
-    background:var(--bg);
-    z-index:99;
+    position:sticky;top:calc(var(--nav-h) + var(--lang-h) + 34px);
+    background:var(--bg);z-index:99;
   }
-  /* 날짜 헤더 숨김 */
-  #thDate{display:none}
+  .latest-th:last-child{display:none}
 
-  /* [FIX] 모바일 현재연도 행 — 3열 */
+  /* 현재연도 행 3열 */
   .latest-rows-wrap{padding:0}
   .latest-row{
-    display:grid;
     grid-template-columns:52px minmax(0,1fr) 100px;
-    gap:0 6px;padding:5px 0;font-size:11.5px;
-    align-items:baseline;
+    gap:0 6px;padding:5px 0;font-size:11.5px;align-items:baseline;
   }
-  .latest-cell-type{font-size:9.5px;color:var(--ink-dim)}
-  .latest-cell-title-wrap{display:block;min-width:0}
-  .latest-cell-title{color:var(--ink);line-height:1.5}
-  .latest-cell-sub{display:none}
-  /* [FIX] 모바일에서 place 표시, date 숨김 */
-  .latest-cell-place{display:block;font-size:10px;color:var(--ink-mid)}
+  .latest-cell-type{font-size:9.5px}
+  .latest-cell-place{font-size:10px}
   .latest-cell-date{display:none}
   .place-city{font-size:9.5px}
 
-  /* 전체리스트 블록 */
+  /* 네비바 sticky */
   .full-list-block{margin-top:20px}
   .full-list-wrap{
-    position:sticky;
-    top:calc(var(--nav-h) + var(--lang-h));
-    background:var(--bg);
-    z-index:100;
+    position:sticky;top:calc(var(--nav-h) + var(--lang-h));
+    background:var(--bg);z-index:100;
     padding:8px 0;
     border-top:.5px solid rgba(26,26,24,.1);
     border-bottom:.5px solid rgba(26,26,24,.07);
-    flex-wrap:nowrap;
   }
   .full-list-label{font-size:7px;letter-spacing:.14em;font-weight:600}
   .full-list-sep{width:.5px;height:8px;margin:0 8px}
-  .cv-tabs{display:flex;flex:1;gap:0;align-items:center;overflow:hidden}
-  .cv-tab{font-size:7px;letter-spacing:.05em;padding:0 7px 0 0;flex-shrink:0;white-space:nowrap}
+  .cv-tabs{overflow:hidden}
+  .cv-tab{font-size:7px;letter-spacing:.05em;padding:0 7px 0 0}
   .cv-tab.active{font-size:7.5px;font-weight:700}
-  .back-btn{font-size:7px;padding:1px 6px;margin-left:auto;flex-shrink:0}
+  .back-btn{font-size:7px;padding:1px 6px}
 
   /* 전체리스트 행 */
   .full-list-rows{padding:4px 0 40px}
   .panel-row{
-    display:grid;
-    grid-template-columns:28px 1fr 100px;
+    grid-template-columns:28px minmax(0,1fr) 100px;
     gap:0 6px;padding:5px 0;font-size:11.5px;align-items:baseline;
   }
-  .panel-year{font-size:9.5px;color:var(--ink-dim)}
-  .panel-title{color:var(--ink);line-height:1.5}
-  .panel-place{display:block;font-size:10px;color:var(--ink-mid);text-align:left}
+  .panel-year{font-size:9.5px}
+  .panel-place{font-size:10px}
   .place-city{font-size:9.5px}
 
   .cv-footer{display:none}
@@ -339,10 +243,7 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 <div class="page-wrap">
 
   <div class="bio-cv-wrap" id="bioCvWrap">
-    <div class="bio-mini-bar" id="bioMiniBar" onclick="toggleBio()">
-      <span id="bioMiniLabel">조원정 · Artist Bio</span>
-      <span class="bio-mini-arrow">∨</span>
-    </div>
+    <div class="bio-mini-bar" id="bioMiniBar"></div>
     <div class="bio-section" id="bioSection"></div>
     <div class="stmt-section" id="stmtSection" style="display:none">
       <div class="stmt-header-row">
@@ -357,7 +258,6 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
   <div class="sec-divider"></div>
 
   <div class="main-grid" id="mainGrid">
-
     <div class="left-col">
       <div class="left-section">
         <div class="left-label" id="labelEdu">학력</div>
@@ -371,8 +271,6 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
     </div>
 
     <div class="right-col">
-
-      <!-- 현재연도 리스트 -->
       <div class="latest-section" id="latestSection">
         <div class="latest-header-row">
           <span class="latest-year-label" id="latestYearLabel">2026년 전시</span>
@@ -388,23 +286,25 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
         </div>
       </div>
 
-      <!-- 전체리스트 블록 -->
       <div class="full-list-block" id="fullListBlock">
         <div class="full-list-wrap">
           <span class="full-list-label" id="labelFullList">전시 전체 리스트</span>
           <div class="full-list-sep"></div>
           <div class="cv-tabs">
-            <div class="cv-tab" id="tabSolo"  onclick="setCvTab('solo')"><span id="labelSolo">개인 및 초대전</span></div>
+            <div class="cv-tab" id="tabSolo" onclick="setCvTab('solo')"><span id="labelSolo">개인 및 초대전</span></div>
             <div class="cv-tab" id="tabGroup" onclick="setCvTab('group')"><span id="labelGroup">단체전</span></div>
-            <div class="cv-tab" id="tabFair"  onclick="setCvTab('fair')">Art Fair</div>
+            <div class="cv-tab" id="tabFair" onclick="setCvTab('fair')">Art Fair</div>
           </div>
           <button class="back-btn" id="backBtn" onclick="showLatestYear()">← 현재 연도</button>
         </div>
         <div class="full-list-rows" id="fullListRows" style="display:none"></div>
       </div>
 
-    </div><!-- /right-col -->
-  </div><!-- /main-grid -->
+      <div style="display:none" id="panelSolo"></div>
+      <div style="display:none" id="panelGroup"></div>
+      <div style="display:none" id="panelFair"></div>
+    </div>
+  </div>
 
   <div class="cv-footer">
     <a class="cv-pdf-link" id="pdfLink" href="#" target="_blank" style="display:none">
@@ -430,7 +330,6 @@ var D=null, lang='ko', activeTab=null, latestYear=null;
 
 function go(p){window.location.href=p+'.html';}
 
-/* nav dropdown */
 document.querySelectorAll('.nav-dd').forEach(function(dd){
   var menu=dd.querySelector('.nav-dd-menu'),timer;
   dd.addEventListener('mouseenter',function(){clearTimeout(timer);menu.style.display='block';});
@@ -439,10 +338,6 @@ document.querySelectorAll('.nav-dd').forEach(function(dd){
   menu.addEventListener('mouseleave',function(){timer=setTimeout(function(){menu.style.display='none';},150);});
 });
 
-function toggleBio(){
-  document.getElementById('bioCvWrap').classList.toggle('expanded');
-}
-
 function setLang(l){
   lang=l;
   document.getElementById('btnKo').classList.toggle('active',l==='ko');
@@ -450,23 +345,18 @@ function setLang(l){
   if(D) render();
 }
 
-/* ── 탭 클릭 ── */
 function setCvTab(t){
   activeTab=t;
   ['solo','group','fair'].forEach(function(k){
     var el=document.getElementById('tab'+k.charAt(0).toUpperCase()+k.slice(1));
-    if(el) el.classList.toggle('active', k===t);
+    if(el) el.classList.toggle('active',k===t);
   });
   document.getElementById('backBtn').classList.add('visible');
   document.getElementById('latestSection').style.display='none';
-  /* [FIX] 전체리스트 항상 block으로 초기화 후 렌더 */
-  var fr=document.getElementById('fullListRows');
-  fr.style.display='block';
-  fr.innerHTML='';
+  document.getElementById('fullListRows').style.display='block';
   renderFullList();
 }
 
-/* ← 현재 연도 */
 function showLatestYear(){
   activeTab=null;
   ['Solo','Group','Fair'].forEach(function(n){
@@ -478,79 +368,57 @@ function showLatestYear(){
   document.getElementById('fullListRows').style.display='none';
 }
 
-/* ── 전체리스트 렌더 ── */
+function makePlace(p,c){
+  if(!p&&!c) return '';
+  if(!p) return '<span class="place-city">'+c+'</span>';
+  return '<span class="place-name">'+p+'</span>'
+    +(c?'<span class="place-sep"> · </span><span class="place-city">'+c+'</span>':'');
+}
+
 function renderFullList(){
   if(!D||!activeTab) return;
   var ko=(lang==='ko');
-  var src={solo:D.solo||[], group:D.group||[], fair:D.fair||[]};
-  var list=src[activeTab]||[];
+  var list={solo:D.solo||[],group:D.group||[],fair:D.fair||[]}[activeTab]||[];
   var el=document.getElementById('fullListRows');
-  if(!list.length){
-    el.innerHTML='<div style="font-size:11px;color:var(--ink-dim);padding:8px 0">—</div>';
-    return;
-  }
+  if(!list.length){el.innerHTML='<div style="font-size:11px;color:var(--ink-dim);padding:8px 0">—</div>';return;}
   el.innerHTML=list.map(function(item){
     var t=ko?(item.ko||''):(item.en||item.ko||'');
+    if(!t) return '';
     var p=ko?(item.placeKo||''):(item.placeEn||item.placeKo||'');
     var c=ko?(item.cityKo||''):(item.cityEn||item.cityKo||'');
-    if(!t) return '';
-    var placeHtml=p
-      ?('<span class="place-name">'+p+'</span>'+(c?'<span class="place-sep"> · </span><span class="place-city">'+c+'</span>':''))
-      :(c||'');
     return '<div class="panel-row">'
       +'<div class="panel-year">'+(item.year||'')+'</div>'
       +'<div class="panel-title">'+t+'</div>'
-      +'<div class="panel-place">'+placeHtml+'</div>'
+      +'<div class="panel-place">'+makePlace(p,c)+'</div>'
       +'</div>';
   }).join('');
 }
 
-/* ── 현재연도 렌더 ── */
 function renderMainArea(){
   if(!D) return;
   var ko=(lang==='ko');
   var labelEl=document.getElementById('latestYearLabel');
   var rowsEl=document.getElementById('latestRows');
-
-  labelEl.textContent=latestYear
-    ?(ko?latestYear+'년 전시':latestYear+' Exhibitions')
-    :(ko?'최근 전시':'Recent Exhibitions');
-
-  var typeL={solo:ko?'개인·초대':'Solo', group:ko?'단체전':'Group', fair:'Art Fair'};
-
-  /* [FIX] solo/group/fair 모두 합쳐서 최신연도 필터 */
-  var allItems=[]
+  labelEl.textContent=latestYear?(ko?latestYear+'년 전시':latestYear+' Exhibitions'):(ko?'최근 전시':'Recent');
+  document.getElementById('latestTableHead').style.display='';
+  var typeL={solo:ko?'개인·초대':'Solo',group:ko?'단체전':'Group',fair:'Art Fair'};
+  var all=[]
     .concat((D.solo||[]).map(function(i){return Object.assign({},i,{_t:'solo'});}))
     .concat((D.group||[]).map(function(i){return Object.assign({},i,{_t:'group'});}))
     .concat((D.fair||[]).map(function(i){return Object.assign({},i,{_t:'fair'});}));
-
-  var filtered=latestYear
-    ?allItems.filter(function(i){return String(i.year)===String(latestYear);})
-    :[];
-
-  if(!filtered.length){
-    rowsEl.innerHTML='<div style="font-size:11px;color:var(--ink-dim);padding:8px 0">—</div>';
-    return;
-  }
-
+  var filtered=latestYear?all.filter(function(i){return String(i.year)===String(latestYear);}):[];
+  if(!filtered.length){rowsEl.innerHTML='<div style="font-size:11px;color:var(--ink-dim);padding:8px 0">—</div>';return;}
   rowsEl.innerHTML=filtered.map(function(item){
     var t=ko?(item.ko||''):(item.en||item.ko||'');
     var p=ko?(item.placeKo||''):(item.placeEn||item.placeKo||'');
     var c=ko?(item.cityKo||''):(item.cityEn||item.cityKo||'');
-    var placeHtml=p
-      ?('<span class="place-name">'+p+'</span>'+(c?'<span class="place-sep"> · </span><span class="place-city">'+c+'</span>':''))
-      :(c||'');
     return '<div class="latest-row">'
       +'<div class="latest-cell-type">'+(typeL[item._t]||'')+'</div>'
-      +'<div class="latest-cell-title-wrap">'
-        +'<div class="latest-cell-title">'+t+'</div>'
-      +'</div>'
-      +'<div class="latest-cell-place">'+placeHtml+'</div>'
+      +'<div class="latest-cell-title">'+t+'</div>'
+      +'<div class="latest-cell-place">'+makePlace(p,c)+'</div>'
       +'<div class="latest-cell-date">'+(item.date||'')+'</div>'
       +'</div>';
   }).join('');
-
-  /* 언어 전환 시 탭 뷰 유지 */
   if(activeTab){
     document.getElementById('latestSection').style.display='none';
     document.getElementById('fullListRows').style.display='block';
@@ -558,7 +426,6 @@ function renderMainArea(){
   }
 }
 
-/* ── Bio 렌더 ── */
 function renderBio(text){
   if(!text) return '<div class="bio-text"><div class="bio-body"><p>—</p></div></div>';
   var lines=text.split(/\n/).map(function(l){return l.trim();}).filter(Boolean);
@@ -582,49 +449,40 @@ function renderBio(text){
   return html+'</div>';
 }
 
-/* ── 전체 렌더 ── */
 function render(){
   if(!D) return;
   var ko=(lang==='ko');
-
   document.getElementById('bioSection').innerHTML=renderBio(ko?(D.bioKo||''):(D.bioEn||''));
-
   var stmtText=ko?(D.statementKo||''):(D.statementEn||D.statementKo||'');
   var stmtSec=document.getElementById('stmtSection');
-  if(stmtText&&stmtText.trim()){
+  if(stmtText.trim()){
     document.getElementById('stmtBody').textContent=stmtText;
     var pl=document.getElementById('stmtPdfLink');
     if(D.statementLink){pl.href=D.statementLink;pl.style.display='inline';}
     else pl.style.display='none';
     stmtSec.style.display='block';
   } else stmtSec.style.display='none';
-
   var cvText=ko?(D.cvKo||''):(D.cvEn||'');
   var cvSec=document.getElementById('cvSummarySection');
-  if(cvText&&cvText.trim()){
+  if(cvText.trim()){
     var cvP=cvText.split(/\n\n+/).filter(function(p){return p.trim();});
     if(cvP.length<=1) cvP=cvText.split(/\n/).filter(function(p){return p.trim();});
     cvSec.innerHTML='<div class="cv-summary">'+cvP.map(function(p){return'<p>'+p.trim()+'</p>';}).join('')+'</div>';
     cvSec.style.display='block';
   } else cvSec.style.display='none';
-
   document.getElementById('labelEdu').textContent=ko?'학력':'Education';
   document.getElementById('edu1').textContent=ko?'홍익대학교 미술대학원 회화전공 석사 (M.F.A.)':'M.F.A. in Painting, Hongik University';
   document.getElementById('edu2').textContent=ko?'이화여자대학교 전자계산학과 학사':'B.S. in Computer Science, Ewha Womans University';
-
   document.getElementById('labelColl').textContent=ko?'주요 작품 소장인':'Major Collections';
   var collText=ko?(D.collKo||''):(D.collEn||'');
   var collLines=collText?collText.split('\n').filter(function(l){return l.trim();}):[];
   document.getElementById('collSection').innerHTML=collLines.length
     ?collLines.map(function(l){return'<div class="left-item">'+l.trim()+'</div>';}).join('')
     :'<div class="left-item">—</div>';
-
-  /* [FIX] 최신연도 계산 — NaN 제거 후 max */
-  var allForYear=[].concat(D.solo||[], D.group||[], D.fair||[]);
-  var yrs=allForYear.map(function(i){return parseInt(i.year,10);}).filter(function(y){return !isNaN(y);});
+  var allForYear=[].concat(D.solo||[],D.group||[],D.fair||[]);
+  var yrs=allForYear.map(function(i){return parseInt(i.year,10)||0;});
   var maxY=yrs.length?Math.max.apply(null,yrs):null;
   latestYear=maxY?String(maxY):null;
-
   document.getElementById('thType').textContent=ko?'구분':'Type';
   document.getElementById('thTitle').textContent=ko?'제목':'Title';
   document.getElementById('thPlace').textContent=ko?'장소':'Venue';
@@ -633,24 +491,16 @@ function render(){
   document.getElementById('labelSolo').textContent=ko?'개인 및 초대전':'Solo';
   document.getElementById('labelGroup').textContent=ko?'단체전':'Group';
   document.getElementById('backBtn').textContent='← '+(ko?'현재 연도':'Current Year');
-
   renderMainArea();
-
-  if(D.pdfUrl){
-    document.getElementById('pdfLink').href=D.pdfUrl;
-    document.getElementById('pdfLink').style.display='inline-flex';
-  }
+  if(D.pdfUrl){document.getElementById('pdfLink').href=D.pdfUrl;document.getElementById('pdfLink').style.display='inline-flex';}
   document.getElementById('pdfLabel').textContent=ko?'CV 전체 다운로드':'Download Full CV';
 }
 
-fetch('./data/about.json?v='+Date.now(), {cache:'no-store'})
+fetch('./data/about.json?v='+Date.now(),{cache:'no-store'})
   .then(function(r){return r.json();})
-  .then(function(data){
-    D=data;
-    render();
-  })
+  .then(function(data){D=data;render();})
   .catch(function(e){
-    console.error('about.json 로드 실패:', e);
+    console.error('about.json 로드 실패:',e);
     document.getElementById('bioSection').innerHTML='<div class="loading">데이터를 불러올 수 없습니다.</div>';
   });
 </script>
