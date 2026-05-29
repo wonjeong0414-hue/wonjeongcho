@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Exhibition — WON JEONG CHO</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Cormorant+Garamond:wght@300;400&display=swap" onload="this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Cormorant+Garamond:wght@300;400&display=swap"></noscript>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--ink:#1a1a18;--ink-mid:#4a4a47;--ink-dim:#7a7a74;--bg:#f7f6f3;--white:#fff;--nav-h:50px;--lang-h:44px;--max-w:960px;--pad:48px}
+html{background:var(--bg);scrollbar-width:none}
+html::-webkit-scrollbar,body::-webkit-scrollbar{display:none}
+body{background:var(--bg);font-family:'Cormorant Garamond',serif;color:var(--ink);min-height:100vh}
+
+/* ── nav ── */
+nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-items:center;justify-content:space-between;padding:0 36px;z-index:200;background:var(--bg);border-bottom:.5px solid rgba(26,26,24,.07)}
+.nav-logo{font-weight:300;font-size:13px;letter-spacing:.3em;color:var(--ink);text-transform:uppercase;cursor:pointer;transition:opacity .2s}
+.nav-logo:hover{opacity:.45}
+.nav-right{display:flex;align-items:center}
+.nav-item{font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-dim);padding:5px 11px;cursor:pointer;text-decoration:none;transition:color .25s;white-space:nowrap;position:relative}
+.nav-item::after{content:'';position:absolute;bottom:0;left:11px;right:11px;height:.5px;background:var(--ink);transform:scaleX(0);transform-origin:left;transition:transform .28s cubic-bezier(.16,1,.3,1);opacity:.5}
+.nav-item:hover{color:var(--ink)}
+.nav-item:hover::after,.nav-item.active::after{transform:scaleX(1)}
+.nav-item.active{color:var(--ink)}
+.nav-sep{width:.5px;height:12px;background:rgba(0,0,0,.12);margin:0 5px;flex-shrink:0}
+.nav-dd{position:relative;display:flex;align-items:center}
+.nav-dd-menu{display:none;position:absolute;top:calc(100% + 4px);left:50%;transform:translateX(-50%);background:var(--white);border-radius:4px;padding:4px 0;min-width:80px;z-index:300;box-shadow:0 4px 16px rgba(0,0,0,.08)}
+.nav-dd-item{display:block;font-size:9px;letter-spacing:.08em;color:var(--ink-mid);padding:5px 14px;cursor:pointer;transition:color .15s,background .15s;white-space:nowrap;text-transform:uppercase}
+.nav-dd-item:hover{color:var(--ink);background:rgba(0,0,0,.03)}
+
+/* ── lang bar ── */
+.lang-bar{position:fixed;top:var(--nav-h);left:0;right:0;height:var(--lang-h);display:flex;align-items:center;justify-content:flex-end;padding:0 36px;background:var(--bg);border-bottom:.5px solid rgba(26,26,24,.07);z-index:190}
+.lang-toggle{display:flex;border:.5px solid rgba(26,26,24,.2);border-radius:2px;overflow:hidden}
+.lang-btn{font-size:8px;letter-spacing:.12em;text-transform:uppercase;padding:4px 10px;cursor:pointer;background:transparent;color:var(--ink-dim);border:none;transition:background .15s,color .15s;font-family:'Cormorant Garamond',serif}
+.lang-btn.active{background:rgba(26,26,24,.62);color:var(--bg)}
+.lang-btn:not(.active):hover{color:var(--ink)}
+
+/* ── page wrap ── */
+.page-wrap{max-width:var(--max-w);margin:0 auto;padding:calc(var(--nav-h) + var(--lang-h) + 40px) var(--pad) 100px}
+
+/* ── 전시 헤더 ── */
+.exh-header{margin-bottom:40px;padding-bottom:24px;border-bottom:.5px solid rgba(26,26,24,.1)}
+.exh-back{display:inline-flex;align-items:center;gap:6px;font-size:8px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-dim);cursor:pointer;transition:color .2s;margin-bottom:20px;text-decoration:none}
+.exh-back:hover{color:var(--ink)}
+.exh-back svg{width:10px;height:10px;fill:none;stroke:currentColor;stroke-width:1.5}
+.exh-title{font-family:'EB Garamond',serif;font-size:22px;font-weight:400;line-height:1.3;color:var(--ink);margin-bottom:8px}
+.exh-meta{font-size:11px;color:var(--ink-dim);letter-spacing:.04em}
+.exh-meta span{margin-right:16px}
+
+/* ── 이미지 그리드 ── */
+.img-grid{
+  columns:3;
+  column-gap:8px;
+}
+.img-item{
+  break-inside:avoid;
+  margin-bottom:8px;
+  overflow:hidden;
+  cursor:pointer;
+  position:relative;
+}
+.img-item img{
+  width:100%;
+  display:block;
+  transition:opacity .3s;
+}
+.img-item:hover img{opacity:.85}
+.img-type{
+  position:absolute;bottom:6px;left:6px;
+  font-size:7.5px;letter-spacing:.12em;text-transform:uppercase;
+  color:rgba(255,255,255,.85);
+  background:rgba(26,26,24,.35);
+  padding:2px 6px;border-radius:1px;
+  opacity:0;transition:opacity .2s;
+}
+.img-item:hover .img-type{opacity:1}
+
+/* 이미지 로딩 placeholder */
+.img-placeholder{
+  background:rgba(26,26,24,.04);
+  aspect-ratio:4/3;
+  display:flex;align-items:center;justify-content:center;
+}
+.img-placeholder-inner{
+  width:20px;height:20px;
+  border:.5px solid rgba(26,26,24,.15);
+  border-top-color:var(--ink-dim);
+  border-radius:50%;
+  animation:spin .8s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ── 라이트박스 ── */
+.lightbox{
+  display:none;position:fixed;inset:0;
+  background:rgba(247,246,243,.96);
+  z-index:500;
+  align-items:center;justify-content:center;
+}
+.lightbox.open{display:flex}
+.lb-close{
+  position:fixed;top:20px;right:24px;
+  font-size:9px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--ink-dim);cursor:pointer;transition:color .2s;
+  background:none;border:none;font-family:'Cormorant Garamond',serif;
+}
+.lb-close:hover{color:var(--ink)}
+.lb-nav{
+  position:fixed;top:50%;transform:translateY(-50%);
+  background:none;border:none;cursor:pointer;
+  color:var(--ink-dim);transition:color .2s;
+  padding:16px;font-size:11px;letter-spacing:.1em;
+}
+.lb-nav:hover{color:var(--ink)}
+.lb-prev{left:16px}
+.lb-next{right:16px}
+.lb-img-wrap{
+  max-width:calc(100vw - 120px);
+  max-height:calc(100vh - 100px);
+  display:flex;align-items:center;justify-content:center;
+}
+.lb-img-wrap img{
+  max-width:100%;max-height:calc(100vh - 100px);
+  object-fit:contain;
+}
+.lb-caption{
+  position:fixed;bottom:24px;left:0;right:0;
+  text-align:center;
+  font-size:9px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ink-dim);
+}
+.lb-counter{
+  position:fixed;top:22px;left:0;right:0;
+  text-align:center;
+  font-size:8px;letter-spacing:.14em;
+  color:var(--ink-dim);
+}
+
+/* ── 로딩 / 에러 ── */
+.loading{padding:80px 0;text-align:center;font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-dim)}
+
+/* ── 모바일 ── */
+@media(max-width:600px){
+  :root{--pad:20px;--lang-h:40px}
+  nav{padding:0 16px}
+  .lang-bar{padding:0 16px}
+  .img-grid{columns:2;column-gap:6px}
+  .img-item{margin-bottom:6px}
+  .exh-title{font-size:18px}
+  .lb-img-wrap{max-width:calc(100vw - 60px)}
+  .lb-nav{padding:10px}
+}
+@media(max-width:480px){
+  .nav-logo{font-size:10px;letter-spacing:.18em}
+  .nav-item{font-size:8px;padding:5px 6px}
+  .nav-sep{margin:0 1px}
+}
+</style>
+</head>
+<body>
+<nav>
+  <span class="nav-logo" onclick="go('index')">Won Jeong Cho</span>
+  <div class="nav-right">
+    <div class="nav-dd">
+      <span class="nav-item">Archive</span>
+      <div class="nav-dd-menu">
+        <span class="nav-dd-item" onclick="go('year')">Year</span>
+        <span class="nav-dd-item" onclick="go('context')">Context</span>
+      </div>
+    </div>
+    <div class="nav-sep"></div>
+    <span class="nav-item" onclick="go('text')">Text</span>
+    <div class="nav-sep"></div>
+    <span class="nav-item" onclick="go('about')">About</span>
+  </div>
+</nav>
+
+<div class="lang-bar">
+  <div class="lang-toggle">
+    <button class="lang-btn active" id="btnKo" onclick="setLang('ko')">한국어</button>
+    <button class="lang-btn" id="btnEn" onclick="setLang('en')">English</button>
+  </div>
+</div>
+
+<div class="page-wrap">
+  <div class="exh-header">
+    <a class="exh-back" id="backLink" href="javascript:history.back()">
+      <svg viewBox="0 0 12 12"><polyline points="8,2 4,6 8,10"/></svg>
+      <span id="backLabel">뒤로</span>
+    </a>
+    <div class="exh-title" id="exhTitle">—</div>
+    <div class="exh-meta">
+      <span id="exhYear"></span>
+      <span id="exhPlace"></span>
+    </div>
+  </div>
+
+  <div id="grid" class="img-grid">
+    <div class="loading">Loading…</div>
+  </div>
+</div>
+
+<!-- 라이트박스 -->
+<div class="lightbox" id="lightbox" onclick="lbBgClick(event)">
+  <button class="lb-close" onclick="closeLb()">✕ Close</button>
+  <div class="lb-counter" id="lbCounter"></div>
+  <button class="lb-nav lb-prev" onclick="lbNav(-1)">←</button>
+  <div class="lb-img-wrap">
+    <img id="lbImg" src="" alt="">
+  </div>
+  <button class="lb-nav lb-next" onclick="lbNav(1)">→</button>
+  <div class="lb-caption" id="lbCaption"></div>
+</div>
+
+<script>
+var lang='ko', items=[], lbIndex=0;
+
+function go(p){window.location.href=p+'.html';}
+
+document.querySelectorAll('.nav-dd').forEach(function(dd){
+  var menu=dd.querySelector('.nav-dd-menu'),timer;
+  dd.addEventListener('mouseenter',function(){clearTimeout(timer);menu.style.display='block';});
+  dd.addEventListener('mouseleave',function(){timer=setTimeout(function(){menu.style.display='none';},150);});
+  menu.addEventListener('mouseenter',function(){clearTimeout(timer);});
+  menu.addEventListener('mouseleave',function(){timer=setTimeout(function(){menu.style.display='none';},150);});
+});
+
+function setLang(l){
+  lang=l;
+  document.getElementById('btnKo').classList.toggle('active',l==='ko');
+  document.getElementById('btnEn').classList.toggle('active',l==='en');
+  document.getElementById('backLabel').textContent=l==='ko'?'뒤로':'Back';
+  document.getElementById('lb-close')&&(document.querySelector('.lb-close').textContent='✕ '+(l==='ko'?'닫기':'Close'));
+}
+
+/* URL 파라미터에서 title 가져오기 */
+function getParam(key){
+  return new URLSearchParams(window.location.search).get(key)||'';
+}
+
+/* 라이트박스 */
+function openLb(idx){
+  lbIndex=idx;
+  renderLb();
+  document.getElementById('lightbox').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeLb(){
+  document.getElementById('lightbox').classList.remove('open');
+  document.body.style.overflow='';
+}
+function lbBgClick(e){
+  if(e.target===document.getElementById('lightbox')) closeLb();
+}
+function lbNav(dir){
+  lbIndex=(lbIndex+dir+items.length)%items.length;
+  renderLb();
+}
+function renderLb(){
+  var item=items[lbIndex];
+  document.getElementById('lbImg').src=item.full||item.thumb;
+  document.getElementById('lbCaption').textContent=(item.type?item.type+' · ':'')+item.place;
+  document.getElementById('lbCounter').textContent=(lbIndex+1)+' / '+items.length;
+}
+document.addEventListener('keydown',function(e){
+  if(!document.getElementById('lightbox').classList.contains('open')) return;
+  if(e.key==='ArrowLeft') lbNav(-1);
+  if(e.key==='ArrowRight') lbNav(1);
+  if(e.key==='Escape') closeLb();
+});
+
+/* 그리드 렌더 */
+function renderGrid(){
+  var grid=document.getElementById('grid');
+  if(!items.length){grid.innerHTML='<div class="loading">이미지가 없습니다.</div>';return;}
+  grid.innerHTML=items.map(function(item,i){
+    if(item.isVideo){
+      return '<div class="img-item" onclick="window.open(\''+item.drive+'\',\'_blank\')">'
+        +'<div class="img-placeholder" style="aspect-ratio:16/9;background:rgba(26,26,24,.06)">'
+        +'<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="rgba(26,26,24,.3)" stroke-width="1"><circle cx="12" cy="12" r="10"/><polygon points="10,8 16,12 10,16"/></svg>'
+        +'</div>'
+        +(item.type?'<div class="img-type">'+item.type+'</div>':'')
+        +'</div>';
+    }
+    return '<div class="img-item" onclick="openLb('+i+')">'
+      +'<div class="img-placeholder"><div class="img-placeholder-inner"></div></div>'
+      +(item.type?'<div class="img-type">'+item.type+'</div>':'')
+      +'</div>';
+  }).join('');
+
+  /* 이미지 지연 로드 */
+  items.forEach(function(item,i){
+    if(item.isVideo) return;
+    var wrapper=grid.children[i];
+    var img=new Image();
+    img.onload=function(){
+      wrapper.innerHTML='<img src="'+item.thumb+'" alt="'+item.title+'" loading="lazy">'
+        +(item.type?'<div class="img-type">'+item.type+'</div>':'');
+    };
+    img.onerror=function(){
+      wrapper.querySelector('.img-placeholder-inner').style.display='none';
+    };
+    img.src=item.thumb;
+  });
+}
+
+/* 초기화 */
+var titleParam=decodeURIComponent(getParam('title'));
+document.getElementById('exhTitle').textContent=titleParam||'—';
+
+fetch('./data/exhibition.json?v='+Date.now(),{cache:'no-store'})
+  .then(function(r){return r.json();})
+  .then(function(data){
+    /* title로 필터링 */
+    items=data.filter(function(d){
+      return d.title===titleParam && d.year; /* 영상 포함, year 없는 항목 제외 */
+    });
+    /* title 없으면 전체 */
+    if(!titleParam) items=data.filter(function(d){return d.year;});
+
+    /* 헤더 메타 */
+    if(items.length){
+      document.getElementById('exhYear').textContent=items[0].year;
+      document.getElementById('exhPlace').textContent=items[0].place;
+    }
+    renderGrid();
+  })
+  .catch(function(){
+    document.getElementById('grid').innerHTML='<div class="loading">데이터를 불러올 수 없습니다.</div>';
+  });
+</script>
+</body>
+</html>
