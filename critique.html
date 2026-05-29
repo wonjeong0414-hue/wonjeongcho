@@ -255,9 +255,9 @@ function renderCritiques(){
         +pdfHtml
       +'</div>'
       +'<div class="critique-meta">'
-        +(row.year?'<span>'+row.year+'</span>':'')
-        +(row.category?'<span>'+row.category+'</span>':'')
-        +(row.place?'<span>'+row.place+'</span>':'')
+       +(row.year?'<span>'+row.year+'</span>':'')
+       +(row.category?'<span class="meta-sep">·</span><span>'+row.category+'</span>':'')
+       +(row.place?'<span class="meta-sep">·</span><span>'+row.place+'</span>':'')
       +'</div>'
       +'<div class="critique-content'+(hasImg?'':' no-img')+'">'
         +(hasImg?'<div>'+imgHtml+'</div>':'')
