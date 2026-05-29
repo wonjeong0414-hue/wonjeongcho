@@ -159,11 +159,20 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 /* ── 전체 리스트 구분선 + 헤더 ── */
 .full-list-divider{
   width:100%;height:.5px;background:rgba(26,26,24,.1);
-  margin:28px 0 20px;
+  margin:28px 0 0;
+}
+.full-list-wrap{
+  background:rgba(26,26,24,.03);
+  border:.5px solid rgba(26,26,24,.08);
+  border-radius:3px;
+  padding:18px 20px 20px;
+  margin-top:0;
 }
 .full-list-header{
   display:flex;align-items:baseline;gap:16px;
-  margin-bottom:16px;
+  margin-bottom:14px;
+  padding-bottom:10px;
+  border-bottom:.5px solid rgba(26,26,24,.1);
 }
 .full-list-label{
   font-size:8.5px;letter-spacing:.22em;text-transform:uppercase;
@@ -246,7 +255,8 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
   .cv-tab{font-size:9px;letter-spacing:0.1em;flex:1;text-align:center;line-height:38px;padding:0;border-bottom:none;white-space:nowrap}
   .cv-tab.active{font-size:9.5px;font-weight:700;letter-spacing:0.08em;border-bottom:none}
   .full-list-divider{margin:16px 0 0}
-  .full-list-header{padding:0 5%;margin-bottom:0}
+  .full-list-wrap{border-radius:0;border-left:none;border-right:none;padding:12px 5% 16px;margin-top:0}
+  .full-list-header{padding:0;margin-bottom:0}
   /* CV 패널 스크롤 */
   .cv-panel{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:12px 5% 40px;display:none}
   .cv-panel.active{display:block}
@@ -339,19 +349,21 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 
       <!-- 전체 리스트 -->
       <div class="full-list-divider"></div>
-      <div class="full-list-header">
-        <span class="full-list-label" id="labelFullList">전시 전체 리스트</span>
-      </div>
-      <div class="cv-tabs">
-        <div class="cv-tab active" id="tabSolo"  onclick="setCvTab('solo')"><span id="labelSolo">개인 및 초대전</span></div>
-        <div class="cv-tab"        id="tabGroup" onclick="setCvTab('group')"><span id="labelGroup">단체전</span></div>
-        <div class="cv-tab"        id="tabFair"  onclick="setCvTab('fair')">Art Fair</div>
-      </div>
-      <div class="cv-panel active" id="panelSolo"></div>
-      <div class="cv-panel"        id="panelGroup"></div>
-      <div class="cv-panel"        id="panelFair"></div>
-    </div>
-  </div>
+      <div class="full-list-wrap">
+        <div class="full-list-header">
+          <span class="full-list-label" id="labelFullList">전시 전체 리스트</span>
+        </div>
+        <div class="cv-tabs">
+          <div class="cv-tab active" id="tabSolo"  onclick="setCvTab('solo')"><span id="labelSolo">개인 및 초대전</span></div>
+          <div class="cv-tab"        id="tabGroup" onclick="setCvTab('group')"><span id="labelGroup">단체전</span></div>
+          <div class="cv-tab"        id="tabFair"  onclick="setCvTab('fair')">Art Fair</div>
+        </div>
+        <div class="cv-panel active" id="panelSolo"></div>
+        <div class="cv-panel"        id="panelGroup"></div>
+        <div class="cv-panel"        id="panelFair"></div>
+      </div><!-- /full-list-wrap -->
+    </div><!-- /right-col -->
+  </div><!-- /main-grid -->
 
   <!-- footer -->
   <div class="cv-footer">
@@ -386,7 +398,9 @@ document.querySelectorAll('.nav-dd').forEach(function(dd){
   menu.addEventListener('mouseleave',function(){timer=setTimeout(function(){menu.style.display='none';},150);});
 });
 
+var activeTab='solo';
 function setCvTab(t){
+  activeTab=t;
   ['Solo','Group','Fair'].forEach(function(n){
     var key=n.toLowerCase();
     document.getElementById('tab'+n).classList.toggle('active',key===t);
@@ -539,6 +553,9 @@ function render(){
   renderCVPanel('panelSolo',  D.solo||[],  ko);
   renderCVPanel('panelGroup', D.group||[], ko);
   renderCVPanel('panelFair',  D.fair||[],  ko);
+
+  /* 탭 상태 복원 */
+  setCvTab(activeTab);
 
 
 
