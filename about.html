@@ -117,6 +117,7 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 }
 .latest-row:last-child{border-bottom:none}
 .latest-cell-type{font-size:10px;color:var(--ink-dim);white-space:nowrap}
+.latest-cell-title-wrap{min-width:0} /* 제목 셀 */
 .latest-cell-title{color:var(--ink)}
 .latest-cell-place{font-size:10.5px;color:var(--ink-mid)}
 .latest-cell-date{font-size:10px;color:var(--ink-dim);letter-spacing:.01em;white-space:nowrap}
@@ -203,7 +204,8 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 
 /* bio 미니바 — 모바일 전용, 데스크탑에서 숨김 */
 .bio-mini-bar{display:none}
-.latest-cell-title-wrap{display:contents}
+/* 데스크탑: title-wrap은 단순 block, sub는 숨김 */
+.latest-cell-title-wrap{display:block}
 .latest-cell-sub{display:none}
 .place-sep{color:var(--ink-dim);opacity:.5;font-size:9px}
 .place-city{font-size:10px;color:var(--ink-dim)}
@@ -269,12 +271,12 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
   .latest-rows-wrap{padding:0}
   .latest-row{
     display:grid;
-    grid-template-columns:52px 1fr 100px;
+    grid-template-columns:52px minmax(0,1fr) 100px;
     gap:0 6px;padding:5px 0;font-size:11.5px;
     align-items:baseline;
   }
   .latest-cell-type{font-size:9.5px;color:var(--ink-dim)}
-  .latest-cell-title-wrap{display:contents}
+  .latest-cell-title-wrap{display:block;min-width:0}
   .latest-cell-title{color:var(--ink);line-height:1.5}
   .latest-cell-sub{display:none}
   .latest-cell-place{display:block;font-size:10px;color:var(--ink-mid)}
