@@ -100,7 +100,7 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 .critique-img {
   float: left;
   width: 260px;             /* 이미지 크기 조절 */
-  margin: 4px 0 28px 16px; /* 위 / 오른쪽 / 아래 / 텍스트와 간격 */
+  margin: 8px 4 28px 16px; /* 위 / 오른쪽 / 아래 / 텍스트와 간격 */
   display: block;
   object-fit: cover;
 }
@@ -247,10 +247,11 @@ function renderCritiques(){
     if(paras.length<=1) paras=desc.split(/\n/).filter(function(p){return p.trim();});
     var imgHtml=row.img?'<img class="critique-img" src="'+driveThumb(row.img,'w800')+'" alt="'+title+'">':'';
     var bodyHtml='';
-    if(row.img&&paras.length>=2){
-     bodyHtml='<p>'+paras[0].trim()+'</p>';
-     bodyHtml+=imgHtml;
-     for(var i=1;i<paras.length;i++){bodyHtml+='<p>'+paras[i].trim()+'</p>';}
+    if(row.img&&paras.length>=3){
+      bodyHtml='<p>'+paras[0].trim()+'</p>';
+      bodyHtml+='<p>'+paras[1].trim()+'</p>';
+      bodyHtml+=imgHtml;
+     for(var i=2;i<paras.length;i++){bodyHtml+='<p>'+paras[i].trim()+'</p>';}
      imgHtml='';
     }else{
      bodyHtml=paras.map(function(p){return'<p>'+p.trim()+'</p>';}).join('');
