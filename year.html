@@ -656,7 +656,7 @@ function makeCard(row,flatIdx,animOffset){
     card.appendChild(ov);
   }
   (function(idx){card.addEventListener('click',function(){openModal(idx);});})(flatIdx);
-  setTimeout(function(){card.classList.add('revealed');},Math.min(animOffset*25,400));
+  setTimeout(function(){card.classList.add('revealed');},animOffset*80);
   return card;
 }
 
