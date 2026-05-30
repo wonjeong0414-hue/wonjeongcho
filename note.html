@@ -383,7 +383,7 @@ fetch('./data/text.json?v='+Date.now(),{cache:'no-store'})
           var bg=document.createElement('img');
           bg.src=found[0].thumb;
           bg.className='detail-bg-img';
-          sel('detailPanel').appendChild(bg);
+          sel('detailPanel').parentNode.appendChild(bg);
         }
       });
   }) 
