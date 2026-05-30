@@ -96,11 +96,11 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 }
 
 .critique-img {
-  display: block;
-  width: 260px;
-  float: none;
+  float: left;
+  width: 220px;
+  margin: 8px 32px 16px 0;  /* 오른쪽 32px이 텍스트와의 간격 */
   object-fit: cover;
-  margin: 24px 0;  /* flex-shrink 제거 */
+  display: block;
 }
 
 /* float 해제 */
@@ -248,9 +248,9 @@ function renderCritiques(){
     if(row.img&&paras.length>=3){
       bodyHtml='<p>'+paras[0].trim()+'</p>';
       bodyHtml+='<p>'+paras[1].trim()+'</p>';
-      bodyHtml += '</div>'; 
+      
       bodyHtml+=imgHtml;
-      bodyHtml += '<div class="critique-body">';
+      
      for(var i=2;i<paras.length;i++){bodyHtml+='<p>'+paras[i].trim()+'</p>';}
      imgHtml='';
     }else{
@@ -264,7 +264,7 @@ function renderCritiques(){
     +pdfHtml
   +'</div>'
   +'<div class="critique-content '+(hasImg?'':'no-img')+'">'
-    +(hasImg?'<div>'+imgHtml+'</div>':'')
+    
     +'<div class="critique-body">'+bodyHtml
     +'<div class="critique-meta">'
       +(row.year?'<span>'+row.year+'</span>':'')
