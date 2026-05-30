@@ -372,8 +372,7 @@ fetch('./data/text.json?v='+Date.now(),{cache:'no-store'})
     renderList();
     sel('thYear').textContent=lang==='ko'?'년도':'Year';
     sel('thCat').textContent=lang==='ko'?'구분':'Type';
-    
-    sel('thTitle').textContent=lang==='ko'?'제목':'Title';  // ← 375번줄 그대로
+    sel('thTitle').textContent=lang==='ko'?'제목':'Title';
 
     /* ★ pn 이미지 로드 */
     fetch('./data/works.json?v='+Date.now(),{cache:'no-store'})
@@ -387,11 +386,8 @@ fetch('./data/text.json?v='+Date.now(),{cache:'no-store'})
           sel('detailPanel').appendChild(bg);
         }
       });
-
-  })  // ← 376번줄 그대로
-  .catch(function(){})
-  })
-  .catch(function(){sel('listInner').innerHTML='<div class="loading">데이터를 불러올 수 없습니다.</div>';});
+  }) 
+     .catch(function(){sel('listInner').innerHTML='<div class="loading">데이터를 불러올 수 없습니다.</div>';});
 
 window.addEventListener('load',function(){
   var loader=document.getElementById('page-loader');
