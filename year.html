@@ -470,7 +470,7 @@ document.addEventListener('DOMContentLoaded',function(){
  function initPreview(works){
   var found=null;
   var sorted=works.slice().sort(function(a,b){return(parseInt(b['year']||0))-(parseInt(a['year']||0));});
-  for(var i=0;i<sorted.length;i++){if((sorted[i]['page']||'').trim()==='vpy'){found=sorted[i];break;}}
+  for(var i=0;i<sorted.length;i++){if((sorted[i]['page']||'').trim()==='py'){found=sorted[i];break;}}
   var img=sel('previewImg');
   if(!found){img.style.display='none';sel('emptyHint').style.display='block';return;}
 
