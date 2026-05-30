@@ -476,19 +476,19 @@ document.addEventListener('DOMContentLoaded',function(){
   var title=found['title']||'',sen=found['THE']||found['SER']||'';
 
   /* ── 영상인 경우 ── */
-  if(found['isVideo']&&found['fileId']){
-    img.style.display='none';
-    var vid=document.createElement('video');
-    vid.src='https://drive.google.com/uc?export=download&id='+found['fileId'];
-    vid.autoplay=true;vid.loop=true;vid.muted=true;vid.playsInline=true;
-    vid.style.cssText='display:block;max-width:100%;max-height:calc(100vh - var(--nav-h) - var(--bar-h) - 60px);object-fit:contain;opacity:0;transition:opacity 1s ease;';
-    vid.addEventListener('canplay',function(){vid.style.opacity='1';});
-    img.parentNode.insertBefore(vid,img);
-    if(title)sel('captionTitle').textContent=title;
-    if(sen)sel('captionSen').textContent=sen.split(/[,\n]/)[0].trim();
-    if(title||sen)sel('previewCaption').classList.add('show');
-    return;
-  }
+if(found['isVideo']&&found['fileId']){
+  img.style.display='none';
+  var iframe=document.createElement('iframe');
+  iframe.src='https://drive.google.com/file/d/'+found['fileId']+'/preview';
+  iframe.style.cssText='display:block;width:100%;max-width:680px;height:calc(100vh - var(--nav-h) - var(--bar-h) - 100px);border:none;opacity:0;transition:opacity 1s ease;';
+  iframe.allow='autoplay';
+  iframe.onload=function(){iframe.style.opacity='1';};
+  img.parentNode.insertBefore(iframe,img);
+  if(title)sel('captionTitle').textContent=title;
+  if(sen)sel('captionSen').textContent=sen.split(/[,\n]/)[0].trim();
+  if(title||sen)sel('previewCaption').classList.add('show');
+  return;
+}
 
   /* ── 이미지인 경우 (기존) ── */
   var url=found['full']||found['thumb']||'';
