@@ -90,17 +90,17 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 
 /* 이미지 + 본문 감싸기 */
 .critique-content {
-  display: flex;
+  display: block;
   gap: 28px;
   align-items: flex-start;
 }
 
 .critique-img {
-  width: 200px;
-  flex-shrink: 0;        /* 이미지 크기 고정 */
+  display: block;
+  width: 260px;
+  float: none;
   object-fit: cover;
-  margin: 4px 0 0 0;     /* float margin 제거 */
-  float: none;           /* float 제거 */
+  margin: 24px 0;  /* flex-shrink 제거 */
 }
 
 /* float 해제 */
