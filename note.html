@@ -389,7 +389,7 @@ fetch('./data/text.json?v='+Date.now(),{cache:'no-store'})
       });
 
   })  // ← 376번줄 그대로
-  .catch(...)
+  .catch(function(){})
   })
   .catch(function(){sel('listInner').innerHTML='<div class="loading">데이터를 불러올 수 없습니다.</div>';});
 
