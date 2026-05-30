@@ -245,8 +245,16 @@ function renderCritiques(){
     var desc=ko?(row.desc_ko||row.desc||''):(row.desc_en||row.desc||'');
     var paras=desc.split(/\n\n+/).filter(function(p){return p.trim();});
     if(paras.length<=1) paras=desc.split(/\n/).filter(function(p){return p.trim();});
-    var bodyHtml=paras.map
     var imgHtml=row.img?'<img class="critique-img" src="'+driveThumb(row.img,'w800')+'" alt="'+title+'">':'';
+    var bodyHtml='';
+    if(row.img&&paras.length>=2){
+     bodyHtml='<p>'+paras[0].trim()+'</p>';
+     bodyHtml+=imgHtml;
+     for(var i=1;i<paras.length;i++){bodyHtml+='<p>'+paras[i].trim()+'</p>';}
+     imgHtml='';
+    }else{
+     bodyHtml=paras.map(function(p){return'<p>'+p.trim()+'</p>';}).join('');
+    }
     var pdfHtml=row.link?'<a class="critique-pdf" href="'+row.link+'" target="_blank">PDF ↗</a>':'';
     var hasImg=!!row.img;
     return '<div class="critique-item">'
