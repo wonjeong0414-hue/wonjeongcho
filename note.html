@@ -372,7 +372,24 @@ fetch('./data/text.json?v='+Date.now(),{cache:'no-store'})
     renderList();
     sel('thYear').textContent=lang==='ko'?'년도':'Year';
     sel('thCat').textContent=lang==='ko'?'구분':'Type';
-    sel('thTitle').textContent=lang==='ko'?'제목':'Title';
+    
+    sel('thTitle').textContent=lang==='ko'?'제목':'Title';  // ← 375번줄 그대로
+
+    /* ★ pn 이미지 로드 */
+    fetch('./data/works.json?v='+Date.now(),{cache:'no-store'})
+      .then(function(r){return r.json();})
+      .then(function(works){
+        var found=works.filter(function(w){return(w.page||'').trim()==='pn';});
+        if(found.length&&found[0].thumb){
+          var bg=document.createElement('img');
+          bg.src=found[0].thumb;
+          bg.className='detail-bg-img';
+          sel('detailPanel').appendChild(bg);
+        }
+      });
+
+  })  // ← 376번줄 그대로
+  .catch(...)
   })
   .catch(function(){sel('listInner').innerHTML='<div class="loading">데이터를 불러올 수 없습니다.</div>';});
 
