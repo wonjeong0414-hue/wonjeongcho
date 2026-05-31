@@ -296,7 +296,7 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
       <div id="edu2" class="info-item"></div>
     </div>
     <div class="info-col">
-      <div class="info-label" id="labelColl">주요 작품 소장인</div>
+      <div class="info-label" id="labelColl">주요 작품 소장처</div>
       <div id="collSection"></div>
     </div>
   </div>
@@ -515,15 +515,14 @@ function render(){
   document.getElementById('labelEdu').textContent=ko?'학력':'Education';
   document.getElementById('edu1').textContent=ko?'홍익대학교 미술대학원 회화전공 석사 (M.F.A.)':'M.F.A. in Painting, Hongik University';
   document.getElementById('edu2').textContent=ko?'이화여자대학교 전자계산학과 학사':'B.S. in Computer Science, Ewha Womans University';
-  document.getElementById('labelColl').textContent=ko?'주요 작품 소장인':'Major Collections';
+  document.getElementById('labelColl').textContent=ko?'주요 작품 소장처':'Major Collections';
   var collText=ko?(D.collKo||''):(D.collEn||'');
   var collLines=collText?collText.split('\n').filter(function(l){return l.trim();}):[];
   document.getElementById('collSection').innerHTML=collLines.length
-    ?'<div class="coll-list">'+collLines.map(function(l,i){
-        return '<span class="coll-item">'+l.trim()+'</span>'
-          +(i<collLines.length-1?'<span class="coll-sep">/</span>':'');
-      }).join('')+'</div>'
-    :'<div class="coll-item">—</div>';
+    ?collLines.map(function(l){
+        return '<div class="info-item">'+l.trim()+'</div>';
+      }).join('')
+    :'<div class="info-item">—</div>';
 
   /* 전시 */
   var allForYear=[].concat(D.solo||[],D.group||[],D.fair||[]);
