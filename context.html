@@ -118,7 +118,9 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 @keyframes cardShimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
 
 /* ── ★ 영상/GIF 카드 ── */
-.card-video-wrap{position:absolute;inset:0;background:#111;display:flex;align-items:center;justify-content:center;overflow:hidden;}
+.card-video-wrap{position:absolute;inset:0;background:#111;display:flex;align-items:center;justify-content:center;overflow:hidden;pointer-events:none;}
+.card.is-video{pointer-events:all;cursor:pointer;}
+.card.video-hover .card-iframe-overlay{pointer-events:none;}
 .card-play-icon{position:relative;z-index:2;width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,0.18);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;transition:background 0.2s,transform 0.2s;pointer-events:none;}
 .card-play-icon svg{width:12px;height:12px;fill:#fff;margin-left:2px;}
 .card:hover .card-play-icon{background:rgba(255,255,255,0.32);transform:scale(1.1);}
@@ -657,7 +659,7 @@ function paintModal(){
   else if(isGifRow(row)){
     var gifImg=document.createElement('img');
     gifImg.src=getViewUrl(row);
-    gifImg.style.cssText='width:100%;height:100%;object-fit:contain;display:block;max-height:65vh;';
+    gifImg.style.cssText='max-width:100%;max-height:65vh;width:auto;height:auto;object-fit:contain;display:block;';
     area.appendChild(gifImg);
   }
   /* 일반 이미지 */
@@ -725,7 +727,7 @@ function paintSheet(){
   else if(isGifRow(row)){
     var gifImg=document.createElement('img');
     gifImg.src=getViewUrl(row);
-    gifImg.style.cssText='max-width:100%;max-height:48vh;object-fit:contain;display:block;';
+    gifImg.style.cssText='max-width:100%;max-height:48vh;width:auto;height:auto;object-fit:contain;display:block;';
     area.appendChild(gifImg);
   }
   /* 일반 이미지 */
