@@ -530,11 +530,23 @@ function makeCard(row,idx,animate){
   /* ── GIF ── */
   if(isGifRow(row)){
     card.classList.add('is-gif');
-    var gifImg=document.createElement('img');gifImg.className='card-gif-img';gifImg.alt=title;
-    gifImg.onload=function(){gifImg.classList.add('loaded');};
-    gifImg.onerror=function(){};
-    lazyLoad(gifImg,getViewUrl(row));
-    card.appendChild(gifImg);
+    var gifEmbed=getEmbedUrl(row);
+    var gifWrap=document.createElement('div');gifWrap.className='card-video-wrap';
+    var gifPlay=document.createElement('div');gifPlay.className='card-play-icon';
+    gifPlay.innerHTML='<svg viewBox="0 0 10 10"><polygon points="2,1 9,5 2,9"/></svg>';
+    gifWrap.appendChild(gifPlay);
+    if(gifEmbed&&!isMobile()){
+      var gifOverlay=document.createElement('div');gifOverlay.className='card-iframe-overlay';
+      var gifIframe=document.createElement('iframe');
+      gifIframe.setAttribute('allowfullscreen','');
+      gifOverlay.appendChild(gifIframe);gifWrap.appendChild(gifOverlay);
+      card.addEventListener('mouseenter',function(){
+        if(!gifIframe.src)gifIframe.src=gifEmbed;
+        card.classList.add('video-hover');
+      });
+      card.addEventListener('mouseleave',function(){card.classList.remove('video-hover');});
+    }
+    card.appendChild(gifWrap);
     var ov=document.createElement('div');ov.className='card-overlay';
     ov.innerHTML='<div class="card-title">'+title+'</div><div class="card-meta">'+year+(medium?' · '+medium:'')+'</div>';
     card.appendChild(ov);
@@ -657,10 +669,13 @@ function paintModal(){
   }
   /* GIF */
   else if(isGifRow(row)){
-    var gifImg=document.createElement('img');
-    gifImg.src=getViewUrl(row);
-    gifImg.style.cssText='max-width:100%;max-height:65vh;width:auto;height:auto;object-fit:contain;display:block;';
-    area.appendChild(gifImg);
+    var gifEmbed=getEmbedUrl(row);
+    if(gifEmbed){
+      var gifIframe=document.createElement('iframe');
+      gifIframe.src=gifEmbed;
+      gifIframe.setAttribute('allowfullscreen','');
+      area.appendChild(gifIframe);
+    }
   }
   /* 일반 이미지 */
   else {
@@ -725,10 +740,13 @@ function paintSheet(){
   }
   /* GIF */
   else if(isGifRow(row)){
-    var gifImg=document.createElement('img');
-    gifImg.src=getViewUrl(row);
-    gifImg.style.cssText='max-width:100%;max-height:48vh;width:auto;height:auto;object-fit:contain;display:block;';
-    area.appendChild(gifImg);
+    var gifEmbed=getEmbedUrl(row);
+    if(gifEmbed){
+      var gifIframe=document.createElement('iframe');
+      gifIframe.src=gifEmbed;
+      gifIframe.setAttribute('allowfullscreen','');
+      area.appendChild(gifIframe);
+    }
   }
   /* 일반 이미지 */
   else {
