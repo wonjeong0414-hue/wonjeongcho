@@ -439,11 +439,21 @@ function initPreview(works){
   /* GIF */
   if(isGifRow(found)&&found['fileId']){
     img.style.display='none';
-    var gifFrame=document.createElement('iframe');
-    gifFrame.src=getEmbedUrl(found);
-    gifFrame.setAttribute('allowfullscreen','');
-    gifFrame.style.cssText='display:block;max-height:calc(100vh - var(--nav-h) - var(--bar-h) - 60px);max-width:100%;width:680px;height:520px;border:none;';
-    img.parentNode.insertBefore(gifFrame,img);
+    var vid=document.createElement('video');
+    vid.src='https://drive.google.com/uc?export=download&id='+found['fileId'];
+    vid.autoplay=true;vid.loop=true;vid.muted=true;vid.playsInline=true;vid.controls=false;
+    vid.style.cssText='display:block;max-height:calc(100vh - var(--nav-h) - var(--bar-h) - 60px);max-width:100%;width:auto;height:auto;object-fit:contain;opacity:0;transition:opacity 1s ease;';
+    vid.addEventListener('canplay',function(){vid.style.opacity='1';});
+    vid.onerror=function(){
+      /* 로드 실패시 iframe fallback */
+      vid.remove();
+      var gifFrame=document.createElement('iframe');
+      gifFrame.src=getEmbedUrl(found);
+      gifFrame.setAttribute('allowfullscreen','');
+      gifFrame.style.cssText='display:block;width:680px;height:520px;max-width:100%;border:none;';
+      img.parentNode.insertBefore(gifFrame,img);
+    };
+    img.parentNode.insertBefore(vid,img);
     if(title)sel('captionTitle').textContent=title;
     if(sen)sel('captionSen').textContent=sen.split(/[,\n]/)[0].trim();
     if(title||sen)sel('previewCaption').classList.add('show');
