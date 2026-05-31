@@ -439,11 +439,11 @@ function initPreview(works){
   /* GIF */
   if(isGifRow(found)&&found['fileId']){
     img.style.display='none';
-    var gifEl=document.createElement('img');
-    gifEl.className='preview-img loaded';
-    gifEl.style.cssText='display:block;max-height:calc(100vh - var(--nav-h) - var(--bar-h) - 60px);max-width:100%;width:auto;object-fit:contain;';
-    gifEl.src=getViewUrl(found);
-    img.parentNode.insertBefore(gifEl,img);
+    var gifFrame=document.createElement('iframe');
+    gifFrame.src=getEmbedUrl(found);
+    gifFrame.setAttribute('allowfullscreen','');
+    gifFrame.style.cssText='display:block;max-height:calc(100vh - var(--nav-h) - var(--bar-h) - 60px);max-width:100%;width:680px;height:520px;border:none;';
+    img.parentNode.insertBefore(gifFrame,img);
     if(title)sel('captionTitle').textContent=title;
     if(sen)sel('captionSen').textContent=sen.split(/[,\n]/)[0].trim();
     if(title||sen)sel('previewCaption').classList.add('show');
@@ -599,14 +599,23 @@ function makeCard(row,flatIdx,animOffset){
   /* ── GIF 카드 ── */
   if(isGifRow(row)){
     card.classList.add('is-gif');
-    var gifImg=document.createElement('img');
-    gifImg.className='card-gif-img';
-    gifImg.alt=title;
-    gifImg.onload=function(){gifImg.classList.add('loaded');};
-    gifImg.onerror=function(){};
-    lazyLoadSrc(gifImg,getViewUrl(row));
-    card.appendChild(gifImg);
-    /* overlay */
+    var gifEmbed=getEmbedUrl(row);
+    var gifWrap=document.createElement('div');gifWrap.className='card-video-wrap';
+    var gifPlay=document.createElement('div');gifPlay.className='card-play-icon';
+    gifPlay.innerHTML='<svg viewBox="0 0 10 10"><polygon points="2,1 9,5 2,9"/></svg>';
+    gifWrap.appendChild(gifPlay);
+    if(gifEmbed&&!isMobile()){
+      var gifOverlay=document.createElement('div');gifOverlay.className='card-iframe-overlay';
+      var gifIframe=document.createElement('iframe');
+      gifIframe.setAttribute('allowfullscreen','');
+      gifOverlay.appendChild(gifIframe);gifWrap.appendChild(gifOverlay);
+      card.addEventListener('mouseenter',function(){
+        if(!gifIframe.src)gifIframe.src=gifEmbed;
+        card.classList.add('video-hover');
+      });
+      card.addEventListener('mouseleave',function(){card.classList.remove('video-hover');});
+    }
+    card.appendChild(gifWrap);
     if(!isMobile()){
       var ov=document.createElement('div');ov.className='card-overlay';
       ov.innerHTML='<div class="card-title">'+title+'</div><div class="card-meta">'+yr+(medium?' · '+medium:'')+'</div>';
@@ -734,10 +743,13 @@ function paintModal(){
   }
   /* ── GIF ── */
   else if(isGifRow(row)){
-    var gifImg=document.createElement('img');
-    gifImg.src=getViewUrl(row);
-    gifImg.style.cssText='max-width:100%;max-height:58vh;width:auto;height:auto;object-fit:contain;display:block;';
-    area.appendChild(gifImg);
+    var gifEmbed=getEmbedUrl(row);
+    if(gifEmbed){
+      var gifIframe=document.createElement('iframe');
+      gifIframe.src=gifEmbed;
+      gifIframe.setAttribute('allowfullscreen','');
+      area.appendChild(gifIframe);
+    }
   }
   /* ── 일반 이미지 ── */
   else {
@@ -808,10 +820,13 @@ function paintSheet(){
   }
   /* GIF */
   else if(isGifRow(row)){
-    var gifImg=document.createElement('img');
-    gifImg.src=getViewUrl(row);
-    gifImg.style.cssText='max-width:100%;max-height:48vh;width:auto;height:auto;object-fit:contain;display:block;';
-    area.appendChild(gifImg);
+    var gifEmbed=getEmbedUrl(row);
+    if(gifEmbed){
+      var gifIframe=document.createElement('iframe');
+      gifIframe.src=gifEmbed;
+      gifIframe.setAttribute('allowfullscreen','');
+      area.appendChild(gifIframe);
+    }
   }
   /* 일반 이미지 */
   else {
