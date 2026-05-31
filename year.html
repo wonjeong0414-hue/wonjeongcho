@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Year — WON JEONG CHO</title>
-  <!-- SEO Meta -->
   <meta name="description" content="조원정 작가의 연도별 작품 아카이브.">
   <meta name="keywords" content="조원정, Won Jeong Cho, 작가, artist, 회화, painting, 추상, abstract, Tactile Thinking, 촉각적 사고, 한국 현대미술, Korean contemporary art">
   <meta name="author" content="Won Jeong Cho">
@@ -46,123 +45,47 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 .nav-dd-item{display:block;font-size:9px;letter-spacing:0.08em;color:var(--ink-mid);padding:5px 14px;cursor:pointer;transition:color 0.15s,background 0.15s;white-space:nowrap;text-transform:uppercase}
 .nav-dd-item:hover{color:var(--ink);background:rgba(0,0,0,0.03)}
 
-/* ── 데스크탑 레이아웃 ── */
 .layout{position:fixed;top:var(--nav-h);left:0;right:0;bottom:0;display:flex;flex-direction:column}
 
-/* ── 상단 연도 바 (Year 레이블 + 연도 가로) ── */
 .year-bar{
-  flex-shrink:0;
-  min-height:var(--bar-h);
-  height:auto;
-  display:flex;
-  align-items:center;
-  flex-wrap:wrap;
-  padding:4px 36px;
-  border-bottom:0.5px solid rgba(0,0,0,0.07);
-  column-gap:0;
-  row-gap:0;
-  overflow:visible;
+  flex-shrink:0;min-height:var(--bar-h);height:auto;
+  display:flex;align-items:center;flex-wrap:wrap;
+  padding:4px 36px;border-bottom:0.5px solid rgba(0,0,0,0.07);
+  column-gap:0;row-gap:0;overflow:visible;
 }
 .year-bar::-webkit-scrollbar{display:none}
-.bar-title{
-  font-family:'EB Garamond',serif;
-  font-style:italic;
-  font-size:18px;
-  color:var(--ink);
-  margin-right:12px;
-  flex-shrink:0;
-  letter-spacing:0.04em;
-  line-height:var(--bar-h);
-}
+.bar-title{font-family:'EB Garamond',serif;font-style:italic;font-size:18px;color:var(--ink);margin-right:12px;flex-shrink:0;letter-spacing:0.04em;line-height:var(--bar-h)}
 .bar-sep{width:0.5px;height:14px;background:rgba(0,0,0,0.12);margin-right:14px;flex-shrink:0;align-self:center}
-.yr-item{
-  cursor:pointer;
-  user-select:none;
-  padding:3px 6px;
-  position:relative;
-  flex-shrink:0;
-}
-.yr-label{
-  font-size:14px;
-  color:var(--ink-mid);
-  transition:color 0.18s;
-  line-height:1.4;
-  letter-spacing:0.03em;
-  font-family:'Cormorant Garamond',serif;
-  font-weight:500;
-  display:block;
-}
-.yr-item::after{
-  content:'';
-  position:absolute;
-  bottom:0;left:6px;right:6px;
-  height:0.5px;background:var(--ink);
-  transform:scaleX(0);transform-origin:left;
-  transition:transform 0.25s cubic-bezier(0.16,1,0.3,1);
-  opacity:0.4;
-}
+.yr-item{cursor:pointer;user-select:none;padding:3px 6px;position:relative;flex-shrink:0}
+.yr-label{font-size:14px;color:var(--ink-mid);transition:color 0.18s;line-height:1.4;letter-spacing:0.03em;font-family:'Cormorant Garamond',serif;font-weight:500;display:block}
+.yr-item::after{content:'';position:absolute;bottom:0;left:6px;right:6px;height:0.5px;background:var(--ink);transform:scaleX(0);transform-origin:left;transition:transform 0.25s cubic-bezier(0.16,1,0.3,1);opacity:0.4}
 .yr-item:hover .yr-label{color:var(--ink)}
 .yr-item:hover::after{transform:scaleX(1)}
 .yr-item.checked .yr-label{color:var(--ink);font-weight:600;font-size:14.5px}
 .yr-item.checked::after{transform:scaleX(1)}
 
-/* ── body ── */
 .body-row{flex:1;display:flex;overflow:hidden;position:relative}
 
-/* ── preview zone ── */
 .preview-zone{
-  position:absolute;inset:0;
-  display:flex;align-items:flex-start;justify-content:center;
-  padding:clamp(12px,3vh,40px) 48px;
-  opacity:1;transition:opacity 0.5s ease;pointer-events:none;
-  overflow:hidden;
+  position:absolute;inset:0;display:flex;align-items:flex-start;justify-content:center;
+  padding:clamp(12px,3vh,40px) 48px;opacity:1;transition:opacity 0.5s ease;
+  pointer-events:none;overflow:hidden;
 }
-.preview-zone iframe{pointer-events:all;}
+.preview-zone iframe{pointer-events:all}
 .preview-zone.hidden{opacity:0}
-/* ── preview 하단 Tactile Thinking ── */
 .preview-overlay-text{
-  position:absolute;
-  bottom:clamp(10px,2vh,24px);
-  right:clamp(8px,2%,24px);
-  font-family:'EB Garamond',serif;
-  font-style:italic;
-  font-size:clamp(18px,2vw,28px);
-  color:var(--ink);
-  letter-spacing:0.08em;
-  white-space:nowrap;
-  pointer-events:none;
+  position:absolute;bottom:clamp(10px,2vh,24px);right:clamp(8px,2%,24px);
+  font-family:'EB Garamond',serif;font-style:italic;font-size:clamp(18px,2vw,28px);
+  color:var(--ink);letter-spacing:0.08em;white-space:nowrap;pointer-events:none;
   text-shadow:0 1px 18px rgba(247,246,243,0.95),0 0 30px rgba(247,246,243,0.8);
-  animation:previewFloat 9s ease-in-out infinite;
-  opacity:0;
-  transition:opacity 0.8s ease 0.5s;
+  animation:previewFloat 9s ease-in-out infinite;opacity:0;transition:opacity 0.8s ease 0.5s;
 }
 .preview-zone:not(.hidden) .preview-overlay-text{opacity:1}
-.preview-img-wrap{display:flex;flex-direction:column;align-items:flex-start;max-width:min(82%,680px);position:relative}
-
-/* ★ 이미지 10% 크게 + 움직임 강화 */
-.preview-img-wrap{
-  transition:transform 0.7s cubic-bezier(0.16,1,0.3,1);
-  cursor:pointer;
-}
-.preview-img-wrap:hover{
-  transform:scale(1.04);
-}
-.preview-img{
-  display:block;
-  max-height:calc(100vh - var(--nav-h) - var(--bar-h) - 60px);
-  max-width:100%;
-  width:auto;
-  object-fit:contain;
-  opacity:0;
-  transition:opacity 1s ease;
-  animation:previewFloat 9s ease-in-out infinite;
-}
+.preview-img-wrap{display:flex;flex-direction:column;align-items:flex-start;max-width:min(82%,680px);position:relative;transition:transform 0.7s cubic-bezier(0.16,1,0.3,1);cursor:pointer}
+.preview-img-wrap:hover{transform:scale(1.04)}
+.preview-img{display:block;max-height:calc(100vh - var(--nav-h) - var(--bar-h) - 60px);max-width:100%;width:auto;object-fit:contain;opacity:0;transition:opacity 1s ease;animation:previewFloat 9s ease-in-out infinite}
 .preview-img.loaded{opacity:1}
-@keyframes previewFloat{
-  0%,100%{transform:translateY(8) rotate(0deg)}
-  35%{transform:translateY(-4px) rotate(0.12deg)}
-  70%{transform:translateY(2px) rotate(-0.08deg)}
-}
+@keyframes previewFloat{0%,100%{transform:translateY(0) rotate(0deg)}35%{transform:translateY(-4px) rotate(0.12deg)}70%{transform:translateY(2px) rotate(-0.08deg)}}
 
 .preview-caption{margin-top:10px;display:flex;flex-direction:column;gap:2px;opacity:0;transition:opacity 0.8s ease 0.4s}
 .preview-caption.show{opacity:1}
@@ -170,7 +93,6 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 .caption-sen{font-size:8.5px;letter-spacing:0.1em;color:var(--ink-dim);line-height:1.5}
 .empty-hint{font-family:'EB Garamond',serif;font-style:italic;font-size:13px;color:var(--ink-dim);letter-spacing:0.12em}
 
-/* ── grid zone ── */
 .grid-zone{position:absolute;inset:0;overflow-y:auto;padding:16px 10% 48px 36px;scrollbar-width:none;opacity:0;pointer-events:none;transition:opacity 0.5s ease}
 .grid-zone::-webkit-scrollbar{display:none}
 .grid-zone.open{opacity:1;pointer-events:all}
@@ -182,6 +104,8 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 .grid{display:grid;grid-template-columns:repeat(10,1fr);gap:4px}
 @media(max-width:1200px){.grid{grid-template-columns:repeat(8,1fr)}}
 @media(max-width:900px){.grid{grid-template-columns:repeat(6,1fr)}}
+
+/* ── 카드 기본 ── */
 .card{position:relative;overflow:hidden;cursor:pointer;background:rgba(0,0,0,0.04);aspect-ratio:3/4;opacity:0;transform:translateY(6px);transition:opacity 0.35s ease,transform 0.4s cubic-bezier(0.16,1,0.3,1)}
 .card.revealed{opacity:1;transform:translateY(0)}
 .card img{width:100%;height:100%;object-fit:cover;display:block;opacity:0;filter:blur(3px);transition:opacity 0.5s ease,filter 0.6s ease,transform 0.35s ease;position:absolute;inset:0}
@@ -193,51 +117,84 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 .card-meta{font-size:6.5px;letter-spacing:0.08em;color:rgba(255,255,255,0.5);text-transform:uppercase}
 .card-skeleton{position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,0.04) 25%,rgba(0,0,0,0.07) 50%,rgba(0,0,0,0.04) 75%);background-size:200% 100%;animation:cardShimmer 1.4s ease infinite}
 @keyframes cardShimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+
+/* ── ★ 영상 카드 ── */
+.card-video-wrap{
+  position:absolute;inset:0;
+  background:#111;
+  display:flex;align-items:center;justify-content:center;
+  overflow:hidden;
+  pointer-events:none;
+}
+.card.is-video{pointer-events:all;cursor:pointer;}
+.card.video-hover .card-iframe-overlay{pointer-events:none;}
+.card-video-thumb{
+  width:100%;height:100%;
+  object-fit:cover;
+  opacity:0.45;
+  transition:opacity 0.3s ease;
+  position:absolute;inset:0;
+}
+.card-play-icon{
+  position:relative;z-index:2;
+  width:32px;height:32px;
+  border-radius:50%;
+  background:rgba(255,255,255,0.18);
+  backdrop-filter:blur(4px);
+  display:flex;align-items:center;justify-content:center;
+  transition:background 0.2s,transform 0.2s;
+  pointer-events:none;
+}
+.card-play-icon svg{
+  width:12px;height:12px;fill:#fff;margin-left:2px;
+}
+.card:hover .card-play-icon{
+  background:rgba(255,255,255,0.32);
+  transform:scale(1.1);
+}
+.card:hover .card-video-thumb{opacity:0.6;}
+
+/* hover시 iframe 오버레이 */
+.card-iframe-overlay{
+  position:absolute;inset:0;z-index:3;
+  opacity:0;pointer-events:none;
+  transition:opacity 0.4s ease;
+}
+.card-iframe-overlay iframe{
+  width:100%;height:100%;border:none;
+  pointer-events:none;
+}
+.card.video-hover .card-iframe-overlay{
+  opacity:1;pointer-events:all;
+}
+.card.video-hover .card-iframe-overlay iframe{
+  pointer-events:all;
+}
+.card.video-hover .card-play-icon{opacity:0;}
+
+/* GIF 카드 */
+.card-gif-img{
+  width:100%;height:100%;
+  object-fit:cover;
+  position:absolute;inset:0;
+  opacity:0;
+  transition:opacity 0.5s ease;
+}
+.card-gif-img.loaded{opacity:1;}
+
 .load-sentinel{height:1px}
 .loading-msg{padding:40px;text-align:center;font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink-dim)}
 
 /* ── PC 모달 ── */
 .modal-bg{position:fixed;inset:0;background:rgba(26,26,24,0.82);z-index:500;opacity:0;pointer-events:none;transition:opacity 0.3s ease;display:flex;align-items:center;justify-content:center;padding:5%}
 .modal-bg.open{opacity:1;pointer-events:all}
-/* ── 세로형 모달 ── */
-.modal{
-  background:var(--white);
-  max-width:660px;
-  width:100%;
-  max-height:90vh;
-  display:flex;
-  flex-direction:column;
-  overflow:hidden;
-  transform:translateY(16px) scale(0.976);
-  transition:transform 0.34s cubic-bezier(0.16,1,0.3,1);
-  position:relative;
-  border-radius:2px;
-}
+.modal{background:var(--white);max-width:660px;width:100%;max-height:90vh;display:flex;flex-direction:column;overflow:hidden;transform:translateY(16px) scale(0.976);transition:transform 0.34s cubic-bezier(0.16,1,0.3,1);position:relative;border-radius:2px}
 .modal-bg.open .modal{transform:translateY(0) scale(1)}
-.modal-img-area{
-  width:100%;
-  background:#f0efec;
-  display:flex;align-items:center;justify-content:center;
-  overflow:hidden;
-  padding:0;
-  max-height:58vh;
-  flex-shrink:0;
-}
-.modal-img-area img{
-  width:100%;height:100%;
-  object-fit:contain;
-  display:block;
-  max-height:58vh;
-  transition:opacity 0.3s ease;
-}
-.modal-panel{
-  width:100%;
-  padding:22px 28px 24px;
-  display:flex;flex-direction:column;
-  overflow-y:auto;
-  text-align:center;
-  align-items:center;
-}
+.modal-img-area{width:100%;background:#f0efec;display:flex;align-items:center;justify-content:center;overflow:hidden;padding:0;max-height:58vh;flex-shrink:0}
+.modal-img-area img{width:100%;height:100%;object-fit:contain;display:block;max-height:58vh;transition:opacity 0.3s ease}
+/* ★ 모달 영상 iframe */
+.modal-img-area iframe{width:100%;height:58vh;border:none;display:block}
+.modal-panel{width:100%;padding:22px 28px 24px;display:flex;flex-direction:column;overflow-y:auto;text-align:center;align-items:center}
 .modal-x{position:absolute;top:12px;right:14px;font-size:18px;line-height:1;color:rgba(26,26,24,0.4);cursor:pointer;background:none;border:none;font-family:serif;transition:color 0.15s;z-index:10}
 .modal-x:hover{color:var(--ink)}
 .m-title{font-family:'EB Garamond',serif;font-style:italic;font-size:18px;color:var(--ink);line-height:1.3;margin-bottom:6px}
@@ -260,20 +217,7 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
   .body-row{display:block;overflow:visible;height:auto;position:static}
   .preview-zone{display:none}
   .preview-overlay-text{display:none}
-  .m-year-bar{
-    display:flex !important;
-    align-items:center;
-    padding:8px 12px;
-    border-bottom:0.5px solid rgba(0,0,0,0.08);
-    background:var(--bg);
-    position:fixed;
-    top:var(--nav-h);
-    left:0;right:0;
-    z-index:150;
-    overflow-x:auto;
-    scrollbar-width:none;
-    gap:0;
-  }
+  .m-year-bar{display:flex !important;align-items:center;padding:8px 12px;border-bottom:0.5px solid rgba(0,0,0,0.08);background:var(--bg);position:fixed;top:var(--nav-h);left:0;right:0;z-index:150;overflow-x:auto;scrollbar-width:none;gap:0}
   .m-year-bar::-webkit-scrollbar{display:none}
   .m-yr-active{font-family:'EB Garamond',serif;font-style:italic;font-size:26px;color:var(--ink);line-height:1;margin-right:16px;flex-shrink:0;cursor:default}
   .m-yr-sep{width:0.5px;height:16px;background:rgba(0,0,0,0.15);margin-right:14px;flex-shrink:0}
@@ -290,6 +234,10 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
   .card img.loaded{filter:none}
   .card:hover img{transform:none}
   .card-overlay{display:none !important}
+  /* 모바일 영상 카드: aspect-ratio 강제 */
+  .card.is-video,.card.is-gif{aspect-ratio:3/4 !important;display:inline-block;}
+  .card-video-wrap{position:absolute !important;inset:0 !important;}
+  .card-gif-img{position:absolute !important;inset:0 !important;}
   .load-sentinel{column-span:all}
   .modal-bg{display:none !important}
   body.sheet-open .grid-zone{filter:blur(3px)}
@@ -300,6 +248,8 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
   .bs-handle{width:36px;height:4px;border-radius:2px;background:rgba(0,0,0,0.15)}
   .bs-img-area{width:100%;padding:0 20px 12px;display:flex;align-items:center;justify-content:center}
   .bs-img-area img{max-width:100%;max-height:48vh;object-fit:contain;display:block;opacity:0;transition:opacity 0.3s ease}
+  /* ★ 모바일 바텀시트 영상 */
+  .bs-img-area iframe{width:100%;height:48vw;border:none;display:block}
   .bs-info{padding:0 20px 40px;overflow-y:auto;max-height:none}
   .bs-title{font-family:'EB Garamond',serif;font-style:italic;font-size:20px;color:var(--ink);line-height:1.3;margin-bottom:6px}
   .bs-meta{font-size:8px;letter-spacing:0.14em;color:var(--ink-dim);text-transform:uppercase;margin-bottom:2px}
@@ -313,12 +263,10 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
   .bs-next{right:10px}
 }
 
-/* ── 페이지 전환 fade ── */
 @keyframes pageFadeIn{from{opacity:0}to{opacity:1}}
 .page-fade{animation:pageFadeIn 0.4s ease forwards}
 body.fade-out{opacity:0;transition:opacity 0.3s ease}
 
-/* ── 로딩 화면 ── */
 #page-loader{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:9999;opacity:1;transition:opacity 0.6s cubic-bezier(0.16,1,0.3,1);pointer-events:all}
 #page-loader.hidden{opacity:0;pointer-events:none}
 .loader-inner{display:flex;flex-direction:column;align-items:center;gap:20px}
@@ -327,18 +275,11 @@ body.fade-out{opacity:0;transition:opacity 0.3s ease}
 @keyframes loaderFadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 @keyframes loaderLine{from{width:0}to{width:clamp(80px,12vw,140px)}}
 </style>
-  <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-YBRBFCMMCB"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-YBRBFCMMCB');
-  </script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-YBRBFCMMCB');</script>
 </head>
 
 <body>
-<!-- 로딩 화면 -->
 <div id="page-loader">
   <div class="loader-inner">
     <div class="loader-name">Won Jeong Cho</div>
@@ -348,8 +289,6 @@ body.fade-out{opacity:0;transition:opacity 0.3s ease}
 <nav>
   <span class="nav-logo" onclick="go('index')">Won Jeong Cho</span>
   <div class="nav-right">
-
-    <!-- Archive 드롭다운 -->
     <div class="nav-dd" id="navArchive">
       <span class="nav-item active">Archive</span>
       <div class="nav-dd-menu">
@@ -357,10 +296,7 @@ body.fade-out{opacity:0;transition:opacity 0.3s ease}
         <span class="nav-dd-item" onclick="go('context')">Context</span>
       </div>
     </div>
-
     <div class="nav-sep"></div>
-
-    <!-- Text 드롭다운 -->
     <div class="nav-dd">
       <span class="nav-item">Text</span>
       <div class="nav-dd-menu">
@@ -368,15 +304,11 @@ body.fade-out{opacity:0;transition:opacity 0.3s ease}
         <span class="nav-dd-item" onclick="go('critique')">Critique</span>
       </div>
     </div>
-
     <div class="nav-sep"></div>
-
     <span class="nav-item" onclick="go('about')">About</span>
-
   </div>
 </nav>
 
-<!-- 모바일 연도 바 (layout 밖) -->
 <div class="m-year-bar" id="mYearBar">
   <div class="m-yr-active" id="mYrActive"></div>
   <div class="m-yr-sep"></div>
@@ -384,13 +316,11 @@ body.fade-out{opacity:0;transition:opacity 0.3s ease}
 </div>
 
 <div class="layout">
-  <!-- ★ 상단 가로 연도 바 -->
   <div class="year-bar" id="yearBar">
     <span class="bar-title">Year</span>
     <div class="bar-sep"></div>
     <div class="year-grid" id="yearGrid" style="display:flex;flex-direction:row;flex-wrap:wrap;gap:0;flex:1;min-width:0"></div>
   </div>
-
   <div class="body-row">
     <div class="right-panel" style="flex:1;min-width:0;position:relative;overflow:hidden">
       <div class="preview-zone" id="previewZone">
@@ -415,7 +345,9 @@ body.fade-out{opacity:0;transition:opacity 0.3s ease}
 <div class="modal-bg" id="modalBg" onclick="bgClose(event)">
   <div class="modal">
     <button class="modal-arr arr-prev" id="arrPrev" onclick="navModal(-1)">‹</button>
-    <div class="modal-img-area"><img id="mImg" src="" alt="" style="opacity:0"></div>
+    <div class="modal-img-area" id="modalImgArea">
+      <img id="mImg" src="" alt="" style="opacity:0">
+    </div>
     <div class="modal-panel">
       <button class="modal-x" onclick="closeModal()">×</button>
       <div class="m-title" id="mTitle"></div>
@@ -436,7 +368,9 @@ body.fade-out{opacity:0;transition:opacity 0.3s ease}
   <button class="bs-close" onclick="closeSheet()">×</button>
   <button class="bs-nav bs-prev" id="bsPrev" onclick="navSheet(-1)">‹</button>
   <button class="bs-nav bs-next" id="bsNext" onclick="navSheet(1)">›</button>
-  <div class="bs-img-area"><img id="bsImg" src="" alt=""></div>
+  <div class="bs-img-area" id="bsImgArea">
+    <img id="bsImg" src="" alt="">
+  </div>
   <div class="bs-info">
     <div class="bs-title" id="bsTitle"></div>
     <div class="bs-meta" id="bsYear"></div>
@@ -456,46 +390,67 @@ var sheetState='closed',dragStartY=0,dragStartState='';
 
 function sel(id){return document.getElementById(id);}
 function isMobile(){return window.innerWidth<=600;}
-function go(page){
-  document.body.classList.add('fade-out');
-  setTimeout(function(){window.location.href=page+'.html';},280);
-}
+function go(page){document.body.classList.add('fade-out');setTimeout(function(){window.location.href=page+'.html';},280);}
+
 document.addEventListener('DOMContentLoaded',function(){
   document.body.classList.add('page-fade');
-  setTimeout(function(){
-    document.body.classList.remove('page-fade');
-  }, 500);
+  setTimeout(function(){document.body.classList.remove('page-fade');},500);
 });
 
- function initPreview(works){
+/* ── 영상/GIF 판별 헬퍼 ── */
+function isVideoRow(row){return !!(row['isVideo']);}
+function isGifRow(row){return !!(row['isGif']);}
+
+/* ── embed URL 생성 ── */
+function getEmbedUrl(row){
+  var fid=row['fileId']||'';
+  if(!fid)return '';
+  return 'https://drive.google.com/file/d/'+fid+'/preview';
+}
+function getViewUrl(row){
+  var fid=row['fileId']||'';
+  if(!fid)return row['full']||'';
+  return 'https://drive.google.com/uc?export=view&id='+fid;
+}
+
+function initPreview(works){
   var found=null;
   var sorted=works.slice().sort(function(a,b){return(parseInt(b['year']||0))-(parseInt(a['year']||0));});
   for(var i=0;i<sorted.length;i++){if((sorted[i]['page']||'').trim()==='py'){found=sorted[i];break;}}
   var img=sel('previewImg');
   if(!found){img.style.display='none';sel('emptyHint').style.display='block';return;}
-
   var title=found['title']||'',sen=found['THE']||found['SER']||'';
 
-  /* ── 영상인 경우 ── */
-if(found['isVideo']&&found['fileId']){
-  img.style.display='none';
-  var vid=document.createElement('video');
-  vid.src='https://drive.google.com/uc?export=download&id='+found['fileId'];
-  vid.autoplay=true;
-  vid.loop=true;
-  vid.muted=true;
-  vid.playsInline=true;
-  vid.controls=false;
-  vid.style.cssText='display:block;width:100%;max-height:calc(100vh - var(--nav-h) - var(--bar-h) - 60px);object-fit:contain;opacity:0;transition:opacity 1s ease;pointer-events:none;';
-  vid.addEventListener('canplay',function(){vid.style.opacity='1';});
-  img.parentNode.insertBefore(vid,img);
-  if(title)sel('captionTitle').textContent=title;
-  if(sen)sel('captionSen').textContent=sen.split(/[,\n]/)[0].trim();
-  if(title||sen)sel('previewCaption').classList.add('show');
-  return;
-}
+  /* 영상 */
+  if(isVideoRow(found)&&found['fileId']){
+    img.style.display='none';
+    var vid=document.createElement('video');
+    vid.src='https://drive.google.com/uc?export=download&id='+found['fileId'];
+    vid.autoplay=true;vid.loop=true;vid.muted=true;vid.playsInline=true;vid.controls=false;
+    vid.style.cssText='display:block;width:100%;max-height:calc(100vh - var(--nav-h) - var(--bar-h) - 60px);object-fit:contain;opacity:0;transition:opacity 1s ease;pointer-events:none;';
+    vid.addEventListener('canplay',function(){vid.style.opacity='1';});
+    img.parentNode.insertBefore(vid,img);
+    if(title)sel('captionTitle').textContent=title;
+    if(sen)sel('captionSen').textContent=sen.split(/[,\n]/)[0].trim();
+    if(title||sen)sel('previewCaption').classList.add('show');
+    return;
+  }
 
-  /* ── 이미지인 경우 (기존) ── */
+  /* GIF */
+  if(isGifRow(found)&&found['fileId']){
+    img.style.display='none';
+    var gifEl=document.createElement('img');
+    gifEl.className='preview-img loaded';
+    gifEl.style.cssText='display:block;max-height:calc(100vh - var(--nav-h) - var(--bar-h) - 60px);max-width:100%;width:auto;object-fit:contain;';
+    gifEl.src=getViewUrl(found);
+    img.parentNode.insertBefore(gifEl,img);
+    if(title)sel('captionTitle').textContent=title;
+    if(sen)sel('captionSen').textContent=sen.split(/[,\n]/)[0].trim();
+    if(title||sen)sel('previewCaption').classList.add('show');
+    return;
+  }
+
+  /* 일반 이미지 */
   var url=found['full']||found['thumb']||'';
   if(!url){img.style.display='none';sel('emptyHint').style.display='block';return;}
   img.onload=function(){
@@ -593,13 +548,9 @@ function renderAll(){
       header.innerHTML='<span class="yd-label">'+g.year+'</span><span class="yd-count">'+g.rows.length+' works</span>';
       var gridWrap=document.createElement('div');gridWrap.className='year-section-grid';
       var grid=document.createElement('div');grid.className='grid';grid.id='grid-'+g.year;
-      gridWrap.appendChild(grid);
-      section.appendChild(header);
-      section.appendChild(gridWrap);
-      con.appendChild(section);
+      gridWrap.appendChild(grid);section.appendChild(header);section.appendChild(gridWrap);con.appendChild(section);
     } else {
-      var grid=document.createElement('div');grid.className='grid';grid.id='grid-'+g.year;
-      con.appendChild(grid);
+      var grid=document.createElement('div');grid.className='grid';grid.id='grid-'+g.year;con.appendChild(grid);
     }
     yearRendered[g.year]=0;
   });
@@ -635,15 +586,78 @@ function connectChunkObserver(){
   },{rootMargin:'300px'});
   if(chunkSentinel)chunkObserver.observe(chunkSentinel);
 }
-
 function disconnectChunkObserver(){
   if(chunkObserver){chunkObserver.disconnect();chunkObserver=null;}
   if(chunkSentinel){chunkSentinel.remove();chunkSentinel=null;}
 }
 
+/* ── ★ makeCard — 영상/GIF/이미지 분기 ── */
 function makeCard(row,flatIdx,animOffset){
   var card=document.createElement('div');card.className='card';
-  var title=row['title']||'',yr=row['year']||'',medium=row['medium']||'',thumb=row['thumb']||'';
+  var title=row['title']||'',yr=row['year']||'',medium=row['medium']||'';
+
+  /* ── GIF 카드 ── */
+  if(isGifRow(row)){
+    card.classList.add('is-gif');
+    var gifImg=document.createElement('img');
+    gifImg.className='card-gif-img';
+    gifImg.alt=title;
+    gifImg.onload=function(){gifImg.classList.add('loaded');};
+    gifImg.onerror=function(){};
+    lazyLoadSrc(gifImg,getViewUrl(row));
+    card.appendChild(gifImg);
+    /* overlay */
+    if(!isMobile()){
+      var ov=document.createElement('div');ov.className='card-overlay';
+      ov.innerHTML='<div class="card-title">'+title+'</div><div class="card-meta">'+yr+(medium?' · '+medium:'')+'</div>';
+      card.appendChild(ov);
+    }
+    (function(idx){card.addEventListener('click',function(){openModal(idx);});})(flatIdx);
+    setTimeout(function(){card.classList.add('revealed');},animOffset*80);
+    return card;
+  }
+
+  /* ── 영상 카드 ── */
+  if(isVideoRow(row)){
+    card.classList.add('is-video');
+    var embedUrl=getEmbedUrl(row);
+    var wrap=document.createElement('div');wrap.className='card-video-wrap';
+    /* 재생 아이콘 */
+    var playIcon=document.createElement('div');playIcon.className='card-play-icon';
+    playIcon.innerHTML='<svg viewBox="0 0 10 10"><polygon points="2,1 9,5 2,9"/></svg>';
+    wrap.appendChild(playIcon);
+    /* hover iframe 오버레이 */
+    if(embedUrl&&!isMobile()){
+      var iframeOverlay=document.createElement('div');iframeOverlay.className='card-iframe-overlay';
+      var iframe=document.createElement('iframe');
+      iframe.setAttribute('allow','autoplay');
+      iframe.setAttribute('allowfullscreen','');
+      /* src는 hover시 세팅 — 미리 로드 방지 */
+      iframeOverlay.appendChild(iframe);
+      wrap.appendChild(iframeOverlay);
+      card.addEventListener('mouseenter',function(){
+        if(!iframe.src)iframe.src=embedUrl+'?autoplay=1&mute=1';
+        card.classList.add('video-hover');
+      });
+      card.addEventListener('mouseleave',function(){
+        card.classList.remove('video-hover');
+        /* iframe src 유지 (재접근 빠름), 재생만 중단 불가 — 허용 */
+      });
+    }
+    card.appendChild(wrap);
+    /* overlay 텍스트 */
+    if(!isMobile()){
+      var ov2=document.createElement('div');ov2.className='card-overlay';
+      ov2.innerHTML='<div class="card-title">'+title+'</div><div class="card-meta">'+yr+(medium?' · '+medium:'')+'</div>';
+      card.appendChild(ov2);
+    }
+    (function(idx){card.addEventListener('click',function(){openModal(idx);});})(flatIdx);
+    setTimeout(function(){card.classList.add('revealed');},animOffset*80);
+    return card;
+  }
+
+  /* ── 일반 이미지 카드 (기존) ── */
+  var thumb=row['thumb']||'';
   var sk=document.createElement('div');sk.className='card-skeleton';card.appendChild(sk);
   var img=document.createElement('img');img.alt=title;
   img.onload=function(){if(sk.parentNode)sk.parentNode.removeChild(sk);img.classList.add('loaded');};
@@ -651,15 +665,16 @@ function makeCard(row,flatIdx,animOffset){
   if(thumb){lazyLoad(img,thumb);}else{img.classList.add('loaded');}
   card.appendChild(img);
   if(!isMobile()){
-    var ov=document.createElement('div');ov.className='card-overlay';
-    ov.innerHTML='<div class="card-title">'+title+'</div><div class="card-meta">'+yr+(medium?' · '+medium:'')+'</div>';
-    card.appendChild(ov);
+    var ov3=document.createElement('div');ov3.className='card-overlay';
+    ov3.innerHTML='<div class="card-title">'+title+'</div><div class="card-meta">'+yr+(medium?' · '+medium:'')+'</div>';
+    card.appendChild(ov3);
   }
   (function(idx){card.addEventListener('click',function(){openModal(idx);});})(flatIdx);
   setTimeout(function(){card.classList.add('revealed');},animOffset*80);
   return card;
 }
 
+/* lazyLoad 헬퍼 — img observer용 */
 var imgObserver=new IntersectionObserver(function(entries,obs){
   entries.forEach(function(e){
     if(!e.isIntersecting)return;
@@ -671,7 +686,10 @@ var imgObserver=new IntersectionObserver(function(entries,obs){
 },{rootMargin:'300px'});
 
 function lazyLoad(img,url){if(!url){img.classList.add('loaded');return;}img.dataset.src=url;imgObserver.observe(img);}
+/* GIF용 — 동일하지만 onerror 없음 */
+function lazyLoadSrc(img,url){if(!url){return;}img.dataset.src=url;imgObserver.observe(img);}
 
+/* ── openModal ── */
 function openModal(idx){
   modalIdx=idx;
   if(isMobile()){openSheet(idx);return;}
@@ -679,17 +697,64 @@ function openModal(idx){
   sel('modalBg').classList.add('open');
   document.body.style.overflow='hidden';
 }
-function closeModal(){sel('modalBg').classList.remove('open');document.body.style.overflow='';}
+function closeModal(){
+  /* ★ 닫을 때 영상 iframe src 초기화 — 재생 중단 */
+  var area=sel('modalImgArea');
+  var iframe=area.querySelector('iframe');
+  if(iframe)iframe.src='';
+  sel('modalBg').classList.remove('open');
+  document.body.style.overflow='';
+}
 function bgClose(e){if(e.target===sel('modalBg'))closeModal();}
 function navModal(d){modalIdx=(modalIdx+d+flatFiltered.length)%flatFiltered.length;paintModal();}
 
+/* ── ★ paintModal — 영상/GIF/이미지 분기 ── */
 function paintModal(){
   var row=flatFiltered[modalIdx];
-  var mImg=sel('mImg');mImg.style.opacity='0';
-  var fullSrc=row['full']||row['thumb']||'';
-  mImg.onload=function(){mImg.style.opacity='1';};
-  mImg.onerror=function(){var m=fullSrc.match(/[?&]id=([a-zA-Z0-9_-]{10,})/);if(m&&mImg.src.indexOf('w800')===-1)mImg.src='https://drive.google.com/thumbnail?id='+m[1]+'&sz=w800';};
-  mImg.src=fullSrc;
+  var area=sel('modalImgArea');
+
+  /* 기존 내용 초기화 (iframe src 먼저 비워서 재생 중단) */
+  var prevIframe=area.querySelector('iframe');
+  if(prevIframe)prevIframe.src='';
+  area.innerHTML='';
+
+  /* ── 영상 ── */
+  if(isVideoRow(row)){
+    var embedUrl=getEmbedUrl(row);
+    if(embedUrl){
+      var iframe=document.createElement('iframe');
+      iframe.src=embedUrl+'?autoplay=1&mute=1';
+      iframe.setAttribute('allow','autoplay');
+      iframe.setAttribute('allowfullscreen','');
+      area.appendChild(iframe);
+    } else {
+      /* fileId 없으면 빈 영역 */
+      area.style.background='#111';
+    }
+  }
+  /* ── GIF ── */
+  else if(isGifRow(row)){
+    var gifImg=document.createElement('img');
+    gifImg.src=getViewUrl(row);
+    gifImg.style.cssText='max-width:100%;max-height:58vh;width:auto;height:auto;object-fit:contain;display:block;';
+    area.appendChild(gifImg);
+  }
+  /* ── 일반 이미지 ── */
+  else {
+    var img=document.createElement('img');
+    img.id='mImg';
+    img.style.opacity='0';
+    var fullSrc=row['full']||row['thumb']||'';
+    img.onload=function(){img.style.opacity='1';};
+    img.onerror=function(){
+      var m=fullSrc.match(/[?&]id=([a-zA-Z0-9_-]{10,})/);
+      if(m&&img.src.indexOf('w800')===-1)img.src='https://drive.google.com/thumbnail?id='+m[1]+'&sz=w800';
+    };
+    img.src=fullSrc;
+    area.appendChild(img);
+  }
+
+  /* 텍스트 정보 */
   sel('mTitle').textContent=row['title']||'';
   sel('mYear').textContent=row['year']||'';
   sel('mMedium').textContent=row['medium']||'';
@@ -702,6 +767,7 @@ function paintModal(){
   sel('arrNext').style.display=flatFiltered.length>1?'flex':'none';
 }
 
+/* ── 모바일 바텀시트 ── */
 function openSheet(idx){
   modalIdx=idx;paintSheet();
   var sheet=sel('bsSheet');
@@ -709,16 +775,59 @@ function openSheet(idx){
   requestAnimationFrame(function(){sheet.classList.add('half');});
   sheetState='half';document.body.classList.add('sheet-open');
 }
-function closeSheet(){sel('bsSheet').classList.remove('half','full');sheetState='closed';document.body.classList.remove('sheet-open');}
+function closeSheet(){
+  /* ★ 닫을 때 iframe src 초기화 */
+  var area=sel('bsImgArea');
+  var iframe=area.querySelector('iframe');
+  if(iframe)iframe.src='';
+  sel('bsSheet').classList.remove('half','full');
+  sheetState='closed';document.body.classList.remove('sheet-open');
+}
 function navSheet(d){modalIdx=(modalIdx+d+flatFiltered.length)%flatFiltered.length;paintSheet();}
 
+/* ── ★ paintSheet — 영상/GIF/이미지 분기 ── */
 function paintSheet(){
   var row=flatFiltered[modalIdx];
-  var bsImg=sel('bsImg');bsImg.style.opacity='0';
-  var imgUrl=row['full']||row['thumb']||'';
-  bsImg.onload=function(){bsImg.style.opacity='1';};
-  bsImg.onerror=function(){var m=imgUrl.match(/[?&]id=([a-zA-Z0-9_-]{10,})/);if(m&&bsImg.src.indexOf('w800')===-1){bsImg.src='https://drive.google.com/thumbnail?id='+m[1]+'&sz=w800';}};
-  bsImg.src=imgUrl;
+  var area=sel('bsImgArea');
+
+  /* 기존 내용 초기화 */
+  var prevIframe=area.querySelector('iframe');
+  if(prevIframe)prevIframe.src='';
+  area.innerHTML='';
+
+  /* 영상 */
+  if(isVideoRow(row)){
+    var embedUrl=getEmbedUrl(row);
+    if(embedUrl){
+      var iframe=document.createElement('iframe');
+      iframe.src=embedUrl+'?autoplay=1&mute=1';
+      iframe.setAttribute('allow','autoplay');
+      iframe.setAttribute('allowfullscreen','');
+      area.appendChild(iframe);
+    }
+  }
+  /* GIF */
+  else if(isGifRow(row)){
+    var gifImg=document.createElement('img');
+    gifImg.src=getViewUrl(row);
+    gifImg.style.cssText='max-width:100%;max-height:48vh;width:auto;height:auto;object-fit:contain;display:block;';
+    area.appendChild(gifImg);
+  }
+  /* 일반 이미지 */
+  else {
+    var img=document.createElement('img');
+    img.id='bsImg';
+    img.style.opacity='0';
+    var imgUrl=row['full']||row['thumb']||'';
+    img.onload=function(){img.style.opacity='1';};
+    img.onerror=function(){
+      var m=imgUrl.match(/[?&]id=([a-zA-Z0-9_-]{10,})/);
+      if(m&&img.src.indexOf('w800')===-1){img.src='https://drive.google.com/thumbnail?id='+m[1]+'&sz=w800';}
+    };
+    img.src=imgUrl;
+    area.appendChild(img);
+  }
+
   sel('bsTitle').textContent=row['title']||'';
   sel('bsYear').textContent=row['year']||'';
   sel('bsMedium').textContent=row['medium']||'';
@@ -732,14 +841,14 @@ function paintSheet(){
   sel('bsNext').style.display=showNav?'flex':'none';
 }
 
+/* ── drag ── */
 (function(){
   var handle=sel('bsHandle'),sheet=sel('bsSheet');
   if(!handle||!sheet)return;
   function onStart(e){dragStartY=e.touches?e.touches[0].clientY:e.clientY;dragStartState=sheetState;document.addEventListener('touchmove',onMove,{passive:false});document.addEventListener('touchend',onEnd);document.addEventListener('mousemove',onMove);document.addEventListener('mouseup',onEnd);}
   function onMove(e){e.preventDefault();var y=e.touches?e.touches[0].clientY:e.clientY,dy=y-dragStartY;if(dy<-60){sheet.classList.remove('half');sheet.classList.add('full');sheetState='full';}else if(dy>60&&dragStartState==='full'){sheet.classList.remove('full');sheet.classList.add('half');sheetState='half';}else if(dy>100&&dragStartState==='half'){closeSheet();}}
   function onEnd(){document.removeEventListener('touchmove',onMove);document.removeEventListener('touchend',onEnd);document.removeEventListener('mousemove',onMove);document.removeEventListener('mouseup',onEnd);}
-  handle.addEventListener('touchstart',onStart,{passive:true});
-  handle.addEventListener('mousedown',onStart);
+  handle.addEventListener('touchstart',onStart,{passive:true});handle.addEventListener('mousedown',onStart);
 })();
 
 document.addEventListener('keydown',function(e){
@@ -790,15 +899,9 @@ fetch('./data/works.json')
     sel('yearGrid').innerHTML='<div style="font-size:8px;color:var(--ink-dim)">로딩 오류</div>';
   });
 
-/* ── 로딩 화면 제거 ── */
-window.addEventListener('load', function(){
-  var loader = document.getElementById('page-loader');
-  if(loader){
-    setTimeout(function(){
-      loader.classList.add('hidden');
-      setTimeout(function(){loader.style.display='none';}, 650);
-    }, 400);
-  }
+window.addEventListener('load',function(){
+  var loader=document.getElementById('page-loader');
+  if(loader){setTimeout(function(){loader.classList.add('hidden');setTimeout(function(){loader.style.display='none';},650);},400);}
 });
 </script>
 </body>
