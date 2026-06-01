@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
@@ -26,8 +26,6 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{--ink:#1a1a18;--ink-mid:#4a4a47;--ink-dim:#7a7a74;--bg:#f7f6f3;--white:#fff;--nav-h:50px;--lang-h:44px}
 html,body{height:100%;background:var(--bg);font-family:'Cormorant Garamond',serif;color:var(--ink)}
-
-/* ── nav ── */
 nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-items:center;justify-content:space-between;padding:0 36px;z-index:300;background:var(--bg);border-bottom:.5px solid rgba(26,26,24,.07)}
 .nav-logo{font-weight:400;font-size:13px;letter-spacing:.3em;color:var(--ink);text-transform:uppercase;cursor:pointer;transition:opacity .2s}
 .nav-logo:hover{opacity:.45}
@@ -42,40 +40,20 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 .nav-dd-menu{display:none;position:absolute;top:calc(100% + 4px);left:50%;transform:translateX(-50%);background:var(--white);border-radius:4px;padding:4px 0;min-width:80px;z-index:400;box-shadow:0 4px 16px rgba(0,0,0,.08)}
 .nav-dd-item{display:block;font-size:9px;letter-spacing:.08em;color:var(--ink-mid);padding:5px 14px;cursor:pointer;transition:color .15s,background .15s;white-space:nowrap;text-transform:uppercase}
 .nav-dd-item:hover{color:var(--ink);background:rgba(0,0,0,.03)}
-
-/* ── lang bar ── */
 .lang-bar{position:fixed;top:var(--nav-h);left:0;right:0;height:var(--lang-h);display:flex;align-items:center;justify-content:flex-end;padding:0 36px;background:var(--bg);border-bottom:.5px solid rgba(26,26,24,.07);z-index:200}
 .lang-toggle{display:flex;border:.5px solid rgba(26,26,24,.2);border-radius:2px;overflow:hidden}
 .lang-btn{font-family:'Cormorant Garamond',serif;font-size:8px;letter-spacing:.12em;text-transform:uppercase;padding:4px 10px;cursor:pointer;background:transparent;color:var(--ink-dim);border:none;transition:background .15s,color .15s}
 .lang-btn.active{background:rgba(26,26,24,.62);color:var(--bg)}
 .lang-btn:not(.active):hover{color:var(--ink)}
-
-/* ── 페이지 레이아웃 ── */
-.page-body{
-  position:fixed;top:calc(var(--nav-h) + var(--lang-h));
-  left:0;right:0;bottom:0;
-  display:flex;flex-direction:column;
-  overflow:hidden;z-index:1;
-}
-
-/* ── Statement 블록 ── */
-.stmt-block{
-  flex-shrink:0;
-  padding:28px 48px 24px 48px;
-  border-bottom:.5px solid rgba(0,0,0,.08);
-  overflow-y:auto;scrollbar-width:none;
-}
+.page-body{position:fixed;top:calc(var(--nav-h) + var(--lang-h));left:0;right:0;bottom:0;display:flex;flex-direction:column;overflow:hidden;z-index:1}
+.stmt-block{flex-shrink:0;padding:28px 48px 24px 48px;border-bottom:.5px solid rgba(0,0,0,.08);overflow-y:auto;scrollbar-width:none}
 .stmt-block::-webkit-scrollbar{display:none}
 .stmt-label{font-size:8.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-dim);margin-bottom:14px}
 .stmt-text{font-family:'EB Garamond',serif;font-size:14px;line-height:2.0;color:var(--ink);white-space:pre-wrap;word-break:keep-all;text-align:justify}
 .stmt-link{display:inline-flex;align-items:center;gap:4px;margin-top:14px;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-mid);text-decoration:none;padding:0 1px;border:.3px solid rgba(74,74,71,.25);border-radius:2px;transition:background .15s}
 .stmt-link:hover{background:rgba(74,74,71,.06)}
-
-/* ── 3단: 리스트 + 상세 ── */
 .content-row{flex:1;display:flex;min-height:0;overflow:hidden}
-
-/* ── 리스트 컬럼 ── */
-.list-col{width:48%;flex-shrink:0;padding:16px 24px 40px 48px;border-right:none;overflow-y:auto;scrollbar-width:none}
+.list-col{width:48%;flex-shrink:0;padding:16px 24px 40px 48px;overflow-y:auto;scrollbar-width:none}
 .list-col::-webkit-scrollbar{display:none}
 .list-header{display:grid;grid-template-columns:44px 60px 1fr;gap:0 8px;padding:0 0 6px;border-bottom:.5px solid rgba(0,0,0,.1);margin-bottom:2px}
 .list-th{font-size:7.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-dim)}
@@ -88,9 +66,27 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 .file-title{font-family:'EB Garamond',serif;font-size:12px;color:var(--ink-mid);line-height:1.4;transition:color .15s}
 
 /* ── 상세 컬럼 ── */
-.detail-col{flex:1;min-width:0;padding:16px 48px 40px 36px;overflow-y:auto;scrollbar-width:none}
+.detail-col{flex:1;min-width:0;padding:16px 48px 40px 36px;overflow-y:auto;scrollbar-width:none;position:relative}
 .detail-col::-webkit-scrollbar{display:none}
-.detail-panel{opacity:0;transition:opacity .4s ease;pointer-events:none}
+
+/* ★ 배경 이미지 — position:absolute로 detail-col 안에 고정 */
+.detail-bg-img{
+  position:absolute;
+  top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  width:60%;max-width:280px;
+  opacity:0.36;
+  filter:grayscale(40%);
+  object-fit:contain;
+  pointer-events:none;
+  transition:opacity .4s ease;
+}
+/* ★ detail panel이 visible이면 배경 이미지 숨김 */
+.detail-col.panel-open .detail-bg-img{
+  opacity:0;
+}
+
+.detail-panel{opacity:0;transition:opacity .4s ease;pointer-events:none;position:relative;z-index:1}
 .detail-panel.visible{opacity:1;pointer-events:all}
 .detail-year{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-mid);margin-bottom:4px}
 .detail-cat{font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-dim);margin-bottom:12px}
@@ -103,22 +99,19 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 .empty-state{padding:40px 0;font-family:'EB Garamond',serif;font-style:italic;font-size:13px;color:var(--ink-dim);letter-spacing:.1em}
 .loading{padding:40px 0;font-size:8.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-dim)}
 
-/* ── 모바일 ── */
 @media(max-width:600px){
   html,body{overflow:auto !important;height:auto !important}
   .page-body{position:static;padding-top:calc(var(--nav-h) + var(--lang-h));display:block;overflow:visible}
   :root{--lang-h:40px}
   nav{padding:0 16px}
   .lang-bar{padding:0 16px}
-  .stmt-block{max-height:none;padding:20px 20px 16px;border-bottom:.5px solid rgba(0,0,0,.08)}
+  .stmt-block{max-height:none;padding:20px 20px 16px}
   .stmt-text{font-size:12px;line-height:1.8}
   .content-row{display:block}
-  .list-col{width:100%;border-right:none;padding:12px 20px 8px;overflow:visible}
+  .list-col{width:100%;padding:12px 20px 8px;overflow:visible}
   .list-header{grid-template-columns:36px 52px 1fr;gap:0 6px;padding:6px 0}
   .file-row{grid-template-columns:36px 52px 1fr;gap:0 6px;padding:8px 0}
-  .file-year{font-size:9.5px}
-  .file-cat{font-size:9px}
-  .file-title{font-size:12px}
+  .file-year{font-size:9.5px}.file-cat{font-size:9px}.file-title{font-size:12px}
   .detail-col{display:none}
   .m-inline-detail{display:none;padding:12px 14px 18px 8px;border-bottom:.5px solid rgba(0,0,0,.06);background:rgba(255,255,255,.55);animation:mFadeIn .22s ease}
   .m-inline-detail.open{display:block}
@@ -136,8 +129,6 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
   .nav-item{font-size:8px;padding:5px 6px}
   .nav-sep{margin:0 1px}
 }
-
-/* 로딩 */
 #page-loader{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:9999;opacity:1;transition:opacity .6s cubic-bezier(.16,1,.3,1);pointer-events:all}
 #page-loader.hidden{opacity:0;pointer-events:none}
 .loader-inner{display:flex;flex-direction:column;align-items:center;gap:20px}
@@ -145,7 +136,6 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 .loader-line{width:0;height:.5px;background:var(--ink);opacity:.3;animation:loaderLine 1s cubic-bezier(.16,1,.3,1) .4s forwards}
 @keyframes loaderFadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 @keyframes loaderLine{from{width:0}to{width:clamp(80px,12vw,140px)}}
-
 body.fade-out{opacity:0;transition:opacity .3s ease}
 </style>
 </head>
@@ -188,7 +178,6 @@ body.fade-out{opacity:0;transition:opacity .3s ease}
     <div class="stmt-text" id="stmtText"></div>
     <a class="stmt-link" id="stmtLink" href="#" target="_blank" style="display:none">PDF 열기 ↗</a>
   </div>
-
   <div class="content-row">
     <div class="list-col">
       <div class="list-header">
@@ -198,7 +187,9 @@ body.fade-out{opacity:0;transition:opacity .3s ease}
       </div>
       <div id="listInner"><div class="loading">Loading…</div></div>
     </div>
-    <div class="detail-col">
+    <!-- ★ detail-col에 배경 이미지를 absolute로 넣음 -->
+    <div class="detail-col" id="detailCol">
+      <img class="detail-bg-img" id="detailBgImg" src="" alt="">
       <div class="detail-panel" id="detailPanel">
         <div class="detail-year" id="detailYear"></div>
         <div class="detail-cat" id="detailCat"></div>
@@ -239,12 +230,10 @@ document.addEventListener('click',function(e){
 });
 
 function setLang(l){
-  if(lang===l)return;
-  lang=l;
+  if(lang===l)return;lang=l;
   sel('btnKo').classList.toggle('active',l==='ko');
   sel('btnEn').classList.toggle('active',l==='en');
-  renderStmt();
-  renderList();
+  renderStmt();renderList();
   if(!isMobile()&&sel('detailPanel').classList.contains('visible'))renderDetail(currentRow);
 }
 
@@ -327,6 +316,8 @@ function showDetail(idx){
   currentRow=row;
   renderDetail(row);
   sel('detailPanel').classList.add('visible');
+  /* ★ 배경 이미지 숨기기 — panel-open 클래스로 CSS가 처리 */
+  sel('detailCol').classList.add('panel-open');
 }
 
 function renderDetail(row){
@@ -355,13 +346,27 @@ fetch('./data/text.json?v='+Date.now(),{cache:'no-store'})
     var d=result.data||{};
     DATA=d['작가노트']||[];
     STATEMENT=result.statement||{ko:'',en:''};
-    renderStmt();
-    renderList();
+    renderStmt();renderList();
     sel('thYear').textContent=lang==='ko'?'년도':'Year';
     sel('thCat').textContent=lang==='ko'?'구분':'Type';
     sel('thTitle').textContent=lang==='ko'?'제목':'Title';
   })
   .catch(function(){sel('listInner').innerHTML='<div class="loading">데이터를 불러올 수 없습니다.</div>';});
+
+/* ★ works.json에서 pn 이미지 로드 — text.json과 독립 실행 */
+fetch('./data/works.json?v='+Date.now(),{cache:'no-store'})
+  .then(function(r){return r.json();})
+  .then(function(works){
+    var found=works.filter(function(w){return(w.page||'').trim()==='pn';});
+    if(found.length){
+      var url=found[0].thumb||found[0].full||'';
+      if(url){
+        var bg=sel('detailBgImg');
+        bg.src=url;
+      }
+    }
+  })
+  .catch(function(){});
 
 window.addEventListener('load',function(){
   var loader=document.getElementById('page-loader');
