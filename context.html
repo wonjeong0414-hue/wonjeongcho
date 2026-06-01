@@ -81,9 +81,11 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 @keyframes hintDrift{0%,100%{transform:translateY(0);opacity:0.75}45%{transform:translateY(-2px);opacity:0.95}75%{transform:translateY(1.5px);opacity:0.5}}
 .sub-tags-pop{position:absolute;bottom:10%;left:50%;transform:translateX(-50%);z-index:20;display:flex;flex-wrap:wrap;gap:7px;justify-content:center;max-width:65%;opacity:0;pointer-events:none;transition:opacity 0.4s cubic-bezier(0.16,1,0.3,1)}
 .sub-tags-pop.show{opacity:1;pointer-events:all}
-.tag-cycle{position:absolute;inset:0;z-index:3;display:flex;align-items:center;justify-content:center;pointer-events:none}
-.tag-cycle-word{font-family:'EB Garamond',serif;font-style:italic;font-size:clamp(11px,1.1vw,15px);letter-spacing:0.08em;color:rgba(255,255,255,0.72);text-align:center;padding:0 12px;opacity:0;transition:opacity 0.9s ease;white-space:nowrap;text-shadow:0 1px 12px rgba(0,0,0,0.5)}
-.tag-cycle-word.visible{opacity:1}
+.tag-cycle{position:absolute;inset:0;z-index:3;pointer-events:none;background:linear-gradient(to top,rgba(0,0,0,0.45) 0%,rgba(0,0,0,0.1) 60%,transparent 100%);opacity:0;transition:opacity 0.4s ease}
+.sub-card:hover .tag-cycle,.tag-cycle.pinned{opacity:1}
+.tag-cycle-inner{position:absolute;bottom:0;left:0;right:0;padding:14px 14px 16px;display:flex;flex-direction:column;gap:5px;align-items:flex-start}
+.tag-cycle-word{font-family:'EB Garamond',serif;font-style:italic;font-size:clamp(10px,1vw,13px);letter-spacing:0.06em;color:rgba(255,255,255,0.0);line-height:1.5;white-space:nowrap;transition:color 0.6s ease;text-shadow:0 1px 8px rgba(0,0,0,0.6)}
+.tag-cycle-word.lit{color:rgba(255,255,255,0.88)}
 .sub-tag-pill{font-family:'EB Garamond',serif;font-style:italic;font-size:12px;letter-spacing:0.05em;color:var(--ink);background:rgba(247,246,243,0.9);border:0.5px solid rgba(0,0,0,0.1);border-radius:20px;padding:4px 13px;animation:tagPop 0.3s cubic-bezier(0.16,1,0.3,1) both}
 @keyframes tagPop{from{opacity:0;transform:translateY(8px) scale(0.9)}to{opacity:1;transform:translateY(0) scale(1)}}
 .result-count{font-size:7.5px;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-dim);margin-top:8px;text-align:right;flex-shrink:0}
@@ -177,9 +179,11 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 @keyframes hintDrift{0%,100%{transform:translateY(0);opacity:0.75}45%{transform:translateY(-2px);opacity:0.95}75%{transform:translateY(1.5px);opacity:0.5}}
 .sub-tags-pop{position:absolute;bottom:10%;left:50%;transform:translateX(-50%);z-index:20;display:flex;flex-wrap:wrap;gap:7px;justify-content:center;max-width:65%;opacity:0;pointer-events:none;transition:opacity 0.4s cubic-bezier(0.16,1,0.3,1)}
 .sub-tags-pop.show{opacity:1;pointer-events:all}
-.tag-cycle{position:absolute;inset:0;z-index:3;display:flex;align-items:center;justify-content:center;pointer-events:none}
-.tag-cycle-word{font-family:'EB Garamond',serif;font-style:italic;font-size:clamp(11px,1.1vw,15px);letter-spacing:0.08em;color:rgba(255,255,255,0.72);text-align:center;padding:0 12px;opacity:0;transition:opacity 0.9s ease;white-space:nowrap;text-shadow:0 1px 12px rgba(0,0,0,0.5)}
-.tag-cycle-word.visible{opacity:1}
+.tag-cycle{position:absolute;inset:0;z-index:3;pointer-events:none;background:linear-gradient(to top,rgba(0,0,0,0.45) 0%,rgba(0,0,0,0.1) 60%,transparent 100%);opacity:0;transition:opacity 0.4s ease}
+.sub-card:hover .tag-cycle,.tag-cycle.pinned{opacity:1}
+.tag-cycle-inner{position:absolute;bottom:0;left:0;right:0;padding:14px 14px 16px;display:flex;flex-direction:column;gap:5px;align-items:flex-start}
+.tag-cycle-word{font-family:'EB Garamond',serif;font-style:italic;font-size:clamp(10px,1vw,13px);letter-spacing:0.06em;color:rgba(255,255,255,0.0);line-height:1.5;white-space:nowrap;transition:color 0.6s ease;text-shadow:0 1px 8px rgba(0,0,0,0.6)}
+.tag-cycle-word.lit{color:rgba(255,255,255,0.88)}
 .sub-tag-pill{font-family:'EB Garamond',serif;font-style:italic;font-size:12px;letter-spacing:0.05em;color:var(--ink);background:rgba(247,246,243,0.9);border:0.5px solid rgba(0,0,0,0.1);border-radius:20px;padding:4px 13px;animation:tagPop 0.3s cubic-bezier(0.16,1,0.3,1) both}
 @keyframes tagPop{from{opacity:0;transform:translateY(8px) scale(0.9)}to{opacity:1;transform:translateY(0) scale(1)}}
 .result-count{display:none}
@@ -310,10 +314,9 @@ body.fade-out{opacity:0;transition:opacity 0.3s ease}
         <div class="hint-img-wrap"><img class="mobile-hint-img" id="hintImg" src="" alt=""><div class="hint-overlay-text" id="hintOverlayText">우연의 캔버스 위에 스며든 필연의 숨결,<br>비결정적 순간이 빚어낸 견고한 정원</div></div>
       </div>
       <div class="float-zone" id="floatZone">
-        <div class="sub-card s1" onclick="showSubTags(0)"><img class="sub-img" id="subImg1" alt=""><div class="tag-cycle" id="tagCycle0"></div></div>
-        <div class="sub-card s2" onclick="showSubTags(1)"><img class="sub-img" id="subImg2" alt=""><div class="tag-cycle" id="tagCycle1"></div></div>
-        <div class="sub-card s3" onclick="showSubTags(2)"><img class="sub-img" id="subImg3" alt=""><div class="tag-cycle" id="tagCycle2"></div></div>
-        <div class="sub-tags-pop" id="subTagsPop"></div>
+        <div class="sub-card s1" onclick="showSubTags(0)"><img class="sub-img" id="subImg1" alt=""><div class="tag-cycle" id="tagCycle0"><div class="tag-cycle-inner" id="tagInner0"></div></div></div>
+        <div class="sub-card s2" onclick="showSubTags(1)"><img class="sub-img" id="subImg2" alt=""><div class="tag-cycle" id="tagCycle1"><div class="tag-cycle-inner" id="tagInner1"></div></div></div>
+        <div class="sub-card s3" onclick="showSubTags(2)"><img class="sub-img" id="subImg3" alt=""><div class="tag-cycle" id="tagCycle2"><div class="tag-cycle-inner" id="tagInner2"></div></div></div>
         <div class="pc-float-text">우연의 캔버스 위에 스며든 필연의 숨결,<br>비결정적 순간이 빚어낸 견고한 정원</div>
       </div>
       <div class="narrative-zone" id="narrativeZone"><div class="ns-label" id="nsLabel"></div><div class="ns-text" id="nsText"></div><div class="ns-rule"></div></div>
@@ -355,48 +358,80 @@ body.fade-out{opacity:0;transition:opacity 0.3s ease}
 <script>
 var subWorks=[];
 var tagCycleTimers=[];
+var pinnedCard=-1;
+
+function getSubTags(row){
+  var tags=[];
+  ['THE','SER','MAT','SEN'].forEach(function(k){
+    parseTags(row[k]||'').forEach(function(t){if(t)tags.push(t);});
+  });
+  return tags;
+}
+
+function buildTagWords(cardIdx){
+  var row=subWorks[cardIdx];
+  if(!row)return;
+  var inner=sel('tagInner'+cardIdx);
+  if(!inner)return;
+  inner.innerHTML='';
+  var tags=getSubTags(row);
+  tags.forEach(function(t){
+    var w=document.createElement('div');
+    w.className='tag-cycle-word';
+    w.textContent=t;
+    inner.appendChild(w);
+  });
+}
+
 function startTagCycles(){
   tagCycleTimers.forEach(function(t){clearInterval(t);clearTimeout(t);});
   tagCycleTimers=[];
   subWorks.forEach(function(row,cardIdx){
-    var tags=[];
-    ['THE','SER','MAT','SEN'].forEach(function(k){parseTags(row[k]||'').forEach(function(t){if(t)tags.push(t);});});
+    buildTagWords(cardIdx);
+    var tags=getSubTags(row);
     if(!tags.length)return;
-    var el=sel('tagCycle'+cardIdx);
-    if(!el)return;
-    var word=document.createElement('div');word.className='tag-cycle-word';
-    el.appendChild(word);
+    var inner=sel('tagInner'+cardIdx);
+    if(!inner)return;
+    var words=inner.querySelectorAll('.tag-cycle-word');
     var cur=0;
-    // stagger start per card
-    var stagger=cardIdx*1800;
+    var stagger=cardIdx*1100;
     var tid=setTimeout(function(){
-      function show(){
-        word.classList.remove('visible');
-        setTimeout(function(){
-          word.textContent=tags[cur%tags.length];
-          cur++;
-          word.classList.add('visible');
-        },900);
+      function lightNext(){
+        words.forEach(function(w){w.classList.remove('lit');});
+        if(words[cur])words[cur].classList.add('lit');
+        cur=(cur+1)%words.length;
       }
-      show();
-      var iv=setInterval(show,3200);
+      lightNext();
+      var iv=setInterval(lightNext,2200);
       tagCycleTimers.push(iv);
     },stagger);
     tagCycleTimers.push(tid);
   });
 }
-function showSubTags(idx){
-  var pop=sel('subTagsPop'),row=subWorks[idx];
-  if(!row){pop.classList.remove('show');return;}
-  var tags=[];
-  ['THE','SER','MAT','SEN'].forEach(function(k){parseTags(row[k]||'').forEach(function(t){if(t)tags.push(t);});});
-  if(!tags.length){pop.classList.remove('show');return;}
-  pop.innerHTML=tags.map(function(t,i){
-    return '<span class="sub-tag-pill" style="animation-delay:'+(i*55)+'ms">'+t+'</span>';
-  }).join('');
-  pop.classList.add('show');
+
+function pinCard(idx){
+  /* unpin previous */
+  if(pinnedCard>=0&&pinnedCard!==idx){
+    var prev=sel('tagCycle'+pinnedCard);
+    if(prev)prev.classList.remove('pinned');
+    var pi=sel('tagInner'+pinnedCard);
+    if(pi)pi.querySelectorAll('.tag-cycle-word').forEach(function(w){w.classList.remove('lit');});
+  }
+  pinnedCard=idx;
+  var tc=sel('tagCycle'+idx);
+  if(tc)tc.classList.add('pinned');
+  /* light all tags sequentially fresh */
+  var inner=sel('tagInner'+idx);
+  if(!inner)return;
+  var words=inner.querySelectorAll('.tag-cycle-word');
+  words.forEach(function(w,i){
+    w.classList.remove('lit');
+    setTimeout(function(){w.classList.add('lit');},i*180);
+  });
 }
-function hidSubTags(){sel('subTagsPop').classList.remove('show');}
+
+function showSubTags(idx){pinCard(idx);}
+function hidSubTags(){}
 var TAGS_THE=[],TAGS_SER=[],TAGS_MAT=[],TAGS_SEN=[];
 var selected={THE:[],SER:[],MAT:[],SEN:[]};
 var filtered=[],modalIdx=0,narrativeTimer=null,pendingTag=null;
@@ -644,7 +679,7 @@ function runNarrativeThenGrid(tag){
   renderFiltered();
 }
 function showFloat(){
-  var _p=sel('subTagsPop');if(_p)_p.classList.remove('show');
+  pinnedCard=-1;[0,1,2].forEach(function(i){var tc=sel('tagCycle'+i);if(tc)tc.classList.remove('pinned');});
   if(narrativeTimer){clearTimeout(narrativeTimer);narrativeTimer=null;}
   pendingTag=null;disconnectChunkObserver();
   sel('narrativeZone').classList.remove('show','rising');
