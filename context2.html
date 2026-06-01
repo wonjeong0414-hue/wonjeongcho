@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+  <!DOCTYPE html>
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
@@ -45,61 +45,10 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 .nav-dd-item{display:block;font-size:9px;letter-spacing:0.08em;color:var(--ink-mid);padding:6px 14px;cursor:pointer;transition:color 0.15s,background 0.15s;white-space:nowrap;text-transform:uppercase}
 .nav-dd-item:hover{color:var(--ink);background:rgba(0,0,0,0.03)}
 .layout{position:fixed;top:var(--nav-h);left:0;right:0;bottom:0;display:flex;flex-direction:column}
-
-/* ── top-header: Tactile Thinking + 선택 유도 문구 ── */
-.top-header{
-  flex-shrink:0;display:flex;flex-direction:column;
-  gap:0;
-  padding:0 36px 0 var(--left-pad);
-  height:auto;
-  padding-top:14px;
-  padding-bottom:0;
-}
-.header-title{
-  font-family:'EB Garamond',serif;font-style:italic;font-size:18px;
-  color:var(--ink);white-space:nowrap;flex-shrink:0;
-  line-height:1;
-}
-
-/* ── 선택 유도 문구 ── */
-.series-hint{
-  font-family:'EB Garamond',serif;
-  font-style:italic;
-  font-size:10.5px;
-  letter-spacing:0.13em;
-  color:var(--ink-dim);
-  margin-top:9px;
-  margin-bottom:14px;
-  opacity:0;
-  animation:hintAppear 1.4s cubic-bezier(0.16,1,0.3,1) 0.7s forwards;
-  pointer-events:none;
-  display:flex;
-  align-items:center;
-  gap:6px;
-}
-.series-hint-arrow{
-  display:inline-block;
-  font-style:normal;
-  opacity:0.5;
-  transition:transform 0.3s ease;
-  animation:arrowNudge 2.8s ease-in-out 2s infinite;
-}
-@keyframes hintAppear{
-  0%  {opacity:0;transform:translateY(5px)}
-  100%{opacity:0.52;transform:translateY(0)}
-}
-@keyframes arrowNudge{
-  0%,100%{transform:translateX(0)}
-  50%    {transform:translateX(3px)}
-}
-/* 태그 하나라도 선택되면 힌트 흐려짐 */
-.series-hint.dimmed{
-  opacity:0 !important;
-  transition:opacity 0.35s ease;
-}
-
+.top-header{flex-shrink:0;display:flex;align-items:center;gap:28px;padding:0 36px 0 var(--left-pad);height:52px}
+.header-title{font-family:'EB Garamond',serif;font-style:italic;font-size:18px;color:var(--ink);white-space:nowrap;flex-shrink:0}
 .body-row{flex:1;display:flex;overflow:hidden}
-.left-panel{width:var(--left-w);flex-shrink:0;display:flex;flex-direction:column;padding:0 12px 16px var(--left-pad);overflow:hidden}
+.left-panel{width:var(--left-w);flex-shrink:0;display:flex;flex-direction:column;padding:20px 12px 16px var(--left-pad);overflow:hidden}
 .strip-row{display:flex;align-items:center;justify-content:space-between;min-height:18px;margin-bottom:6px}
 .clear-btn{font-size:7.5px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-dim);cursor:pointer;border:none;background:none;padding:0;transition:color 0.15s}
 .clear-btn:hover{color:var(--ink-mid)}
@@ -154,6 +103,8 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 .grid{display:grid;grid-template-columns:repeat(6,1fr);gap:5px}
 @media(max-width:1200px){.grid{grid-template-columns:repeat(5,1fr)}}
 @media(max-width:900px){.grid{grid-template-columns:repeat(4,1fr)}}
+
+/* ── 카드 기본 ── */
 .card{position:relative;overflow:hidden;cursor:pointer;background:rgba(0,0,0,0.04);aspect-ratio:3/4;opacity:0;transform:translateY(6px);transition:opacity 0.35s ease,transform 0.4s cubic-bezier(0.16,1,0.3,1)}
 .card.revealed{opacity:1;transform:translateY(0)}
 .card img{width:100%;height:100%;object-fit:cover;display:block;opacity:0;filter:blur(3px);transition:opacity 0.5s ease,filter 0.6s ease,transform 0.35s ease;position:absolute;inset:0}
@@ -165,6 +116,8 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 .card-meta{font-size:6.5px;letter-spacing:0.08em;color:rgba(255,255,255,0.5);text-transform:uppercase}
 .card-skeleton{position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,0.04) 25%,rgba(0,0,0,0.07) 50%,rgba(0,0,0,0.04) 75%);background-size:200% 100%;animation:cardShimmer 1.4s ease infinite}
 @keyframes cardShimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+
+/* ── ★ 영상/GIF 카드 ── */
 .card-video-wrap{position:absolute;inset:0;background:#111;display:flex;align-items:center;justify-content:center;overflow:hidden;pointer-events:none;}
 .card.is-video{pointer-events:all;cursor:pointer;}
 .card.video-hover .card-iframe-overlay{pointer-events:none;}
@@ -178,10 +131,14 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 .card.video-hover .card-play-icon{opacity:0;}
 .card-gif-img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0;opacity:0;transition:opacity 0.5s ease;}
 .card-gif-img.loaded{opacity:1;}
+/* ★ 모달/바텀시트 영상 */
 .modal-img-area iframe{width:100%;height:65vh;border:none;display:block;}
 .bs-img-area iframe{width:100%;height:48vw;min-height:200px;border:none;display:block;}
+
 .load-sentinel{grid-column:1/-1;height:1px}
 .loading-msg{grid-column:1/-1;padding:40px;text-align:center;font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink-dim)}
+
+/* PC 모달 */
 .modal-bg{position:fixed;inset:0;background:rgba(26,26,24,0.82);z-index:500;opacity:0;pointer-events:none;transition:opacity 0.3s ease;display:flex;align-items:center;justify-content:center;padding:5%}
 .modal-bg.open{opacity:1;pointer-events:all}
 .modal{background:var(--white);max-width:660px;width:100%;max-height:90vh;display:flex;flex-direction:column;overflow:hidden;transform:translateY(16px) scale(0.976);transition:transform 0.34s cubic-bezier(0.16,1,0.3,1);position:relative;border-radius:2px}
@@ -207,16 +164,7 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 @media(max-width:600px){
   html,body{overflow:auto;height:auto}
   .layout{position:static;margin-top:var(--nav-h);height:auto;display:block}
-  .top-header{
-    display:flex;flex-direction:column;
-    padding:10px 12px 0;
-    height:auto;
-  }
-  .series-hint{
-    font-size:9.5px;
-    margin-top:6px;
-    margin-bottom:10px;
-  }
+  .top-header{display:none}
   .body-row{display:block;height:auto;overflow:visible}
   .left-panel{width:100%;display:grid;grid-template-columns:1fr 1fr;gap:6px;padding:10px 12px;border-bottom:0.5px solid rgba(0,0,0,0.08);overflow:visible}
   .strip-row{display:none}
@@ -259,6 +207,7 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
   .grid{display:block;column-count:2;column-gap:5px}
   .card{display:inline-block;width:100%;aspect-ratio:unset;break-inside:avoid;margin-bottom:5px}
   .card img{position:static;width:100%;height:auto;display:block}
+  /* 모바일 영상/GIF 카드 */
   .card.is-video,.card.is-gif{aspect-ratio:3/4 !important;display:inline-block;position:relative;}
   .card-video-wrap{position:absolute !important;inset:0 !important;}
   .card-gif-img{position:absolute !important;inset:0 !important;}
@@ -325,17 +274,8 @@ body.fade-out{opacity:0;transition:opacity 0.3s ease}
     <span class="nav-item" onclick="go('about')">About</span>
   </div>
 </nav>
-
 <div class="layout">
-  <!-- ── 헤더: Tactile Thinking + 선택 유도 문구 ── -->
-  <div class="top-header">
-    <div class="header-title">Tactile Thinking</div>
-    <p class="series-hint" id="seriesHint">
-      Select a series to explore
-      <span class="series-hint-arrow">→</span>
-    </p>
-  </div>
-
+  <div class="top-header"><div class="header-title">Tactile Thinking</div></div>
   <div class="body-row">
     <div class="left-panel">
       <div class="strip-row"><button class="clear-btn" id="clearBtn" style="display:none" onclick="clearAll()">Clear all</button></div>
@@ -446,6 +386,7 @@ function allRowTags(row){var arr=[];Object.keys(CAT_COL).forEach(function(cat){p
 function thumbUrl(row){return row['thumb']||'';}
 function fullUrl(row){return row['full']||row['thumb']||'';}
 
+/* ── ★ 영상/GIF 헬퍼 ── */
 function isVideoRow(r){return !!(r['isVideo']);}
 function isGifRow(r){return !!(r['isGif']);}
 function getEmbedUrl(r){var fid=r['fileId']||'';return fid?'https://drive.google.com/file/d/'+fid+'/preview':'';}
@@ -478,15 +419,6 @@ function toggleCat(cat){
   if(!isOpen)cell.classList.add('open');
 }
 
-/* ── 힌트 dimmed 처리 ── */
-function updateHintVisibility(){
-  var hint=sel('seriesHint');
-  if(!hint)return;
-  var hasAny=['THE','SER','MAT','SEN'].some(function(cat){return selected[cat].length>0;});
-  if(hasAny){hint.classList.add('dimmed');}
-  else{hint.classList.remove('dimmed');}
-}
-
 function toggleTag(cat,enc,el){
   var tag=decodeURIComponent(enc);
   var arr=selected[cat];
@@ -494,7 +426,7 @@ function toggleTag(cat,enc,el){
   if(already){selected[cat]=[];el.classList.remove('checked');}
   else{document.querySelectorAll('#list-'+cat+' .cb-item').forEach(function(i){i.classList.remove('checked');});selected[cat]=[tag];el.classList.add('checked');}
   if(isMobile()){sel('cell-'+cat).classList.remove('open');}
-  updateBadge(cat);updatePills();updateHintVisibility();applyFilter();
+  updateBadge(cat);updatePills();applyFilter();
 }
 
 function updateBadge(cat){sel('cell-'+cat).classList.toggle('has-sel',selected[cat].length>0);}
@@ -520,7 +452,7 @@ function removePill(cat,enc){
   if(idx>=0)selected[cat].splice(idx,1);
   var cbEl=document.getElementById('cb-'+cat+'-'+enc);
   if(cbEl)cbEl.classList.remove('checked');
-  updateBadge(cat);updatePills();updateHintVisibility();applyFilter();
+  updateBadge(cat);updatePills();applyFilter();
 }
 
 function clearAll(){
@@ -528,7 +460,7 @@ function clearAll(){
     selected[cat]=[];updateBadge(cat);
     document.querySelectorAll('#list-'+cat+' .cb-item').forEach(function(el){el.classList.remove('checked');});
   });
-  updatePills();updateHintVisibility();applyFilter();
+  updatePills();applyFilter();
 }
 
 function applyFilter(){
@@ -588,11 +520,14 @@ function disconnectChunkObserver(){
   if(chunkSentinel){chunkSentinel.remove();chunkSentinel=null;}
 }
 
+/* ── ★ makeCard — 영상/GIF/이미지 분기 ── */
+/* context row 키: Title, Year, Medium (대문자) */
 function makeCard(row,idx,animate){
   var card=document.createElement('div');card.className='card';
   var title=row['Title']||'',year=row['Year']||'',medium=row['Medium']||'',thumb=thumbUrl(row);
   var delay=animate?Math.min((idx-(renderedCount-CHUNK_SIZE))*25,400):0;
 
+  /* ── GIF ── */
   if(isGifRow(row)){
     card.classList.add('is-gif');
     var gifEmbed=getEmbedUrl(row);
@@ -620,6 +555,7 @@ function makeCard(row,idx,animate){
     return card;
   }
 
+  /* ── 영상 ── */
   if(isVideoRow(row)){
     card.classList.add('is-video');
     var embedUrl=getEmbedUrl(row);
@@ -647,6 +583,7 @@ function makeCard(row,idx,animate){
     return card;
   }
 
+  /* ── 일반 이미지 ── */
   var sk=document.createElement('div');sk.className='card-skeleton';card.appendChild(sk);
   var img=document.createElement('img');img.alt=title;
   img.onload=function(){if(sk.parentNode)sk.parentNode.removeChild(sk);};
@@ -690,6 +627,7 @@ function showFloat(){
   if(hint&&isMobile())hint.style.display='flex';
 }
 
+/* ── openModal ── */
 function openModal(idx){
   modalIdx=idx;
   if(isMobile()){openSheet(idx);return;}
@@ -697,6 +635,7 @@ function openModal(idx){
   sel('modalBg').classList.add('open');
   document.body.style.overflow='hidden';
 }
+/* ── ★ closeModal — iframe src 초기화 ── */
 function closeModal(){
   var area=sel('modalImgArea');
   var iframe=area?area.querySelector('iframe'):null;
@@ -707,14 +646,17 @@ function closeModal(){
 function bgClose(e){if(e.target===sel('modalBg'))closeModal();}
 function navModal(d){modalIdx=(modalIdx+d+filtered.length)%filtered.length;paintModal();}
 
+/* ── ★ paintModal — 영상/GIF/이미지 분기 ── */
 function paintModal(){
   var row=filtered[modalIdx];
   var area=sel('modalImgArea');
+  /* iframe src 초기화 후 내용 비우기 */
   var prevIframe=area.querySelector('iframe');
   if(prevIframe)prevIframe.src='';
   area.innerHTML='';
   area.style.background='';area.style.animation='none';
 
+  /* 영상 */
   if(isVideoRow(row)){
     var embedUrl=getEmbedUrl(row);
     if(embedUrl){
@@ -724,7 +666,9 @@ function paintModal(){
       iframe.setAttribute('allowfullscreen','');
       area.appendChild(iframe);
     }
-  } else if(isGifRow(row)){
+  }
+  /* GIF */
+  else if(isGifRow(row)){
     var gifEmbed=getEmbedUrl(row);
     if(gifEmbed){
       var gifIframe=document.createElement('iframe');
@@ -732,7 +676,9 @@ function paintModal(){
       gifIframe.setAttribute('allowfullscreen','');
       area.appendChild(gifIframe);
     }
-  } else {
+  }
+  /* 일반 이미지 */
+  else {
     var img=document.createElement('img');
     img.style.opacity='0';
     var imgUrl=fullUrl(row);
@@ -762,6 +708,7 @@ function openSheet(idx){
   requestAnimationFrame(function(){sheet.classList.add('half');});
   sheetState='half';document.body.classList.add('sheet-open');
 }
+/* ── ★ closeSheet — iframe src 초기화 ── */
 function closeSheet(){
   var area=sel('bsImgArea');
   var iframe=area?area.querySelector('iframe'):null;
@@ -771,13 +718,16 @@ function closeSheet(){
 }
 function navSheet(d){modalIdx=(modalIdx+d+filtered.length)%filtered.length;paintSheet();}
 
+/* ── ★ paintSheet — 영상/GIF/이미지 분기 ── */
 function paintSheet(){
   var row=filtered[modalIdx];
   var area=sel('bsImgArea');
+  /* iframe src 초기화 후 내용 비우기 */
   var prevIframe=area.querySelector('iframe');
   if(prevIframe)prevIframe.src='';
   area.innerHTML='';
 
+  /* 영상 */
   if(isVideoRow(row)){
     var embedUrl=getEmbedUrl(row);
     if(embedUrl){
@@ -787,7 +737,9 @@ function paintSheet(){
       iframe.setAttribute('allowfullscreen','');
       area.appendChild(iframe);
     }
-  } else if(isGifRow(row)){
+  }
+  /* GIF */
+  else if(isGifRow(row)){
     var gifEmbed=getEmbedUrl(row);
     if(gifEmbed){
       var gifIframe=document.createElement('iframe');
@@ -795,7 +747,9 @@ function paintSheet(){
       gifIframe.setAttribute('allowfullscreen','');
       area.appendChild(gifIframe);
     }
-  } else {
+  }
+  /* 일반 이미지 */
+  else {
     var img=document.createElement('img');
     img.style.opacity='0';
     img.onload=function(){img.style.opacity='1';};
