@@ -121,7 +121,6 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 /* ── ★ 영상 카드 ── */
 .card-video-wrap{
   position:absolute;inset:0;
-  background:#111;
   display:flex;align-items:center;justify-content:center;
   overflow:hidden;
   pointer-events:none;
@@ -424,28 +423,20 @@ function initPreview(works){
   /* 영상 */
   if(isVideoRow(found)&&found['fileId']){
     img.style.display='none';
-    var iframe = document.createElement('iframe');
-     iframe.src = getEmbedUrl(found);  // /preview URL 사용
-     iframe.allow = 'autoplay; fullscreen';
-     iframe.allowFullscreen = true;
-     iframe.style.cssText = [
-       'display:block',
-       'width:100%',
-       'max-width:100%',
-       'height:calc(100vh - var(--nav-h) - var(--bar-h) - 60px)',
-       'border:none',
-       'opacity:0',
-       'transition:opacity 1s ease'
-     ].join(';');
-     iframe.onload = function(){ iframe.style.opacity = '1'; };
-
-     img.parentNode.insertBefore(iframe, img);
-
-     if(title) sel('captionTitle').textContent = title;
-     if(sen)   sel('captionSen').textContent = sen.split(/[,\n]/)[0].trim();
-     if(title || sen) sel('previewCaption').classList.add('show');
-     return;
-   }
+    var vid=document.createElement('video');
+    vid.src='https://drive.google.com/uc?export=download&id='+found['fileId'];
+    vid.autoplay=true;vid.loop=false;vid.muted=true;vid.playsInline=true;vid.controls=false;
+    vid.style.cssText='display:block;max-width:100%;max-height:calc(100vh - var(--nav-h) - var(--bar-h) - 60px);width:auto;height:auto;opacity:0;transition:opacity 1s ease;pointer-events:none;';
+    vid.addEventListener('canplay',function(){
+      vid.style.opacity='1';
+      vid.play().catch(function(){});
+    });
+    img.parentNode.insertBefore(vid,img);
+    if(title)sel('captionTitle').textContent=title;
+    if(sen)sel('captionSen').textContent=sen.split(/[,\n]/)[0].trim();
+    if(title||sen)sel('previewCaption').classList.add('show');
+    return;
+  }
 
   /* GIF */
   if(isGifRow(found)&&found['fileId']){
@@ -454,7 +445,10 @@ function initPreview(works){
     vid.src='https://drive.google.com/uc?export=download&id='+found['fileId'];
     vid.autoplay=true;vid.loop=true;vid.muted=true;vid.playsInline=true;vid.controls=false;
     vid.style.cssText='display:block;width:100%;max-height:calc(100vh - var(--nav-h) - var(--bar-h) - 60px);object-fit:cover;opacity:0;transition:opacity 1s ease;';
-    vid.addEventListener('canplay',function(){vid.style.opacity='1';});
+    vid.addEventListener('canplay',function(){
+      vid.style.opacity='1';
+      vid.play().catch(function(){});
+    });
     vid.onerror=function(){
       /* 로드 실패시 iframe fallback */
       vid.remove();
@@ -662,7 +656,6 @@ function makeCard(row,flatIdx,animOffset){
       var iframe=document.createElement('iframe');
       iframe.setAttribute('allow','autoplay');
       iframe.setAttribute('allowfullscreen','');
-      /* src는 hover시 세팅 — 미리 로드 방지 */
       iframeOverlay.appendChild(iframe);
       wrap.appendChild(iframeOverlay);
       card.addEventListener('mouseenter',function(){
@@ -671,7 +664,6 @@ function makeCard(row,flatIdx,animOffset){
       });
       card.addEventListener('mouseleave',function(){
         card.classList.remove('video-hover');
-        /* iframe src 유지 (재접근 빠름), 재생만 중단 불가 — 허용 */
       });
     }
     card.appendChild(wrap);
@@ -716,7 +708,6 @@ var imgObserver=new IntersectionObserver(function(entries,obs){
 },{rootMargin:'300px'});
 
 function lazyLoad(img,url){if(!url){img.classList.add('loaded');return;}img.dataset.src=url;imgObserver.observe(img);}
-/* GIF용 — 동일하지만 onerror 없음 */
 function lazyLoadSrc(img,url){if(!url){return;}img.dataset.src=url;imgObserver.observe(img);}
 
 /* ── openModal ── */
@@ -728,7 +719,6 @@ function openModal(idx){
   document.body.style.overflow='hidden';
 }
 function closeModal(){
-  /* ★ 닫을 때 영상 iframe src 초기화 — 재생 중단 */
   var area=sel('modalImgArea');
   var iframe=area.querySelector('iframe');
   if(iframe)iframe.src='';
@@ -743,7 +733,6 @@ function paintModal(){
   var row=flatFiltered[modalIdx];
   var area=sel('modalImgArea');
 
-  /* 기존 내용 초기화 (iframe src 먼저 비워서 재생 중단) */
   var prevIframe=area.querySelector('iframe');
   if(prevIframe)prevIframe.src='';
   area.innerHTML='';
@@ -757,10 +746,8 @@ function paintModal(){
       iframe.setAttribute('allow','autoplay');
       iframe.setAttribute('allowfullscreen','');
       area.appendChild(iframe);
-    } else {
-      /* fileId 없으면 빈 영역 */
-      area.style.background='#111';
     }
+    /* fileId 없을 때 별도 배경색 없음 — 기본 #f0efec 유지 */
   }
   /* ── GIF ── */
   else if(isGifRow(row)){
@@ -787,7 +774,6 @@ function paintModal(){
     area.appendChild(img);
   }
 
-  /* 텍스트 정보 */
   sel('mTitle').textContent=row['title']||'';
   sel('mYear').textContent=row['year']||'';
   sel('mMedium').textContent=row['medium']||'';
@@ -809,7 +795,6 @@ function openSheet(idx){
   sheetState='half';document.body.classList.add('sheet-open');
 }
 function closeSheet(){
-  /* ★ 닫을 때 iframe src 초기화 */
   var area=sel('bsImgArea');
   var iframe=area.querySelector('iframe');
   if(iframe)iframe.src='';
@@ -823,7 +808,6 @@ function paintSheet(){
   var row=flatFiltered[modalIdx];
   var area=sel('bsImgArea');
 
-  /* 기존 내용 초기화 */
   var prevIframe=area.querySelector('iframe');
   if(prevIframe)prevIframe.src='';
   area.innerHTML='';
