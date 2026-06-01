@@ -109,15 +109,13 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 .latest-cell-date{font-size:10px;color:var(--ink-dim);letter-spacing:.01em;white-space:nowrap}
 
 /* ── 전체리스트 행 ── */
-.panel-row{display:grid;grid-template-columns:36px minmax(0,1fr) 200px;gap:0 6px;padding:3px 0;border-bottom:.5px solid rgba(26,26,24,.04);font-family:'EB Garamond',serif;font-size:12px;line-height:1.55;align-items:baseline}
+.full-list-rows{margin-top:4px;max-width:640px;margin-left:auto;margin-right:auto}
+.panel-row{display:grid;grid-template-columns:36px minmax(0,1fr) 160px;gap:0 12px;padding:3px 0;border-bottom:.5px solid rgba(26,26,24,.04);font-family:'EB Garamond',serif;font-size:12px;line-height:1.55;align-items:baseline}
 .panel-row:last-child{border-bottom:none}
 .panel-year{font-size:10px;color:var(--ink-dim);letter-spacing:.03em}
 .panel-title{color:var(--ink)}
 .panel-place{font-size:10.5px;color:var(--ink-mid);text-align:left}
-
-/* ── 네비바 블록 ── */
-.full-list-block{margin-top:20px;border-top:.5px solid rgba(26,26,24,.1)}
-.full-list-wrap{display:flex;align-items:center;padding:10px 0;border-bottom:.5px solid rgba(26,26,24,.07);gap:0}
+.full-list-wrap{display:flex;align-items:center;padding:10px 0;border-bottom:.5px solid rgba(26,26,24,.07);gap:0;max-width:640px;margin-left:auto;margin-right:auto}
 .full-list-label{font-size:8px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink);font-weight:600;white-space:nowrap;flex-shrink:0}
 .full-list-sep{width:.5px;height:10px;background:rgba(26,26,24,.25);margin:0 14px;flex-shrink:0}
 .cv-tabs{display:flex;gap:0;align-items:center;flex:1}
@@ -127,7 +125,7 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 .back-btn{display:none;font-size:7.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-dim);cursor:pointer;white-space:nowrap;border:.5px solid rgba(26,26,24,.2);border-radius:2px;padding:2px 8px;background:transparent;font-family:'Cormorant Garamond',serif;transition:color .15s,border-color .15s;margin-left:auto}
 .back-btn:hover{color:var(--ink);border-color:rgba(26,26,24,.4)}
 .back-btn.visible{display:inline-block}
-.full-list-rows{margin-top:4px}
+.full-list-rows{margin-top:4px;max-width:640px;margin-left:auto;margin-right:auto}
 
 /* place */
 .place-sep{color:var(--ink-dim);opacity:.5;font-size:9px}
