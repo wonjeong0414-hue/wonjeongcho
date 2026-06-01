@@ -44,7 +44,6 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 /* ── Bio ── */
 .bio-with-img{display:grid;grid-template-columns:1fr 260px;gap:0 48px;align-items:start;margin-bottom:40px}
 .bio-img-wrap img{width:100%;display:block;object-fit:cover;max-height:360px}
-.bio-section{margin-bottom:0}
 .bio-text{font-family:'EB Garamond',serif;color:#2a2a27;word-break:keep-all}
 .bio-title{font-size:15px;font-weight:500;line-height:1.7;margin-bottom:1em;letter-spacing:.01em}
 .bio-body{font-size:13px;line-height:2.0;color:var(--ink-mid);text-align:justify}
@@ -62,35 +61,46 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 .stmt-body{font-family:'EB Garamond',serif;font-size:13px;line-height:2.0;color:var(--ink-mid);text-align:justify;word-break:keep-all;white-space:pre-wrap}
 
 /* ── 구분선 ── */
-.sec-divider{width:100%;height:.5px;background:rgba(26,26,24,.1);margin:0 0 28px}
+.sec-divider{width:100%;height:.5px;background:rgba(26,26,24,.1);margin:0 0 40px}
 
-/* ── 학력 / 소장처 가로 2열 ── */
-.info-row{display:grid;grid-template-columns:260px 1fr;gap:0 48px;margin-bottom:28px;padding-bottom:24px;border-bottom:.5px solid rgba(26,26,24,.08)}
-.info-col{}
-.info-label{font-size:7.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-dim);margin-bottom:9px}
-.info-item{font-family:'EB Garamond',serif;font-size:11.5px;line-height:1.65;color:var(--ink-mid);padding:3px 0;border-bottom:.5px solid rgba(26,26,24,.05)}
-.info-item:last-child{border-bottom:none}
-/* 소장처 — 가로 나열 */
-.coll-list{display:flex;flex-wrap:wrap;align-items:baseline;gap:0}
-.coll-item{font-family:'EB Garamond',serif;font-size:11.5px;line-height:1.65;color:var(--ink-mid);white-space:nowrap}
-.coll-sep{font-size:9px;color:var(--ink-dim);opacity:.4;margin:0 8px}
+/* ══════════════════════════════════════
+   학력 + 소장처 — 나란히, 가운데 정렬
+══════════════════════════════════════ */
+.edu-coll-row{
+  display:flex;
+  justify-content:center;
+  gap:64px;
+  margin-bottom:48px;
+}
+.edu-coll-block{
+  min-width:0;
+}
+.edu-coll-label{
+  font-size:8px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--ink-dim);margin-bottom:10px;
+}
+.edu-coll-item{
+  font-family:'EB Garamond',serif;font-size:12.5px;
+  line-height:1.8;color:var(--ink-mid);
+}
 
-/* ── 메인 그리드 ── */
-.main-grid{display:grid;grid-template-columns:200px 1fr;gap:0 48px;align-items:start}
-.left-col{padding-top:2px}
-.right-col{}
+/* ── 구분선 2 ── */
+.sec-divider2{width:100%;height:.5px;background:rgba(26,26,24,.1);margin:0 0 36px}
+
+/* ── 전시 리스트 영역 ── */
+.exh-section{}
 
 /* ── 현재연도 헤더 ── */
-.latest-header-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;padding-bottom:8px;border-bottom:.5px solid rgba(26,26,24,.05)}
+.latest-header-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;padding-bottom:8px;border-bottom:.5px solid rgba(26,26,24,.08)}
 .latest-year-label{font-size:8px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-dim)}
 
 /* ── 테이블 헤더 ── */
-.latest-table-head{display:grid;grid-template-columns:62px 1fr 320px 96px;gap:0 6px;padding:0 0 5px;border-bottom:.5px solid rgba(26,26,24,.1);margin-bottom:0}
+.latest-table-head{display:grid;grid-template-columns:62px 1fr 180px 96px;gap:0 6px;padding:0 0 5px;border-bottom:.5px solid rgba(26,26,24,.1);margin-bottom:0}
 .latest-th{font-size:7.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-dim)}
 
 /* ── 현재연도 행 ── */
 .latest-rows-wrap{overflow:visible}
-.latest-row{display:grid;grid-template-columns:62px minmax(0,1fr) 320px 96px;gap:0 6px;padding:4px 0;border-bottom:.5px solid rgba(26,26,24,.04);font-family:'EB Garamond',serif;font-size:12px;line-height:1.55;color:var(--ink);align-items:baseline}
+.latest-row{display:grid;grid-template-columns:62px minmax(0,1fr) 180px 96px;gap:0 6px;padding:4px 0;border-bottom:.5px solid rgba(26,26,24,.04);font-family:'EB Garamond',serif;font-size:12px;line-height:1.55;color:var(--ink);align-items:baseline}
 .latest-row:last-child{border-bottom:none}
 .latest-cell-type{font-size:10px;color:var(--ink-dim);white-space:nowrap}
 .latest-cell-title{color:var(--ink)}
@@ -98,7 +108,7 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 .latest-cell-date{font-size:10px;color:var(--ink-dim);letter-spacing:.01em;white-space:nowrap}
 
 /* ── 전체리스트 행 ── */
-.panel-row{display:grid;grid-template-columns:62px minmax(0,1fr) 320px;gap:0 6px;padding:3px 0;border-bottom:.5px solid rgba(26,26,24,.04);font-family:'EB Garamond',serif;font-size:12px;line-height:1.55;align-items:baseline}
+.panel-row{display:grid;grid-template-columns:36px minmax(0,1fr) 200px;gap:0 6px;padding:3px 0;border-bottom:.5px solid rgba(26,26,24,.04);font-family:'EB Garamond',serif;font-size:12px;line-height:1.55;align-items:baseline}
 .panel-row:last-child{border-bottom:none}
 .panel-year{font-size:10px;color:var(--ink-dim);letter-spacing:.03em}
 .panel-title{color:var(--ink)}
@@ -113,22 +123,16 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 .cv-tab{font-size:8px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-dim);padding:2px 12px 2px 0;cursor:pointer;transition:color .2s;white-space:nowrap}
 .cv-tab:hover{color:var(--ink-mid)}
 .cv-tab.active{color:var(--ink);font-weight:700;letter-spacing:.13em;font-size:8.5px}
-.cv-panel{display:none}
 .back-btn{display:none;font-size:7.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-dim);cursor:pointer;white-space:nowrap;border:.5px solid rgba(26,26,24,.2);border-radius:2px;padding:2px 8px;background:transparent;font-family:'Cormorant Garamond',serif;transition:color .15s,border-color .15s;margin-left:auto}
 .back-btn:hover{color:var(--ink);border-color:rgba(26,26,24,.4)}
 .back-btn.visible{display:inline-block}
 .full-list-rows{margin-top:4px}
 
-/* ── place 구분 ── */
+/* place */
 .place-sep{color:var(--ink-dim);opacity:.5;font-size:9px}
 .place-city{font-size:10px;color:var(--ink-dim)}
-
-/* 전시 링크 */
 .exh-link{color:inherit;text-decoration:none;transition:opacity .2s}
 .exh-link:hover{opacity:.5}
-
-/* 모바일 전용 요소 숨김 */
-.bio-mini-bar{display:none}
 
 /* ── footer ── */
 .cv-footer{margin-top:56px;padding-top:28px;border-top:.5px solid rgba(26,26,24,.1);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px}
@@ -149,92 +153,40 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
   .lang-bar{padding:0 16px}
   html,body{overflow:auto !important;height:auto !important}
   .page-wrap{position:static;padding:calc(var(--nav-h) + var(--lang-h) + 24px) var(--pad) 80px;max-width:100%;margin:0}
-
-  /* Bio */
   .bio-with-img{grid-template-columns:1fr;gap:20px 0}
   .bio-img-wrap{order:-1}
   .bio-img-wrap img{max-height:240px;width:100%;object-fit:cover}
-  .bio-section{margin-bottom:20px}
   .bio-title{font-size:13px;margin-bottom:.7em}
   .bio-body{font-size:11.5px;line-height:1.75}
   .cv-summary-section{margin-bottom:24px}
   .cv-summary{font-size:11.5px;line-height:1.75}
-  .sec-divider{margin:0 0 20px}
+  .sec-divider{margin:0 0 24px}
 
-  /* 학력/소장처 — 모바일에서도 2열 유지, 폰트 축소 */
-  .info-row{grid-template-columns:160px 1fr;gap:0 20px;margin-bottom:20px;padding-bottom:18px}
-  .info-label{font-size:7px;letter-spacing:.16em;margin-bottom:7px}
-  .info-item{font-size:10.5px;padding:2px 0}
+  /* 학력+소장처 모바일: 세로 */
+  .edu-coll-row{flex-direction:column;gap:28px;align-items:flex-start;margin-bottom:32px}
 
-  /* 현재연도 헤더 sticky */
-  .latest-header-row{
-    position:sticky;top:calc(var(--nav-h) + var(--lang-h));
-    background:var(--bg);z-index:100;
-    padding:8px 0 6px;margin-bottom:0;
-    border-bottom:.5px solid rgba(26,26,24,.08);
-    display:flex;align-items:center;justify-content:space-between;
-  }
-  .latest-year-label{font-size:8px;letter-spacing:.2em}
-
-  /* 테이블 헤더 sticky */
-  .latest-table-head{
-    display:grid;
-    grid-template-columns:52px minmax(0,1fr) 100px;
-    gap:0 6px;padding:5px 0 4px;
-    border-bottom:.5px solid rgba(26,26,24,.1);
-    position:sticky;top:calc(var(--nav-h) + var(--lang-h) + 34px);
-    background:var(--bg);z-index:99;
-  }
+  .latest-header-row{position:sticky;top:calc(var(--nav-h) + var(--lang-h));background:var(--bg);z-index:100;padding:8px 0 6px;margin-bottom:0;border-bottom:.5px solid rgba(26,26,24,.08);display:flex;align-items:center;justify-content:space-between;}
+  .latest-table-head{display:grid;grid-template-columns:52px minmax(0,1fr) 100px;gap:0 6px;padding:5px 0 4px;border-bottom:.5px solid rgba(26,26,24,.1);position:sticky;top:calc(var(--nav-h) + var(--lang-h) + 34px);background:var(--bg);z-index:99;}
   .latest-th:last-child{display:none}
-
-  /* 현재연도 행 3열 */
-  .latest-rows-wrap{padding:0}
-  .latest-row{
-    grid-template-columns:52px minmax(0,1fr) 100px;
-    gap:0 6px;padding:5px 0;font-size:11.5px;align-items:baseline;
-  }
+  .latest-row{grid-template-columns:52px minmax(0,1fr) 100px;gap:0 6px;padding:5px 0;font-size:11.5px;}
   .latest-cell-type{font-size:9.5px}
   .latest-cell-place{font-size:10px}
   .latest-cell-date{display:none}
-  .place-city{font-size:9.5px}
-
-  /* 네비바 */
   .full-list-block{margin-top:20px}
-  .full-list-wrap{
-    position:static;
-    background:var(--bg);z-index:100;
-    padding:8px 0;
-    border-top:.5px solid rgba(26,26,24,.1);
-    border-bottom:.5px solid rgba(26,26,24,.07);
-  }
-  .full-list-label{font-size:7px;letter-spacing:.14em;font-weight:600}
-  .full-list-sep{width:.5px;height:8px;margin:0 8px}
-  .cv-tabs{overflow:hidden}
+  .full-list-wrap{position:static;background:var(--bg);z-index:100;padding:8px 0;border-top:.5px solid rgba(26,26,24,.1);border-bottom:.5px solid rgba(26,26,24,.07);}
+  .full-list-label{font-size:7px;letter-spacing:.14em}
   .cv-tab{font-size:7px;letter-spacing:.05em;padding:0 7px 0 0}
-  .cv-tab.active{font-size:7.5px;font-weight:700}
-  .back-btn{font-size:7px;padding:1px 6px}
-
-  /* 전체리스트 행 */
+  .cv-tab.active{font-size:7.5px}
   .full-list-rows{padding:4px 0 40px}
-  .panel-row{
-    grid-template-columns:28px minmax(0,1fr) 100px;
-    gap:0 6px;padding:5px 0;font-size:11.5px;align-items:baseline;
-  }
+  .panel-row{grid-template-columns:28px minmax(0,1fr) 100px;gap:0 6px;padding:5px 0;font-size:11.5px;}
   .panel-year{font-size:9.5px}
   .panel-place{font-size:10px}
-  .place-city{font-size:9.5px}
-
   .cv-footer{display:none}
 }
-
 @media(max-width:480px){
   .nav-logo{font-size:10px;letter-spacing:.18em}
   .nav-item{font-size:8px;padding:5px 6px}
   .nav-sep{margin:0 1px}
-  /* 아주 좁으면 소장처 숨김 */
-  .info-row{grid-template-columns:140px 1fr;gap:0 12px}
-  .coll-item{font-size:10px}
-  .coll-sep{margin:0 5px}
 }
 </style>
 </head>
@@ -245,8 +197,8 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
     <div class="nav-dd" id="navArchive">
       <span class="nav-item">Archive</span>
       <div class="nav-dd-menu">
-        <span class="nav-dd-item" onclick="go('year')" >Year</span>
-        <span class="nav-dd-item" onclick="go('context')" >Context</span>
+        <span class="nav-dd-item" onclick="go('year')">Year</span>
+        <span class="nav-dd-item" onclick="go('context')">Context</span>
       </div>
     </div>
     <div class="nav-sep"></div>
@@ -271,72 +223,70 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 
 <div class="page-wrap">
 
-  <div class="bio-cv-wrap" id="bioCvWrap">
-    <div class="bio-mini-bar" id="bioMiniBar"></div>
-    <div class="bio-with-img">
-      <div class="bio-section" id="bioSection"></div>
-      <div class="bio-img-wrap" id="bioImgWrap" style="display:none"><img id="bioImg" src="" alt=""></div>
-    </div>
-    <div class="stmt-section" id="stmtSection" style="display:none">
-      <div class="stmt-header-row">
-        <span class="stmt-lbl">Artist Statement</span>
-        <a class="stmt-pdf" id="stmtPdfLink" href="#" target="_blank" style="display:none">PDF ↗</a>
-      </div>
-      <div class="stmt-body" id="stmtBody"></div>
-    </div>
-    <div class="cv-summary-section" id="cvSummarySection" style="display:none"></div>
+  <!-- Bio + 이미지 -->
+  <div class="bio-with-img" id="bioCvWrap">
+    <div id="bioSection"></div>
+    <div id="bioImgWrap" style="display:none"><img id="bioImg" src="" alt=""></div>
   </div>
+
+  <!-- Statement -->
+  <div class="stmt-section" id="stmtSection" style="display:none">
+    <div class="stmt-header-row">
+      <span class="stmt-lbl">Artist Statement</span>
+      <a class="stmt-pdf" id="stmtPdfLink" href="#" target="_blank" style="display:none">PDF ↗</a>
+    </div>
+    <div class="stmt-body" id="stmtBody"></div>
+  </div>
+
+  <!-- CV 요약 -->
+  <div class="cv-summary-section" id="cvSummarySection" style="display:none"></div>
 
   <div class="sec-divider"></div>
 
-  <!-- 학력 / 소장처 가로 2열 -->
-  <div class="info-row">
-    <div class="info-col">
-      <div class="info-label" id="labelEdu">학력</div>
-      <div id="edu1" class="info-item"></div>
-      <div id="edu2" class="info-item"></div>
+  <!-- ★ 학력 + 소장처 나란히, 가운데 -->
+  <div class="edu-coll-row">
+    <div class="edu-coll-block">
+      <div class="edu-coll-label" id="labelEdu">학력</div>
+      <div class="edu-coll-item" id="edu1"></div>
+      <div class="edu-coll-item" id="edu2"></div>
     </div>
-    <div class="info-col">
-      <div class="info-label" id="labelColl">주요 작품 소장처</div>
-      <div id="collSection"></div>
+    <div class="edu-coll-block">
+      <div class="edu-coll-label" id="labelColl">주요 작품 소장처</div>
+      <div id="collSection" class="edu-coll-item"></div>
     </div>
   </div>
 
-  <!-- 전시 — 전체 너비 -->
-  <div class="main-grid" id="mainGrid">
-    <div class="right-col">
-      <div class="latest-section" id="latestSection">
-        <div class="latest-header-row">
-          <span class="latest-year-label" id="latestYearLabel">2026년 전시</span>
-        </div>
-        <div class="latest-table-head" id="latestTableHead">
-          <span class="latest-th" id="thType">구분</span>
-          <span class="latest-th" id="thTitle">제목</span>
-          <span class="latest-th" id="thPlace">장소</span>
-          <span class="latest-th" id="thDate">날짜</span>
-        </div>
-        <div class="latest-rows-wrap">
-          <div id="latestRows"><div class="loading">Loading…</div></div>
-        </div>
-      </div>
+  <div class="sec-divider2"></div>
 
-      <div class="full-list-block" id="fullListBlock">
-        <div class="full-list-wrap">
-          <span class="full-list-label" id="labelFullList">전시 전체 리스트</span>
-          <div class="full-list-sep"></div>
-          <div class="cv-tabs">
-            <div class="cv-tab" id="tabSolo" onclick="setCvTab('solo')"><span id="labelSolo">개인 및 초대전</span></div>
-            <div class="cv-tab" id="tabGroup" onclick="setCvTab('group')"><span id="labelGroup">단체전</span></div>
-            <div class="cv-tab" id="tabFair" onclick="setCvTab('fair')">Art Fair</div>
-          </div>
-          <button class="back-btn" id="backBtn" onclick="showLatestYear()">← 현재 연도</button>
-        </div>
-        <div class="full-list-rows" id="fullListRows" style="display:none"></div>
+  <!-- ★ 전시 리스트 (하단 전체 폭) -->
+  <div class="exh-section">
+    <div class="latest-section" id="latestSection">
+      <div class="latest-header-row">
+        <span class="latest-year-label" id="latestYearLabel">2026년 전시</span>
       </div>
+      <div class="latest-table-head" id="latestTableHead">
+        <span class="latest-th" id="thType">구분</span>
+        <span class="latest-th" id="thTitle">제목</span>
+        <span class="latest-th" id="thPlace">장소</span>
+        <span class="latest-th" id="thDate">날짜</span>
+      </div>
+      <div class="latest-rows-wrap">
+        <div id="latestRows"><div class="loading">Loading…</div></div>
+      </div>
+    </div>
 
-      <div style="display:none" id="panelSolo"></div>
-      <div style="display:none" id="panelGroup"></div>
-      <div style="display:none" id="panelFair"></div>
+    <div class="full-list-block" id="fullListBlock">
+      <div class="full-list-wrap">
+        <span class="full-list-label" id="labelFullList">전시 전체 리스트</span>
+        <div class="full-list-sep"></div>
+        <div class="cv-tabs">
+          <div class="cv-tab" id="tabSolo" onclick="setCvTab('solo')"><span id="labelSolo">개인 및 초대전</span></div>
+          <div class="cv-tab" id="tabGroup" onclick="setCvTab('group')"><span id="labelGroup">단체전</span></div>
+          <div class="cv-tab" id="tabFair" onclick="setCvTab('fair')">Art Fair</div>
+        </div>
+        <button class="back-btn" id="backBtn" onclick="showLatestYear()">← 현재 연도</button>
+      </div>
+      <div class="full-list-rows" id="fullListRows" style="display:none"></div>
     </div>
   </div>
 
@@ -493,7 +443,11 @@ function renderBio(text){
 function render(){
   if(!D) return;
   var ko=(lang==='ko');
+
+  /* Bio */
   document.getElementById('bioSection').innerHTML=renderBio(ko?(D.bioKo||''):(D.bioEn||''));
+
+  /* Statement */
   var stmtText=ko?(D.statementKo||''):(D.statementEn||D.statementKo||'');
   var stmtSec=document.getElementById('stmtSection');
   if(stmtText.trim()){
@@ -503,6 +457,8 @@ function render(){
     else pl.style.display='none';
     stmtSec.style.display='block';
   } else stmtSec.style.display='none';
+
+  /* CV 요약 */
   var cvText=ko?(D.cvKo||''):(D.cvEn||'');
   var cvSec=document.getElementById('cvSummarySection');
   if(cvText.trim()){
@@ -512,24 +468,25 @@ function render(){
     cvSec.style.display='block';
   } else cvSec.style.display='none';
 
-  /* 학력 / 소장처 */
+  /* 학력 */
   document.getElementById('labelEdu').textContent=ko?'학력':'Education';
   document.getElementById('edu1').textContent=ko?'홍익대학교 미술대학원 회화전공 석사 (M.F.A.)':'M.F.A. in Painting, Hongik University';
   document.getElementById('edu2').textContent=ko?'이화여자대학교 전자계산학과 학사':'B.S. in Computer Science, Ewha Womans University';
+
+  /* 소장처 */
   document.getElementById('labelColl').textContent=ko?'주요 작품 소장처':'Major Collections';
   var collText=ko?(D.collKo||''):(D.collEn||'');
   var collLines=collText?collText.split('\n').filter(function(l){return l.trim();}):[];
   document.getElementById('collSection').innerHTML=collLines.length
-    ?collLines.map(function(l){
-        return '<div class="info-item">'+l.trim()+'</div>';
-      }).join('')
-    :'<div class="info-item">—</div>';
+    ?collLines.map(function(l){return l.trim();}).join('<br>')
+    :'—';
 
   /* 전시 */
   var allForYear=[].concat(D.solo||[],D.group||[],D.fair||[]);
   var yrs=allForYear.map(function(i){return parseInt(i.year,10)||0;});
   var maxY=yrs.length?Math.max.apply(null,yrs):null;
   latestYear=maxY?String(maxY):null;
+
   document.getElementById('thType').textContent=ko?'구분':'Type';
   document.getElementById('thTitle').textContent=ko?'제목':'Title';
   document.getElementById('thPlace').textContent=ko?'장소':'Venue';
@@ -539,6 +496,7 @@ function render(){
   document.getElementById('labelGroup').textContent=ko?'단체전':'Group';
   document.getElementById('backBtn').textContent='← '+(ko?'현재 연도':'Current Year');
   renderMainArea();
+
   if(D.pdfUrl){document.getElementById('pdfLink').href=D.pdfUrl;document.getElementById('pdfLink').style.display='inline-flex';}
   if(D.aboutImg){
     var m=D.aboutImg.match(/\/d\/([a-zA-Z0-9_-]{10,})/);
