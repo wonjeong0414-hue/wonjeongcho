@@ -45,61 +45,10 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 .nav-dd-item{display:block;font-size:9px;letter-spacing:0.08em;color:var(--ink-mid);padding:6px 14px;cursor:pointer;transition:color 0.15s,background 0.15s;white-space:nowrap;text-transform:uppercase}
 .nav-dd-item:hover{color:var(--ink);background:rgba(0,0,0,0.03)}
 .layout{position:fixed;top:var(--nav-h);left:0;right:0;bottom:0;display:flex;flex-direction:column}
-
-/* ── top-header: Tactile Thinking + 선택 유도 문구 ── */
-.top-header{
-  flex-shrink:0;display:flex;flex-direction:column;
-  gap:0;
-  padding:0 36px 0 var(--left-pad);
-  height:auto;
-  padding-top:14px;
-  padding-bottom:0;
-}
-.header-title{
-  font-family:'EB Garamond',serif;font-style:italic;font-size:18px;
-  color:var(--ink);white-space:nowrap;flex-shrink:0;
-  line-height:1;
-}
-
-/* ── 선택 유도 문구 ── */
-.series-hint{
-  font-family:'EB Garamond',serif;
-  font-style:italic;
-  font-size:10.5px;
-  letter-spacing:0.13em;
-  color:var(--ink-dim);
-  margin-top:9px;
-  margin-bottom:14px;
-  opacity:0;
-  animation:hintAppear 1.4s cubic-bezier(0.16,1,0.3,1) 0.7s forwards;
-  pointer-events:none;
-  display:flex;
-  align-items:center;
-  gap:6px;
-}
-.series-hint-arrow{
-  display:inline-block;
-  font-style:normal;
-  opacity:0.5;
-  transition:transform 0.3s ease;
-  animation:arrowNudge 2.8s ease-in-out 2s infinite;
-}
-@keyframes hintAppear{
-  0%  {opacity:0;transform:translateY(5px)}
-  100%{opacity:0.52;transform:translateY(0)}
-}
-@keyframes arrowNudge{
-  0%,100%{transform:translateX(0)}
-  50%    {transform:translateX(3px)}
-}
-/* 태그 하나라도 선택되면 힌트 흐려짐 */
-.series-hint.dimmed{
-  opacity:0 !important;
-  transition:opacity 0.35s ease;
-}
-
+.top-header{flex-shrink:0;display:flex;align-items:center;gap:28px;padding:0 36px 0 var(--left-pad);height:52px}
+.header-title{font-family:'EB Garamond',serif;font-style:italic;font-size:18px;color:var(--ink);white-space:nowrap;flex-shrink:0}
 .body-row{flex:1;display:flex;overflow:hidden}
-.left-panel{width:var(--left-w);flex-shrink:0;display:flex;flex-direction:column;padding:0 12px 16px var(--left-pad);overflow:hidden}
+.left-panel{width:var(--left-w);flex-shrink:0;display:flex;flex-direction:column;padding:20px 12px 16px var(--left-pad);overflow:hidden}
 .strip-row{display:flex;align-items:center;justify-content:space-between;min-height:18px;margin-bottom:6px}
 .clear-btn{font-size:7.5px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-dim);cursor:pointer;border:none;background:none;padding:0;transition:color 0.15s}
 .clear-btn:hover{color:var(--ink-mid)}
@@ -126,6 +75,12 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 .cb-item.checked .cb-check{display:block}
 .cb-label{font-size:8.5px;color:var(--ink-dim);transition:color 0.15s;line-height:1.4;letter-spacing:0.03em}
 .cb-item.checked .cb-label{color:var(--ink-mid)}
+.explore-hint{font-family:'EB Garamond',serif;font-style:italic;font-size:11px;letter-spacing:0.12em;color:var(--ink-dim);opacity:0.7;animation:hintDrift 7s ease-in-out infinite;white-space:nowrap;margin-left:12px}
+@keyframes hintDrift{0%,100%{transform:translateY(0);opacity:0.7}45%{transform:translateY(-3px);opacity:0.92}75%{transform:translateY(2px);opacity:0.45}}
+.sub-tags-pop{position:absolute;bottom:10%;left:50%;transform:translateX(-50%);z-index:20;display:flex;flex-wrap:wrap;gap:7px;justify-content:center;max-width:65%;opacity:0;pointer-events:none;transition:opacity 0.4s cubic-bezier(0.16,1,0.3,1)}
+.sub-tags-pop.show{opacity:1;pointer-events:all}
+.sub-tag-pill{font-family:'EB Garamond',serif;font-style:italic;font-size:12px;letter-spacing:0.05em;color:var(--ink);background:rgba(247,246,243,0.9);border:0.5px solid rgba(0,0,0,0.1);border-radius:20px;padding:4px 13px;animation:tagPop 0.3s cubic-bezier(0.16,1,0.3,1) both}
+@keyframes tagPop{from{opacity:0;transform:translateY(8px) scale(0.9)}to{opacity:1;transform:translateY(0) scale(1)}}
 .result-count{font-size:7.5px;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-dim);margin-top:8px;text-align:right;flex-shrink:0}
 .right-panel{flex:1;min-width:0;position:relative;overflow:hidden}
 .float-zone{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;transition:opacity 0.4s ease;pointer-events:all}
@@ -202,26 +157,21 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 .arr-prev{left:16px}
 .arr-next{right:16px}
 .mobile-hint{display:none}
-
-/* ── 모바일 ── */
 @media(max-width:600px){
   html,body{overflow:auto;height:auto}
   .layout{position:static;margin-top:var(--nav-h);height:auto;display:block}
-  .top-header{
-    display:flex;flex-direction:column;
-    padding:10px 12px 0;
-    height:auto;
-  }
-  .series-hint{
-    font-size:9.5px;
-    margin-top:6px;
-    margin-bottom:10px;
-  }
+  .top-header{display:none}
   .body-row{display:block;height:auto;overflow:visible}
   .left-panel{width:100%;display:grid;grid-template-columns:1fr 1fr;gap:6px;padding:10px 12px;border-bottom:0.5px solid rgba(0,0,0,0.08);overflow:visible}
   .strip-row{display:none}
   .active-strip{display:none}
-  .result-count{display:none}
+  .explore-hint{font-family:'EB Garamond',serif;font-style:italic;font-size:11px;letter-spacing:0.12em;color:var(--ink-dim);opacity:0.7;animation:hintDrift 7s ease-in-out infinite;white-space:nowrap;margin-left:12px}
+@keyframes hintDrift{0%,100%{transform:translateY(0);opacity:0.7}45%{transform:translateY(-3px);opacity:0.92}75%{transform:translateY(2px);opacity:0.45}}
+.sub-tags-pop{position:absolute;bottom:10%;left:50%;transform:translateX(-50%);z-index:20;display:flex;flex-wrap:wrap;gap:7px;justify-content:center;max-width:65%;opacity:0;pointer-events:none;transition:opacity 0.4s cubic-bezier(0.16,1,0.3,1)}
+.sub-tags-pop.show{opacity:1;pointer-events:all}
+.sub-tag-pill{font-family:'EB Garamond',serif;font-style:italic;font-size:12px;letter-spacing:0.05em;color:var(--ink);background:rgba(247,246,243,0.9);border:0.5px solid rgba(0,0,0,0.1);border-radius:20px;padding:4px 13px;animation:tagPop 0.3s cubic-bezier(0.16,1,0.3,1) both}
+@keyframes tagPop{from{opacity:0;transform:translateY(8px) scale(0.9)}to{opacity:1;transform:translateY(0) scale(1)}}
+.result-count{display:none}
   .cat-list-wrap{display:contents}
   .cat-cell{position:relative}
   .cat-header{display:flex;align-items:center;justify-content:space-between;padding:7px 10px;border:0.5px solid rgba(0,0,0,0.15);border-radius:20px;background:var(--white);cursor:pointer;user-select:none}
@@ -286,7 +236,6 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
   body.sheet-open .grid-zone{filter:blur(3px)}
   body.sheet-open .mobile-hint{filter:blur(3px);transition:filter 0.3s ease}
 }
-
 @keyframes pageFadeIn{from{opacity:0}to{opacity:1}}
 .page-fade{animation:pageFadeIn 0.4s ease forwards}
 body.fade-out{opacity:0;transition:opacity 0.3s ease}
@@ -325,17 +274,8 @@ body.fade-out{opacity:0;transition:opacity 0.3s ease}
     <span class="nav-item" onclick="go('about')">About</span>
   </div>
 </nav>
-
 <div class="layout">
-  <!-- ── 헤더: Tactile Thinking + 선택 유도 문구 ── -->
-  <div class="top-header">
-    <div class="header-title">Tactile Thinking</div>
-    <p class="series-hint" id="seriesHint">
-      Select a series to explore
-      <span class="series-hint-arrow">→</span>
-    </p>
-  </div>
-
+  <div class="top-header"><div class="header-title">Tactile Thinking</div><div class="explore-hint">Select a series to explore &#8594;</div></div>
   <div class="body-row">
     <div class="left-panel">
       <div class="strip-row"><button class="clear-btn" id="clearBtn" style="display:none" onclick="clearAll()">Clear all</button></div>
@@ -355,9 +295,10 @@ body.fade-out{opacity:0;transition:opacity 0.3s ease}
         <div class="hint-img-wrap"><img class="mobile-hint-img" id="hintImg" src="" alt=""><div class="hint-overlay-text" id="hintOverlayText">우연의 캔버스 위에 스며든 필연의 숨결,<br>비결정적 순간이 빚어낸 견고한 정원</div></div>
       </div>
       <div class="float-zone" id="floatZone">
-        <div class="sub-card s1" onclick="go('index')"><img class="sub-img" id="subImg1" alt=""></div>
-        <div class="sub-card s2" onclick="go('index')"><img class="sub-img" id="subImg2" alt=""></div>
-        <div class="sub-card s3" onclick="go('index')"><img class="sub-img" id="subImg3" alt=""></div>
+        <div class="sub-card s1" onclick="showSubTags(0)"><img class="sub-img" id="subImg1" alt=""></div>
+        <div class="sub-card s2" onclick="showSubTags(1)"><img class="sub-img" id="subImg2" alt=""></div>
+        <div class="sub-card s3" onclick="showSubTags(2)"><img class="sub-img" id="subImg3" alt=""></div>
+        <div class="sub-tags-pop" id="subTagsPop"></div>
         <div class="pc-float-text">우연의 캔버스 위에 스며든 필연의 숨결,<br>비결정적 순간이 빚어낸 견고한 정원</div>
       </div>
       <div class="narrative-zone" id="narrativeZone"><div class="ns-label" id="nsLabel"></div><div class="ns-text" id="nsText"></div><div class="ns-rule"></div></div>
@@ -365,8 +306,6 @@ body.fade-out{opacity:0;transition:opacity 0.3s ease}
     </div>
   </div>
 </div>
-
-<!-- PC 모달 -->
 <div class="modal-bg" id="modalBg" onclick="bgClose(event)">
   <div class="modal">
     <button class="modal-arr arr-prev" id="arrPrev" onclick="navModal(-1)">‹</button>
@@ -383,8 +322,6 @@ body.fade-out{opacity:0;transition:opacity 0.3s ease}
     <button class="modal-arr arr-next" id="arrNext" onclick="navModal(1)">›</button>
   </div>
 </div>
-
-<!-- 모바일 바텀시트 -->
 <div class="bs-sheet" id="bsSheet">
   <div class="bs-handle-wrap" id="bsHandle"><div class="bs-handle"></div></div>
   <button class="bs-close" onclick="closeSheet()">×</button>
@@ -400,15 +337,25 @@ body.fade-out{opacity:0;transition:opacity 0.3s ease}
     <div class="bs-tags" id="bsTags"></div>
   </div>
 </div>
-
 <script>
+var subWorks=[];
+function showSubTags(idx){
+  var pop=sel('subTagsPop'),row=subWorks[idx];
+  if(!row){pop.classList.remove('show');return;}
+  var tags=allRowTags(row);
+  if(!tags.length){pop.classList.remove('show');return;}
+  pop.innerHTML=tags.map(function(t,i){
+    return '<span class="sub-tag-pill" style="animation-delay:'+(i*55)+'ms">'+t+'</span>';
+  }).join('');
+  pop.classList.add('show');
+}
+function hidSubTags(){sel('subTagsPop').classList.remove('show');}
 var TAGS_THE=[],TAGS_SER=[],TAGS_MAT=[],TAGS_SEN=[];
 var selected={THE:[],SER:[],MAT:[],SEN:[]};
 var filtered=[],modalIdx=0,narrativeTimer=null,pendingTag=null;
 var CHUNK_SIZE=24,renderedCount=0,chunkSentinel=null,chunkObserver=null;
 var allWorks=[];
 var isMobile=function(){return window.innerWidth<=600;};
-
 var TAG_DESC={
   '비결정적 순간':'정의되지 않은 우연과 필연의 경계, 그 찰나에 포착된 존재의 흔적.',
   '촉각적 사고':'눈이 아닌 손끝으로 먼저 반응하는 사유. 물성과 감각이 만나는 지점.',
@@ -435,9 +382,7 @@ var TAG_DESC={
   '바람의 결':'보이지 않는 흐름을 시각적 선으로 치환한 감각. 공기가 그리는 선.',
   '살결':'인물이나 사물에서 느껴지는 생생한 피부의 촉감. 표면이 전달하는 온기.'
 };
-
 var CAT_COL={THE:'Thought & Being',SER:'Traces & Memory',MAT:'Matter & Touch',SEN:'Sense & Silence'};
-
 function sel(id){return document.getElementById(id);}
 function go(page){document.body.classList.add('fade-out');setTimeout(function(){window.location.href=page+'.html';},280);}
 document.addEventListener('DOMContentLoaded',function(){document.body.classList.add('page-fade');setTimeout(function(){document.body.classList.remove('page-fade');},500);});
@@ -445,12 +390,10 @@ function parseTags(str){if(!str)return[];return String(str).split(/[,\n]/).map(f
 function allRowTags(row){var arr=[];Object.keys(CAT_COL).forEach(function(cat){parseTags(row[CAT_COL[cat]]).forEach(function(t){arr.push(t);});});return arr;}
 function thumbUrl(row){return row['thumb']||'';}
 function fullUrl(row){return row['full']||row['thumb']||'';}
-
 function isVideoRow(r){return !!(r['isVideo']);}
 function isGifRow(r){return !!(r['isGif']);}
 function getEmbedUrl(r){var fid=r['fileId']||'';return fid?'https://drive.google.com/file/d/'+fid+'/preview':'';}
 function getViewUrl(r){var fid=r['fileId']||'';return fid?'https://drive.google.com/uc?export=view&id='+fid:(r['full']||'');}
-
 function loadSubImg(imgId,url){
   if(!url)return;
   var img=sel(imgId);
@@ -459,7 +402,6 @@ function loadSubImg(imgId,url){
   img.onerror=function(){var m=url.match(/\/d\/([a-zA-Z0-9_-]{10,})/);if(m&&this.src.indexOf('export')===-1){this.src='https://drive.google.com/uc?export=view&id='+m[1];}};
   img.src=url;
 }
-
 function buildList(listId,tags,cat){
   var el=sel(listId);
   el.innerHTML=tags.map(function(tag){
@@ -470,23 +412,12 @@ function buildList(listId,tags,cat){
       +'</svg></div><span class="cb-label">'+tag+'</span></div>';
   }).join('');
 }
-
 function toggleCat(cat){
   var cell=sel('cell-'+cat);
   var isOpen=cell.classList.contains('open');
   ['THE','SER','MAT','SEN'].forEach(function(c){sel('cell-'+c).classList.remove('open');});
   if(!isOpen)cell.classList.add('open');
 }
-
-/* ── 힌트 dimmed 처리 ── */
-function updateHintVisibility(){
-  var hint=sel('seriesHint');
-  if(!hint)return;
-  var hasAny=['THE','SER','MAT','SEN'].some(function(cat){return selected[cat].length>0;});
-  if(hasAny){hint.classList.add('dimmed');}
-  else{hint.classList.remove('dimmed');}
-}
-
 function toggleTag(cat,enc,el){
   var tag=decodeURIComponent(enc);
   var arr=selected[cat];
@@ -494,11 +425,9 @@ function toggleTag(cat,enc,el){
   if(already){selected[cat]=[];el.classList.remove('checked');}
   else{document.querySelectorAll('#list-'+cat+' .cb-item').forEach(function(i){i.classList.remove('checked');});selected[cat]=[tag];el.classList.add('checked');}
   if(isMobile()){sel('cell-'+cat).classList.remove('open');}
-  updateBadge(cat);updatePills();updateHintVisibility();applyFilter();
+  updateBadge(cat);updatePills();applyFilter();
 }
-
 function updateBadge(cat){sel('cell-'+cat).classList.toggle('has-sel',selected[cat].length>0);}
-
 function updatePills(){
   var strip=sel('activeStrip');strip.innerHTML='';
   var total=0;
@@ -513,24 +442,21 @@ function updatePills(){
   });
   sel('clearBtn').style.display=total>0?'inline-block':'none';
 }
-
 function removePill(cat,enc){
   var tag=decodeURIComponent(enc);
   var idx=selected[cat].indexOf(tag);
   if(idx>=0)selected[cat].splice(idx,1);
   var cbEl=document.getElementById('cb-'+cat+'-'+enc);
   if(cbEl)cbEl.classList.remove('checked');
-  updateBadge(cat);updatePills();updateHintVisibility();applyFilter();
+  updateBadge(cat);updatePills();applyFilter();
 }
-
 function clearAll(){
   ['THE','SER','MAT','SEN'].forEach(function(cat){
     selected[cat]=[];updateBadge(cat);
     document.querySelectorAll('#list-'+cat+' .cb-item').forEach(function(el){el.classList.remove('checked');});
   });
-  updatePills();updateHintVisibility();applyFilter();
+  updatePills();applyFilter();
 }
-
 function applyFilter(){
   var activeCats=['THE','SER','MAT','SEN'].filter(function(cat){return selected[cat].length>0;});
   if(!activeCats.length){showFloat();sel('resultCount').textContent='';return;}
@@ -538,7 +464,6 @@ function applyFilter(){
   if(pendingTag!==firstTag){pendingTag=firstTag;runNarrativeThenGrid(firstTag);}
   else{renderFiltered();}
 }
-
 function renderFiltered(){
   var activeCats=['THE','SER','MAT','SEN'].filter(function(cat){return selected[cat].length>0;});
   filtered=allWorks.filter(function(row){
@@ -563,7 +488,6 @@ function renderFiltered(){
   disconnectChunkObserver();
   renderNextChunk(true);
 }
-
 function renderNextChunk(animate){
   var grid=sel('grid');
   var start=renderedCount,end=Math.min(start+CHUNK_SIZE,filtered.length);
@@ -575,7 +499,6 @@ function renderNextChunk(animate){
     grid.appendChild(chunkSentinel);connectChunkObserver();
   }
 }
-
 function connectChunkObserver(){
   if(chunkObserver)chunkObserver.disconnect();
   chunkObserver=new IntersectionObserver(function(entries){
@@ -587,12 +510,10 @@ function disconnectChunkObserver(){
   if(chunkObserver){chunkObserver.disconnect();chunkObserver=null;}
   if(chunkSentinel){chunkSentinel.remove();chunkSentinel=null;}
 }
-
 function makeCard(row,idx,animate){
   var card=document.createElement('div');card.className='card';
   var title=row['Title']||'',year=row['Year']||'',medium=row['Medium']||'',thumb=thumbUrl(row);
   var delay=animate?Math.min((idx-(renderedCount-CHUNK_SIZE))*25,400):0;
-
   if(isGifRow(row)){
     card.classList.add('is-gif');
     var gifEmbed=getEmbedUrl(row);
@@ -619,7 +540,6 @@ function makeCard(row,idx,animate){
     setTimeout(function(){card.classList.add('revealed');},delay);
     return card;
   }
-
   if(isVideoRow(row)){
     card.classList.add('is-video');
     var embedUrl=getEmbedUrl(row);
@@ -646,7 +566,6 @@ function makeCard(row,idx,animate){
     setTimeout(function(){card.classList.add('revealed');},delay);
     return card;
   }
-
   var sk=document.createElement('div');sk.className='card-skeleton';card.appendChild(sk);
   var img=document.createElement('img');img.alt=title;
   img.onload=function(){if(sk.parentNode)sk.parentNode.removeChild(sk);};
@@ -660,7 +579,6 @@ function makeCard(row,idx,animate){
   setTimeout(function(){card.classList.add('revealed');},delay);
   return card;
 }
-
 var imgObserver=new IntersectionObserver(function(entries,obs){
   entries.forEach(function(e){
     if(!e.isIntersecting)return;
@@ -671,7 +589,6 @@ var imgObserver=new IntersectionObserver(function(entries,obs){
   });
 },{rootMargin:'300px'});
 function lazyLoad(img,url){if(!url){img.classList.add('loaded');return;}img.dataset.src=url;imgObserver.observe(img);}
-
 function runNarrativeThenGrid(tag){
   if(narrativeTimer){clearTimeout(narrativeTimer);narrativeTimer=null;}
   var hint=sel('mobileHint');if(hint)hint.style.display='none';
@@ -679,8 +596,8 @@ function runNarrativeThenGrid(tag){
   sel('narrativeZone').classList.remove('show','rising');
   renderFiltered();
 }
-
 function showFloat(){
+  var _p=sel('subTagsPop');if(_p)_p.classList.remove('show');
   if(narrativeTimer){clearTimeout(narrativeTimer);narrativeTimer=null;}
   pendingTag=null;disconnectChunkObserver();
   sel('narrativeZone').classList.remove('show','rising');
@@ -689,7 +606,6 @@ function showFloat(){
   var hint=sel('mobileHint');
   if(hint&&isMobile())hint.style.display='flex';
 }
-
 function openModal(idx){
   modalIdx=idx;
   if(isMobile()){openSheet(idx);return;}
@@ -706,7 +622,6 @@ function closeModal(){
 }
 function bgClose(e){if(e.target===sel('modalBg'))closeModal();}
 function navModal(d){modalIdx=(modalIdx+d+filtered.length)%filtered.length;paintModal();}
-
 function paintModal(){
   var row=filtered[modalIdx];
   var area=sel('modalImgArea');
@@ -714,7 +629,6 @@ function paintModal(){
   if(prevIframe)prevIframe.src='';
   area.innerHTML='';
   area.style.background='';area.style.animation='none';
-
   if(isVideoRow(row)){
     var embedUrl=getEmbedUrl(row);
     if(embedUrl){
@@ -724,7 +638,8 @@ function paintModal(){
       iframe.setAttribute('allowfullscreen','');
       area.appendChild(iframe);
     }
-  } else if(isGifRow(row)){
+  }
+  else if(isGifRow(row)){
     var gifEmbed=getEmbedUrl(row);
     if(gifEmbed){
       var gifIframe=document.createElement('iframe');
@@ -732,7 +647,8 @@ function paintModal(){
       gifIframe.setAttribute('allowfullscreen','');
       area.appendChild(gifIframe);
     }
-  } else {
+  }
+  else {
     var img=document.createElement('img');
     img.style.opacity='0';
     var imgUrl=fullUrl(row);
@@ -743,7 +659,6 @@ function paintModal(){
     img.src=imgUrl;
     area.appendChild(img);
   }
-
   sel('mTitle').textContent=row['Title']||'';
   sel('mYear').textContent=row['Year']||'';
   sel('mMedium').textContent=row['Medium']||'';
@@ -752,9 +667,7 @@ function paintModal(){
   sel('arrPrev').style.display=filtered.length>1?'flex':'none';
   sel('arrNext').style.display=filtered.length>1?'flex':'none';
 }
-
 var sheetState='closed',dragStartY=0,dragStartState='';
-
 function openSheet(idx){
   modalIdx=idx;paintSheet();
   var sheet=sel('bsSheet');
@@ -770,14 +683,12 @@ function closeSheet(){
   sheetState='closed';document.body.classList.remove('sheet-open');
 }
 function navSheet(d){modalIdx=(modalIdx+d+filtered.length)%filtered.length;paintSheet();}
-
 function paintSheet(){
   var row=filtered[modalIdx];
   var area=sel('bsImgArea');
   var prevIframe=area.querySelector('iframe');
   if(prevIframe)prevIframe.src='';
   area.innerHTML='';
-
   if(isVideoRow(row)){
     var embedUrl=getEmbedUrl(row);
     if(embedUrl){
@@ -787,7 +698,8 @@ function paintSheet(){
       iframe.setAttribute('allowfullscreen','');
       area.appendChild(iframe);
     }
-  } else if(isGifRow(row)){
+  }
+  else if(isGifRow(row)){
     var gifEmbed=getEmbedUrl(row);
     if(gifEmbed){
       var gifIframe=document.createElement('iframe');
@@ -795,7 +707,8 @@ function paintSheet(){
       gifIframe.setAttribute('allowfullscreen','');
       area.appendChild(gifIframe);
     }
-  } else {
+  }
+  else {
     var img=document.createElement('img');
     img.style.opacity='0';
     img.onload=function(){img.style.opacity='1';};
@@ -803,7 +716,6 @@ function paintSheet(){
     img.src=fullUrl(row);
     area.appendChild(img);
   }
-
   sel('bsTitle').textContent=row['Title']||'';
   sel('bsYear').textContent=row['Year']||'';
   sel('bsMedium').textContent=row['Medium']||'';
@@ -813,7 +725,6 @@ function paintSheet(){
   sel('bsPrev').style.display=showNav?'flex':'none';
   sel('bsNext').style.display=showNav?'flex':'none';
 }
-
 (function(){
   var handle=sel('bsHandle'),sheet=sel('bsSheet');
   if(!handle||!sheet)return;
@@ -822,13 +733,11 @@ function paintSheet(){
   function onEnd(){document.removeEventListener('touchmove',onMove);document.removeEventListener('touchend',onEnd);document.removeEventListener('mousemove',onMove);document.removeEventListener('mouseup',onEnd);}
   handle.addEventListener('touchstart',onStart,{passive:true});handle.addEventListener('mousedown',onStart);
 })();
-
 document.addEventListener('keydown',function(e){
   if(sheetState!=='closed'){if(e.key==='Escape')closeSheet();if(e.key==='ArrowLeft')navSheet(-1);if(e.key==='ArrowRight')navSheet(1);return;}
   if(!sel('modalBg').classList.contains('open'))return;
   if(e.key==='Escape')closeModal();if(e.key==='ArrowLeft')navModal(-1);if(e.key==='ArrowRight')navModal(1);
 });
-
 document.querySelectorAll('.nav-dd').forEach(function(dd){
   var menu=dd.querySelector('.nav-dd-menu'),timer;
   dd.addEventListener('mouseenter',function(){clearTimeout(timer);menu.style.display='block';});
@@ -848,7 +757,6 @@ document.addEventListener('click',function(e){
   if(!e.target.closest||!e.target.closest('.cat-cell'))
     document.querySelectorAll('.cat-cell').forEach(function(c){c.classList.remove('open');});
 });
-
 Promise.all([
   fetch('./data/tags.json').then(function(r){return r.json();}),
   fetch('./data/works.json').then(function(r){return r.json();})
@@ -862,12 +770,12 @@ Promise.all([
   var sorted=allWorks.slice().sort(function(a,b){return(parseInt(b.year||0))-(parseInt(a.year||0));});
   var subs=[];
   for(var i=0;i<sorted.length&&subs.length<3;i++){if((sorted[i].page||'').trim()==='서브')subs.push(sorted[i]);}
+  subWorks=subs;
   if(subs[0])loadSubImg('subImg1',subs[0].thumb||subs[0].full||'');
   if(subs[1])loadSubImg('subImg2',subs[1].thumb||subs[1].full||'');
   if(subs[2])loadSubImg('subImg3',subs[2].thumb||subs[2].full||'');
   if(subs[0]){var hi=sel('hintImg');if(hi){var hUrl=subs[0].thumb||subs[0].full||'';hi.onload=function(){hi.classList.add('loaded');};hi.src=hUrl;}}
 }).catch(function(){console.error('데이터 로딩 오류');});
-
 window.addEventListener('load',function(){
   var loader=document.getElementById('page-loader');
   if(loader){setTimeout(function(){loader.classList.add('hidden');setTimeout(function(){loader.style.display='none';},650);},400);}
