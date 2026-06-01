@@ -380,17 +380,14 @@ document.addEventListener('DOMContentLoaded',function(){
    - 랜덤 딜레이로 천천히 나타남
 ══════════════════════════════════════ */
 
-/* Mosaic tile observer — 보이면 이미지 로드 + revealed */
+/* Mosaic tile observer — 보이면 revealed 클래스만 추가 */
 var mosaicObserver=new IntersectionObserver(function(entries,obs){
   entries.forEach(function(e){
     if(!e.isIntersecting)return;
-    var tile=e.target;
-    obs.unobserve(tile);
-    var img=tile.querySelector('img');
-    if(img&&img.dataset.src){img.src=img.dataset.src;}
-    tile.classList.add('revealed');
+    obs.unobserve(e.target);
+    e.target.classList.add('revealed');
   });
-},{rootMargin:'200px'});
+},{rootMargin:'0px'});
 
 function buildMosaic(works){
   /* 1. 연도 그룹별 첫 이미지 */
@@ -453,7 +450,7 @@ function buildMosaic(works){
     /* 스켈레톤 */
     var sk=document.createElement('div');sk.className='mtile-sk';tile.appendChild(sk);
 
-    /* 이미지 */
+    /* 이미지 — 바로 로드 (lazy 없음) */
     var img=document.createElement('img');
     var src=row['thumb']||row['full']||'';
     img.alt=row['title']||'';
@@ -462,12 +459,11 @@ function buildMosaic(works){
       if(sk.parentNode)sk.parentNode.removeChild(sk);
     };
     img.onerror=function(){
-      var m=src.match(/[?&]id=([a-zA-Z0-9_-]{10,})/);
-      if(m&&img.src.indexOf('w200')===-1){img.src='https://drive.google.com/thumbnail?id='+m[1]+'&sz=w200';}
+      var m=(src||'').match(/[?&]id=([a-zA-Z0-9_-]{10,})/);
+      if(m&&img.src.indexOf('w400')===-1){img.src='https://drive.google.com/thumbnail?id='+m[1]+'&sz=w400';}
       else{if(sk.parentNode)sk.parentNode.removeChild(sk);}
     };
-    /* lazy load */
-    img.dataset.src=src;
+    if(src)img.src=src;
     tile.appendChild(img);
 
     /* 오버레이 — dim용 */
@@ -475,10 +471,11 @@ function buildMosaic(works){
     tile.appendChild(ov);
 
     /* 연도 라벨 — 항상 표시 */
-    if(yr){
+    var rowYr=row['year']||'';
+    if(rowYr){
       var yrLabel=document.createElement('div');
       yrLabel.className='mtile-year';
-      yrLabel.textContent=yr;
+      yrLabel.textContent=rowYr;
       tile.appendChild(yrLabel);
     }
 
@@ -491,8 +488,10 @@ function buildMosaic(works){
 
     grid.appendChild(tile);
 
-    /* IntersectionObserver로 이미지 lazy + reveal */
-    mosaicObserver.observe(tile);
+    /* 랜덤 딜레이 후 reveal — observer 불안정 방지 */
+    (function(t,d){
+      setTimeout(function(){t.classList.add('revealed');},d*1000);
+    })(tile, delay);
   });
 }
 
