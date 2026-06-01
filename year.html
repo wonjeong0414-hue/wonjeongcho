@@ -3,202 +3,273 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>About — WON JEONG CHO</title>
+<title>Year — WON JEONG CHO</title>
+<meta name="description" content="조원정 작가의 연도별 작품 아카이브.">
+<meta name="keywords" content="조원정, Won Jeong Cho, 작가, artist, 회화, painting, 추상, abstract, Tactile Thinking, 촉각적 사고, 한국 현대미술, Korean contemporary art">
+<meta name="author" content="Won Jeong Cho">
+<meta name="robots" content="index, follow">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Year Archive — Won Jeong Cho">
+<meta property="og:description" content="Year-by-year archive of paintings by Won Jeong Cho.">
+<meta property="og:url" content="https://www.chowonjeong.org/year.html">
+<meta property="og:image" content="https://www.chowonjeong.org/og-image.jpg">
+<meta property="og:site_name" content="Won Jeong Cho">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Year Archive — Won Jeong Cho">
+<meta name="twitter:description" content="Year-by-year archive of paintings by Won Jeong Cho.">
+<meta name="twitter:image" content="https://www.chowonjeong.org/og-image.jpg">
+<link rel="canonical" href="https://www.chowonjeong.org/year.html">
+<link rel="prefetch" href="./data/works.json">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Cormorant+Garamond:wght@300;400&display=swap" onload="this.rel='stylesheet'">
-<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Cormorant+Garamond:wght@300;400&display=swap"></noscript>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;1,400&family=Cormorant+Garamond:wght@300;400&display=swap" onload="this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;1,400&family=Cormorant+Garamond:wght@300;400&display=swap"></noscript>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{--ink:#1a1a18;--ink-mid:#4a4a47;--ink-dim:#7a7a74;--bg:#f7f6f3;--white:#fff;--nav-h:50px;--lang-h:44px;--max-w:960px;--pad:48px}
-html{background:var(--bg);scrollbar-width:none}
-html::-webkit-scrollbar,body::-webkit-scrollbar{display:none}
-body{background:var(--bg);font-family:'Cormorant Garamond',serif;color:var(--ink);min-height:100vh}
+:root{--ink:#1a1a18;--ink-mid:#4a4a47;--ink-dim:#7a7a74;--bg:#f7f6f3;--white:#fff;--nav-h:50px;--bar-h:44px}
+html,body{height:100%;background:var(--bg);font-family:'Cormorant Garamond',serif;color:var(--ink);overflow:hidden}
 
-/* ── nav ── */
-nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-items:center;justify-content:space-between;padding:0 36px;z-index:200;background:var(--bg);border-bottom:.5px solid rgba(26,26,24,.07)}
-.nav-logo{font-weight:300;font-size:13px;letter-spacing:.3em;color:var(--ink);text-transform:uppercase;cursor:pointer;transition:opacity .2s}
-.nav-logo:hover{opacity:.45}
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-items:center;justify-content:space-between;padding:0 36px;z-index:200;background:var(--bg)}
+@media(max-width:600px){nav{padding:0 12px}}
+@media(max-width:480px){.nav-logo{font-size:9px !important;letter-spacing:0.16em !important}.nav-item{font-size:8px !important;padding:5px 6px !important}.nav-sep{margin:0 1px !important}}
+.nav-logo{font-weight:400;font-size:13px;letter-spacing:0.28em;color:var(--ink);text-decoration:none;text-transform:uppercase;cursor:pointer}
 .nav-right{display:flex;align-items:center}
-.nav-item{font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-dim);padding:5px 11px;cursor:pointer;text-decoration:none;transition:color .25s;white-space:nowrap;position:relative}
-.nav-item::after{content:'';position:absolute;bottom:0;left:11px;right:11px;height:.5px;background:var(--ink);transform:scaleX(0);transform-origin:left;transition:transform .28s cubic-bezier(.16,1,.3,1);opacity:.5}
-.nav-item:hover{color:var(--ink)}
-.nav-item:hover::after,.nav-item.active::after{transform:scaleX(1)}
-.nav-item.active{color:var(--ink)}
-.nav-sep{width:.5px;height:12px;background:rgba(0,0,0,.12);margin:0 5px;flex-shrink:0}
+.nav-item{font-size:9.5px;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink-dim);padding:5px 11px;cursor:pointer;text-decoration:none;transition:color 0.25s;white-space:nowrap;position:relative}
+.nav-item::after{content:'';position:absolute;bottom:0;left:11px;right:11px;height:0.5px;background:var(--ink);transform:scaleX(0);transform-origin:left;transition:transform 0.28s cubic-bezier(0.16,1,0.3,1);opacity:0.5}
+.nav-item:hover{color:var(--ink)}.nav-item:hover::after{transform:scaleX(1)}
+.nav-item.active{color:var(--ink)}.nav-item.active::after{transform:scaleX(1)}
+.nav-sep{width:0.5px;height:12px;background:rgba(0,0,0,0.12);margin:0 5px;flex-shrink:0}
 .nav-dd{position:relative;display:flex;align-items:center}
-.nav-dd-menu{display:none;position:absolute;top:calc(100% + 4px);left:50%;transform:translateX(-50%);background:var(--white);border-radius:4px;padding:4px 0;min-width:80px;z-index:300;box-shadow:0 4px 16px rgba(0,0,0,.08)}
-.nav-dd-item{display:block;font-size:9px;letter-spacing:.08em;color:var(--ink-mid);padding:5px 14px;cursor:pointer;transition:color .15s,background .15s;white-space:nowrap;text-transform:uppercase}
-.nav-dd-item:hover{color:var(--ink);background:rgba(0,0,0,.03)}
+.nav-dd-menu{display:none;position:absolute;top:calc(100% + 4px);left:50%;transform:translateX(-50%);background:var(--white);border-radius:4px;padding:4px 0;min-width:80px;width:max-content;z-index:300;box-shadow:0 4px 14px rgba(0,0,0,0.08)}
+.nav-dd-item{display:block;font-size:9px;letter-spacing:0.08em;color:var(--ink-mid);padding:5px 14px;cursor:pointer;transition:color 0.15s,background 0.15s;white-space:nowrap;text-transform:uppercase}
+.nav-dd-item:hover{color:var(--ink);background:rgba(0,0,0,0.03)}
 
-/* ── lang bar ── */
-.lang-bar{position:fixed;top:var(--nav-h);left:0;right:0;height:var(--lang-h);display:flex;align-items:center;justify-content:flex-end;padding:0 36px;background:var(--bg);border-bottom:.5px solid rgba(26,26,24,.07);z-index:190}
-.lang-toggle{display:flex;border:.5px solid rgba(26,26,24,.2);border-radius:2px;overflow:hidden}
-.lang-btn{font-size:8px;letter-spacing:.12em;text-transform:uppercase;padding:4px 10px;cursor:pointer;background:transparent;color:var(--ink-dim);border:none;transition:background .15s,color .15s;font-family:'Cormorant Garamond',serif}
-.lang-btn.active{background:rgba(26,26,24,.62);color:var(--bg)}
-.lang-btn:not(.active):hover{color:var(--ink)}
+/* ── LAYOUT ── */
+.layout{position:fixed;top:var(--nav-h);left:0;right:0;bottom:0;display:flex;flex-direction:column}
 
-/* ── page wrap ── */
-.page-wrap{max-width:var(--max-w);margin:0 auto;padding:calc(var(--nav-h) + var(--lang-h) + 40px) var(--pad) 100px}
+/* ── YEAR BAR ── */
+.year-bar{flex-shrink:0;min-height:var(--bar-h);height:auto;display:flex;align-items:center;flex-wrap:wrap;padding:4px 36px;border-bottom:0.5px solid rgba(0,0,0,0.07);column-gap:0;row-gap:0;overflow:visible}
+.bar-title{font-family:'EB Garamond',serif;font-style:italic;font-size:18px;color:var(--ink);margin-right:12px;flex-shrink:0;letter-spacing:0.04em;line-height:var(--bar-h)}
+.bar-sep{width:0.5px;height:14px;background:rgba(0,0,0,0.12);margin-right:14px;flex-shrink:0;align-self:center}
+.yr-item{cursor:pointer;user-select:none;padding:3px 6px;position:relative;flex-shrink:0}
+.yr-label{font-size:14px;color:var(--ink-mid);transition:color 0.18s;line-height:1.4;letter-spacing:0.03em;font-family:'Cormorant Garamond',serif;font-weight:500;display:block}
+.yr-item::after{content:'';position:absolute;bottom:0;left:6px;right:6px;height:0.5px;background:var(--ink);transform:scaleX(0);transform-origin:left;transition:transform 0.25s cubic-bezier(0.16,1,0.3,1);opacity:0.4}
+.yr-item:hover .yr-label{color:var(--ink)}.yr-item:hover::after{transform:scaleX(1)}
+.yr-item.checked .yr-label{color:var(--ink);font-weight:600;font-size:14.5px}.yr-item.checked::after{transform:scaleX(1)}
 
-/* ── Bio ── */
-.bio-with-img{display:grid;grid-template-columns:1fr 260px;gap:0 48px;align-items:start;margin-bottom:40px}
-.bio-img-wrap{width:260px;height:260px;overflow:hidden;align-self:start;flex-shrink:0}
-.bio-img-wrap img{width:100%;height:100%;display:block;object-fit:cover;object-position:center top}
-.bio-text{font-family:'EB Garamond',serif;color:#2a2a27;word-break:keep-all}
-.bio-title{font-size:15px;font-weight:500;line-height:1.7;margin-bottom:1em;letter-spacing:.01em}
-.bio-body{font-size:13px;line-height:2.0;color:var(--ink-mid);text-align:justify}
-.bio-body p{margin-bottom:1.2em}
-.bio-body p:last-child{margin-bottom:0}
-.cv-summary-section{margin-bottom:48px}
-.cv-summary{font-family:'EB Garamond',serif;font-size:13px;line-height:2.0;color:var(--ink-mid);word-break:keep-all;text-align:justify}
-.cv-summary p{margin-bottom:1em}
-.cv-summary p:last-child{margin-bottom:0}
-.stmt-section{margin-bottom:36px}
-.stmt-header-row{display:flex;align-items:baseline;gap:12px;margin-bottom:12px}
-.stmt-lbl{font-size:8.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-dim)}
-.stmt-pdf{font-size:8px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-dim);text-decoration:none;transition:color .15s}
-.stmt-pdf:hover{color:var(--ink)}
-.stmt-body{font-family:'EB Garamond',serif;font-size:13px;line-height:2.0;color:var(--ink-mid);text-align:justify;word-break:keep-all;white-space:pre-wrap}
+/* ── BODY ROW ── */
+.body-row{flex:1;display:flex;overflow:hidden;position:relative}
 
-/* ── 구분선 ── */
-.sec-divider{width:100%;height:.5px;background:rgba(26,26,24,.1);margin:0 0 40px}
-
-/* ══════════════════════════════════════
-   학력 + 소장처 — 나란히, 가운데 정렬
-══════════════════════════════════════ */
-.edu-coll-row{
-  display:flex;
-  justify-content:center;
-  gap:100px;
-  margin-bottom:48px;
+/* ══════════════════════════════════════════
+   INTRO MOSAIC — 첫 페이지 불규칙 그리드
+══════════════════════════════════════════ */
+.intro-zone{
+  position:absolute;inset:0;
+  overflow-y:auto;
+  overflow-x:hidden;
+  scrollbar-width:none;
+  opacity:1;transition:opacity 0.5s ease;
 }
-.edu-coll-block{
-  min-width:0;
-}
-.edu-coll-label{
-  font-size:8px;letter-spacing:.22em;text-transform:uppercase;
-  color:var(--ink-dim);margin-bottom:10px;
-}
-.edu-coll-item{
-  font-family:'EB Garamond',serif;font-size:12.5px;
-  line-height:1.8;color:var(--ink-mid);
+.intro-zone::-webkit-scrollbar{display:none}
+.intro-zone.hidden{opacity:0;pointer-events:none}
+
+/* CSS Grid — 12열 가변, auto 행 */
+.mosaic-grid{
+  display:grid;
+  grid-template-columns:repeat(12,1fr);
+  grid-auto-rows:60px;
+  gap:3px;
+  padding:0 10% 10% 10%;
+  width:100%;
 }
 
-/* ── 구분선 2 ── */
-.sec-divider2{width:100%;height:.5px;background:rgba(26,26,24,.1);margin:0 0 36px}
-
-/* ── 전시 리스트 영역 ── */
-.exh-section{}
-
-/* ── 현재연도 헤더 ── */
-.latest-header-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;padding-bottom:8px;border-bottom:.5px solid rgba(26,26,24,.08)}
-.latest-year-label{font-size:8px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-dim)}
-
-/* ── 테이블 헤더 ── */
-.latest-table-head{display:grid;grid-template-columns:62px 1fr 180px 96px;gap:0 6px;padding:0 0 5px;border-bottom:.5px solid rgba(26,26,24,.1);margin-bottom:0}
-.latest-th{font-size:7.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-dim)}
-
-/* ── 현재연도 행 ── */
-.latest-rows-wrap{overflow:visible}
-.latest-row{display:grid;grid-template-columns:62px minmax(0,1fr) 180px 96px;gap:0 6px;padding:4px 0;border-bottom:.5px solid rgba(26,26,24,.04);font-family:'EB Garamond',serif;font-size:12px;line-height:1.55;color:var(--ink);align-items:baseline}
-.latest-row:last-child{border-bottom:none}
-.latest-cell-type{font-size:10px;color:var(--ink-dim);white-space:nowrap}
-.latest-cell-title{color:var(--ink)}
-.latest-cell-place{font-size:10.5px;color:var(--ink-mid)}
-.latest-cell-date{font-size:10px;color:var(--ink-dim);letter-spacing:.01em;white-space:nowrap}
-
-/* ── 전체리스트 행 ── */
-.panel-row{display:grid;grid-template-columns:36px minmax(0,1fr) 200px;gap:0 6px;padding:3px 0;border-bottom:.5px solid rgba(26,26,24,.04);font-family:'EB Garamond',serif;font-size:12px;line-height:1.55;align-items:baseline}
-.panel-row:last-child{border-bottom:none}
-.panel-year{font-size:10px;color:var(--ink-dim);letter-spacing:.03em}
-.panel-title{color:var(--ink)}
-.panel-place{font-size:10.5px;color:var(--ink-mid);text-align:left}
-
-/* ── 네비바 블록 ── */
-.full-list-block{margin-top:20px;border-top:.5px solid rgba(26,26,24,.1)}
-.full-list-wrap{display:flex;align-items:center;padding:10px 0;border-bottom:.5px solid rgba(26,26,24,.07);gap:0}
-.full-list-label{font-size:8px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink);font-weight:600;white-space:nowrap;flex-shrink:0}
-.full-list-sep{width:.5px;height:10px;background:rgba(26,26,24,.25);margin:0 14px;flex-shrink:0}
-.cv-tabs{display:flex;gap:0;align-items:center;flex:1}
-.cv-tab{font-size:8px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-dim);padding:2px 12px 2px 0;cursor:pointer;transition:color .2s;white-space:nowrap}
-.cv-tab:hover{color:var(--ink-mid)}
-.cv-tab.active{color:var(--ink);font-weight:700;letter-spacing:.13em;font-size:8.5px}
-.back-btn{display:none;font-size:7.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-dim);cursor:pointer;white-space:nowrap;border:.5px solid rgba(26,26,24,.2);border-radius:2px;padding:2px 8px;background:transparent;font-family:'Cormorant Garamond',serif;transition:color .15s,border-color .15s;margin-left:auto}
-.back-btn:hover{color:var(--ink);border-color:rgba(26,26,24,.4)}
-.back-btn.visible{display:inline-block}
-.full-list-rows{margin-top:4px}
-
-/* place */
-.place-sep{color:var(--ink-dim);opacity:.5;font-size:9px}
-.place-city{font-size:10px;color:var(--ink-dim)}
-.exh-link{color:inherit;text-decoration:none;transition:opacity .2s}
-.exh-link:hover{opacity:.5}
-
-/* ── footer ── */
-.cv-footer{margin-top:56px;padding-top:28px;border-top:.5px solid rgba(26,26,24,.1);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px}
-.cv-pdf-link{display:inline-flex;align-items:center;gap:7px;font-family:'Cormorant Garamond',serif;font-size:8px;letter-spacing:.14em;text-transform:uppercase;color:var(--bg);text-decoration:none;background:rgba(26,26,24,.55);padding:4px 12px 4px 10px;border-radius:2px;transition:background .2s}
-.cv-pdf-link:hover{background:rgba(26,26,24,.75)}
-.social-links{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
-.social-link{display:inline-flex;align-items:center;gap:6px;text-decoration:none;font-size:8px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-mid);padding:4px 10px;border:.5px solid rgba(26,26,24,.22);border-radius:2px;background:transparent;transition:color .2s,border-color .2s,background .2s}
-.social-link:hover{color:var(--ink);border-color:rgba(26,26,24,.45);background:rgba(26,26,24,.05)}
-.social-link svg{width:10px;height:10px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;opacity:.7}
-.loading{padding:60px 0;text-align:center;font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-dim)}
-
-/* ════════════════════
-   모바일 ≤600px
-════════════════════ */
-@media(max-width:600px){
-  :root{--pad:20px;--lang-h:40px}
-  nav{padding:0 16px}
-  .lang-bar{padding:0 16px}
-  html,body{overflow:auto !important;height:auto !important}
-  .page-wrap{position:static;padding:calc(var(--nav-h) + var(--lang-h) + 24px) var(--pad) 80px;max-width:100%;margin:0}
-  .bio-with-img{grid-template-columns:1fr;gap:20px 0}
-  .bio-img-wrap{order:-1}
-  .bio-img-wrap img{max-height:240px;width:100%;object-fit:cover}
-  .bio-title{font-size:13px;margin-bottom:.7em}
-  .bio-body{font-size:11.5px;line-height:1.75}
-  .cv-summary-section{margin-bottom:24px}
-  .cv-summary{font-size:11.5px;line-height:1.75}
-  .sec-divider{margin:0 0 24px}
-
-  /* 학력+소장처 모바일: 세로 */
-  .edu-coll-row{flex-direction:column;gap:28px;align-items:flex-start;margin-bottom:32px}
-
-  .latest-header-row{position:sticky;top:calc(var(--nav-h) + var(--lang-h));background:var(--bg);z-index:100;padding:8px 0 6px;margin-bottom:0;border-bottom:.5px solid rgba(26,26,24,.08);display:flex;align-items:center;justify-content:space-between;}
-  .latest-table-head{display:grid;grid-template-columns:52px minmax(0,1fr) 100px;gap:0 6px;padding:5px 0 4px;border-bottom:.5px solid rgba(26,26,24,.1);position:sticky;top:calc(var(--nav-h) + var(--lang-h) + 34px);background:var(--bg);z-index:99;}
-  .latest-th:last-child{display:none}
-  .latest-row{grid-template-columns:52px minmax(0,1fr) 100px;gap:0 6px;padding:5px 0;font-size:11.5px;}
-  .latest-cell-type{font-size:9.5px}
-  .latest-cell-place{font-size:10px}
-  .latest-cell-date{display:none}
-  .full-list-block{margin-top:20px}
-  .full-list-wrap{position:static;background:var(--bg);z-index:100;padding:8px 0;border-top:.5px solid rgba(26,26,24,.1);border-bottom:.5px solid rgba(26,26,24,.07);}
-  .full-list-label{font-size:7px;letter-spacing:.14em}
-  .cv-tab{font-size:7px;letter-spacing:.05em;padding:0 7px 0 0}
-  .cv-tab.active{font-size:7.5px}
-  .full-list-rows{padding:4px 0 40px}
-  .panel-row{grid-template-columns:28px minmax(0,1fr) 100px;gap:0 6px;padding:5px 0;font-size:11.5px;}
-  .panel-year{font-size:9.5px}
-  .panel-place{font-size:10px}
-  .cv-footer{display:none}
+/* 모자이크 타일 */
+.mtile{
+  position:relative;overflow:hidden;cursor:pointer;
+  background:rgba(0,0,0,0.04);
+  opacity:0;
+  transform:scale(0.96) translateY(8px);
+  /* transition은 JS로 개별 설정 */
 }
+.mtile.revealed{
+  opacity:1;
+  transform:scale(1) translateY(0);
+}
+.mtile img{
+  width:100%;height:100%;
+  object-fit:cover;display:block;
+  opacity:0;
+  transition:opacity 0.8s ease;
+  filter:blur(4px);
+  transition:opacity 0.9s ease, filter 0.9s ease, transform 0.4s ease;
+}
+.mtile img.loaded{opacity:1;filter:blur(0)}
+.mtile:hover img{transform:scale(1.04)}
+
+/* 연도 라벨 — 항상 표시, 좌상단 */
+.mtile-year{
+  position:absolute;top:6px;left:7px;
+  font-family:'Cormorant Garamond',serif;
+  font-size:8px;font-weight:500;
+  letter-spacing:0.12em;
+  color:rgba(255,255,255,0.85);
+  text-shadow:0 1px 6px rgba(0,0,0,0.4);
+  pointer-events:none;
+  z-index:4;line-height:1;
+  transition:font-size 0.22s cubic-bezier(0.16,1,0.3,1), opacity 0.22s ease;
+}
+.mtile:hover .mtile-year{
+  font-size:22px;
+  font-style:italic;
+  letter-spacing:0.06em;
+  color:rgba(255,255,255,0.95);
+  text-shadow:0 2px 12px rgba(0,0,0,0.3);
+}
+
+/* 타일 hover 오버레이 — dim만, 캡션 없음 */
+.mtile-overlay{
+  position:absolute;inset:0;
+  background:rgba(26,26,24,0.18);
+  opacity:0;transition:opacity 0.22s ease;
+  pointer-events:none;
+}
+.mtile:hover .mtile-overlay{opacity:1}
+
+/* 타일 스켈레톤 */
+.mtile-sk{position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,0.04) 25%,rgba(0,0,0,0.07) 50%,rgba(0,0,0,0.04) 75%);background-size:200% 100%;animation:skShimmer 1.6s ease infinite}
+@keyframes skShimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+
+/* ── GRID ZONE (연도 선택 후) ── */
+.grid-zone{position:absolute;inset:0;overflow-y:auto;padding:16px 10% 48px 36px;scrollbar-width:none;opacity:0;pointer-events:none;transition:opacity 0.5s ease}
+.grid-zone::-webkit-scrollbar{display:none}
+.grid-zone.open{opacity:1;pointer-events:all}
+.year-section{margin-bottom:40px}
+.year-section-header{width:80px;float:left;padding-top:4px;padding-right:16px}
+.year-section-grid{overflow:hidden}
+.yd-label{font-family:'EB Garamond',serif;font-style:italic;font-size:18px;color:var(--ink);letter-spacing:0.04em;line-height:1.3;display:block}
+.yd-count{font-size:9px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-mid);font-weight:500;display:block;margin-top:3px}
+
+/* ── 랜덤 그리드 — 12열 기반 ── */
+.grid{display:grid;grid-template-columns:repeat(12,1fr);grid-auto-rows:52px;gap:4px}
+@media(max-width:1200px){.grid{grid-template-columns:repeat(10,1fr);grid-auto-rows:48px}}
+@media(max-width:900px){.grid{grid-template-columns:repeat(8,1fr);grid-auto-rows:44px}}
+
+/* ── 카드 기본 ── */
+.card{position:relative;overflow:hidden;cursor:pointer;background:rgba(0,0,0,0.04);opacity:0;transform:translateY(6px);transition:opacity 0.35s ease,transform 0.4s cubic-bezier(0.16,1,0.3,1)}
+.card.revealed{opacity:1;transform:translateY(0)}
+.card img{width:100%;height:100%;object-fit:cover;display:block;opacity:0;filter:blur(3px);transition:opacity 0.5s ease,filter 0.6s ease,transform 0.35s ease;position:absolute;inset:0}
+.card img.loaded{opacity:1;filter:blur(0)}
+.card:hover img{transform:scale(1.05)}
+.card-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(26,26,24,0.6) 0%,transparent 50%);opacity:0;transition:opacity 0.22s ease;display:flex;flex-direction:column;justify-content:flex-end;padding:7px 8px}
+.card:hover .card-overlay{opacity:1}
+.card-title{font-family:'EB Garamond',serif;font-style:italic;font-size:10px;color:#fff;line-height:1.3;margin-bottom:1px}
+.card-meta{font-size:6.5px;letter-spacing:0.08em;color:rgba(255,255,255,0.5);text-transform:uppercase}
+.card-skeleton{position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,0.04) 25%,rgba(0,0,0,0.07) 50%,rgba(0,0,0,0.04) 75%);background-size:200% 100%;animation:cardShimmer 1.4s ease infinite}
+@keyframes cardShimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+
+.load-sentinel{height:1px}
+.loading-msg{padding:40px;text-align:center;font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink-dim)}
+
+/* ── PC 모달 ── */
+.modal-bg{position:fixed;inset:0;background:rgba(26,26,24,0.82);z-index:500;opacity:0;pointer-events:none;transition:opacity 0.3s ease;display:flex;align-items:center;justify-content:center;padding:5%}
+.modal-bg.open{opacity:1;pointer-events:all}
+.modal{background:var(--white);max-width:660px;width:100%;max-height:90vh;display:flex;flex-direction:column;overflow:hidden;transform:translateY(16px) scale(0.976);transition:transform 0.34s cubic-bezier(0.16,1,0.3,1);position:relative;border-radius:2px}
+.modal-bg.open .modal{transform:translateY(0) scale(1)}
+.modal-img-area{width:100%;background:#f0efec;display:flex;align-items:center;justify-content:center;overflow:hidden;padding:0;max-height:58vh;flex-shrink:0}
+.modal-img-area img{width:100%;height:100%;object-fit:contain;display:block;max-height:58vh;transition:opacity 0.3s ease}
+.modal-img-area iframe{width:100%;height:58vh;border:none;display:block}
+.modal-panel{width:100%;padding:22px 28px 24px;display:flex;flex-direction:column;overflow-y:auto;text-align:center;align-items:center}
+.modal-x{position:absolute;top:12px;right:14px;font-size:18px;line-height:1;color:rgba(26,26,24,0.4);cursor:pointer;background:none;border:none;font-family:serif;transition:color 0.15s;z-index:10}
+.modal-x:hover{color:var(--ink)}
+.m-title{font-family:'EB Garamond',serif;font-style:italic;font-size:18px;color:var(--ink);line-height:1.3;margin-bottom:6px}
+.m-meta{font-size:7.5px;letter-spacing:0.14em;color:var(--ink-dim);text-transform:uppercase;margin-bottom:2px}
+.m-rule{width:20px;height:0.5px;background:rgba(0,0,0,0.12);margin:12px auto}
+.m-desc{font-size:11px;line-height:1.9;color:var(--ink-mid);word-break:keep-all}
+.m-tags{margin-top:14px;display:flex;flex-wrap:wrap;gap:4px;justify-content:center}
+.m-tag{font-size:7.5px;letter-spacing:0.05em;padding:3px 8px;border-radius:20px;color:var(--ink-dim);border:0.5px solid rgba(0,0,0,0.1)}
+.modal-arr{position:fixed;top:50%;transform:translateY(-50%);background:rgba(255,255,255,0.12);backdrop-filter:blur(6px);border:none;color:#fff;font-size:24px;width:44px;height:44px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background 0.2s;font-family:serif}
+.modal-arr:hover{background:rgba(255,255,255,0.25)}
+.arr-prev{left:16px}.arr-next{right:16px}
+
+/* ── PAGE LOADER ── */
+#page-loader{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:9999;opacity:1;transition:opacity 0.6s cubic-bezier(0.16,1,0.3,1);pointer-events:all}
+#page-loader.hidden{opacity:0;pointer-events:none}
+.loader-inner{display:flex;flex-direction:column;align-items:center;gap:20px}
+.loader-name{font-family:'EB Garamond',serif;font-style:italic;font-size:clamp(18px,3vw,28px);letter-spacing:0.18em;color:var(--ink);opacity:0;animation:loaderFadeIn 0.8s ease 0.2s forwards}
+.loader-line{width:0;height:0.5px;background:var(--ink);opacity:0.3;animation:loaderLine 1s cubic-bezier(0.16,1,0.3,1) 0.4s forwards}
+@keyframes loaderFadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+@keyframes loaderLine{from{width:0}to{width:clamp(80px,12vw,140px)}}
+
+@keyframes pageFadeIn{from{opacity:0}to{opacity:1}}
+.page-fade{animation:pageFadeIn 0.4s ease forwards}
+body.fade-out{opacity:0;transition:opacity 0.3s ease}
+
+/* ── 모바일 ── */
+.m-year-bar{display:none}
 @media(max-width:480px){
-  .nav-logo{font-size:10px;letter-spacing:.18em}
-  .nav-item{font-size:8px;padding:5px 6px}
-  .nav-sep{margin:0 1px}
+  html,body{overflow:auto;height:auto}
+  .layout{position:static;margin-top:calc(var(--nav-h)+44px);height:auto;display:block}
+  .year-bar{display:none}
+  .body-row{display:block;overflow:visible;height:auto;position:static}
+  .intro-zone{position:static;height:auto}
+  .mosaic-grid{grid-auto-rows:50px;height:auto;min-height:60vh}
+  .m-year-bar{display:flex !important;align-items:center;padding:8px 12px;border-bottom:0.5px solid rgba(0,0,0,0.08);background:var(--bg);position:fixed;top:var(--nav-h);left:0;right:0;z-index:150;overflow-x:auto;scrollbar-width:none;gap:0}
+  .m-year-bar::-webkit-scrollbar{display:none}
+  .m-yr-active{font-family:'EB Garamond',serif;font-style:italic;font-size:26px;color:var(--ink);line-height:1;margin-right:16px;flex-shrink:0;cursor:default}
+  .m-yr-sep{width:0.5px;height:16px;background:rgba(0,0,0,0.15);margin-right:14px;flex-shrink:0}
+  .m-yr-list{display:flex;align-items:center;gap:2px;overflow-x:auto;scrollbar-width:none}
+  .m-yr-list::-webkit-scrollbar{display:none}
+  .m-yr-item{padding:3px 7px;font-size:11px;color:var(--ink-dim);cursor:pointer;font-family:'Cormorant Garamond',serif;transition:color 0.15s;white-space:nowrap;flex-shrink:0}
+  .m-yr-item:hover,.m-yr-item.checked{color:var(--ink);font-weight:500}
+  .grid-zone{position:static;opacity:1 !important;pointer-events:all;padding:60px 16px 120px;display:block !important;transition:filter 0.3s ease}
+  .grid{display:block;column-count:2;column-gap:5px}
+  .card{aspect-ratio:unset;background:rgba(0,0,0,0.04);display:inline-block;width:100%;break-inside:avoid;margin-bottom:5px}
+  .card img{position:static;width:100%;height:auto;display:block;filter:none}
+  .card img.loaded{filter:none}
+  .card:hover img{transform:none}
+  .card-overlay{display:none !important}
+  .load-sentinel{column-span:all}
+  .modal-bg{display:none !important}
+  body.sheet-open .grid-zone{filter:blur(3px)}
+  .bs-sheet{position:fixed;left:0;right:0;bottom:0;z-index:600;background:var(--white);border-radius:16px 16px 0 0;transform:translateY(100%);transition:transform 0.38s cubic-bezier(0.16,1,0.3,1);will-change:transform;overflow-y:auto;max-height:92vh}
+  .bs-sheet.half{transform:translateY(0%)}.bs-sheet.full{transform:translateY(0)}
+  .bs-handle-wrap{display:flex;justify-content:center;padding:10px 0 6px;cursor:grab}
+  .bs-handle{width:36px;height:4px;border-radius:2px;background:rgba(0,0,0,0.15)}
+  .bs-img-area{width:100%;padding:0 20px 12px;display:flex;align-items:center;justify-content:center}
+  .bs-img-area img{max-width:100%;max-height:48vh;object-fit:contain;display:block;opacity:0;transition:opacity 0.3s ease}
+  .bs-img-area iframe{width:100%;height:48vw;border:none;display:block}
+  .bs-info{padding:0 20px 40px;overflow-y:auto;max-height:none}
+  .bs-title{font-family:'EB Garamond',serif;font-style:italic;font-size:20px;color:var(--ink);line-height:1.3;margin-bottom:6px}
+  .bs-meta{font-size:8px;letter-spacing:0.14em;color:var(--ink-dim);text-transform:uppercase;margin-bottom:2px}
+  .bs-rule{width:20px;height:0.5px;background:rgba(0,0,0,0.13);margin:14px 0}
+  .bs-desc{font-size:12px;line-height:1.9;color:var(--ink-mid);word-break:keep-all}
+  .bs-tags{margin-top:16px;display:flex;flex-wrap:wrap;gap:4px}
+  .bs-tag{font-size:7.5px;letter-spacing:0.05em;padding:3px 8px;border-radius:20px;color:var(--ink-dim);border:0.5px solid rgba(0,0,0,0.1)}
+  .bs-close{position:absolute;top:12px;right:14px;width:28px;height:28px;border-radius:50%;background:rgba(0,0,0,0.07);border:none;font-size:16px;color:var(--ink-dim);cursor:pointer;display:flex;align-items:center;justify-content:center}
+  .bs-nav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(0,0,0,0.06);border:none;width:36px;height:36px;border-radius:50%;font-size:20px;color:var(--ink-mid);cursor:pointer;display:flex;align-items:center;justify-content:center;font-family:serif}
+  .bs-prev{left:10px}.bs-next{right:10px}
 }
 </style>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YBRBFCMMCB"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-YBRBFCMMCB');</script>
 </head>
 <body>
+
+<div id="page-loader">
+  <div class="loader-inner">
+    <div class="loader-name">Won Jeong Cho</div>
+    <div class="loader-line"></div>
+  </div>
+</div>
+
 <nav>
   <span class="nav-logo" onclick="go('index')">Won Jeong Cho</span>
   <div class="nav-right">
     <div class="nav-dd" id="navArchive">
-      <span class="nav-item">Archive</span>
+      <span class="nav-item active">Archive</span>
       <div class="nav-dd-menu">
-        <span class="nav-dd-item" onclick="go('year')">Year</span>
+        <span class="nav-dd-item" onclick="go('year')" style="color:var(--ink);font-weight:500">Year</span>
         <span class="nav-dd-item" onclick="go('context')">Context</span>
       </div>
     </div>
@@ -211,310 +282,552 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
       </div>
     </div>
     <div class="nav-sep"></div>
-    <span class="nav-item active" onclick="go('about')">About</span>
+    <span class="nav-item" onclick="go('about')">About</span>
   </div>
 </nav>
 
-<div class="lang-bar">
-  <div class="lang-toggle">
-    <button class="lang-btn active" id="btnKo" onclick="setLang('ko')">한국어</button>
-    <button class="lang-btn" id="btnEn" onclick="setLang('en')">English</button>
+<div class="m-year-bar" id="mYearBar">
+  <div class="m-yr-active" id="mYrActive"></div>
+  <div class="m-yr-sep"></div>
+  <div class="m-yr-list" id="mYrList"></div>
+</div>
+
+<div class="layout">
+  <div class="year-bar" id="yearBar">
+    <span class="bar-title">Year</span>
+    <div class="bar-sep"></div>
+    <div class="year-grid" id="yearGrid" style="display:flex;flex-direction:row;flex-wrap:wrap;gap:0;flex:1;min-width:0"></div>
+  </div>
+  <div class="body-row">
+    <div style="flex:1;min-width:0;position:relative;overflow:hidden;height:100%">
+
+      <!-- ★ INTRO MOSAIC -->
+      <div class="intro-zone" id="introZone">
+        <div class="mosaic-grid" id="mosaicGrid"></div>
+      </div>
+
+      <!-- 연도 선택 후 그리드 -->
+      <div class="grid-zone" id="gridZone">
+        <div id="gridContainer"></div>
+      </div>
+
+    </div>
   </div>
 </div>
 
-<div class="page-wrap">
-
-  <!-- Bio + 이미지 -->
-  <div class="bio-with-img" id="bioCvWrap">
-    <div id="bioSection"></div>
-    <div id="bioImgWrap" style="display:none;width:260px;height:260px;overflow:hidden;align-self:start"><img id="bioImg" src="" alt="" style="width:100%;height:100%;object-fit:cover;object-position:center top;display:block"></div>
+<!-- PC 모달 -->
+<div class="modal-bg" id="modalBg" onclick="bgClose(event)">
+  <div class="modal">
+    <button class="modal-arr arr-prev" id="arrPrev" onclick="navModal(-1)">‹</button>
+    <div class="modal-img-area" id="modalImgArea">
+      <img id="mImg" src="" alt="" style="opacity:0">
+    </div>
+    <div class="modal-panel">
+      <button class="modal-x" onclick="closeModal()">×</button>
+      <div class="m-title" id="mTitle"></div>
+      <div class="m-meta" id="mYear"></div>
+      <div class="m-meta" id="mMedium"></div>
+      <div class="m-meta" id="mDim"></div>
+      <div class="m-rule"></div>
+      <div class="m-desc" id="mDesc"></div>
+      <div class="m-tags" id="mTags"></div>
+    </div>
+    <button class="modal-arr arr-next" id="arrNext" onclick="navModal(1)">›</button>
   </div>
+</div>
 
-  <!-- Statement -->
-  <div class="stmt-section" id="stmtSection" style="display:none">
-    <div class="stmt-header-row">
-      <span class="stmt-lbl">Artist Statement</span>
-      <a class="stmt-pdf" id="stmtPdfLink" href="#" target="_blank" style="display:none">PDF ↗</a>
-    </div>
-    <div class="stmt-body" id="stmtBody"></div>
-  </div>
-
-  <!-- CV 요약 -->
-  <div class="cv-summary-section" id="cvSummarySection" style="display:none"></div>
-
-  <div class="sec-divider"></div>
-
-  <!-- ★ 학력 + 소장처 나란히, 가운데 -->
-  <div class="edu-coll-row">
-    <div class="edu-coll-block">
-      <div class="edu-coll-label" id="labelEdu">학력</div>
-      <div class="edu-coll-item" id="edu1"></div>
-      <div class="edu-coll-item" id="edu2"></div>
-    </div>
-    <div class="edu-coll-block">
-      <div class="edu-coll-label" id="labelColl">주요 작품 소장처</div>
-      <div id="collSection" class="edu-coll-item"></div>
-    </div>
-  </div>
-
-  <div class="sec-divider2"></div>
-
-  <!-- ★ 전시 리스트 (하단 전체 폭) -->
-  <div class="exh-section">
-    <div class="latest-section" id="latestSection">
-      <div class="latest-header-row">
-        <span class="latest-year-label" id="latestYearLabel">2026년 전시</span>
-      </div>
-      <div class="latest-table-head" id="latestTableHead">
-        <span class="latest-th" id="thType">구분</span>
-        <span class="latest-th" id="thTitle">제목</span>
-        <span class="latest-th" id="thPlace">장소</span>
-        <span class="latest-th" id="thDate">날짜</span>
-      </div>
-      <div class="latest-rows-wrap">
-        <div id="latestRows"><div class="loading">Loading…</div></div>
-      </div>
-    </div>
-
-    <div class="full-list-block" id="fullListBlock">
-      <div class="full-list-wrap">
-        <span class="full-list-label" id="labelFullList">전시 전체 리스트</span>
-        <div class="full-list-sep"></div>
-        <div class="cv-tabs">
-          <div class="cv-tab" id="tabSolo" onclick="setCvTab('solo')"><span id="labelSolo">개인 및 초대전</span></div>
-          <div class="cv-tab" id="tabGroup" onclick="setCvTab('group')"><span id="labelGroup">단체전</span></div>
-          <div class="cv-tab" id="tabFair" onclick="setCvTab('fair')">Art Fair</div>
-        </div>
-        <button class="back-btn" id="backBtn" onclick="showLatestYear()">← 현재 연도</button>
-      </div>
-      <div class="full-list-rows" id="fullListRows" style="display:none"></div>
-    </div>
-  </div>
-
-  <div class="cv-footer">
-    <a class="cv-pdf-link" id="pdfLink" href="#" target="_blank" style="display:none">
-      <svg width="10" height="12" viewBox="0 0 10 12" fill="none"><rect x=".5" y=".5" width="9" height="11" rx="1" stroke="currentColor" stroke-width=".8"/><line x1="2" y1="4" x2="8" y2="4" stroke="currentColor" stroke-width=".8"/><line x1="2" y1="6" x2="8" y2="6" stroke="currentColor" stroke-width=".8"/><line x1="2" y1="8" x2="5.5" y2="8" stroke="currentColor" stroke-width=".8"/></svg>
-      <span id="pdfLabel">CV Download</span>
-    </a>
-    <div class="social-links">
-      <a class="social-link" href="mailto:wonjeong.cho@gmail.com">
-        <svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,14 22,4"/></svg>Email
-      </a>
-      <a class="social-link" href="https://www.instagram.com/wonjeong.cho/" target="_blank">
-        <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r=".5" fill="currentColor" stroke="none"/></svg>Instagram
-      </a>
-      <a class="social-link" href="https://www.saatchiart.com/en-kr/chowonjeong" target="_blank">
-        <svg viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>Saatchi Art
-      </a>
-    </div>
+<!-- 모바일 바텀시트 -->
+<div class="bs-sheet" id="bsSheet">
+  <div class="bs-handle-wrap" id="bsHandle"><div class="bs-handle"></div></div>
+  <button class="bs-close" onclick="closeSheet()">×</button>
+  <button class="bs-nav bs-prev" id="bsPrev" onclick="navSheet(-1)">‹</button>
+  <button class="bs-nav bs-next" id="bsNext" onclick="navSheet(1)">›</button>
+  <div class="bs-img-area" id="bsImgArea"><img id="bsImg" src="" alt=""></div>
+  <div class="bs-info">
+    <div class="bs-title" id="bsTitle"></div>
+    <div class="bs-meta" id="bsYear"></div>
+    <div class="bs-meta" id="bsMedium"></div>
+    <div class="bs-meta" id="bsDim"></div>
+    <div class="bs-rule"></div>
+    <div class="bs-desc" id="bsDesc"></div>
+    <div class="bs-tags" id="bsTags"></div>
   </div>
 </div>
 
 <script>
-var D=null, lang='ko', activeTab=null, latestYear=null;
+var ALL_YEARS=[],selectedYears=[],allFiltered=[],flatFiltered=[],modalIdx=0;
+var CHUNK_SIZE=24,chunkSentinel=null,chunkObserver=null,yearRendered={};
+var allWorks=[];
+var sheetState='closed',dragStartY=0,dragStartState='';
+/* intro용 flat list */
+var introWorks=[];
 
-function go(p){window.location.href=p+'.html';}
+function sel(id){return document.getElementById(id);}
+function isMobile(){return window.innerWidth<=600;}
+function go(page){document.body.classList.add('fade-out');setTimeout(function(){window.location.href=page+'.html';},280);}
+function rnd(min,max){return Math.random()*(max-min)+min;}
+function rndInt(min,max){return Math.floor(rnd(min,max+1));}
+function shuffle(arr){var a=arr.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}return a;}
 
+document.addEventListener('DOMContentLoaded',function(){
+  document.body.classList.add('page-fade');
+  setTimeout(function(){document.body.classList.remove('page-fade');},500);
+});
+
+/* ══════════════════════════════════════
+   INTRO MOSAIC 빌드
+   - 각 연도 그룹의 첫 번째 이미지 수집
+   - 전체에서 랜덤 이미지 추가 (총 ~40장)
+   - CSS Grid span으로 불규칙 크기 부여
+   - 랜덤 딜레이로 천천히 나타남
+══════════════════════════════════════ */
+
+/* Mosaic tile observer — 보이면 revealed 클래스만 추가 */
+var mosaicObserver=new IntersectionObserver(function(entries,obs){
+  entries.forEach(function(e){
+    if(!e.isIntersecting)return;
+    obs.unobserve(e.target);
+    e.target.classList.add('revealed');
+  });
+},{rootMargin:'0px'});
+
+function buildMosaic(works){
+  /* 1. 연도 그룹별 첫 이미지 */
+  var yearGroups={};
+  works.forEach(function(w){
+    var y=parseInt(w['year']||0);
+    if(!y)return;
+    if(!yearGroups[y])yearGroups[y]=[];
+    yearGroups[y].push(w);
+  });
+  var seeds=[];
+  Object.keys(yearGroups).forEach(function(y){
+    var g=yearGroups[y];
+    /* 이미지가 있는 첫 항목 */
+    for(var i=0;i<g.length;i++){
+      if(g[i]['thumb']||g[i]['full']){seeds.push(g[i]);break;}
+    }
+  });
+
+  /* 2. 전체에서 이미지 있는 것만 필터 후 랜덤 추가 */
+  var imgWorks=works.filter(function(w){return !!(w['thumb']||w['full']);});
+  var extra=shuffle(imgWorks).slice(0,Math.max(0,40-seeds.length));
+
+  /* 3. 합치고 섞기 */
+  var pool=shuffle(seeds.concat(extra));
+  introWorks=pool; /* 모달용 저장 */
+
+  /* 4. 그리드 타일 크기 패턴 — col/row span */
+  /* 12열 기준. span 패턴을 랜덤 조합 */
+  var spanOptions=[
+    {c:1,r:2},{c:1,r:2},{c:1,r:3},  /* 좁고 보통 */
+    {c:2,r:2},{c:2,r:3},             /* 중간 */
+    {c:2,r:4},{c:3,r:3},             /* 크게 */
+    {c:1,r:2},{c:1,r:2},             /* 좁은 거 더 많이 */
+    {c:3,r:2},{c:2,r:2}
+  ];
+
+  var grid=sel('mosaicGrid');
+  grid.innerHTML='';
+
+  pool.forEach(function(row,i){
+    var span=spanOptions[i%spanOptions.length];
+    /* 일부는 한 단계 더 랜덤 변형 */
+    if(Math.random()<0.3){
+      span={c:span.c,r:span.r+(Math.random()<0.5?1:-1)};
+      span.r=Math.max(2,span.r);
+    }
+
+    var tile=document.createElement('div');
+    tile.className='mtile';
+    tile.style.gridColumn='span '+span.c;
+    tile.style.gridRow='span '+span.r;
+
+    /* 랜덤 reveal 딜레이: 0.1s ~ 2.2s */
+    var delay=rnd(0.05,2.2);
+    /* 랜덤 transition 속도: 0.5s ~ 1.2s */
+    var dur=rnd(0.5,1.2);
+    tile.style.transition='opacity '+dur+'s ease '+delay+'s, transform '+dur+'s cubic-bezier(0.16,1,0.3,1) '+delay+'s';
+
+    /* 스켈레톤 */
+    var sk=document.createElement('div');sk.className='mtile-sk';tile.appendChild(sk);
+
+    /* 이미지 — 바로 로드 (lazy 없음) */
+    var img=document.createElement('img');
+    var src=row['thumb']||row['full']||'';
+    img.alt=row['title']||'';
+    img.onload=function(){
+      img.classList.add('loaded');
+      if(sk.parentNode)sk.parentNode.removeChild(sk);
+    };
+    img.onerror=function(){
+      var m=(src||'').match(/[?&]id=([a-zA-Z0-9_-]{10,})/);
+      if(m&&img.src.indexOf('w400')===-1){img.src='https://drive.google.com/thumbnail?id='+m[1]+'&sz=w400';}
+      else{if(sk.parentNode)sk.parentNode.removeChild(sk);}
+    };
+    if(src)img.src=src;
+    tile.appendChild(img);
+
+    /* 오버레이 — dim용 */
+    var ov=document.createElement('div');ov.className='mtile-overlay';
+    tile.appendChild(ov);
+
+    /* 연도 라벨 — 항상 표시 */
+    var rowYr=row['year']||'';
+    if(rowYr){
+      var yrLabel=document.createElement('div');
+      yrLabel.className='mtile-year';
+      yrLabel.textContent=rowYr;
+      tile.appendChild(yrLabel);
+    }
+
+    /* 클릭 → 해당 연도로 이동 */
+    (function(yr){
+      tile.addEventListener('click',function(){
+        if(yr)selectYear(parseInt(yr));
+      });
+    })(row['year']);
+
+    grid.appendChild(tile);
+
+    /* 랜덤 딜레이 후 reveal — observer 불안정 방지 */
+    (function(t,d){
+      setTimeout(function(){t.classList.add('revealed');},d*1000);
+    })(tile, delay);
+  });
+}
+
+/* ══════════════════════════════════════
+   YEAR BAR
+══════════════════════════════════════ */
+function buildYearGrid(){
+  var grid=sel('yearGrid');
+  if(!ALL_YEARS.length){grid.innerHTML='<div style="font-size:8px;color:var(--ink-dim)">연도 없음</div>';return;}
+  grid.innerHTML=ALL_YEARS.map(function(yr){
+    return '<div class="yr-item" id="yr-'+yr+'" onclick="selectYear('+yr+')"><span class="yr-label">'+yr+'</span></div>';
+  }).join('');
+  buildMobileYearBar();
+}
+
+function buildMobileYearBar(){
+  var activeEl=sel('mYrActive'),listEl=sel('mYrList');
+  if(!activeEl||!listEl)return;
+  var curYr=selectedYears.length?selectedYears[0]:(ALL_YEARS[0]||'');
+  activeEl.textContent=curYr||'';
+  listEl.innerHTML='';
+  ALL_YEARS.forEach(function(yr){
+    if(yr===curYr)return;
+    var div=document.createElement('div');
+    div.className='m-yr-item';div.textContent=yr;
+    div.addEventListener('click',function(){selectYear(yr);});
+    listEl.appendChild(div);
+  });
+}
+
+function updateMobileYearBar(){
+  var activeEl=sel('mYrActive'),listEl=sel('mYrList');
+  if(!activeEl||!listEl)return;
+  var curYr=selectedYears.length?selectedYears[0]:(ALL_YEARS[0]||'');
+  activeEl.textContent=curYr||'';
+  listEl.innerHTML='';
+  ALL_YEARS.forEach(function(yr){
+    if(yr===curYr)return;
+    var div=document.createElement('div');
+    div.className='m-yr-item';div.textContent=yr;
+    div.addEventListener('click',function(){selectYear(yr);});
+    listEl.appendChild(div);
+  });
+}
+
+/* selectYear: 연도 클릭 — 모자이크 숨기고 그리드 오픈 */
+function selectYear(yr){
+  /* 이미 선택된 경우 토글 */
+  var already=selectedYears.length===1&&selectedYears[0]===yr;
+  ALL_YEARS.forEach(function(y){var e=sel('yr-'+y);if(e)e.classList.remove('checked');});
+  if(already){
+    selectedYears=[];
+    /* 모자이크로 복귀 */
+    sel('introZone').classList.remove('hidden');
+    sel('gridZone').classList.remove('open');
+    sel('gridContainer').innerHTML='';
+    allFiltered=[];flatFiltered=[];
+    return;
+  }
+  selectedYears=[yr];
+  var el=sel('yr-'+yr);if(el)el.classList.add('checked');
+  if(isMobile())updateMobileYearBar();
+  /* 모자이크 숨기고 그리드 표시 */
+  sel('introZone').classList.add('hidden');
+  fetchAndRender();
+}
+
+/* ══════════════════════════════════════
+   GRID ZONE (연도 선택 후)
+══════════════════════════════════════ */
+function fetchAndRender(){
+  disconnectChunkObserver();
+  if(!selectedYears.length){
+    sel('gridZone').classList.remove('open');
+    sel('gridContainer').innerHTML='';allFiltered=[];flatFiltered=[];return;
+  }
+  sel('gridZone').classList.add('open');
+  sel('gridContainer').innerHTML='<div class="loading-msg">Loading…</div>';
+  var yearsDesc=selectedYears.slice().sort(function(a,b){return b-a;});
+  allFiltered=[];flatFiltered=[];
+  yearsDesc.forEach(function(yr){
+    var rows=allWorks.filter(function(w){return parseInt(w['year']||0)===yr;});
+    if(rows.length)allFiltered.push({year:yr,rows:rows});
+    rows.forEach(function(r){flatFiltered.push(r);});
+  });
+  yearRendered={};renderAll();
+}
+
+function renderAll(){
+  var con=sel('gridContainer');con.innerHTML='';disconnectChunkObserver();
+  if(!allFiltered.length){
+    con.innerHTML='<div style="padding:60px 0;text-align:center;font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink-dim)">No works found</div>';
+    return;
+  }
+  allFiltered.forEach(function(g){
+    if(!isMobile()){
+      var section=document.createElement('div');section.className='year-section';
+      var header=document.createElement('div');header.className='year-section-header';
+      header.innerHTML='<span class="yd-label">'+g.year+'</span><span class="yd-count">'+g.rows.length+' works</span>';
+      var gridWrap=document.createElement('div');gridWrap.className='year-section-grid';
+      var grid=document.createElement('div');grid.className='grid';grid.id='grid-'+g.year;
+      gridWrap.appendChild(grid);section.appendChild(header);section.appendChild(gridWrap);con.appendChild(section);
+    } else {
+      var grid=document.createElement('div');grid.className='grid';grid.id='grid-'+g.year;con.appendChild(grid);
+    }
+    yearRendered[g.year]=0;
+  });
+  renderNextChunk();
+}
+
+function renderNextChunk(){
+  var rem=CHUNK_SIZE;
+  allFiltered.forEach(function(g){
+    if(rem<=0)return;
+    var grid=sel('grid-'+g.year);if(!grid)return;
+    var start=yearRendered[g.year],end=Math.min(start+rem,g.rows.length);
+    for(var i=start;i<end;i++)grid.appendChild(makeCard(g.rows[i],getFlatIndex(g.year,i),i-start));
+    rem-=(end-start);yearRendered[g.year]=end;
+  });
+  if(chunkSentinel)chunkSentinel.remove();chunkSentinel=null;
+  if(allFiltered.some(function(g){return yearRendered[g.year]<g.rows.length;})){
+    chunkSentinel=document.createElement('div');chunkSentinel.className='load-sentinel';
+    sel('gridContainer').appendChild(chunkSentinel);connectChunkObserver();
+  }
+}
+
+function getFlatIndex(year,rowIdx){
+  var off=0;
+  for(var i=0;i<allFiltered.length;i++){if(allFiltered[i].year===year)return off+rowIdx;off+=allFiltered[i].rows.length;}
+  return off+rowIdx;
+}
+function connectChunkObserver(){
+  if(chunkObserver)chunkObserver.disconnect();
+  chunkObserver=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){if(!e.isIntersecting)return;chunkObserver.disconnect();chunkObserver=null;renderNextChunk();});
+  },{rootMargin:'300px'});
+  if(chunkSentinel)chunkObserver.observe(chunkSentinel);
+}
+function disconnectChunkObserver(){
+  if(chunkObserver){chunkObserver.disconnect();chunkObserver=null;}
+  if(chunkSentinel){chunkSentinel.remove();chunkSentinel=null;}
+}
+
+/* 연도 그리드용 span 패턴 — 인덱스별 랜덤 */
+var CARD_SPANS=[
+  {c:1,r:3},{c:1,r:2},{c:2,r:3},{c:1,r:2},{c:1,r:4},
+  {c:2,r:2},{c:1,r:3},{c:2,r:4},{c:1,r:2},{c:1,r:3},
+  {c:3,r:3},{c:1,r:2},{c:2,r:3},{c:1,r:2},{c:1,r:3}
+];
+
+function makeCard(row,flatIdx,animOffset){
+  var card=document.createElement('div');card.className='card';
+  var title=row['title']||'',yr=row['year']||'',medium=row['medium']||'';
+
+  /* 랜덤 span */
+  var sp=CARD_SPANS[flatIdx%CARD_SPANS.length];
+  /* 약 30% 확률로 변형 */
+  if(Math.random()<0.3){sp={c:sp.c,r:sp.r+(Math.random()<0.5?1:-1)};sp.r=Math.max(2,sp.r);}
+  card.style.gridColumn='span '+sp.c;
+  card.style.gridRow='span '+sp.r;
+
+  var thumb=row['thumb']||'';
+  var sk=document.createElement('div');sk.className='card-skeleton';card.appendChild(sk);
+  var img=document.createElement('img');img.alt=title;
+  img.onload=function(){if(sk.parentNode)sk.parentNode.removeChild(sk);img.classList.add('loaded');};
+  img.onerror=function(){if(sk.parentNode)sk.parentNode.removeChild(sk);};
+  if(thumb){lazyLoad(img,thumb);}else{img.classList.add('loaded');}
+  card.appendChild(img);
+  if(!isMobile()){
+    var ov=document.createElement('div');ov.className='card-overlay';
+    ov.innerHTML='<div class="card-title">'+title+'</div><div class="card-meta">'+yr+(medium?' · '+medium:'')+'</div>';
+    card.appendChild(ov);
+  }
+  (function(idx){card.addEventListener('click',function(){openModal(idx);});})(flatIdx);
+  setTimeout(function(){card.classList.add('revealed');},animOffset*60);
+  return card;
+}
+
+var imgObserver=new IntersectionObserver(function(entries,obs){
+  entries.forEach(function(e){
+    if(!e.isIntersecting)return;
+    var img=e.target,src=img.dataset.src;obs.unobserve(img);
+    img.onerror=function(){var m=src.match(/[?&]id=([a-zA-Z0-9_-]{10,})/);if(m&&this.src.indexOf('w200')===-1){this.src='https://drive.google.com/thumbnail?id='+m[1]+'&sz=w200';}else{this.style.opacity='0.05';this.classList.add('loaded');}};
+    img.onload=function(){img.classList.add('loaded');};
+    img.src=src;
+  });
+},{rootMargin:'300px'});
+function lazyLoad(img,url){if(!url){img.classList.add('loaded');return;}img.dataset.src=url;imgObserver.observe(img);}
+
+/* ══════════════════════════════════════
+   MODAL
+══════════════════════════════════════ */
+function openModal(idx){
+  modalIdx=idx;
+  if(isMobile()){openSheet(idx);return;}
+  paintModal();
+  sel('modalBg').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeModal(){
+  var area=sel('modalImgArea');
+  var iframe=area.querySelector('iframe');
+  if(iframe)iframe.src='';
+  sel('modalBg').classList.remove('open');
+  document.body.style.overflow='';
+}
+function bgClose(e){if(e.target===sel('modalBg'))closeModal();}
+function navModal(d){modalIdx=(modalIdx+d+flatFiltered.length)%flatFiltered.length;paintModal();}
+function paintModal(){
+  var row=flatFiltered[modalIdx];
+  var area=sel('modalImgArea');
+  var prev=area.querySelector('iframe');if(prev)prev.src='';
+  area.innerHTML='';
+  var img=document.createElement('img');img.id='mImg';img.style.opacity='0';
+  var src=row['full']||row['thumb']||'';
+  img.onload=function(){img.style.opacity='1';};
+  img.onerror=function(){var m=src.match(/[?&]id=([a-zA-Z0-9_-]{10,})/);if(m&&img.src.indexOf('w800')===-1)img.src='https://drive.google.com/thumbnail?id='+m[1]+'&sz=w800';};
+  img.src=src;area.appendChild(img);
+  sel('mTitle').textContent=row['title']||'';
+  sel('mYear').textContent=row['year']||'';
+  sel('mMedium').textContent=row['medium']||'';
+  sel('mDim').textContent=row['dim']||row['dimensions']||'';
+  sel('mDesc').textContent=row['desc']||'';
+  var tags=[];
+  ['THE','SER','MAT','SEN'].forEach(function(k){var v=row[k]||'';v.split(/[,\n]/).forEach(function(t){t=t.trim();if(t)tags.push(t);});});
+  sel('mTags').innerHTML=tags.map(function(t){return'<span class="m-tag">'+t+'</span>';}).join('');
+  sel('arrPrev').style.display=flatFiltered.length>1?'flex':'none';
+  sel('arrNext').style.display=flatFiltered.length>1?'flex':'none';
+}
+
+/* ══════════════════════════════════════
+   MOBILE BOTTOM SHEET
+══════════════════════════════════════ */
+function openSheet(idx){
+  modalIdx=idx;paintSheet();
+  var sheet=sel('bsSheet');
+  sheet.classList.remove('half','full');
+  requestAnimationFrame(function(){sheet.classList.add('half');});
+  sheetState='half';document.body.classList.add('sheet-open');
+}
+function closeSheet(){
+  var area=sel('bsImgArea');
+  var iframe=area.querySelector('iframe');if(iframe)iframe.src='';
+  sel('bsSheet').classList.remove('half','full');
+  sheetState='closed';document.body.classList.remove('sheet-open');
+}
+function navSheet(d){modalIdx=(modalIdx+d+flatFiltered.length)%flatFiltered.length;paintSheet();}
+function paintSheet(){
+  var row=flatFiltered[modalIdx];
+  var area=sel('bsImgArea');
+  var prev=area.querySelector('iframe');if(prev)prev.src='';
+  area.innerHTML='';
+  var img=document.createElement('img');img.id='bsImg';img.style.opacity='0';
+  var src=row['full']||row['thumb']||'';
+  img.onload=function(){img.style.opacity='1';};
+  img.onerror=function(){var m=src.match(/[?&]id=([a-zA-Z0-9_-]{10,})/);if(m&&img.src.indexOf('w800')===-1)img.src='https://drive.google.com/thumbnail?id='+m[1]+'&sz=w800';};
+  img.src=src;area.appendChild(img);
+  sel('bsTitle').textContent=row['title']||'';
+  sel('bsYear').textContent=row['year']||'';
+  sel('bsMedium').textContent=row['medium']||'';
+  sel('bsDim').textContent=row['dim']||row['dimensions']||'';
+  sel('bsDesc').textContent=row['desc']||'';
+  var tags=[];
+  ['THE','SER','MAT','SEN'].forEach(function(k){var v=row[k]||'';v.split(/[,\n]/).forEach(function(t){t=t.trim();if(t)tags.push(t);});});
+  sel('bsTags').innerHTML=tags.map(function(t){return'<span class="bs-tag">'+t+'</span>';}).join('');
+  var showNav=flatFiltered.length>1;
+  sel('bsPrev').style.display=showNav?'flex':'none';
+  sel('bsNext').style.display=showNav?'flex':'none';
+}
+
+/* drag */
+(function(){
+  var handle=sel('bsHandle'),sheet=sel('bsSheet');
+  if(!handle||!sheet)return;
+  function onStart(e){dragStartY=e.touches?e.touches[0].clientY:e.clientY;dragStartState=sheetState;document.addEventListener('touchmove',onMove,{passive:false});document.addEventListener('touchend',onEnd);document.addEventListener('mousemove',onMove);document.addEventListener('mouseup',onEnd);}
+  function onMove(e){e.preventDefault();var y=e.touches?e.touches[0].clientY:e.clientY,dy=y-dragStartY;if(dy<-60){sheet.classList.remove('half');sheet.classList.add('full');sheetState='full';}else if(dy>60&&dragStartState==='full'){sheet.classList.remove('full');sheet.classList.add('half');sheetState='half';}else if(dy>100&&dragStartState==='half'){closeSheet();}}
+  function onEnd(){document.removeEventListener('touchmove',onMove);document.removeEventListener('touchend',onEnd);document.removeEventListener('mousemove',onMove);document.removeEventListener('mouseup',onEnd);}
+  handle.addEventListener('touchstart',onStart,{passive:true});handle.addEventListener('mousedown',onStart);
+})();
+
+document.addEventListener('keydown',function(e){
+  if(sheetState!=='closed'){if(e.key==='Escape')closeSheet();if(e.key==='ArrowLeft')navSheet(-1);if(e.key==='ArrowRight')navSheet(1);return;}
+  if(!sel('modalBg').classList.contains('open'))return;
+  if(e.key==='Escape')closeModal();if(e.key==='ArrowLeft')navModal(-1);if(e.key==='ArrowRight')navModal(1);
+});
+
+/* nav dropdown */
 document.querySelectorAll('.nav-dd').forEach(function(dd){
   var menu=dd.querySelector('.nav-dd-menu'),timer;
   dd.addEventListener('mouseenter',function(){clearTimeout(timer);menu.style.display='block';});
   dd.addEventListener('mouseleave',function(){timer=setTimeout(function(){menu.style.display='none';},150);});
   menu.addEventListener('mouseenter',function(){clearTimeout(timer);});
   menu.addEventListener('mouseleave',function(){timer=setTimeout(function(){menu.style.display='none';},150);});
+  dd.querySelector('.nav-item').addEventListener('click',function(e){
+    e.stopPropagation();
+    var isOpen=menu.style.display==='block';
+    document.querySelectorAll('.nav-dd-menu').forEach(function(m){m.style.display='none';});
+    if(!isOpen)menu.style.display='block';
+  });
+});
+document.addEventListener('click',function(e){
+  if(!e.target.closest||!e.target.closest('.nav-dd'))
+    document.querySelectorAll('.nav-dd-menu').forEach(function(m){m.style.display='none';});
 });
 
-function setLang(l){
-  lang=l;
-  document.getElementById('btnKo').classList.toggle('active',l==='ko');
-  document.getElementById('btnEn').classList.toggle('active',l==='en');
-  if(D) render();
-}
-
-function setCvTab(t){
-  activeTab=t;
-  ['solo','group','fair'].forEach(function(k){
-    var el=document.getElementById('tab'+k.charAt(0).toUpperCase()+k.slice(1));
-    if(el) el.classList.toggle('active',k===t);
-  });
-  document.getElementById('backBtn').classList.add('visible');
-  document.getElementById('latestSection').style.display='none';
-  document.getElementById('fullListRows').style.display='block';
-  renderFullList();
-}
-
-function showLatestYear(){
-  activeTab=null;
-  ['Solo','Group','Fair'].forEach(function(n){
-    var el=document.getElementById('tab'+n);
-    if(el) el.classList.remove('active');
-  });
-  document.getElementById('backBtn').classList.remove('visible');
-  document.getElementById('latestSection').style.display='';
-  document.getElementById('fullListRows').style.display='none';
-}
-
-function makePlace(p,c){
-  if(!p&&!c) return '';
-  if(!p) return '<span class="place-city">'+c+'</span>';
-  return '<span class="place-name">'+p+'</span>'
-    +(c?'<span class="place-sep"> · </span><span class="place-city">'+c+'</span>':'');
-}
-
-function exhLink(cvKey){
-  if(!cvKey) return '#';
-  return 'exhibition.html?key='+encodeURIComponent(cvKey);
-}
-
-function renderFullList(){
-  if(!D||!activeTab) return;
-  var ko=(lang==='ko');
-  var list={solo:D.solo||[],group:D.group||[],fair:D.fair||[]}[activeTab]||[];
-  var el=document.getElementById('fullListRows');
-  if(!list.length){el.innerHTML='<div style="font-size:11px;color:var(--ink-dim);padding:8px 0">—</div>';return;}
-  el.innerHTML=list.map(function(item){
-    var t=ko?(item.ko||''):(item.en||item.ko||'');
-    if(!t) return '';
-    var p=ko?(item.placeKo||''):(item.placeEn||item.placeKo||'');
-    var c=ko?(item.cityKo||''):(item.cityEn||item.cityKo||'');
-    var link=item.cvKey?exhLink(item.cvKey):'';
-    return '<div class="panel-row">'
-      +'<div class="panel-year">'+(item.year||'')+'</div>'
-      +'<div class="panel-title"><a class="exh-link" href="'+link+'">'+t+'</a></div>'
-      +'<div class="panel-place">'+makePlace(p,c)+'</div>'
-      +'</div>';
-  }).join('');
-}
-
-function renderMainArea(){
-  if(!D) return;
-  var ko=(lang==='ko');
-  var labelEl=document.getElementById('latestYearLabel');
-  var rowsEl=document.getElementById('latestRows');
-  labelEl.textContent=latestYear?(ko?latestYear+'년 전시':latestYear+' Exhibitions'):(ko?'최근 전시':'Recent');
-  document.getElementById('latestTableHead').style.display='';
-  var typeL={solo:ko?'개인·초대':'Solo',group:ko?'단체전':'Group',fair:'Art Fair'};
-  var all=[]
-    .concat((D.solo||[]).map(function(i){return Object.assign({},i,{_t:'solo'});}))
-    .concat((D.group||[]).map(function(i){return Object.assign({},i,{_t:'group'});}))
-    .concat((D.fair||[]).map(function(i){return Object.assign({},i,{_t:'fair'});}));
-  var filtered=latestYear?all.filter(function(i){return String(i.year)===String(latestYear);}):[];
-  if(!filtered.length){rowsEl.innerHTML='<div style="font-size:11px;color:var(--ink-dim);padding:8px 0">—</div>';return;}
-  rowsEl.innerHTML=filtered.map(function(item){
-    var t=ko?(item.ko||''):(item.en||item.ko||'');
-    var p=ko?(item.placeKo||''):(item.placeEn||item.placeKo||'');
-    var c=ko?(item.cityKo||''):(item.cityEn||item.cityKo||'');
-    var link=item.cvKey?exhLink(item.cvKey):'';
-    return '<div class="latest-row">'
-      +'<div class="latest-cell-type">'+(typeL[item._t]||'')+'</div>'
-      +'<div class="latest-cell-title"><a class="exh-link" href="'+link+'">'+t+'</a></div>'
-      +'<div class="latest-cell-place">'+makePlace(p,c)+'</div>'
-      +'<div class="latest-cell-date">'+(item.date||'')+'</div>'
-      +'</div>';
-  }).join('');
-  if(activeTab){
-    document.getElementById('latestSection').style.display='none';
-    document.getElementById('fullListRows').style.display='block';
-    renderFullList();
-  }
-}
-
-function renderBio(text){
-  if(!text) return '<div class="bio-text"><div class="bio-body"><p>—</p></div></div>';
-  var lines=text.split(/\n/).map(function(l){return l.trim();}).filter(Boolean);
-  var html='<div class="bio-text">';
-  if(!lines.length) return html+'</div>';
-  var first=lines[0];
-  var isTitle=first.indexOf(':')>=0||first.length<=60;
-  if(isTitle){
-    html+='<div class="bio-title">'+first+'</div><div class="bio-body">';
-    var paras=text.split(/\n\n+/).slice(1);
-    if(paras.length>0) paras.forEach(function(p){var s=p.trim();if(s)html+='<p>'+s+'</p>';});
-    else lines.slice(1).forEach(function(l){if(l)html+='<p>'+l+'</p>';});
-    html+='</div>';
-  } else {
-    html+='<div class="bio-body">';
-    var ps=text.split(/\n\n+/).filter(function(p){return p.trim();});
-    if(ps.length<=1) ps=lines;
-    ps.forEach(function(p){var s=p.trim();if(s)html+='<p>'+s+'</p>';});
-    html+='</div>';
-  }
-  return html+'</div>';
-}
-
-function render(){
-  if(!D) return;
-  var ko=(lang==='ko');
-
-  /* Bio */
-  document.getElementById('bioSection').innerHTML=renderBio(ko?(D.bioKo||''):(D.bioEn||''));
-
-  /* Statement */
-  var stmtText=ko?(D.statementKo||''):(D.statementEn||D.statementKo||'');
-  var stmtSec=document.getElementById('stmtSection');
-  if(stmtText.trim()){
-    document.getElementById('stmtBody').textContent=stmtText;
-    var pl=document.getElementById('stmtPdfLink');
-    if(D.statementLink){pl.href=D.statementLink;pl.style.display='inline';}
-    else pl.style.display='none';
-    stmtSec.style.display='block';
-  } else stmtSec.style.display='none';
-
-  /* CV 요약 */
-  var cvText=ko?(D.cvKo||''):(D.cvEn||'');
-  var cvSec=document.getElementById('cvSummarySection');
-  if(cvText.trim()){
-    var cvP=cvText.split(/\n\n+/).filter(function(p){return p.trim();});
-    if(cvP.length<=1) cvP=cvText.split(/\n/).filter(function(p){return p.trim();});
-    cvSec.innerHTML='<div class="cv-summary">'+cvP.map(function(p){return'<p>'+p.trim()+'</p>';}).join('')+'</div>';
-    cvSec.style.display='block';
-  } else cvSec.style.display='none';
-
-  /* 학력 */
-  document.getElementById('labelEdu').textContent=ko?'학력':'Education';
-  document.getElementById('edu1').textContent=ko?'홍익대학교 미술대학원 회화전공 석사 (M.F.A.)':'M.F.A. in Painting, Hongik University';
-  document.getElementById('edu2').textContent=ko?'이화여자대학교 전자계산학과 학사':'B.S. in Computer Science, Ewha Womans University';
-
-  /* 소장처 */
-  document.getElementById('labelColl').textContent=ko?'주요 작품 소장처':'Major Collections';
-  var collText=ko?(D.collKo||''):(D.collEn||'');
-  var collLines=collText?collText.split('\n').filter(function(l){return l.trim();}):[];
-  document.getElementById('collSection').innerHTML=collLines.length
-    ?collLines.map(function(l){return l.trim();}).join('<br>')
-    :'—';
-
-  /* 전시 */
-  var allForYear=[].concat(D.solo||[],D.group||[],D.fair||[]);
-  var yrs=allForYear.map(function(i){return parseInt(i.year,10)||0;});
-  var maxY=yrs.length?Math.max.apply(null,yrs):null;
-  latestYear=maxY?String(maxY):null;
-
-  document.getElementById('thType').textContent=ko?'구분':'Type';
-  document.getElementById('thTitle').textContent=ko?'제목':'Title';
-  document.getElementById('thPlace').textContent=ko?'장소':'Venue';
-  document.getElementById('thDate').textContent=ko?'날짜':'Date';
-  document.getElementById('labelFullList').textContent=ko?'전시 전체 리스트':'Full List';
-  document.getElementById('labelSolo').textContent=ko?'개인 및 초대전':'Solo';
-  document.getElementById('labelGroup').textContent=ko?'단체전':'Group';
-  document.getElementById('backBtn').textContent='← '+(ko?'현재 연도':'Current Year');
-  renderMainArea();
-
-  if(D.pdfUrl){document.getElementById('pdfLink').href=D.pdfUrl;document.getElementById('pdfLink').style.display='inline-flex';}
-  if(D.aboutImg){
-    var m=D.aboutImg.match(/\/d\/([a-zA-Z0-9_-]{10,})/);
-    var imgUrl=m?'https://drive.google.com/thumbnail?id='+m[1]+'&sz=w600':D.aboutImg;
-    var bi=document.getElementById('bioImg'),bw=document.getElementById('bioImgWrap');
-    if(bi&&bw){bi.src=imgUrl;bw.style.display='block';}
-  }
-  document.getElementById('pdfLabel').textContent=ko?'CV 전체 다운로드':'Download Full CV';
-}
-
-fetch('./data/about.json?v='+Date.now(),{cache:'no-store'})
+/* ══════════════════════════════════════
+   INIT
+══════════════════════════════════════ */
+fetch('./data/works.json')
   .then(function(r){return r.json();})
-  .then(function(data){D=data;render();})
-  .catch(function(e){
-    console.error('about.json 로드 실패:',e);
-    document.getElementById('bioSection').innerHTML='<div class="loading">데이터를 불러올 수 없습니다.</div>';
+  .then(function(works){
+    allWorks=works;
+    var yearSet={};
+    works.forEach(function(w){var y=parseInt(w['year']||0);if(y)yearSet[y]=1;});
+    ALL_YEARS=Object.keys(yearSet).map(Number).sort(function(a,b){return b-a;});
+    buildYearGrid();
+    buildMosaic(works);
+    if(isMobile()&&ALL_YEARS.length){
+      /* 모바일: 최신 연도 자동 선택 */
+      selectedYears=[ALL_YEARS[0]];
+      var el=sel('yr-'+ALL_YEARS[0]);if(el)el.classList.add('checked');
+      updateMobileYearBar();
+      sel('introZone').classList.add('hidden');
+      fetchAndRender();
+    }
+  })
+  .catch(function(){
+    sel('yearGrid').innerHTML='<div style="font-size:8px;color:var(--ink-dim)">로딩 오류</div>';
   });
+
+window.addEventListener('load',function(){
+  var loader=document.getElementById('page-loader');
+  if(loader){setTimeout(function(){loader.classList.add('hidden');setTimeout(function(){loader.style.display='none';},650);},400);}
+});
 </script>
 </body>
 </html>
