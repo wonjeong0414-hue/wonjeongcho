@@ -149,12 +149,14 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 .year-section-grid{overflow:hidden}
 .yd-label{font-family:'EB Garamond',serif;font-style:italic;font-size:18px;color:var(--ink);letter-spacing:0.04em;line-height:1.3;display:block}
 .yd-count{font-size:9px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-mid);font-weight:500;display:block;margin-top:3px}
-.grid{display:grid;grid-template-columns:repeat(10,1fr);gap:4px}
-@media(max-width:1200px){.grid{grid-template-columns:repeat(8,1fr)}}
-@media(max-width:900px){.grid{grid-template-columns:repeat(6,1fr)}}
+
+/* ── 랜덤 그리드 — 12열 기반 ── */
+.grid{display:grid;grid-template-columns:repeat(12,1fr);grid-auto-rows:52px;gap:4px}
+@media(max-width:1200px){.grid{grid-template-columns:repeat(10,1fr);grid-auto-rows:48px}}
+@media(max-width:900px){.grid{grid-template-columns:repeat(8,1fr);grid-auto-rows:44px}}
 
 /* ── 카드 기본 ── */
-.card{position:relative;overflow:hidden;cursor:pointer;background:rgba(0,0,0,0.04);aspect-ratio:3/4;opacity:0;transform:translateY(6px);transition:opacity 0.35s ease,transform 0.4s cubic-bezier(0.16,1,0.3,1)}
+.card{position:relative;overflow:hidden;cursor:pointer;background:rgba(0,0,0,0.04);opacity:0;transform:translateY(6px);transition:opacity 0.35s ease,transform 0.4s cubic-bezier(0.16,1,0.3,1)}
 .card.revealed{opacity:1;transform:translateY(0)}
 .card img{width:100%;height:100%;object-fit:cover;display:block;opacity:0;filter:blur(3px);transition:opacity 0.5s ease,filter 0.6s ease,transform 0.35s ease;position:absolute;inset:0}
 .card img.loaded{opacity:1;filter:blur(0)}
@@ -635,9 +637,24 @@ function disconnectChunkObserver(){
   if(chunkSentinel){chunkSentinel.remove();chunkSentinel=null;}
 }
 
+/* 연도 그리드용 span 패턴 — 인덱스별 랜덤 */
+var CARD_SPANS=[
+  {c:1,r:3},{c:1,r:2},{c:2,r:3},{c:1,r:2},{c:1,r:4},
+  {c:2,r:2},{c:1,r:3},{c:2,r:4},{c:1,r:2},{c:1,r:3},
+  {c:3,r:3},{c:1,r:2},{c:2,r:3},{c:1,r:2},{c:1,r:3}
+];
+
 function makeCard(row,flatIdx,animOffset){
   var card=document.createElement('div');card.className='card';
   var title=row['title']||'',yr=row['year']||'',medium=row['medium']||'';
+
+  /* 랜덤 span */
+  var sp=CARD_SPANS[flatIdx%CARD_SPANS.length];
+  /* 약 30% 확률로 변형 */
+  if(Math.random()<0.3){sp={c:sp.c,r:sp.r+(Math.random()<0.5?1:-1)};sp.r=Math.max(2,sp.r);}
+  card.style.gridColumn='span '+sp.c;
+  card.style.gridRow='span '+sp.r;
+
   var thumb=row['thumb']||'';
   var sk=document.createElement('div');sk.className='card-skeleton';card.appendChild(sk);
   var img=document.createElement('img');img.alt=title;
@@ -651,7 +668,7 @@ function makeCard(row,flatIdx,animOffset){
     card.appendChild(ov);
   }
   (function(idx){card.addEventListener('click',function(){openModal(idx);});})(flatIdx);
-  setTimeout(function(){card.classList.add('revealed');},animOffset*80);
+  setTimeout(function(){card.classList.add('revealed');},animOffset*60);
   return card;
 }
 
