@@ -152,15 +152,17 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
   width:60%;
   max-width:280px;
   margin:80px auto 0;
-  opacity:0.36;
+  opacity:0;
   filter:grayscale(40%);
   object-fit:contain;
   transition:opacity 0.4s ease;
 }
-/* 항목 선택 시 배경 이미지 숨김 */
-.detail-panel.visible ~ .detail-bg-img{
-  opacity:0;
-  pointer-events:none;
+.detail-bg-img.loaded{
+  opacity:0.36;
+}
+/* 항목 선택 시 숨김 */
+.detail-bg-img.hidden{
+  opacity:0 !important;
 }
 </style>
 </head>
@@ -223,7 +225,7 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
         <div class="detail-place" id="detailPlace" style="display:none"></div>
         <a class="detail-link" id="detailLink" href="#" target="_blank" style="display:none">PDF 열기 ↗</a>
       </div>
-      <img class="detail-bg-img" id="detailBgImg" src="" alt="" style="display:none">
+      <img class="detail-bg-img" id="detailBgImg" src="" alt="">
     </div>
   </div>
 </div>
@@ -345,7 +347,7 @@ function showDetail(idx){
   sel('detailPanel').classList.add('visible');
   /* 배경 이미지 숨김 */
   var bg=sel('detailBgImg');
-  if(bg)bg.style.opacity='0';
+  if(bg)bg.classList.add('hidden');
 }
 
 function renderDetail(row){
@@ -389,8 +391,8 @@ fetch('./data/works.json?v='+Date.now(),{cache:'no-store'})
     var found=works.filter(function(w){return(w.page||'').trim()==='pn';});
     if(found.length&&found[0].thumb){
       var bg=sel('detailBgImg');
+      bg.onload=function(){bg.classList.add('loaded');};
       bg.src=found[0].thumb;
-      bg.style.display='block';
     }
   })
   .catch(function(){});
