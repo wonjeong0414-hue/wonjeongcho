@@ -80,7 +80,7 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
   grid-template-columns:repeat(12,1fr);
   grid-auto-rows:60px;
   gap:3px;
-  padding:0 20% 20% 20%;
+  padding:0 10% 10% 10%;
   width:100%;
 }
 
@@ -117,19 +117,24 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
   text-shadow:0 1px 6px rgba(0,0,0,0.4);
   pointer-events:none;
   z-index:4;line-height:1;
+  transition:font-size 0.22s cubic-bezier(0.16,1,0.3,1), opacity 0.22s ease;
+}
+.mtile:hover .mtile-year{
+  font-size:22px;
+  font-style:italic;
+  letter-spacing:0.06em;
+  color:rgba(255,255,255,0.95);
+  text-shadow:0 2px 12px rgba(0,0,0,0.3);
 }
 
-/* 타일 hover 오버레이 */
+/* 타일 hover 오버레이 — dim만, 캡션 없음 */
 .mtile-overlay{
   position:absolute;inset:0;
-  background:linear-gradient(to top,rgba(26,26,24,0.52) 0%,transparent 52%);
-  opacity:0;transition:opacity 0.25s ease;
-  display:flex;flex-direction:column;justify-content:flex-end;
-  padding:8px 10px;pointer-events:none;
+  background:rgba(26,26,24,0.18);
+  opacity:0;transition:opacity 0.22s ease;
+  pointer-events:none;
 }
 .mtile:hover .mtile-overlay{opacity:1}
-.mtile-title{font-family:'EB Garamond',serif;font-style:italic;font-size:10px;color:#fff;line-height:1.3;margin-bottom:1px}
-.mtile-meta{font-size:6.5px;letter-spacing:0.08em;color:rgba(255,255,255,0.5);text-transform:uppercase}
 
 /* 타일 스켈레톤 */
 .mtile-sk{position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,0.04) 25%,rgba(0,0,0,0.07) 50%,rgba(0,0,0,0.04) 75%);background-size:200% 100%;animation:skShimmer 1.6s ease infinite}
@@ -452,12 +457,8 @@ function buildMosaic(works){
     img.dataset.src=src;
     tile.appendChild(img);
 
-    /* 오버레이 */
+    /* 오버레이 — dim용 */
     var ov=document.createElement('div');ov.className='mtile-overlay';
-    var title=row['title']||'';
-    var yr=row['year']||'';
-    var med=row['medium']||'';
-    ov.innerHTML='<div class="mtile-title">'+title+'</div><div class="mtile-meta">'+yr+(med?' · '+med:'')+'</div>';
     tile.appendChild(ov);
 
     /* 연도 라벨 — 항상 표시 */
