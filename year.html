@@ -223,6 +223,7 @@ body.fade-out{opacity:0;transition:opacity 0.3s ease}
   .m-yr-item{padding:3px 7px;font-size:11px;color:var(--ink-dim);cursor:pointer;font-family:'Cormorant Garamond',serif;transition:color 0.15s;white-space:nowrap;flex-shrink:0}
   .m-yr-item:hover,.m-yr-item.checked{color:var(--ink);font-weight:500}
   .grid-zone{position:static;opacity:1 !important;pointer-events:all;padding:60px 16px 120px;display:block !important;transition:filter 0.3s ease}
+  .grid-zone.open{opacity:1 !important}
   .grid{display:block;column-count:2;column-gap:5px}
   .card{aspect-ratio:unset;background:rgba(0,0,0,0.04);display:inline-block;width:100%;break-inside:avoid;margin-bottom:5px}
   .card img{position:static;width:100%;height:auto;display:block;filter:none}
@@ -810,14 +811,15 @@ fetch('./data/works.json')
     works.forEach(function(w){var y=parseInt(w['year']||0);if(y)yearSet[y]=1;});
     ALL_YEARS=Object.keys(yearSet).map(Number).sort(function(a,b){return b-a;});
     buildYearGrid();
-    buildMosaic(works);
     if(isMobile()&&ALL_YEARS.length){
-      /* 모바일: 최신 연도 자동 선택 */
+      /* 모바일: 모자이크 스킵, 최신 연도 그리드 바로 표시 */
+      sel('introZone').style.display='none';
       selectedYears=[ALL_YEARS[0]];
       var el=sel('yr-'+ALL_YEARS[0]);if(el)el.classList.add('checked');
       updateMobileYearBar();
-      sel('introZone').classList.add('hidden');
       fetchAndRender();
+    } else {
+      buildMosaic(works);
     }
   })
   .catch(function(){
