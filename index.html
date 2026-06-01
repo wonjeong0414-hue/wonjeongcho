@@ -4,12 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Won Jeong Cho — Artist</title>
-  <!-- SEO Meta -->
   <meta name="description" content="조원정 작가의 공식 웹사이트. 촉각적 사고(Tactile Thinking)를 기반으로 한 회화 작품을 소개합니다.">
   <meta name="keywords" content="조원정, Won Jeong Cho, 작가, artist, 회화, painting, 추상, abstract, Tactile Thinking, Nature, 촉각적 사고, 한국 현대미술, Korean contemporary art">
   <meta name="author" content="Won Jeong Cho">
   <meta name="robots" content="index, follow">
-  <!-- Open Graph -->
   <meta property="og:type" content="website">
   <meta property="og:title" content="조원정 Won Jeong Cho — Artist">
   <meta property="og:description" content="Official website of artist Won Jeong Cho. Paintings rooted in Tactile Thinking — where sensation, material, and gesture converge.">
@@ -18,14 +16,11 @@
   <meta property="og:site_name" content="Won Jeong Cho">
   <meta property="og:locale" content="ko_KR">
   <meta property="og:locale:alternate" content="en_US">
-  <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Won Jeong Cho — Artist">
   <meta name="twitter:description" content="Official website of artist Won Jeong Cho. Paintings rooted in Tactile Thinking — where sensation, material, and gesture converge.">
   <meta name="twitter:image" content="https://www.chowonjeong.org/og-image.jpg">
-  <!-- Canonical -->
   <link rel="canonical" href="https://www.chowonjeong.org/">
-  <!-- JSON-LD -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -72,38 +67,69 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 .shell{
   position:fixed;top:var(--nav-h);left:0;right:0;bottom:0;
   display:flex;flex-direction:column;align-items:center;
-  /* 이미지 약간 위쪽 배치 */
   justify-content:flex-start;
   padding-top:clamp(20px,5vh,52px);
   overflow:hidden;
 }
 
-/* ── 이미지 박스 ── */
+/* ── 이미지 박스: 원본 비율 유지 ── */
 .img-box{
-  width:min(58vw,580px);
-  height:min(68vh,620px);
-  flex-shrink:0;position:relative;overflow:hidden;cursor:pointer;
+  /* 최대 너비/높이 제한만 두고, 실제 크기는 이미지가 결정 */
+  max-width:min(72vw,660px);
+  max-height:min(70vh,640px);
+  flex-shrink:0;
+  position:relative;
+  overflow:hidden;
+  cursor:pointer;
+  /* 초기 투명 → 이미지 로드 후 표시 */
+  opacity:0;
+  transition:opacity 0.7s ease, transform 0.7s cubic-bezier(0.16,1,0.3,1);
 }
-.img-bg{position:absolute;inset:0;background-size:cover;background-position:center;transition:transform 0.6s ease}
-.img-box:hover .img-bg{transform:scale(1.006)}
-.img-overlay{position:absolute;inset:0;display:flex;align-items:flex-end;justify-content:center;padding-bottom:28px;background:linear-gradient(to top,rgba(247,246,243,0.75) 0%,transparent 38%)}
+.img-box.visible{opacity:1}
+
+/* 실제 이미지: 원본 비율 그대로 */
+.img-box img{
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:contain;   /* 비율 유지, 잘리지 않음 */
+  object-position:center;
+  transition:transform 0.7s cubic-bezier(0.16,1,0.3,1);
+}
+.img-box:hover img{transform:scale(1.008)}
+
+.img-overlay{
+  position:absolute;inset:0;
+  display:flex;align-items:flex-end;justify-content:center;
+  padding-bottom:28px;
+  background:linear-gradient(to top,rgba(247,246,243,0.65) 0%,transparent 38%);
+  pointer-events:none;
+}
+
+/* scroll cue */
 @keyframes bob{0%,100%{opacity:0.35;transform:translateY(0) translateX(-50%)}50%{opacity:0.6;transform:translateY(4px) translateX(-50%)}}
-.scroll-cue{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);font-size:13px;color:var(--ink-mid);animation:bob 2.2s ease-in-out infinite;cursor:pointer;opacity:0;transition:opacity 0.5s ease}
+.scroll-cue{
+  position:absolute;bottom:8px;left:50%;transform:translateX(-50%);
+  font-size:13px;color:var(--ink-mid);
+  animation:bob 2.2s ease-in-out infinite;
+  cursor:pointer;opacity:0;transition:opacity 0.5s ease;
+  pointer-events:auto;
+}
 .scroll-cue.visible{opacity:0.35}
 
-/* ── work-info (이미지 아래 작품명 + 설명) ── */
+/* ── work-info ── */
 .work-info{
-  width:min(58vw,540px);flex-shrink:0;
+  width:min(72vw,620px);flex-shrink:0;
   display:flex;justify-content:space-between;align-items:baseline;
   padding:8px 0;border-top:0.5px solid rgba(0,0,0,0.1);
-  opacity:0;transition:opacity 0.7s ease 0.2s;
+  opacity:0;transition:opacity 0.7s ease 0.25s;
 }
 .work-info.visible{opacity:1}
 .wi-left .wi-title{font-family:'EB Garamond',serif;font-size:14px;color:var(--ink)}
 .wi-left .wi-meta{font-size:9px;letter-spacing:0.12em;color:var(--ink-dim);text-transform:uppercase;margin-top:3px}
 .wi-desc{font-size:10px;color:var(--ink-mid);line-height:1.8;flex:1;max-width:45%;text-align:right;word-break:keep-all}
 
-/* ── 이미지 위 떠다니는 Tactile Thinking ── */
+/* ── Tactile Thinking 플로팅 텍스트 ── */
 @keyframes gentleFloat{
   0%,100%{transform:translateY(0);opacity:0.9}
   40%{transform:translateY(-7px);opacity:1}
@@ -111,14 +137,9 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 }
 .work-title{
   font-family:'EB Garamond',serif;
-  font-style:italic;
-  font-weight:500;
-  font-size:32px;
-  color:var(--ink);
-  letter-spacing:0.06em;
-  line-height:1;
-  opacity:0;
-  transition:opacity 0.9s ease;
+  font-style:italic;font-weight:500;font-size:32px;
+  color:var(--ink);letter-spacing:0.06em;line-height:1;
+  opacity:0;transition:opacity 0.9s ease;
   animation:gentleFloat 6s ease-in-out infinite;
   text-shadow:0 2px 20px rgba(247,246,243,0.9);
   display:inline-block;
@@ -126,41 +147,26 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 .work-title.visible{opacity:1}
 
 @keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
-/* ── 모바일 ── */
-@media(max-width:600px){
-  /* nav: logo 작게, 한 줄에 메뉴와 나란히 */
-  .nav-logo{
-    font-size:9px !important;
-    letter-spacing:0.18em !important;
-  }
-  .nav-item{font-size:8px !important;padding:4px 7px !important}
-  .nav-sep{margin:0 2px !important}
 
-  /* shell: padding 줄여서 이미지 크게 */
-  .shell{
-    padding-top:clamp(8px,2vh,20px);
-  }
+/* ── 전환 오버레이 (클릭/스크롤 → context 이동) ── */
+#transition-overlay{
+  position:fixed;inset:0;
+  background:var(--bg);
+  z-index:9000;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity 0.55s cubic-bezier(0.4,0,0.2,1);
+}
+#transition-overlay.active{
+  opacity:1;
+  pointer-events:all;
+}
 
-  /* 이미지 모바일에서 크게 */
-  .img-box{
-    width:84vw !important;
-    height:52vh !important;
-  }
-
-  /* work-info 너비 맞추기 */
-  .work-info{
-    width:84vw !important;
-  }
-
-  /* Tactile Thinking 가운데 정렬 */
-  .img-overlay{
-    justify-content:center !important;
-    align-items:flex-end !important;
-  }
-  .work-title{
-    font-size:22px !important;
-    text-align:center;
-  }
+/* 이미지가 위로 슬라이드되며 사라지는 효과 */
+.shell.exiting{
+  transform:translateY(-18px);
+  opacity:0;
+  transition:transform 0.55s cubic-bezier(0.4,0,0.2,1), opacity 0.45s ease;
 }
 
 /* ── 페이지 전환 fade ── */
@@ -170,38 +176,38 @@ body.fade-out{opacity:0;transition:opacity 0.3s ease}
 
 /* ── 로딩 화면 ── */
 #page-loader{
-  position:fixed;inset:0;
-  background:var(--bg);
+  position:fixed;inset:0;background:var(--bg);
   display:flex;align-items:center;justify-content:center;
-  z-index:9999;
-  opacity:1;
+  z-index:9999;opacity:1;
   transition:opacity 0.6s cubic-bezier(0.16,1,0.3,1);
   pointer-events:all;
 }
 #page-loader.hidden{opacity:0;pointer-events:none}
-.loader-inner{
-  display:flex;flex-direction:column;align-items:center;gap:20px;
-}
+.loader-inner{display:flex;flex-direction:column;align-items:center;gap:20px}
 .loader-name{
-  font-family:'EB Garamond',serif;
-  font-style:italic;
-  font-size:clamp(18px,3vw,28px);
-  letter-spacing:0.18em;
-  color:var(--ink);
-  opacity:0;
-  animation:loaderFadeIn 0.8s ease 0.2s forwards;
+  font-family:'EB Garamond',serif;font-style:italic;
+  font-size:clamp(18px,3vw,28px);letter-spacing:0.18em;color:var(--ink);
+  opacity:0;animation:loaderFadeIn 0.8s ease 0.2s forwards;
 }
 .loader-line{
-  width:0;
-  height:0.5px;
-  background:var(--ink);
-  opacity:0.3;
+  width:0;height:0.5px;background:var(--ink);opacity:0.3;
   animation:loaderLine 1s cubic-bezier(0.16,1,0.3,1) 0.4s forwards;
 }
 @keyframes loaderFadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 @keyframes loaderLine{from{width:0}to{width:clamp(80px,12vw,140px)}}
+
+/* ── 모바일 ── */
+@media(max-width:600px){
+  .nav-logo{font-size:9px !important;letter-spacing:0.18em !important}
+  .nav-item{font-size:8px !important;padding:4px 7px !important}
+  .nav-sep{margin:0 2px !important}
+  .shell{padding-top:clamp(8px,2vh,20px)}
+  .img-box{max-width:88vw !important;max-height:54vh !important}
+  .work-info{width:88vw !important}
+  .img-overlay{justify-content:center !important;align-items:flex-end !important}
+  .work-title{font-size:22px !important;text-align:center}
+}
 </style>
-  <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-YBRBFCMMCB"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -218,12 +224,14 @@ body.fade-out{opacity:0;transition:opacity 0.3s ease}
     <div class="loader-line"></div>
   </div>
 </div>
+
+<!-- 전환 오버레이 -->
+<div id="transition-overlay"></div>
+
 <body>
 <nav>
   <span class="nav-logo" onclick="go('index')">Won Jeong Cho</span>
   <div class="nav-right">
-
-    <!-- Archive 드롭다운 -->
     <div class="nav-dropdown">
       <span class="nav-item">Archive</span>
       <div class="nav-dropdown-menu">
@@ -231,10 +239,7 @@ body.fade-out{opacity:0;transition:opacity 0.3s ease}
         <span class="nav-dropdown-item" onclick="go('context')">Context</span>
       </div>
     </div>
-
     <div class="nav-sep"></div>
-
-    <!-- Text 드롭다운 -->
     <div class="nav-dropdown">
       <span class="nav-item">Text</span>
       <div class="nav-dropdown-menu">
@@ -242,17 +247,15 @@ body.fade-out{opacity:0;transition:opacity 0.3s ease}
         <span class="nav-dropdown-item" onclick="go('critique')">Critique</span>
       </div>
     </div>
-
     <div class="nav-sep"></div>
-
     <span class="nav-item" onclick="go('about')">About</span>
-
   </div>
 </nav>
 
-<div class="shell">
+<div class="shell" id="shell">
   <div class="img-box" id="imgBox">
-    <div class="img-bg" id="imgBg"></div>
+    <!-- src는 JS에서 주입 -->
+    <img id="mainImg" src="" alt="Won Jeong Cho — work" draggable="false">
     <div class="img-overlay">
       <div class="work-title" id="workTitle"></div>
     </div>
@@ -267,67 +270,166 @@ body.fade-out{opacity:0;transition:opacity 0.3s ease}
     <div class="wi-desc" id="wiDesc"></div>
   </div>
 </div>
-</div>
 
 <script>
-
-/* ── 페이지 전환 ── */
+/* ───────────────────────────────────────────
+   일반 페이지 전환 (nav 메뉴용)
+─────────────────────────────────────────── */
 function go(page){
   document.body.classList.add('fade-out');
-  setTimeout(function(){window.location.href=page+'.html';},280);
+  setTimeout(function(){window.location.href = page + '.html';}, 280);
 }
-document.addEventListener('DOMContentLoaded',function(){
+
+document.addEventListener('DOMContentLoaded', function(){
   document.body.classList.add('page-fade');
 });
 
+/* ───────────────────────────────────────────
+   context 페이지로 부드럽게 전환
+─────────────────────────────────────────── */
+var transitioning = false;
 
+function goContext(){
+  if(transitioning) return;
+  transitioning = true;
+
+  var shell   = document.getElementById('shell');
+  var overlay = document.getElementById('transition-overlay');
+
+  /* 1) shell을 위로 살짝 올리며 페이드 아웃 */
+  shell.classList.add('exiting');
+
+  /* 2) 배경 오버레이 페이드 인 (약간 딜레이) */
+  setTimeout(function(){
+    overlay.classList.add('active');
+  }, 80);
+
+  /* 3) 전환 완료 후 이동 */
+  setTimeout(function(){
+    window.location.href = 'context.html';
+  }, 600);
+}
+
+/* ───────────────────────────────────────────
+   Nav dropdown
+─────────────────────────────────────────── */
 document.querySelectorAll('.nav-dropdown').forEach(function(dd){
-  var menu=dd.querySelector('.nav-dropdown-menu'),timer;
-  dd.addEventListener('mouseenter',function(){clearTimeout(timer);menu.style.display='block';});
-  dd.addEventListener('mouseleave',function(){timer=setTimeout(function(){menu.style.display='none';},150);});
-  menu.addEventListener('mouseenter',function(){clearTimeout(timer);});
-  menu.addEventListener('mouseleave',function(){timer=setTimeout(function(){menu.style.display='none';},150);});
+  var menu = dd.querySelector('.nav-dropdown-menu'), timer;
+  dd.addEventListener('mouseenter', function(){ clearTimeout(timer); menu.style.display = 'block'; });
+  dd.addEventListener('mouseleave', function(){ timer = setTimeout(function(){ menu.style.display = 'none'; }, 150); });
+  menu.addEventListener('mouseenter', function(){ clearTimeout(timer); });
+  menu.addEventListener('mouseleave', function(){ timer = setTimeout(function(){ menu.style.display = 'none'; }, 150); });
 });
 
+/* ───────────────────────────────────────────
+   데이터 로드 & 이미지 비율 처리
+─────────────────────────────────────────── */
 fetch('./data/main.json')
-  .then(function(r){return r.json();})
+  .then(function(r){ return r.json(); })
   .then(function(result){
-    var main=result.main; if(!main) return;
-    var imgUrl=main.imgUrl||main.thumb||'';
-    var img=new Image();
-    img.onload=function(){
-      document.getElementById('imgBg').style.backgroundImage="url('"+imgUrl+"')";
+    var main = result.main;
+    if(!main) return;
+
+    var imgUrl = main.imgUrl || main.thumb || '';
+    var imgEl  = document.getElementById('mainImg');
+    var box    = document.getElementById('imgBox');
+
+    imgEl.onload = function(){
+      /* 원본 비율로 박스 크기 결정 */
+      var natW = imgEl.naturalWidth;
+      var natH = imgEl.naturalHeight;
+      var ratio = natW / natH;
+
+      /* 가용 영역 계산 */
+      var maxW = Math.min(window.innerWidth * 0.72, 660);
+      var maxH = Math.min(window.innerHeight * 0.70, 640);
+
+      var w, h;
+      if(ratio > maxW / maxH){
+        w = maxW; h = maxW / ratio;
+      } else {
+        h = maxH; w = maxH * ratio;
+      }
+
+      box.style.width  = w + 'px';
+      box.style.height = h + 'px';
+
+      /* 표시 */
+      box.classList.add('visible');
       setTimeout(function(){
-        document.getElementById('workTitle').textContent='Tactile Thinking';
+        document.getElementById('workTitle').textContent = 'Tactile Thinking';
         document.getElementById('workTitle').classList.add('visible');
         document.getElementById('workInfo').classList.add('visible');
         document.getElementById('scrollCue').classList.add('visible');
-      },350);
+      }, 350);
+
+      /* ── 클릭 이벤트 ── */
+      box.addEventListener('click', goContext);
+      document.getElementById('scrollCue').addEventListener('click', function(e){
+        e.stopPropagation();
+        goContext();
+      });
     };
-    img.onerror=function(){
-      document.getElementById('workTitle').textContent='Tactile Thinking';
-        document.getElementById('workTitle').classList.add('visible');
-        document.getElementById('workInfo').classList.add('visible');
+
+    imgEl.onerror = function(){
+      /* 이미지 없어도 텍스트는 표시 */
+      box.classList.add('visible');
+      document.getElementById('workTitle').textContent = 'Tactile Thinking';
+      document.getElementById('workTitle').classList.add('visible');
+      document.getElementById('workInfo').classList.add('visible');
     };
-    img.src=imgUrl;
-    document.getElementById('wiTitle').textContent=main.title||'';
-    document.getElementById('wiMeta').textContent=(main.year||'')+(main.medium?' · '+main.medium:'');
-    document.getElementById('wiDesc').textContent=main.desc||'';
+
+    imgEl.src = imgUrl;
+
+    document.getElementById('wiTitle').textContent = main.title || '';
+    document.getElementById('wiMeta').textContent  = (main.year || '') + (main.medium ? ' · ' + main.medium : '');
+    document.getElementById('wiDesc').textContent  = main.desc || '';
   })
   .catch(function(){
-    document.getElementById('workTitle').textContent='Tactile Thinking';
-        document.getElementById('workTitle').classList.add('visible');
-        document.getElementById('workInfo').classList.add('visible');
-    document.getElementById('heroText').classList.add('visible');
+    document.getElementById('imgBox').classList.add('visible');
+    document.getElementById('workTitle').textContent = 'Tactile Thinking';
+    document.getElementById('workTitle').classList.add('visible');
+    document.getElementById('workInfo').classList.add('visible');
   });
 
-/* ── 로딩 화면 제거 ── */
+/* ───────────────────────────────────────────
+   스크롤 다운 제스처 감지 → context 이동
+─────────────────────────────────────────── */
+var scrollLocked = false;
+
+/* 마우스 휠 */
+window.addEventListener('wheel', function(e){
+  if(scrollLocked) return;
+  if(e.deltaY > 30){          /* 아래로 스크롤 */
+    scrollLocked = true;
+    goContext();
+  }
+}, { passive: true });
+
+/* 터치 스와이프 */
+var touchStartY = 0;
+window.addEventListener('touchstart', function(e){
+  touchStartY = e.touches[0].clientY;
+}, { passive: true });
+
+window.addEventListener('touchend', function(e){
+  if(scrollLocked) return;
+  var dy = touchStartY - e.changedTouches[0].clientY;
+  if(dy > 40){                /* 위로 스와이프 = 스크롤 다운 */
+    scrollLocked = true;
+    goContext();
+  }
+}, { passive: true });
+
+/* ───────────────────────────────────────────
+   로딩 화면 제거
+─────────────────────────────────────────── */
 window.addEventListener('load', function(){
   var loader = document.getElementById('page-loader');
   if(loader){
     setTimeout(function(){
       loader.classList.add('hidden');
-      setTimeout(function(){loader.style.display='none';}, 650);
+      setTimeout(function(){ loader.style.display = 'none'; }, 650);
     }, 400);
   }
 });
