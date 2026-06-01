@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
@@ -66,9 +66,12 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 ══════════════════════════════════════════ */
 .intro-zone{
   position:absolute;inset:0;
-  overflow:hidden;
+  overflow-y:auto;
+  overflow-x:hidden;
+  scrollbar-width:none;
   opacity:1;transition:opacity 0.5s ease;
 }
+.intro-zone::-webkit-scrollbar{display:none}
 .intro-zone.hidden{opacity:0;pointer-events:none}
 
 /* CSS Grid — 12열 가변, auto 행 */
@@ -77,9 +80,8 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
   grid-template-columns:repeat(12,1fr);
   grid-auto-rows:60px;
   gap:3px;
-  padding:3px;
-  width:100%;height:100%;
-  overflow:hidden;
+  padding:0 20% 20% 20%;
+  width:100%;
 }
 
 /* 모자이크 타일 */
@@ -105,10 +107,22 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 .mtile img.loaded{opacity:1;filter:blur(0)}
 .mtile:hover img{transform:scale(1.04)}
 
+/* 연도 라벨 — 항상 표시, 좌상단 */
+.mtile-year{
+  position:absolute;top:6px;left:7px;
+  font-family:'Cormorant Garamond',serif;
+  font-size:8px;font-weight:500;
+  letter-spacing:0.12em;
+  color:rgba(255,255,255,0.85);
+  text-shadow:0 1px 6px rgba(0,0,0,0.4);
+  pointer-events:none;
+  z-index:4;line-height:1;
+}
+
 /* 타일 hover 오버레이 */
 .mtile-overlay{
   position:absolute;inset:0;
-  background:linear-gradient(to top,rgba(26,26,24,0.55) 0%,transparent 55%);
+  background:linear-gradient(to top,rgba(26,26,24,0.52) 0%,transparent 52%);
   opacity:0;transition:opacity 0.25s ease;
   display:flex;flex-direction:column;justify-content:flex-end;
   padding:8px 10px;pointer-events:none;
@@ -445,6 +459,14 @@ function buildMosaic(works){
     var med=row['medium']||'';
     ov.innerHTML='<div class="mtile-title">'+title+'</div><div class="mtile-meta">'+yr+(med?' · '+med:'')+'</div>';
     tile.appendChild(ov);
+
+    /* 연도 라벨 — 항상 표시 */
+    if(yr){
+      var yrLabel=document.createElement('div');
+      yrLabel.className='mtile-year';
+      yrLabel.textContent=yr;
+      tile.appendChild(yrLabel);
+    }
 
     /* 클릭 → 해당 연도로 이동 */
     (function(yr){
