@@ -81,6 +81,9 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 @keyframes hintDrift{0%,100%{transform:translateY(0);opacity:0.75}45%{transform:translateY(-2px);opacity:0.95}75%{transform:translateY(1.5px);opacity:0.5}}
 .sub-tags-pop{position:absolute;bottom:10%;left:50%;transform:translateX(-50%);z-index:20;display:flex;flex-wrap:wrap;gap:7px;justify-content:center;max-width:65%;opacity:0;pointer-events:none;transition:opacity 0.4s cubic-bezier(0.16,1,0.3,1)}
 .sub-tags-pop.show{opacity:1;pointer-events:all}
+.tag-cycle{position:absolute;inset:0;z-index:3;display:flex;align-items:center;justify-content:center;pointer-events:none}
+.tag-cycle-word{font-family:'EB Garamond',serif;font-style:italic;font-size:clamp(11px,1.1vw,15px);letter-spacing:0.08em;color:rgba(255,255,255,0.72);text-align:center;padding:0 12px;opacity:0;transition:opacity 0.9s ease;white-space:nowrap;text-shadow:0 1px 12px rgba(0,0,0,0.5)}
+.tag-cycle-word.visible{opacity:1}
 .sub-tag-pill{font-family:'EB Garamond',serif;font-style:italic;font-size:12px;letter-spacing:0.05em;color:var(--ink);background:rgba(247,246,243,0.9);border:0.5px solid rgba(0,0,0,0.1);border-radius:20px;padding:4px 13px;animation:tagPop 0.3s cubic-bezier(0.16,1,0.3,1) both}
 @keyframes tagPop{from{opacity:0;transform:translateY(8px) scale(0.9)}to{opacity:1;transform:translateY(0) scale(1)}}
 .result-count{font-size:7.5px;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-dim);margin-top:8px;text-align:right;flex-shrink:0}
@@ -174,6 +177,9 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 @keyframes hintDrift{0%,100%{transform:translateY(0);opacity:0.75}45%{transform:translateY(-2px);opacity:0.95}75%{transform:translateY(1.5px);opacity:0.5}}
 .sub-tags-pop{position:absolute;bottom:10%;left:50%;transform:translateX(-50%);z-index:20;display:flex;flex-wrap:wrap;gap:7px;justify-content:center;max-width:65%;opacity:0;pointer-events:none;transition:opacity 0.4s cubic-bezier(0.16,1,0.3,1)}
 .sub-tags-pop.show{opacity:1;pointer-events:all}
+.tag-cycle{position:absolute;inset:0;z-index:3;display:flex;align-items:center;justify-content:center;pointer-events:none}
+.tag-cycle-word{font-family:'EB Garamond',serif;font-style:italic;font-size:clamp(11px,1.1vw,15px);letter-spacing:0.08em;color:rgba(255,255,255,0.72);text-align:center;padding:0 12px;opacity:0;transition:opacity 0.9s ease;white-space:nowrap;text-shadow:0 1px 12px rgba(0,0,0,0.5)}
+.tag-cycle-word.visible{opacity:1}
 .sub-tag-pill{font-family:'EB Garamond',serif;font-style:italic;font-size:12px;letter-spacing:0.05em;color:var(--ink);background:rgba(247,246,243,0.9);border:0.5px solid rgba(0,0,0,0.1);border-radius:20px;padding:4px 13px;animation:tagPop 0.3s cubic-bezier(0.16,1,0.3,1) both}
 @keyframes tagPop{from{opacity:0;transform:translateY(8px) scale(0.9)}to{opacity:1;transform:translateY(0) scale(1)}}
 .result-count{display:none}
@@ -285,7 +291,7 @@ body.fade-out{opacity:0;transition:opacity 0.3s ease}
     <div class="left-panel">
       <div class="left-title-block">
         <div class="left-header-title">Tactile Thinking</div>
-        <div class="left-explore-hint">Select a series to explore &#8594;</div>
+        <div class="left-explore-hint">Select a series to explore &#8595;</div>
       </div>
       <div class="strip-row"><button class="clear-btn" id="clearBtn" style="display:none" onclick="clearAll()">Clear all</button></div>
       <div class="active-strip" id="activeStrip"></div>
@@ -304,9 +310,9 @@ body.fade-out{opacity:0;transition:opacity 0.3s ease}
         <div class="hint-img-wrap"><img class="mobile-hint-img" id="hintImg" src="" alt=""><div class="hint-overlay-text" id="hintOverlayText">우연의 캔버스 위에 스며든 필연의 숨결,<br>비결정적 순간이 빚어낸 견고한 정원</div></div>
       </div>
       <div class="float-zone" id="floatZone">
-        <div class="sub-card s1" onclick="showSubTags(0)"><img class="sub-img" id="subImg1" alt=""></div>
-        <div class="sub-card s2" onclick="showSubTags(1)"><img class="sub-img" id="subImg2" alt=""></div>
-        <div class="sub-card s3" onclick="showSubTags(2)"><img class="sub-img" id="subImg3" alt=""></div>
+        <div class="sub-card s1" onclick="showSubTags(0)"><img class="sub-img" id="subImg1" alt=""><div class="tag-cycle" id="tagCycle0"></div></div>
+        <div class="sub-card s2" onclick="showSubTags(1)"><img class="sub-img" id="subImg2" alt=""><div class="tag-cycle" id="tagCycle1"></div></div>
+        <div class="sub-card s3" onclick="showSubTags(2)"><img class="sub-img" id="subImg3" alt=""><div class="tag-cycle" id="tagCycle2"></div></div>
         <div class="sub-tags-pop" id="subTagsPop"></div>
         <div class="pc-float-text">우연의 캔버스 위에 스며든 필연의 숨결,<br>비결정적 순간이 빚어낸 견고한 정원</div>
       </div>
@@ -348,6 +354,37 @@ body.fade-out{opacity:0;transition:opacity 0.3s ease}
 </div>
 <script>
 var subWorks=[];
+var tagCycleTimers=[];
+function startTagCycles(){
+  tagCycleTimers.forEach(function(t){clearInterval(t);clearTimeout(t);});
+  tagCycleTimers=[];
+  subWorks.forEach(function(row,cardIdx){
+    var tags=[];
+    ['THE','SER','MAT','SEN'].forEach(function(k){parseTags(row[k]||'').forEach(function(t){if(t)tags.push(t);});});
+    if(!tags.length)return;
+    var el=sel('tagCycle'+cardIdx);
+    if(!el)return;
+    var word=document.createElement('div');word.className='tag-cycle-word';
+    el.appendChild(word);
+    var cur=0;
+    // stagger start per card
+    var stagger=cardIdx*1800;
+    var tid=setTimeout(function(){
+      function show(){
+        word.classList.remove('visible');
+        setTimeout(function(){
+          word.textContent=tags[cur%tags.length];
+          cur++;
+          word.classList.add('visible');
+        },900);
+      }
+      show();
+      var iv=setInterval(show,3200);
+      tagCycleTimers.push(iv);
+    },stagger);
+    tagCycleTimers.push(tid);
+  });
+}
 function showSubTags(idx){
   var pop=sel('subTagsPop'),row=subWorks[idx];
   if(!row){pop.classList.remove('show');return;}
@@ -780,7 +817,7 @@ Promise.all([
   var sorted=allWorks.slice().sort(function(a,b){return(parseInt(b.year||0))-(parseInt(a.year||0));});
   var subs=[];
   for(var i=0;i<sorted.length&&subs.length<3;i++){if((sorted[i].page||'').trim()==='서브')subs.push(sorted[i]);}
-  subWorks=subs;
+  subWorks=subs;startTagCycles();
   if(subs[0])loadSubImg('subImg1',subs[0].thumb||subs[0].full||'');
   if(subs[1])loadSubImg('subImg2',subs[1].thumb||subs[1].full||'');
   if(subs[2])loadSubImg('subImg3',subs[2].thumb||subs[2].full||'');
