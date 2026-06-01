@@ -41,7 +41,7 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 .nav-item.active{color:var(--ink)}.nav-item.active::after{transform:scaleX(1)}
 .nav-sep{width:0.5px;height:12px;background:rgba(0,0,0,0.12);margin:0 5px;flex-shrink:0}
 .nav-dd{position:relative;display:flex;align-items:center}
-.nav-dd-menu{display:none;position:absolute;top:calc(100%+4px);left:50%;transform:translateX(-50%);background:var(--white);border-radius:4px;padding:4px 0;min-width:80px;width:max-content;z-index:300;box-shadow:0 4px 14px rgba(0,0,0,0.08)}
+.nav-dd-menu{display:none;position:absolute;top:calc(100% + 4px);left:50%;transform:translateX(-50%);background:var(--white);border-radius:4px;padding:4px 0;min-width:80px;width:max-content;z-index:300;box-shadow:0 4px 14px rgba(0,0,0,0.08)}
 .nav-dd-item{display:block;font-size:9px;letter-spacing:0.08em;color:var(--ink-mid);padding:5px 14px;cursor:pointer;transition:color 0.15s,background 0.15s;white-space:nowrap;text-transform:uppercase}
 .nav-dd-item:hover{color:var(--ink);background:rgba(0,0,0,0.03)}
 
@@ -379,6 +379,19 @@ document.addEventListener('DOMContentLoaded',function(){
    - CSS Grid span으로 불규칙 크기 부여
    - 랜덤 딜레이로 천천히 나타남
 ══════════════════════════════════════ */
+
+/* Mosaic tile observer — 보이면 이미지 로드 + revealed */
+var mosaicObserver=new IntersectionObserver(function(entries,obs){
+  entries.forEach(function(e){
+    if(!e.isIntersecting)return;
+    var tile=e.target;
+    obs.unobserve(tile);
+    var img=tile.querySelector('img');
+    if(img&&img.dataset.src){img.src=img.dataset.src;}
+    tile.classList.add('revealed');
+  });
+},{rootMargin:'200px'});
+
 function buildMosaic(works){
   /* 1. 연도 그룹별 첫 이미지 */
   var yearGroups={};
@@ -482,20 +495,6 @@ function buildMosaic(works){
     mosaicObserver.observe(tile);
   });
 }
-
-/* Mosaic tile observer — 보이면 이미지 로드 + revealed */
-var mosaicObserver=new IntersectionObserver(function(entries,obs){
-  entries.forEach(function(e){
-    if(!e.isIntersecting)return;
-    var tile=e.target;
-    obs.unobserve(tile);
-    /* 이미지 로드 */
-    var img=tile.querySelector('img');
-    if(img&&img.dataset.src){img.src=img.dataset.src;}
-    /* reveal */
-    tile.classList.add('revealed');
-  });
-},{rootMargin:'200px'});
 
 /* ══════════════════════════════════════
    YEAR BAR
