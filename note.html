@@ -7,17 +7,6 @@
 <meta name="description" content="조원정 작가의 작가노트 및 아티스트 스테이트먼트 아카이브입니다.">
 <meta name="author" content="Won Jeong Cho">
 <meta name="robots" content="index, follow">
-<meta property="og:type" content="website">
-<meta property="og:title" content="작가노트 — Won Jeong Cho">
-<meta property="og:description" content="Artist notes and statements by Won Jeong Cho.">
-<meta property="og:url" content="https://www.chowonjeong.org/note.html">
-<meta property="og:image" content="https://www.chowonjeong.org/og-image.jpg">
-<meta property="og:site_name" content="Won Jeong Cho">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://www.chowonjeong.org/og-image.jpg">
-<link rel="canonical" href="https://www.chowonjeong.org/note.html">
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-YBRBFCMMCB"></script>
-<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-YBRBFCMMCB');</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Cormorant+Garamond:wght@300;400&display=swap&font-display=swap" onload="this.rel='stylesheet'">
@@ -37,7 +26,7 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 .nav-item.active{color:var(--ink)}
 .nav-sep{width:.5px;height:12px;background:rgba(0,0,0,.12);margin:0 5px;flex-shrink:0}
 .nav-dd{position:relative;display:flex;align-items:center}
-.nav-dd-menu{display:none;position:absolute;top:calc(100% + 4px);left:50%;transform:translateX(-50%);background:var(--white);border-radius:4px;padding:4px 0;min-width:80px;z-index:400;box-shadow:0 4px 16px rgba(0,0,0,.08)}
+.nav-dd-menu{position:absolute;top:calc(100% + 4px);left:50%;transform:translateX(-50%);background:var(--white);border-radius:4px;min-width:80px;max-height:0;overflow:hidden;opacity:0;padding:0;transition:max-height 0.32s cubic-bezier(0.16,1,0.3,1),opacity 0.22s ease,padding 0.22s ease;pointer-events:none;z-index:400;box-shadow:0 4px 16px rgba(0,0,0,.08)}.nav-dd-menu.open{max-height:200px;opacity:1;padding:4px 0;pointer-events:all}
 .nav-dd-item{display:block;font-size:9px;letter-spacing:.08em;color:var(--ink-mid);padding:5px 14px;cursor:pointer;transition:color .15s,background .15s;white-space:nowrap;text-transform:uppercase}
 .nav-dd-item:hover{color:var(--ink);background:rgba(0,0,0,.03)}
 .lang-bar{position:fixed;top:var(--nav-h);left:0;right:0;height:var(--lang-h);display:flex;align-items:center;justify-content:flex-end;padding:0 36px;background:var(--bg);border-bottom:.5px solid rgba(26,26,24,.07);z-index:200}
@@ -64,28 +53,10 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 .file-year{font-size:10px;color:var(--ink-dim);font-family:'EB Garamond',serif}
 .file-cat{font-size:10px;color:var(--ink-dim);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .file-title{font-family:'EB Garamond',serif;font-size:12px;color:var(--ink-mid);line-height:1.4;transition:color .15s}
-
-/* ── 상세 컬럼 ── */
 .detail-col{flex:1;min-width:0;padding:16px 48px 40px 36px;overflow-y:auto;scrollbar-width:none;position:relative}
 .detail-col::-webkit-scrollbar{display:none}
-
-/* ★ 배경 이미지 — position:absolute로 detail-col 안에 고정 */
-.detail-bg-img{
-  position:absolute;
-  top:50%;left:50%;
-  transform:translate(-50%,-50%);
-  width:60%;max-width:280px;
-  opacity:0.36;
-  filter:grayscale(40%);
-  object-fit:contain;
-  pointer-events:none;
-  transition:opacity .4s ease;
-}
-/* ★ detail panel이 visible이면 배경 이미지 숨김 */
-.detail-col.panel-open .detail-bg-img{
-  opacity:0;
-}
-
+.detail-bg-img{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:60%;max-width:280px;opacity:0.36;filter:grayscale(40%);object-fit:contain;pointer-events:none;transition:opacity .4s ease}
+.detail-col.panel-open .detail-bg-img{opacity:0}
 .detail-panel{opacity:0;transition:opacity .4s ease;pointer-events:none;position:relative;z-index:1}
 .detail-panel.visible{opacity:1;pointer-events:all}
 .detail-year{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-mid);margin-bottom:4px}
@@ -98,7 +69,6 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 .detail-link:hover{background:rgba(74,74,71,.06)}
 .empty-state{padding:40px 0;font-family:'EB Garamond',serif;font-style:italic;font-size:13px;color:var(--ink-dim);letter-spacing:.1em}
 .loading{padding:40px 0;font-size:8.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-dim)}
-
 @media(max-width:600px){
   html,body{overflow:auto !important;height:auto !important}
   .page-body{position:static;padding-top:calc(var(--nav-h) + var(--lang-h));display:block;overflow:visible}
@@ -137,14 +107,16 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 @keyframes loaderFadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 @keyframes loaderLine{from{width:0}to{width:clamp(80px,12vw,140px)}}
 body.fade-out{opacity:0;transition:opacity .3s ease}
+
 </style>
 </head>
 <body>
+  </div>
+</div>
 <div id="page-loader"><div class="loader-inner"><div class="loader-name">Won Jeong Cho</div><div class="loader-line"></div></div></div>
-
 <nav>
   <span class="nav-logo" onclick="go('index')">Won Jeong Cho</span>
-  <div class="nav-right">
+    <div class="nav-right">
     <div class="nav-dd" id="navArchive">
       <span class="nav-item">Archive</span>
       <div class="nav-dd-menu">
@@ -164,14 +136,12 @@ body.fade-out{opacity:0;transition:opacity .3s ease}
     <span class="nav-item" onclick="go('about')">About</span>
   </div>
 </nav>
-
 <div class="lang-bar">
   <div class="lang-toggle">
     <button class="lang-btn active" id="btnKo" onclick="setLang('ko')">한국어</button>
     <button class="lang-btn" id="btnEn" onclick="setLang('en')">English</button>
   </div>
 </div>
-
 <div class="page-body">
   <div class="stmt-block" id="stmtBlock" style="display:none">
     <div class="stmt-label">Artist Statement</div>
@@ -187,7 +157,6 @@ body.fade-out{opacity:0;transition:opacity .3s ease}
       </div>
       <div id="listInner"><div class="loading">Loading…</div></div>
     </div>
-    <!-- ★ detail-col에 배경 이미지를 absolute로 넣음 -->
     <div class="detail-col" id="detailCol">
       <img class="detail-bg-img" id="detailBgImg" src="" alt="">
       <div class="detail-panel" id="detailPanel">
@@ -202,33 +171,32 @@ body.fade-out{opacity:0;transition:opacity .3s ease}
     </div>
   </div>
 </div>
-
 <script>
 var DATA=[], STATEMENT={ko:'',en:''}, lang='ko', mOpenIdx=null, currentRow=null;
-
 function go(p){document.body.classList.add('fade-out');setTimeout(function(){window.location.href=p+'.html';},280);}
 function sel(id){return document.getElementById(id);}
 function isMobile(){return window.innerWidth<=600;}
 function escH(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
-
 document.querySelectorAll('.nav-dd').forEach(function(dd){
   var menu=dd.querySelector('.nav-dd-menu'),timer;
-  dd.addEventListener('mouseenter',function(){clearTimeout(timer);menu.style.display='block';});
-  dd.addEventListener('mouseleave',function(){timer=setTimeout(function(){menu.style.display='none';},150);});
+  function openM(){clearTimeout(timer);menu.classList.add('open');}
+  function closeM(){timer=setTimeout(function(){menu.classList.remove('open');},150);}
+  dd.addEventListener('mouseenter',openM);
+  dd.addEventListener('mouseleave',closeM);
   menu.addEventListener('mouseenter',function(){clearTimeout(timer);});
-  menu.addEventListener('mouseleave',function(){timer=setTimeout(function(){menu.style.display='none';},150);});
-  dd.querySelector('.nav-item').addEventListener('click',function(e){
+  menu.addEventListener('mouseleave',closeM);
+  var ni=dd.querySelector('.nav-item');
+  if(ni) ni.addEventListener('click',function(e){
     e.stopPropagation();
-    var isOpen=menu.style.display==='block';
-    document.querySelectorAll('.nav-dd-menu').forEach(function(m){m.style.display='none';});
-    if(!isOpen)menu.style.display='block';
+    var isOpen=menu.classList.contains('open');
+    document.querySelectorAll('.nav-dd-menu').forEach(function(m){m.classList.remove('open');});
+    if(!isOpen)menu.classList.add('open');
   });
 });
 document.addEventListener('click',function(e){
   if(!e.target.closest||!e.target.closest('.nav-dd'))
-    document.querySelectorAll('.nav-dd-menu').forEach(function(m){m.style.display='none';});
+    document.querySelectorAll('.nav-dd-menu').forEach(function(m){m.classList.remove('open');});
 });
-
 function setLang(l){
   if(lang===l)return;lang=l;
   sel('btnKo').classList.toggle('active',l==='ko');
@@ -236,13 +204,11 @@ function setLang(l){
   renderStmt();renderList();
   if(!isMobile()&&sel('detailPanel').classList.contains('visible'))renderDetail(currentRow);
 }
-
 function driveThumb(url,sz){
   if(!url)return'';
   var m=url.match(/\/d\/([a-zA-Z0-9_-]{10,})/);
   return m?'https://drive.google.com/thumbnail?id='+m[1]+'&sz='+(sz||'w600'):url;
 }
-
 function renderStmt(){
   var txt=lang==='ko'?(STATEMENT.ko||STATEMENT.en):(STATEMENT.en||STATEMENT.ko);
   if(!txt){sel('stmtBlock').style.display='none';return;}
@@ -251,7 +217,6 @@ function renderStmt(){
   el.style.opacity='0';
   setTimeout(function(){el.textContent=txt;el.style.opacity='1';},180);
 }
-
 function renderList(){
   var inner=sel('listInner');
   var ko=(lang==='ko');
@@ -287,39 +252,22 @@ function renderList(){
     }).join('')+'</div>';
   }
 }
-
 function toggleMobile(idx){
-  if(mOpenIdx===idx){
-    sel('m-detail-'+idx).classList.remove('open');
-    sel('row-'+idx).classList.remove('active-row');
-    mOpenIdx=null;return;
-  }
-  if(mOpenIdx!==null){
-    sel('m-detail-'+mOpenIdx).classList.remove('open');
-    sel('row-'+mOpenIdx).classList.remove('active-row');
-  }
-  mOpenIdx=idx;
-  sel('m-detail-'+idx).classList.add('open');
-  sel('row-'+idx).classList.add('active-row');
+  if(mOpenIdx===idx){sel('m-detail-'+idx).classList.remove('open');sel('row-'+idx).classList.remove('active-row');mOpenIdx=null;return;}
+  if(mOpenIdx!==null){sel('m-detail-'+mOpenIdx).classList.remove('open');sel('row-'+mOpenIdx).classList.remove('active-row');}
+  mOpenIdx=idx;sel('m-detail-'+idx).classList.add('open');sel('row-'+idx).classList.add('active-row');
   var row=DATA[idx];
-  if(row){
-    var desc=lang==='ko'?(row.desc_ko||row.desc||''):(row.desc_en||row.desc||'');
-    var el=sel('m-desc-'+idx);if(el)el.textContent=desc;
-  }
+  if(row){var desc=lang==='ko'?(row.desc_ko||row.desc||''):(row.desc_en||row.desc||'');var el=sel('m-desc-'+idx);if(el)el.textContent=desc;}
   setTimeout(function(){var el=sel('m-detail-'+idx);if(el)el.scrollIntoView({behavior:'smooth',block:'nearest'});},50);
 }
-
 function showDetail(idx){
   var row=DATA[idx];if(!row)return;
   document.querySelectorAll('.file-row').forEach(function(r){r.classList.remove('active-row');});
   var ar=sel('row-'+idx);if(ar)ar.classList.add('active-row');
-  currentRow=row;
-  renderDetail(row);
+  currentRow=row;renderDetail(row);
   sel('detailPanel').classList.add('visible');
-  /* ★ 배경 이미지 숨기기 — panel-open 클래스로 CSS가 처리 */
   sel('detailCol').classList.add('panel-open');
 }
-
 function renderDetail(row){
   if(!row)return;
   var ko=(lang==='ko');
@@ -339,7 +287,6 @@ function renderDetail(row){
   if(row.link){lk.href=row.link;lk.style.display='inline-flex';}
   else lk.style.display='none';
 }
-
 fetch('./data/text.json?v='+Date.now(),{cache:'no-store'})
   .then(function(r){return r.json();})
   .then(function(result){
@@ -352,26 +299,33 @@ fetch('./data/text.json?v='+Date.now(),{cache:'no-store'})
     sel('thTitle').textContent=lang==='ko'?'제목':'Title';
   })
   .catch(function(){sel('listInner').innerHTML='<div class="loading">데이터를 불러올 수 없습니다.</div>';});
-
-/* ★ works.json에서 pn 이미지 로드 — text.json과 독립 실행 */
 fetch('./data/works.json?v='+Date.now(),{cache:'no-store'})
   .then(function(r){return r.json();})
   .then(function(works){
     var found=works.filter(function(w){return(w.page||'').trim()==='pn';});
-    if(found.length){
-      var url=found[0].thumb||found[0].full||'';
-      if(url){
-        var bg=sel('detailBgImg');
-        bg.src=url;
-      }
-    }
+    if(found.length){var url=found[0].thumb||found[0].full||'';if(url){var bg=sel('detailBgImg');bg.src=url;}}
   })
   .catch(function(){});
-
 window.addEventListener('load',function(){
   var loader=document.getElementById('page-loader');
   if(loader){setTimeout(function(){loader.classList.add('hidden');setTimeout(function(){loader.style.display='none';},650);},400);}
 });
+
+  else{menu.classList.add("open");overlay.classList.add("open");document.body.style.overflow="hidden";}
+}
+,550);
+}
+window.addEventListener('wheel',function(e){
+  if(_pgLocked)return;
+  var pb=document.querySelector('.page-body');
+  if(pb&&pb.scrollHeight>pb.clientHeight){
+    if(e.deltaY>30&&pb.scrollTop+pb.clientHeight>=pb.scrollHeight-4)_goNext('about');
+  } else if(e.deltaY>30){_goNext('about');}
+},{passive:true});
+window.addEventListener('touchend',function(e){
+  if(_pgLocked)return;
+  if(_ty-e.changedTouches[0].clientY>50)_goNext('about');
+},{passive:true});
 </script>
 </body>
 </html>
