@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+  <!DOCTYPE html>
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
@@ -203,7 +203,7 @@ body.fade-out{opacity:0;transition:opacity 0.3s ease}
   .nav-sep{margin:0 2px !important}
   .shell{padding-top:clamp(8px,2vh,20px)}
   .img-box{max-width:88vw !important;max-height:54vh !important}
-  .work-info{width:88vw !important}
+  .wi-medium{display:none}
   .img-overlay{justify-content:center !important;align-items:flex-end !important}
   .work-title{font-size:22px !important;text-align:center}
 }
@@ -265,7 +265,7 @@ body.fade-out{opacity:0;transition:opacity 0.3s ease}
   <div class="work-info" id="workInfo">
     <div class="wi-left">
       <div class="wi-title" id="wiTitle"></div>
-      <div class="wi-meta" id="wiMeta"></div>
+      <div class="wi-meta"><span id="wiYear"></span><span id="wiMedium" class="wi-medium"></span></div>
     </div>
     <div class="wi-desc" id="wiDesc"></div>
   </div>
@@ -353,6 +353,7 @@ fetch('./data/main.json')
 
       box.style.width  = w + 'px';
       box.style.height = h + 'px';
+      document.getElementById('workInfo').style.width = w + 'px';
 
       /* 표시 */
       box.classList.add('visible');
@@ -381,8 +382,9 @@ fetch('./data/main.json')
 
     imgEl.src = imgUrl;
 
-    document.getElementById('wiTitle').textContent = main.title || '';
-    document.getElementById('wiMeta').textContent  = (main.year || '') + (main.medium ? ' · ' + main.medium : '');
+    document.getElementById('wiTitle').textContent  = main.title || '';
+    document.getElementById('wiYear').textContent   = main.year || '';
+    document.getElementById('wiMedium').textContent = main.medium ? ' · ' + main.medium : '';
     document.getElementById('wiDesc').textContent  = main.desc || '';
   })
   .catch(function(){
