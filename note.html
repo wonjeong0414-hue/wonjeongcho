@@ -108,13 +108,10 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 .loader-line{width:0;height:.5px;background:var(--ink);opacity:.3;animation:loaderLine 1s cubic-bezier(.16,1,.3,1) .4s forwards}
 @keyframes loaderFadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 @keyframes loaderLine{from{width:0}to{width:clamp(80px,12vw,140px)}}
-#nt-trans-overlay{position:fixed;inset:0;background:var(--bg);z-index:9000;opacity:0;pointer-events:none;transition:opacity 0.55s cubic-bezier(0.4,0,0.2,1)}
-#nt-trans-overlay.active{opacity:1;pointer-events:all}
 body.fade-out{opacity:0;transition:opacity .3s ease}
 </style>
 </head>
 <body>
-<div id="nt-trans-overlay"></div>
 <div id="page-loader"><div class="loader-inner"><div class="loader-name">Won Jeong Cho</div><div class="loader-line"></div></div></div>
 <nav>
   <span class="nav-logo" onclick="go('index')">Won Jeong Cho</span>
@@ -307,40 +304,7 @@ fetch('./data/works.json?v='+Date.now(),{cache:'no-store'})
     if(found.length){var url=found[0].thumb||found[0].full||'';if(url){var bg=sel('detailBgImg');bg.src=url;}}
   })
   .catch(function(){});
-var _ntLocked=false;
-function _goAbout(){
-  if(_ntLocked)return;
-  _ntLocked=true;
-  var ov=document.getElementById('nt-trans-overlay');
-  if(ov)ov.classList.add('active');
-  setTimeout(function(){window.location.href='about.html';},550);
-}
-var _ntWheelCount=0,_ntWheelTimer=null;
-window.addEventListener('wheel',function(e){
-  if(_ntLocked)return;
-  if(e.deltaY<0){_ntWheelCount=0;return;}
-  /* 스크롤 가능 영역(list-col, detail-col)이 끝에 도달했을 때만 */
-  var pb=document.querySelector('.page-body');
-  var lc=document.querySelector('.list-col');
-  var atBottom=true;
-  if(lc&&lc.scrollHeight>lc.clientHeight){
-    atBottom=(lc.scrollTop+lc.clientHeight>=lc.scrollHeight-4);
-  }
-  if(pb&&pb.scrollHeight>pb.clientHeight){
-    atBottom=(pb.scrollTop+pb.clientHeight>=pb.scrollHeight-4);
-  }
-  if(!atBottom){_ntWheelCount=0;return;}
-  _ntWheelCount++;
-  if(_ntWheelTimer)clearTimeout(_ntWheelTimer);
-  _ntWheelTimer=setTimeout(function(){_ntWheelCount=0;},800);
-  if(_ntWheelCount>=3)_goAbout();
-},{passive:true});
-var _ntTY=0;
-window.addEventListener('touchstart',function(e){_ntTY=e.touches[0].clientY;},{passive:true});
-window.addEventListener('touchend',function(e){
-  if(_ntLocked)return;
-  if(_ntTY-e.changedTouches[0].clientY>60)_goAbout();
-},{passive:true});
+
 window.addEventListener('load',function(){
   var loader=document.getElementById('page-loader');
   if(loader){setTimeout(function(){loader.classList.add('hidden');setTimeout(function(){loader.style.display='none';},650);},400);}
