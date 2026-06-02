@@ -237,6 +237,15 @@ body.fade-out{opacity:0;transition:opacity 0.3s ease}
 .loader-line{width:0;height:0.5px;background:var(--ink);opacity:0.3;animation:loaderLine 1s cubic-bezier(0.16,1,0.3,1) 0.4s forwards}
 @keyframes loaderFadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 @keyframes loaderLine{from{width:0}to{width:clamp(80px,12vw,140px)}}
+.left-title-block{padding:22px 0 0;flex-shrink:0}
+.left-header-title{font-family:'EB Garamond',serif;font-style:italic;font-size:18px;color:var(--ink);line-height:1.3;margin-bottom:10px}
+.left-explore-hint{font-family:'EB Garamond',serif;font-style:italic;font-size:9px;letter-spacing:0.1em;color:var(--ink-dim);opacity:0.5;animation:hintDrift 7s ease-in-out infinite;white-space:nowrap;margin-bottom:12px;margin-top:auto;display:block;padding-bottom:10px;border-bottom:0.5px solid rgba(0,0,0,0.08)}
+@keyframes hintDrift{0%,100%{transform:translateY(0);opacity:0.75}45%{transform:translateY(-2px);opacity:0.95}75%{transform:translateY(1.5px);opacity:0.45}}
+.tag-cycle{position:absolute;inset:0;z-index:3;pointer-events:none;background:linear-gradient(to top,rgba(0,0,0,0.45) 0%,rgba(0,0,0,0.1) 60%,transparent 100%);opacity:0;transition:opacity 0.4s ease}
+.sub-card:hover .tag-cycle,.tag-cycle.pinned{opacity:1}
+.tag-cycle-inner{position:absolute;bottom:0;left:0;right:0;padding:14px 14px 16px;display:flex;flex-direction:column;gap:5px;align-items:flex-start}
+.tag-cycle-word{font-family:'EB Garamond',serif;font-style:italic;font-size:clamp(10px,1vw,13px);letter-spacing:0.06em;color:rgba(255,255,255,0.0);line-height:1.5;white-space:nowrap;transition:color 0.6s ease;text-shadow:0 1px 8px rgba(0,0,0,0.6)}
+.tag-cycle-word.lit{color:rgba(255,255,255,0.88)}
 </style>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-YBRBFCMMCB"></script>
   <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-YBRBFCMMCB');</script>
@@ -271,6 +280,7 @@ body.fade-out{opacity:0;transition:opacity 0.3s ease}
     <div class="left-panel">
       <div class="strip-row"><button class="clear-btn" id="clearBtn" style="display:none" onclick="clearAll()">Clear all</button></div>
       <div class="active-strip" id="activeStrip"></div>
+      <div class="left-explore-hint">Select a series to explore &#8595;</div>
       <div class="cat-list-wrap">
         <div class="cat-cell" id="cell-THE"><div class="cat-header" onclick="toggleCat('THE')"><span class="cat-title">Thought &amp; Being</span><span class="cat-arrow">▾</span></div><div class="cat-list" id="list-THE"></div></div>
         <div class="cat-cell" id="cell-SER"><div class="cat-header" onclick="toggleCat('SER')"><span class="cat-title">Traces &amp; Memory</span><span class="cat-arrow">▾</span></div><div class="cat-list" id="list-SER"></div></div>
@@ -290,9 +300,9 @@ body.fade-out{opacity:0;transition:opacity 0.3s ease}
         </div>
       </div>
       <div class="float-zone" id="floatZone">
-        <div class="sub-card s1" onclick="go('index')"><img class="sub-img" id="subImg1" alt=""></div>
-        <div class="sub-card s2" onclick="go('index')"><img class="sub-img" id="subImg2" alt=""></div>
-        <div class="sub-card s3" onclick="go('index')"><img class="sub-img" id="subImg3" alt=""></div>
+        <div class="sub-card s1" onclick="showSubTags(0)"><img class="sub-img" id="subImg1" alt=""><div class="tag-cycle" id="tagCycle0"><div class="tag-cycle-inner" id="tagInner0"></div></div></div>
+        <div class="sub-card s2" onclick="showSubTags(1)"><img class="sub-img" id="subImg2" alt=""><div class="tag-cycle" id="tagCycle1"><div class="tag-cycle-inner" id="tagInner1"></div></div></div>
+        <div class="sub-card s3" onclick="showSubTags(2)"><img class="sub-img" id="subImg3" alt=""><div class="tag-cycle" id="tagCycle2"><div class="tag-cycle-inner" id="tagInner2"></div></div></div>
         <div class="pc-float-text">우연의 캔버스 위에 스며든 필연의 숨결,<br>비결정적 순간이 빚어낸 견고한 정원</div>
       </div>
       <div class="narrative-zone" id="narrativeZone"><div class="ns-label" id="nsLabel"></div><div class="ns-text" id="nsText"></div><div class="ns-rule"></div></div>
