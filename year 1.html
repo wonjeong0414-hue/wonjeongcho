@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+  <!DOCTYPE html>
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
@@ -28,8 +28,6 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{--ink:#1a1a18;--ink-mid:#4a4a47;--ink-dim:#7a7a74;--bg:#f7f6f3;--white:#fff;--nav-h:50px;--bar-h:44px}
 html,body{height:100%;background:var(--bg);font-family:'Cormorant Garamond',serif;color:var(--ink);overflow:hidden}
-
-/* ── NAV ── */
 nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-items:center;justify-content:space-between;padding:0 36px;z-index:200;background:var(--bg)}
 @media(max-width:600px){nav{padding:0 12px}}
 @media(max-width:480px){.nav-logo{font-size:9px !important;letter-spacing:0.16em !important}.nav-item{font-size:8px !important;padding:5px 6px !important}.nav-sep{margin:0 1px !important}}
@@ -44,11 +42,7 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 .nav-dd-menu{display:none;position:absolute;top:calc(100% + 4px);left:50%;transform:translateX(-50%);background:var(--white);border-radius:4px;padding:4px 0;min-width:80px;width:max-content;z-index:300;box-shadow:0 4px 14px rgba(0,0,0,0.08)}
 .nav-dd-item{display:block;font-size:9px;letter-spacing:0.08em;color:var(--ink-mid);padding:5px 14px;cursor:pointer;transition:color 0.15s,background 0.15s;white-space:nowrap;text-transform:uppercase}
 .nav-dd-item:hover{color:var(--ink);background:rgba(0,0,0,0.03)}
-
-/* ── LAYOUT ── */
 .layout{position:fixed;top:var(--nav-h);left:0;right:0;bottom:0;display:flex;flex-direction:column}
-
-/* ── YEAR BAR ── */
 .year-bar{flex-shrink:0;min-height:var(--bar-h);height:auto;display:flex;align-items:center;flex-wrap:wrap;padding:4px 36px;border-bottom:0.5px solid rgba(0,0,0,0.07);column-gap:0;row-gap:0;overflow:visible}
 .bar-title{font-family:'EB Garamond',serif;font-style:italic;font-size:18px;color:var(--ink);margin-right:12px;flex-shrink:0;letter-spacing:0.04em;line-height:var(--bar-h)}
 .bar-sep{width:0.5px;height:14px;background:rgba(0,0,0,0.12);margin-right:14px;flex-shrink:0;align-self:center}
@@ -57,90 +51,22 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 .yr-item::after{content:'';position:absolute;bottom:0;left:6px;right:6px;height:0.5px;background:var(--ink);transform:scaleX(0);transform-origin:left;transition:transform 0.25s cubic-bezier(0.16,1,0.3,1);opacity:0.4}
 .yr-item:hover .yr-label{color:var(--ink)}.yr-item:hover::after{transform:scaleX(1)}
 .yr-item.checked .yr-label{color:var(--ink);font-weight:600;font-size:14.5px}.yr-item.checked::after{transform:scaleX(1)}
-
-/* ── BODY ROW ── */
 .body-row{flex:1;display:flex;overflow:hidden;position:relative}
-
-/* ══════════════════════════════════════════
-   INTRO MOSAIC — 첫 페이지 불규칙 그리드
-══════════════════════════════════════════ */
-.intro-zone{
-  position:absolute;inset:0;
-  overflow-y:auto;
-  overflow-x:hidden;
-  scrollbar-width:none;
-  opacity:1;transition:opacity 0.5s ease;
-}
+.intro-zone{position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;scrollbar-width:none;opacity:1;transition:opacity 0.5s ease}
 .intro-zone::-webkit-scrollbar{display:none}
 .intro-zone.hidden{opacity:0;pointer-events:none}
-
-/* CSS Grid — 12열 가변, auto 행 */
-.mosaic-grid{
-  display:grid;
-  grid-template-columns:repeat(12,1fr);
-  grid-auto-rows:60px;
-  gap:3px;
-  padding:0 10% 10% 10%;
-  width:100%;
-}
-
-/* 모자이크 타일 */
-.mtile{
-  position:relative;overflow:hidden;cursor:pointer;
-  background:rgba(0,0,0,0.04);
-  opacity:0;
-  transform:scale(0.96) translateY(8px);
-  /* transition은 JS로 개별 설정 */
-}
-.mtile.revealed{
-  opacity:1;
-  transform:scale(1) translateY(0);
-}
-.mtile img{
-  width:100%;height:100%;
-  object-fit:cover;display:block;
-  opacity:0;
-  transition:opacity 0.8s ease;
-  filter:blur(4px);
-  transition:opacity 0.9s ease, filter 0.9s ease, transform 0.4s ease;
-}
+.mosaic-grid{display:grid;grid-template-columns:repeat(12,1fr);grid-auto-rows:60px;gap:3px;padding:0 10% 10% 10%;width:100%}
+.mtile{position:relative;overflow:hidden;cursor:pointer;background:rgba(0,0,0,0.04);opacity:0;transform:scale(0.96) translateY(8px)}
+.mtile.revealed{opacity:1;transform:scale(1) translateY(0)}
+.mtile img{width:100%;height:100%;object-fit:cover;display:block;opacity:0;transition:opacity 0.9s ease,filter 0.9s ease,transform 0.4s ease;filter:blur(4px)}
 .mtile img.loaded{opacity:1;filter:blur(0)}
 .mtile:hover img{transform:scale(1.04)}
-
-/* 연도 라벨 — 항상 표시, 좌상단 */
-.mtile-year{
-  position:absolute;top:6px;left:7px;
-  font-family:'Cormorant Garamond',serif;
-  font-size:8px;font-weight:500;
-  letter-spacing:0.12em;
-  color:rgba(255,255,255,0.85);
-  text-shadow:0 1px 6px rgba(0,0,0,0.4);
-  pointer-events:none;
-  z-index:4;line-height:1;
-  transition:font-size 0.22s cubic-bezier(0.16,1,0.3,1), opacity 0.22s ease;
-}
-.mtile:hover .mtile-year{
-  font-size:22px;
-  font-style:italic;
-  letter-spacing:0.06em;
-  color:rgba(255,255,255,0.95);
-  text-shadow:0 2px 12px rgba(0,0,0,0.3);
-}
-
-/* 타일 hover 오버레이 — dim만, 캡션 없음 */
-.mtile-overlay{
-  position:absolute;inset:0;
-  background:rgba(26,26,24,0.18);
-  opacity:0;transition:opacity 0.22s ease;
-  pointer-events:none;
-}
+.mtile-year{position:absolute;top:6px;left:7px;font-family:'Cormorant Garamond',serif;font-size:8px;font-weight:500;letter-spacing:0.12em;color:rgba(255,255,255,0.85);text-shadow:0 1px 6px rgba(0,0,0,0.4);pointer-events:none;z-index:4;line-height:1;transition:font-size 0.22s cubic-bezier(0.16,1,0.3,1),opacity 0.22s ease}
+.mtile:hover .mtile-year{font-size:22px;font-style:italic;letter-spacing:0.06em;color:rgba(255,255,255,0.95);text-shadow:0 2px 12px rgba(0,0,0,0.3)}
+.mtile-overlay{position:absolute;inset:0;background:rgba(26,26,24,0.18);opacity:0;transition:opacity 0.22s ease;pointer-events:none}
 .mtile:hover .mtile-overlay{opacity:1}
-
-/* 타일 스켈레톤 */
 .mtile-sk{position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,0.04) 25%,rgba(0,0,0,0.07) 50%,rgba(0,0,0,0.04) 75%);background-size:200% 100%;animation:skShimmer 1.6s ease infinite}
 @keyframes skShimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
-
-/* ── GRID ZONE (연도 선택 후) ── */
 .grid-zone{position:absolute;inset:0;overflow-y:auto;padding:16px 10% 48px 36px;scrollbar-width:none;opacity:0;pointer-events:none;transition:opacity 0.5s ease}
 .grid-zone::-webkit-scrollbar{display:none}
 .grid-zone.open{opacity:1;pointer-events:all}
@@ -149,13 +75,9 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 .year-section-grid{overflow:hidden}
 .yd-label{font-family:'EB Garamond',serif;font-style:italic;font-size:18px;color:var(--ink);letter-spacing:0.04em;line-height:1.3;display:block}
 .yd-count{font-size:9px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-mid);font-weight:500;display:block;margin-top:3px}
-
-/* ── 랜덤 그리드 — 12열 기반 ── */
 .grid{display:grid;grid-template-columns:repeat(12,1fr);grid-auto-rows:52px;gap:4px}
 @media(max-width:1200px){.grid{grid-template-columns:repeat(10,1fr);grid-auto-rows:48px}}
 @media(max-width:900px){.grid{grid-template-columns:repeat(8,1fr);grid-auto-rows:44px}}
-
-/* ── 카드 기본 ── */
 .card{position:relative;overflow:hidden;cursor:pointer;background:rgba(0,0,0,0.04);opacity:0;transform:translateY(6px);transition:opacity 0.35s ease,transform 0.4s cubic-bezier(0.16,1,0.3,1)}
 .card.revealed{opacity:1;transform:translateY(0)}
 .card img{width:100%;height:100%;object-fit:cover;display:block;opacity:0;filter:blur(3px);transition:opacity 0.5s ease,filter 0.6s ease,transform 0.35s ease;position:absolute;inset:0}
@@ -167,11 +89,8 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 .card-meta{font-size:6.5px;letter-spacing:0.08em;color:rgba(255,255,255,0.5);text-transform:uppercase}
 .card-skeleton{position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,0.04) 25%,rgba(0,0,0,0.07) 50%,rgba(0,0,0,0.04) 75%);background-size:200% 100%;animation:cardShimmer 1.4s ease infinite}
 @keyframes cardShimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
-
 .load-sentinel{height:1px}
 .loading-msg{padding:40px;text-align:center;font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink-dim)}
-
-/* ── PC 모달 ── */
 .modal-bg{position:fixed;inset:0;background:rgba(26,26,24,0.82);z-index:500;opacity:0;pointer-events:none;transition:opacity 0.3s ease;display:flex;align-items:center;justify-content:center;padding:5%}
 .modal-bg.open{opacity:1;pointer-events:all}
 .modal{background:var(--white);max-width:660px;width:100%;max-height:90vh;display:flex;flex-direction:column;overflow:hidden;transform:translateY(16px) scale(0.976);transition:transform 0.34s cubic-bezier(0.16,1,0.3,1);position:relative;border-radius:2px}
@@ -191,8 +110,6 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 .modal-arr{position:fixed;top:50%;transform:translateY(-50%);background:rgba(255,255,255,0.12);backdrop-filter:blur(6px);border:none;color:#fff;font-size:24px;width:44px;height:44px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background 0.2s;font-family:serif}
 .modal-arr:hover{background:rgba(255,255,255,0.25)}
 .arr-prev{left:16px}.arr-next{right:16px}
-
-/* ── PAGE LOADER ── */
 #page-loader{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:9999;opacity:1;transition:opacity 0.6s cubic-bezier(0.16,1,0.3,1);pointer-events:all}
 #page-loader.hidden{opacity:0;pointer-events:none}
 .loader-inner{display:flex;flex-direction:column;align-items:center;gap:20px}
@@ -200,12 +117,9 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 .loader-line{width:0;height:0.5px;background:var(--ink);opacity:0.3;animation:loaderLine 1s cubic-bezier(0.16,1,0.3,1) 0.4s forwards}
 @keyframes loaderFadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 @keyframes loaderLine{from{width:0}to{width:clamp(80px,12vw,140px)}}
-
 @keyframes pageFadeIn{from{opacity:0}to{opacity:1}}
 .page-fade{animation:pageFadeIn 0.4s ease forwards}
 body.fade-out{opacity:0;transition:opacity 0.3s ease}
-
-/* ── 모바일 ── */
 .m-year-bar{display:none}
 @media(max-width:480px){
   html,body{overflow:auto;height:auto}
@@ -235,7 +149,7 @@ body.fade-out{opacity:0;transition:opacity 0.3s ease}
   body.sheet-open .grid-zone{filter:blur(3px)}
   .bs-sheet{position:fixed;left:0;right:0;bottom:0;z-index:600;background:var(--white);border-radius:16px 16px 0 0;transform:translateY(100%);transition:transform 0.38s cubic-bezier(0.16,1,0.3,1);will-change:transform;overflow-y:auto;max-height:92vh}
   .bs-sheet.half{transform:translateY(0%)}.bs-sheet.full{transform:translateY(0)}
-  .bs-handle-wrap{display:flex;justify-content:center;padding:10px 0 6px;cursor:grab}
+  .bs-handle-wrap{display:flex;justify-content:center;padding:10px 0 6px}
   .bs-handle{width:36px;height:4px;border-radius:2px;background:rgba(0,0,0,0.15)}
   .bs-img-area{width:100%;padding:0 20px 12px;display:flex;align-items:center;justify-content:center}
   .bs-img-area img{max-width:100%;max-height:48vh;object-fit:contain;display:block;opacity:0;transition:opacity 0.3s ease}
@@ -256,14 +170,12 @@ body.fade-out{opacity:0;transition:opacity 0.3s ease}
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-YBRBFCMMCB');</script>
 </head>
 <body>
-
 <div id="page-loader">
   <div class="loader-inner">
     <div class="loader-name">Won Jeong Cho</div>
     <div class="loader-line"></div>
   </div>
 </div>
-
 <nav>
   <span class="nav-logo" onclick="go('index')">Won Jeong Cho</span>
   <div class="nav-right">
@@ -286,13 +198,11 @@ body.fade-out{opacity:0;transition:opacity 0.3s ease}
     <span class="nav-item" onclick="go('about')">About</span>
   </div>
 </nav>
-
 <div class="m-year-bar" id="mYearBar">
   <div class="m-yr-active" id="mYrActive"></div>
   <div class="m-yr-sep"></div>
   <div class="m-yr-list" id="mYrList"></div>
 </div>
-
 <div class="layout">
   <div class="year-bar" id="yearBar">
     <span class="bar-title">Year</span>
@@ -301,22 +211,15 @@ body.fade-out{opacity:0;transition:opacity 0.3s ease}
   </div>
   <div class="body-row">
     <div style="flex:1;min-width:0;position:relative;overflow:hidden;height:100%">
-
-      <!-- ★ INTRO MOSAIC -->
       <div class="intro-zone" id="introZone">
         <div class="mosaic-grid" id="mosaicGrid"></div>
       </div>
-
-      <!-- 연도 선택 후 그리드 -->
       <div class="grid-zone" id="gridZone">
         <div id="gridContainer"></div>
       </div>
-
     </div>
   </div>
 </div>
-
-<!-- PC 모달 -->
 <div class="modal-bg" id="modalBg" onclick="bgClose(event)">
   <div class="modal">
     <button class="modal-arr arr-prev" id="arrPrev" onclick="navModal(-1)">‹</button>
@@ -336,8 +239,6 @@ body.fade-out{opacity:0;transition:opacity 0.3s ease}
     <button class="modal-arr arr-next" id="arrNext" onclick="navModal(1)">›</button>
   </div>
 </div>
-
-<!-- 모바일 바텀시트 -->
 <div class="bs-sheet" id="bsSheet">
   <div class="bs-handle-wrap" id="bsHandle"><div class="bs-handle"></div></div>
   <button class="bs-close" onclick="closeSheet()">×</button>
@@ -354,241 +255,87 @@ body.fade-out{opacity:0;transition:opacity 0.3s ease}
     <div class="bs-tags" id="bsTags"></div>
   </div>
 </div>
-
 <script>
 var ALL_YEARS=[],selectedYears=[],allFiltered=[],flatFiltered=[],modalIdx=0;
 var CHUNK_SIZE=24,chunkSentinel=null,chunkObserver=null,yearRendered={};
 var allWorks=[];
 var sheetState='closed',dragStartY=0,dragStartState='';
-/* intro용 flat list */
 var introWorks=[];
-
 function sel(id){return document.getElementById(id);}
 function isMobile(){return window.innerWidth<=600;}
 function go(page){document.body.classList.add('fade-out');setTimeout(function(){window.location.href=page+'.html';},280);}
 function rnd(min,max){return Math.random()*(max-min)+min;}
 function rndInt(min,max){return Math.floor(rnd(min,max+1));}
 function shuffle(arr){var a=arr.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}return a;}
-
-document.addEventListener('DOMContentLoaded',function(){
-  document.body.classList.add('page-fade');
-  setTimeout(function(){document.body.classList.remove('page-fade');},500);
-});
-
-/* ══════════════════════════════════════
-   INTRO MOSAIC 빌드
-   - 각 연도 그룹의 첫 번째 이미지 수집
-   - 전체에서 랜덤 이미지 추가 (총 ~40장)
-   - CSS Grid span으로 불규칙 크기 부여
-   - 랜덤 딜레이로 천천히 나타남
-══════════════════════════════════════ */
-
-/* Mosaic tile observer — 보이면 revealed 클래스만 추가 */
-var mosaicObserver=new IntersectionObserver(function(entries,obs){
-  entries.forEach(function(e){
-    if(!e.isIntersecting)return;
-    obs.unobserve(e.target);
-    e.target.classList.add('revealed');
-  });
-},{rootMargin:'0px'});
-
+document.addEventListener('DOMContentLoaded',function(){document.body.classList.add('page-fade');setTimeout(function(){document.body.classList.remove('page-fade');},500);});
+var mosaicObserver=new IntersectionObserver(function(entries,obs){entries.forEach(function(e){if(!e.isIntersecting)return;obs.unobserve(e.target);e.target.classList.add('revealed');});},{rootMargin:'0px'});
 function buildMosaic(works){
-  /* 1. 연도 그룹별 첫 이미지 */
   var yearGroups={};
-  works.forEach(function(w){
-    var y=parseInt(w['year']||0);
-    if(!y)return;
-    if(!yearGroups[y])yearGroups[y]=[];
-    yearGroups[y].push(w);
-  });
+  works.forEach(function(w){var y=parseInt(w['year']||0);if(!y)return;if(!yearGroups[y])yearGroups[y]=[];yearGroups[y].push(w);});
   var seeds=[];
-  Object.keys(yearGroups).forEach(function(y){
-    var g=yearGroups[y];
-    /* 이미지가 있는 첫 항목 */
-    for(var i=0;i<g.length;i++){
-      if(g[i]['thumb']||g[i]['full']){seeds.push(g[i]);break;}
-    }
-  });
-
-  /* 2. 전체에서 이미지 있는 것만 필터 후 랜덤 추가 */
+  Object.keys(yearGroups).forEach(function(y){var g=yearGroups[y];for(var i=0;i<g.length;i++){if(g[i]['thumb']||g[i]['full']){seeds.push(g[i]);break;}}});
   var imgWorks=works.filter(function(w){return !!(w['thumb']||w['full']);});
   var extra=shuffle(imgWorks).slice(0,Math.max(0,40-seeds.length));
-
-  /* 3. 합치고 섞기 */
   var pool=shuffle(seeds.concat(extra));
-  introWorks=pool; /* 모달용 저장 */
-
-  /* 4. 그리드 타일 크기 패턴 — col/row span */
-  /* 12열 기준. span 패턴을 랜덤 조합 */
-  var spanOptions=[
-    {c:1,r:2},{c:1,r:2},{c:1,r:3},  /* 좁고 보통 */
-    {c:2,r:2},{c:2,r:3},             /* 중간 */
-    {c:2,r:4},{c:3,r:3},             /* 크게 */
-    {c:1,r:2},{c:1,r:2},             /* 좁은 거 더 많이 */
-    {c:3,r:2},{c:2,r:2}
-  ];
-
-  var grid=sel('mosaicGrid');
-  grid.innerHTML='';
-
+  introWorks=pool;
+  var spanOptions=[{c:1,r:2},{c:1,r:2},{c:1,r:3},{c:2,r:2},{c:2,r:3},{c:2,r:4},{c:3,r:3},{c:1,r:2},{c:1,r:2},{c:3,r:2},{c:2,r:2}];
+  var grid=sel('mosaicGrid');grid.innerHTML='';
   pool.forEach(function(row,i){
     var span=spanOptions[i%spanOptions.length];
-    /* 일부는 한 단계 더 랜덤 변형 */
-    if(Math.random()<0.3){
-      span={c:span.c,r:span.r+(Math.random()<0.5?1:-1)};
-      span.r=Math.max(2,span.r);
-    }
-
-    var tile=document.createElement('div');
-    tile.className='mtile';
-    tile.style.gridColumn='span '+span.c;
-    tile.style.gridRow='span '+span.r;
-
-    /* 랜덤 reveal 딜레이: 0.1s ~ 2.2s */
-    var delay=rnd(0.05,2.2);
-    /* 랜덤 transition 속도: 0.5s ~ 1.2s */
-    var dur=rnd(0.5,1.2);
+    if(Math.random()<0.3){span={c:span.c,r:span.r+(Math.random()<0.5?1:-1)};span.r=Math.max(2,span.r);}
+    var tile=document.createElement('div');tile.className='mtile';
+    tile.style.gridColumn='span '+span.c;tile.style.gridRow='span '+span.r;
+    var delay=rnd(0.05,2.2);var dur=rnd(0.5,1.2);
     tile.style.transition='opacity '+dur+'s ease '+delay+'s, transform '+dur+'s cubic-bezier(0.16,1,0.3,1) '+delay+'s';
-
-    /* 스켈레톤 */
     var sk=document.createElement('div');sk.className='mtile-sk';tile.appendChild(sk);
-
-    /* 이미지 — 바로 로드 (lazy 없음) */
-    var img=document.createElement('img');
-    var src=row['thumb']||row['full']||'';
-    img.alt=row['title']||'';
-    img.onload=function(){
-      img.classList.add('loaded');
-      if(sk.parentNode)sk.parentNode.removeChild(sk);
-    };
-    img.onerror=function(){
-      var m=(src||'').match(/[?&]id=([a-zA-Z0-9_-]{10,})/);
-      if(m&&img.src.indexOf('w400')===-1){img.src='https://drive.google.com/thumbnail?id='+m[1]+'&sz=w400';}
-      else{if(sk.parentNode)sk.parentNode.removeChild(sk);}
-    };
-    if(src)img.src=src;
-    tile.appendChild(img);
-
-    /* 오버레이 — dim용 */
-    var ov=document.createElement('div');ov.className='mtile-overlay';
-    tile.appendChild(ov);
-
-    /* 연도 라벨 — 항상 표시 */
+    var img=document.createElement('img');var src=row['thumb']||row['full']||'';img.alt=row['title']||'';
+    img.onload=function(){img.classList.add('loaded');if(sk.parentNode)sk.parentNode.removeChild(sk);};
+    img.onerror=function(){var m=(src||'').match(/[?&]id=([a-zA-Z0-9_-]{10,})/);if(m&&img.src.indexOf('w400')===-1){img.src='https://drive.google.com/thumbnail?id='+m[1]+'&sz=w400';}else{if(sk.parentNode)sk.parentNode.removeChild(sk);}};
+    if(src)img.src=src;tile.appendChild(img);
+    var ov=document.createElement('div');ov.className='mtile-overlay';tile.appendChild(ov);
     var rowYr=row['year']||'';
-    if(rowYr){
-      var yrLabel=document.createElement('div');
-      yrLabel.className='mtile-year';
-      yrLabel.textContent=rowYr;
-      tile.appendChild(yrLabel);
-    }
-
-    /* 클릭 → 해당 연도로 이동 */
-    (function(yr){
-      tile.addEventListener('click',function(){
-        if(yr)selectYear(parseInt(yr));
-      });
-    })(row['year']);
-
+    if(rowYr){var yrLabel=document.createElement('div');yrLabel.className='mtile-year';yrLabel.textContent=rowYr;tile.appendChild(yrLabel);}
+    (function(yr){tile.addEventListener('click',function(){if(yr)selectYear(parseInt(yr));});})(row['year']);
     grid.appendChild(tile);
-
-    /* 랜덤 딜레이 후 reveal — observer 불안정 방지 */
-    (function(t,d){
-      setTimeout(function(){t.classList.add('revealed');},d*1000);
-    })(tile, delay);
+    (function(t,d){setTimeout(function(){t.classList.add('revealed');},d*1000);})(tile,delay);
   });
 }
-
-/* ══════════════════════════════════════
-   YEAR BAR
-══════════════════════════════════════ */
 function buildYearGrid(){
   var grid=sel('yearGrid');
   if(!ALL_YEARS.length){grid.innerHTML='<div style="font-size:8px;color:var(--ink-dim)">연도 없음</div>';return;}
-  grid.innerHTML=ALL_YEARS.map(function(yr){
-    return '<div class="yr-item" id="yr-'+yr+'" onclick="selectYear('+yr+')"><span class="yr-label">'+yr+'</span></div>';
-  }).join('');
+  grid.innerHTML=ALL_YEARS.map(function(yr){return '<div class="yr-item" id="yr-'+yr+'" onclick="selectYear('+yr+')"><span class="yr-label">'+yr+'</span></div>';}).join('');
   buildMobileYearBar();
 }
-
 function buildMobileYearBar(){
-  var activeEl=sel('mYrActive'),listEl=sel('mYrList');
-  if(!activeEl||!listEl)return;
-  var curYr=selectedYears.length?selectedYears[0]:(ALL_YEARS[0]||'');
-  activeEl.textContent=curYr||'';
-  listEl.innerHTML='';
-  ALL_YEARS.forEach(function(yr){
-    if(yr===curYr)return;
-    var div=document.createElement('div');
-    div.className='m-yr-item';div.textContent=yr;
-    div.addEventListener('click',function(){selectYear(yr);});
-    listEl.appendChild(div);
-  });
+  var activeEl=sel('mYrActive'),listEl=sel('mYrList');if(!activeEl||!listEl)return;
+  var curYr=selectedYears.length?selectedYears[0]:(ALL_YEARS[0]||'');activeEl.textContent=curYr||'';listEl.innerHTML='';
+  ALL_YEARS.forEach(function(yr){if(yr===curYr)return;var div=document.createElement('div');div.className='m-yr-item';div.textContent=yr;div.addEventListener('click',function(){selectYear(yr);});listEl.appendChild(div);});
 }
-
 function updateMobileYearBar(){
-  var activeEl=sel('mYrActive'),listEl=sel('mYrList');
-  if(!activeEl||!listEl)return;
-  var curYr=selectedYears.length?selectedYears[0]:(ALL_YEARS[0]||'');
-  activeEl.textContent=curYr||'';
-  listEl.innerHTML='';
-  ALL_YEARS.forEach(function(yr){
-    if(yr===curYr)return;
-    var div=document.createElement('div');
-    div.className='m-yr-item';div.textContent=yr;
-    div.addEventListener('click',function(){selectYear(yr);});
-    listEl.appendChild(div);
-  });
+  var activeEl=sel('mYrActive'),listEl=sel('mYrList');if(!activeEl||!listEl)return;
+  var curYr=selectedYears.length?selectedYears[0]:(ALL_YEARS[0]||'');activeEl.textContent=curYr||'';listEl.innerHTML='';
+  ALL_YEARS.forEach(function(yr){if(yr===curYr)return;var div=document.createElement('div');div.className='m-yr-item';div.textContent=yr;div.addEventListener('click',function(){selectYear(yr);});listEl.appendChild(div);});
 }
-
-/* selectYear: 연도 클릭 — 모자이크 숨기고 그리드 오픈 */
 function selectYear(yr){
-  /* 이미 선택된 경우 토글 */
   var already=selectedYears.length===1&&selectedYears[0]===yr;
   ALL_YEARS.forEach(function(y){var e=sel('yr-'+y);if(e)e.classList.remove('checked');});
-  if(already){
-    selectedYears=[];
-    /* 모자이크로 복귀 */
-    sel('introZone').classList.remove('hidden');
-    sel('gridZone').classList.remove('open');
-    sel('gridContainer').innerHTML='';
-    allFiltered=[];flatFiltered=[];
-    return;
-  }
-  selectedYears=[yr];
-  var el=sel('yr-'+yr);if(el)el.classList.add('checked');
+  if(already){selectedYears=[];sel('introZone').classList.remove('hidden');sel('gridZone').classList.remove('open');sel('gridContainer').innerHTML='';allFiltered=[];flatFiltered=[];return;}
+  selectedYears=[yr];var el=sel('yr-'+yr);if(el)el.classList.add('checked');
   if(isMobile())updateMobileYearBar();
-  /* 모자이크 숨기고 그리드 표시 */
-  sel('introZone').classList.add('hidden');
-  fetchAndRender();
+  sel('introZone').classList.add('hidden');fetchAndRender();
 }
-
-/* ══════════════════════════════════════
-   GRID ZONE (연도 선택 후)
-══════════════════════════════════════ */
 function fetchAndRender(){
   disconnectChunkObserver();
-  if(!selectedYears.length){
-    sel('gridZone').classList.remove('open');
-    sel('gridContainer').innerHTML='';allFiltered=[];flatFiltered=[];return;
-  }
-  sel('gridZone').classList.add('open');
-  sel('gridContainer').innerHTML='<div class="loading-msg">Loading…</div>';
+  if(!selectedYears.length){sel('gridZone').classList.remove('open');sel('gridContainer').innerHTML='';allFiltered=[];flatFiltered=[];return;}
+  sel('gridZone').classList.add('open');sel('gridContainer').innerHTML='<div class="loading-msg">Loading…</div>';
   var yearsDesc=selectedYears.slice().sort(function(a,b){return b-a;});
   allFiltered=[];flatFiltered=[];
-  yearsDesc.forEach(function(yr){
-    var rows=allWorks.filter(function(w){return parseInt(w['year']||0)===yr;});
-    if(rows.length)allFiltered.push({year:yr,rows:rows});
-    rows.forEach(function(r){flatFiltered.push(r);});
-  });
+  yearsDesc.forEach(function(yr){var rows=allWorks.filter(function(w){return parseInt(w['year']||0)===yr;});if(rows.length)allFiltered.push({year:yr,rows:rows});rows.forEach(function(r){flatFiltered.push(r);});});
   yearRendered={};renderAll();
 }
-
 function renderAll(){
   var con=sel('gridContainer');con.innerHTML='';disconnectChunkObserver();
-  if(!allFiltered.length){
-    con.innerHTML='<div style="padding:60px 0;text-align:center;font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink-dim)">No works found</div>';
-    return;
-  }
+  if(!allFiltered.length){con.innerHTML='<div style="padding:60px 0;text-align:center;font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink-dim)">No works found</div>';return;}
   allFiltered.forEach(function(g){
     if(!isMobile()){
       var section=document.createElement('div');section.className='year-section';
@@ -604,58 +351,26 @@ function renderAll(){
   });
   renderNextChunk();
 }
-
 function renderNextChunk(){
   var rem=CHUNK_SIZE;
-  allFiltered.forEach(function(g){
-    if(rem<=0)return;
-    var grid=sel('grid-'+g.year);if(!grid)return;
-    var start=yearRendered[g.year],end=Math.min(start+rem,g.rows.length);
-    for(var i=start;i<end;i++)grid.appendChild(makeCard(g.rows[i],getFlatIndex(g.year,i),i-start));
-    rem-=(end-start);yearRendered[g.year]=end;
-  });
+  allFiltered.forEach(function(g){if(rem<=0)return;var grid=sel('grid-'+g.year);if(!grid)return;var start=yearRendered[g.year],end=Math.min(start+rem,g.rows.length);for(var i=start;i<end;i++)grid.appendChild(makeCard(g.rows[i],getFlatIndex(g.year,i),i-start));rem-=(end-start);yearRendered[g.year]=end;});
   if(chunkSentinel)chunkSentinel.remove();chunkSentinel=null;
-  if(allFiltered.some(function(g){return yearRendered[g.year]<g.rows.length;})){
-    chunkSentinel=document.createElement('div');chunkSentinel.className='load-sentinel';
-    sel('gridContainer').appendChild(chunkSentinel);connectChunkObserver();
-  }
+  if(allFiltered.some(function(g){return yearRendered[g.year]<g.rows.length;})){chunkSentinel=document.createElement('div');chunkSentinel.className='load-sentinel';sel('gridContainer').appendChild(chunkSentinel);connectChunkObserver();}
 }
-
-function getFlatIndex(year,rowIdx){
-  var off=0;
-  for(var i=0;i<allFiltered.length;i++){if(allFiltered[i].year===year)return off+rowIdx;off+=allFiltered[i].rows.length;}
-  return off+rowIdx;
-}
+function getFlatIndex(year,rowIdx){var off=0;for(var i=0;i<allFiltered.length;i++){if(allFiltered[i].year===year)return off+rowIdx;off+=allFiltered[i].rows.length;}return off+rowIdx;}
 function connectChunkObserver(){
   if(chunkObserver)chunkObserver.disconnect();
-  chunkObserver=new IntersectionObserver(function(entries){
-    entries.forEach(function(e){if(!e.isIntersecting)return;chunkObserver.disconnect();chunkObserver=null;renderNextChunk();});
-  },{rootMargin:'300px'});
+  chunkObserver=new IntersectionObserver(function(entries){entries.forEach(function(e){if(!e.isIntersecting)return;chunkObserver.disconnect();chunkObserver=null;renderNextChunk();});},{rootMargin:'300px'});
   if(chunkSentinel)chunkObserver.observe(chunkSentinel);
 }
-function disconnectChunkObserver(){
-  if(chunkObserver){chunkObserver.disconnect();chunkObserver=null;}
-  if(chunkSentinel){chunkSentinel.remove();chunkSentinel=null;}
-}
-
-/* 연도 그리드용 span 패턴 — 인덱스별 랜덤 */
-var CARD_SPANS=[
-  {c:1,r:3},{c:1,r:2},{c:2,r:3},{c:1,r:2},{c:1,r:4},
-  {c:2,r:2},{c:1,r:3},{c:2,r:4},{c:1,r:2},{c:1,r:3},
-  {c:3,r:3},{c:1,r:2},{c:2,r:3},{c:1,r:2},{c:1,r:3}
-];
-
+function disconnectChunkObserver(){if(chunkObserver){chunkObserver.disconnect();chunkObserver=null;}if(chunkSentinel){chunkSentinel.remove();chunkSentinel=null;}}
+var CARD_SPANS=[{c:1,r:3},{c:1,r:2},{c:2,r:3},{c:1,r:2},{c:1,r:4},{c:2,r:2},{c:1,r:3},{c:2,r:4},{c:1,r:2},{c:1,r:3},{c:3,r:3},{c:1,r:2},{c:2,r:3},{c:1,r:2},{c:1,r:3}];
 function makeCard(row,flatIdx,animOffset){
   var card=document.createElement('div');card.className='card';
   var title=row['title']||'',yr=row['year']||'',medium=row['medium']||'';
-
-  /* 랜덤 span */
   var sp=CARD_SPANS[flatIdx%CARD_SPANS.length];
-  /* 약 30% 확률로 변형 */
   if(Math.random()<0.3){sp={c:sp.c,r:sp.r+(Math.random()<0.5?1:-1)};sp.r=Math.max(2,sp.r);}
-  card.style.gridColumn='span '+sp.c;
-  card.style.gridRow='span '+sp.r;
-
+  card.style.gridColumn='span '+sp.c;card.style.gridRow='span '+sp.r;
   var thumb=row['thumb']||'';
   var sk=document.createElement('div');sk.className='card-skeleton';card.appendChild(sk);
   var img=document.createElement('img');img.alt=title;
@@ -663,125 +378,56 @@ function makeCard(row,flatIdx,animOffset){
   img.onerror=function(){if(sk.parentNode)sk.parentNode.removeChild(sk);};
   if(thumb){lazyLoad(img,thumb);}else{img.classList.add('loaded');}
   card.appendChild(img);
-  if(!isMobile()){
-    var ov=document.createElement('div');ov.className='card-overlay';
-    ov.innerHTML='<div class="card-title">'+title+'</div><div class="card-meta">'+yr+(medium?' · '+medium:'')+'</div>';
-    card.appendChild(ov);
-  }
+  if(!isMobile()){var ov=document.createElement('div');ov.className='card-overlay';ov.innerHTML='<div class="card-title">'+title+'</div><div class="card-meta">'+yr+(medium?' · '+medium:'')+'</div>';card.appendChild(ov);}
   (function(idx){card.addEventListener('click',function(){openModal(idx);});})(flatIdx);
   setTimeout(function(){card.classList.add('revealed');},animOffset*60);
   return card;
 }
-
-var imgObserver=new IntersectionObserver(function(entries,obs){
-  entries.forEach(function(e){
-    if(!e.isIntersecting)return;
-    var img=e.target,src=img.dataset.src;obs.unobserve(img);
-    img.onerror=function(){var m=src.match(/[?&]id=([a-zA-Z0-9_-]{10,})/);if(m&&this.src.indexOf('w200')===-1){this.src='https://drive.google.com/thumbnail?id='+m[1]+'&sz=w200';}else{this.style.opacity='0.05';this.classList.add('loaded');}};
-    img.onload=function(){img.classList.add('loaded');};
-    img.src=src;
-  });
-},{rootMargin:'300px'});
+var imgObserver=new IntersectionObserver(function(entries,obs){entries.forEach(function(e){if(!e.isIntersecting)return;var img=e.target,src=img.dataset.src;obs.unobserve(img);img.onerror=function(){var m=src.match(/[?&]id=([a-zA-Z0-9_-]{10,})/);if(m&&this.src.indexOf('w200')===-1){this.src='https://drive.google.com/thumbnail?id='+m[1]+'&sz=w200';}else{this.style.opacity='0.05';this.classList.add('loaded');}};img.onload=function(){img.classList.add('loaded');};img.src=src;});},{rootMargin:'300px'});
 function lazyLoad(img,url){if(!url){img.classList.add('loaded');return;}img.dataset.src=url;imgObserver.observe(img);}
-
-/* ══════════════════════════════════════
-   MODAL
-══════════════════════════════════════ */
-function openModal(idx){
-  modalIdx=idx;
-  if(isMobile()){openSheet(idx);return;}
-  paintModal();
-  sel('modalBg').classList.add('open');
-  document.body.style.overflow='hidden';
-}
-function closeModal(){
-  var area=sel('modalImgArea');
-  var iframe=area.querySelector('iframe');
-  if(iframe)iframe.src='';
-  sel('modalBg').classList.remove('open');
-  document.body.style.overflow='';
-}
+function openModal(idx){modalIdx=idx;if(isMobile()){openSheet(idx);return;}paintModal();sel('modalBg').classList.add('open');document.body.style.overflow='hidden';}
+function closeModal(){var area=sel('modalImgArea');var iframe=area.querySelector('iframe');if(iframe)iframe.src='';sel('modalBg').classList.remove('open');document.body.style.overflow='';}
 function bgClose(e){if(e.target===sel('modalBg'))closeModal();}
 function navModal(d){modalIdx=(modalIdx+d+flatFiltered.length)%flatFiltered.length;paintModal();}
 function paintModal(){
-  var row=flatFiltered[modalIdx];
-  var area=sel('modalImgArea');
-  var prev=area.querySelector('iframe');if(prev)prev.src='';
-  area.innerHTML='';
+  var row=flatFiltered[modalIdx];var area=sel('modalImgArea');var prev=area.querySelector('iframe');if(prev)prev.src='';area.innerHTML='';
   var img=document.createElement('img');img.id='mImg';img.style.opacity='0';
   var src=row['full']||row['thumb']||'';
   img.onload=function(){img.style.opacity='1';};
   img.onerror=function(){var m=src.match(/[?&]id=([a-zA-Z0-9_-]{10,})/);if(m&&img.src.indexOf('w800')===-1)img.src='https://drive.google.com/thumbnail?id='+m[1]+'&sz=w800';};
   img.src=src;area.appendChild(img);
-  sel('mTitle').textContent=row['title']||'';
-  sel('mYear').textContent=row['year']||'';
-  sel('mMedium').textContent=row['medium']||'';
-  sel('mDim').textContent=row['dim']||row['dimensions']||'';
-  sel('mDesc').textContent=row['desc']||'';
-  var tags=[];
-  ['THE','SER','MAT','SEN'].forEach(function(k){var v=row[k]||'';v.split(/[,\n]/).forEach(function(t){t=t.trim();if(t)tags.push(t);});});
+  sel('mTitle').textContent=row['title']||'';sel('mYear').textContent=row['year']||'';sel('mMedium').textContent=row['medium']||'';sel('mDim').textContent=row['dim']||row['dimensions']||'';sel('mDesc').textContent=row['desc']||'';
+  var tags=[];['THE','SER','MAT','SEN'].forEach(function(k){var v=row[k]||'';v.split(/[,\n]/).forEach(function(t){t=t.trim();if(t)tags.push(t);});});
   sel('mTags').innerHTML=tags.map(function(t){return'<span class="m-tag">'+t+'</span>';}).join('');
-  sel('arrPrev').style.display=flatFiltered.length>1?'flex':'none';
-  sel('arrNext').style.display=flatFiltered.length>1?'flex':'none';
+  sel('arrPrev').style.display=flatFiltered.length>1?'flex':'none';sel('arrNext').style.display=flatFiltered.length>1?'flex':'none';
 }
-
-/* ══════════════════════════════════════
-   MOBILE BOTTOM SHEET
-══════════════════════════════════════ */
-function openSheet(idx){
-  modalIdx=idx;paintSheet();
-  var sheet=sel('bsSheet');
-  sheet.classList.remove('half','full');
-  requestAnimationFrame(function(){sheet.classList.add('half');});
-  sheetState='half';document.body.classList.add('sheet-open');
-}
-function closeSheet(){
-  var area=sel('bsImgArea');
-  var iframe=area.querySelector('iframe');if(iframe)iframe.src='';
-  sel('bsSheet').classList.remove('half','full');
-  sheetState='closed';document.body.classList.remove('sheet-open');
-}
+function openSheet(idx){modalIdx=idx;paintSheet();var sheet=sel('bsSheet');sheet.classList.remove('half','full');requestAnimationFrame(function(){sheet.classList.add('half');});sheetState='half';document.body.classList.add('sheet-open');}
+function closeSheet(){var area=sel('bsImgArea');var iframe=area.querySelector('iframe');if(iframe)iframe.src='';sel('bsSheet').classList.remove('half','full');sheetState='closed';document.body.classList.remove('sheet-open');}
 function navSheet(d){modalIdx=(modalIdx+d+flatFiltered.length)%flatFiltered.length;paintSheet();}
 function paintSheet(){
-  var row=flatFiltered[modalIdx];
-  var area=sel('bsImgArea');
-  var prev=area.querySelector('iframe');if(prev)prev.src='';
-  area.innerHTML='';
+  var row=flatFiltered[modalIdx];var area=sel('bsImgArea');var prev=area.querySelector('iframe');if(prev)prev.src='';area.innerHTML='';
   var img=document.createElement('img');img.id='bsImg';img.style.opacity='0';
   var src=row['full']||row['thumb']||'';
   img.onload=function(){img.style.opacity='1';};
   img.onerror=function(){var m=src.match(/[?&]id=([a-zA-Z0-9_-]{10,})/);if(m&&img.src.indexOf('w800')===-1)img.src='https://drive.google.com/thumbnail?id='+m[1]+'&sz=w800';};
   img.src=src;area.appendChild(img);
-  sel('bsTitle').textContent=row['title']||'';
-  sel('bsYear').textContent=row['year']||'';
-  sel('bsMedium').textContent=row['medium']||'';
-  sel('bsDim').textContent=row['dim']||row['dimensions']||'';
-  sel('bsDesc').textContent=row['desc']||'';
-  var tags=[];
-  ['THE','SER','MAT','SEN'].forEach(function(k){var v=row[k]||'';v.split(/[,\n]/).forEach(function(t){t=t.trim();if(t)tags.push(t);});});
+  sel('bsTitle').textContent=row['title']||'';sel('bsYear').textContent=row['year']||'';sel('bsMedium').textContent=row['medium']||'';sel('bsDim').textContent=row['dim']||row['dimensions']||'';sel('bsDesc').textContent=row['desc']||'';
+  var tags=[];['THE','SER','MAT','SEN'].forEach(function(k){var v=row[k]||'';v.split(/[,\n]/).forEach(function(t){t=t.trim();if(t)tags.push(t);});});
   sel('bsTags').innerHTML=tags.map(function(t){return'<span class="bs-tag">'+t+'</span>';}).join('');
-  var showNav=flatFiltered.length>1;
-  sel('bsPrev').style.display=showNav?'flex':'none';
-  sel('bsNext').style.display=showNav?'flex':'none';
+  var showNav=flatFiltered.length>1;sel('bsPrev').style.display=showNav?'flex':'none';sel('bsNext').style.display=showNav?'flex':'none';
 }
-
-/* drag */
 (function(){
-  var handle=sel('bsHandle'),sheet=sel('bsSheet');
-  if(!handle||!sheet)return;
+  var handle=sel('bsHandle'),sheet=sel('bsSheet');if(!handle||!sheet)return;
   function onStart(e){dragStartY=e.touches?e.touches[0].clientY:e.clientY;dragStartState=sheetState;document.addEventListener('touchmove',onMove,{passive:false});document.addEventListener('touchend',onEnd);document.addEventListener('mousemove',onMove);document.addEventListener('mouseup',onEnd);}
   function onMove(e){e.preventDefault();var y=e.touches?e.touches[0].clientY:e.clientY,dy=y-dragStartY;if(dy<-60){sheet.classList.remove('half');sheet.classList.add('full');sheetState='full';}else if(dy>60&&dragStartState==='full'){sheet.classList.remove('full');sheet.classList.add('half');sheetState='half';}else if(dy>100&&dragStartState==='half'){closeSheet();}}
   function onEnd(){document.removeEventListener('touchmove',onMove);document.removeEventListener('touchend',onEnd);document.removeEventListener('mousemove',onMove);document.removeEventListener('mouseup',onEnd);}
   handle.addEventListener('touchstart',onStart,{passive:true});handle.addEventListener('mousedown',onStart);
 })();
-
 document.addEventListener('keydown',function(e){
   if(sheetState!=='closed'){if(e.key==='Escape')closeSheet();if(e.key==='ArrowLeft')navSheet(-1);if(e.key==='ArrowRight')navSheet(1);return;}
   if(!sel('modalBg').classList.contains('open'))return;
   if(e.key==='Escape')closeModal();if(e.key==='ArrowLeft')navModal(-1);if(e.key==='ArrowRight')navModal(1);
 });
-
-/* nav dropdown */
 document.querySelectorAll('.nav-dd').forEach(function(dd){
   var menu=dd.querySelector('.nav-dd-menu'),timer;
   dd.addEventListener('mouseenter',function(){clearTimeout(timer);menu.style.display='block';});
@@ -799,33 +445,17 @@ document.addEventListener('click',function(e){
   if(!e.target.closest||!e.target.closest('.nav-dd'))
     document.querySelectorAll('.nav-dd-menu').forEach(function(m){m.style.display='none';});
 });
-
-/* ══════════════════════════════════════
-   INIT
-══════════════════════════════════════ */
 fetch('./data/works.json')
   .then(function(r){return r.json();})
   .then(function(works){
     allWorks=works;
-    var yearSet={};
-    works.forEach(function(w){var y=parseInt(w['year']||0);if(y)yearSet[y]=1;});
+    var yearSet={};works.forEach(function(w){var y=parseInt(w['year']||0);if(y)yearSet[y]=1;});
     ALL_YEARS=Object.keys(yearSet).map(Number).sort(function(a,b){return b-a;});
     buildYearGrid();
-    if(isMobile()&&ALL_YEARS.length){
-      /* 모바일: 모자이크 스킵, 최신 연도 그리드 바로 표시 */
-      sel('introZone').style.display='none';
-      selectedYears=[ALL_YEARS[0]];
-      var el=sel('yr-'+ALL_YEARS[0]);if(el)el.classList.add('checked');
-      updateMobileYearBar();
-      fetchAndRender();
-    } else {
-      buildMosaic(works);
-    }
+    if(isMobile()&&ALL_YEARS.length){sel('introZone').style.display='none';selectedYears=[ALL_YEARS[0]];var el=sel('yr-'+ALL_YEARS[0]);if(el)el.classList.add('checked');updateMobileYearBar();fetchAndRender();}
+    else{buildMosaic(works);}
   })
-  .catch(function(){
-    sel('yearGrid').innerHTML='<div style="font-size:8px;color:var(--ink-dim)">로딩 오류</div>';
-  });
-
+  .catch(function(){sel('yearGrid').innerHTML='<div style="font-size:8px;color:var(--ink-dim)">로딩 오류</div>';});
 window.addEventListener('load',function(){
   var loader=document.getElementById('page-loader');
   if(loader){setTimeout(function(){loader.classList.add('hidden');setTimeout(function(){loader.style.display='none';},650);},400);}
