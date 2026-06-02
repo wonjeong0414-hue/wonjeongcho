@@ -350,11 +350,21 @@ function render(){
   document.getElementById('backBtn').textContent='← '+(ko?'현재 연도':'Current Year');
   renderMainArea();
   if(D.pdfUrl){document.getElementById('pdfLink').href=D.pdfUrl;document.getElementById('pdfLink').style.display='inline-flex';}
-  if(D.aboutImg){
-    var m=D.aboutImg.match(/\/d\/([a-zA-Z0-9_-]{10,})/);
-    var imgUrl=m?'https://drive.google.com/thumbnail?id='+m[1]+'&sz=w600':D.aboutImg;
+  function setBioImg(url){
+    if(!url)return;
+    var m=url.match(/\/d\/([a-zA-Z0-9_-]{10,})/);
+    var imgUrl=m?'https://drive.google.com/thumbnail?id='+m[1]+'&sz=w600':url;
     var bi=document.getElementById('bioImg'),bw=document.getElementById('bioImgWrap');
     if(bi&&bw){bi.src=imgUrl;bw.style.display='block';}
+  }
+  if(D.aboutImg){setBioImg(D.aboutImg);}
+  else{
+    /* aboutImg 없으면 works.json에서 page='ab' 이미지 찾기 */
+    fetch('./data/works.json').then(function(r){return r.json();})
+      .then(function(works){
+        var found=works.find(function(w){return(w.page||'').trim()==='ab';});
+        if(found)setBioImg(found.thumb||found.full||'');
+      }).catch(function(){});
   }
   document.getElementById('pdfLabel').textContent=ko?'CV 전체 다운로드':'Download Full CV';
 }
@@ -366,37 +376,6 @@ fetch('./data/about.json?v='+Date.now(),{cache:'no-store'})
     console.error('about.json 로드 실패:',e);
     document.getElementById('bioSection').innerHTML='<div class="loading">데이터를 불러올 수 없습니다.</div>';
   });
-
-/* ── 스크롤 → index 전환 ── */
-var _abLocked=false;
-var _abWC=0,_abWT=null;
-window.addEventListener('wheel',function(e){
-  if(_abLocked)return;
-  if(e.deltaY<=0){_abWC=0;return;}
-  var atBot=window.scrollY+window.innerHeight>=document.body.scrollHeight-8;
-  if(!atBot){_abWC=0;return;}
-  _abWC++;
-  clearTimeout(_abWT);
-  _abWT=setTimeout(function(){_abWC=0;},800);
-  if(_abWC>=3){
-    _abLocked=true;
-    document.body.style.opacity='0';
-    document.body.style.transition='opacity 0.4s ease';
-    setTimeout(function(){window.location.href='index.html';},420);
-  }
-},{passive:true});
-var _abTY=0;
-window.addEventListener('touchstart',function(e){_abTY=e.touches[0].clientY;},{passive:true});
-window.addEventListener('touchend',function(e){
-  if(_abLocked)return;
-  var atBot=window.scrollY+window.innerHeight>=document.body.scrollHeight-8;
-  if(_abTY-e.changedTouches[0].clientY>60&&atBot){
-    _abLocked=true;
-    document.body.style.opacity='0';
-    document.body.style.transition='opacity 0.4s ease';
-    setTimeout(function(){window.location.href='index.html';},420);
-  }
-},{passive:true});
 </script>
 </body>
 </html>
