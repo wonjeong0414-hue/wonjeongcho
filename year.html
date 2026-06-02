@@ -119,9 +119,6 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 .loader-line{width:0;height:0.5px;background:var(--ink);opacity:0.3;animation:loaderLine 1s cubic-bezier(0.16,1,0.3,1) 0.4s forwards}
 @keyframes loaderFadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 @keyframes loaderLine{from{width:0}to{width:clamp(80px,12vw,140px)}}
-#yr-trans-overlay{position:fixed;inset:0;background:var(--bg);z-index:9000;opacity:0;pointer-events:none;transition:opacity 0.55s cubic-bezier(0.4,0,0.2,1)}
-#yr-trans-overlay.active{opacity:1;pointer-events:all}
-.intro-zone.exiting{transform:translateY(-18px);opacity:0;transition:transform 0.55s cubic-bezier(0.4,0,0.2,1),opacity 0.45s ease}
 @keyframes pageFadeIn{from{opacity:0}to{opacity:1}}
 .page-fade{animation:pageFadeIn 0.4s ease forwards}
 body.fade-out{opacity:0;transition:opacity 0.3s ease}
@@ -175,7 +172,6 @@ body.fade-out{opacity:0;transition:opacity 0.3s ease}
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-YBRBFCMMCB');</script>
 </head>
 <body>
-<div id="yr-trans-overlay"></div>
 <div id="page-loader">
   <div class="loader-inner">
     <div class="loader-name">Won Jeong Cho</div>
@@ -464,27 +460,6 @@ fetch('./data/works.json')
     else{buildMosaic(works);}
   })
   .catch(function(){sel('yearGrid').innerHTML='<div style="font-size:8px;color:var(--ink-dim)">로딩 오류</div>';});
-var _yrLocked=false;
-function _goNote(){
-  if(_yrLocked)return;
-  var iz=document.getElementById('introZone');
-  if(!iz||iz.classList.contains('hidden'))return;
-  _yrLocked=true;
-  var ov=document.getElementById('yr-trans-overlay');
-  iz.classList.add('exiting');
-  setTimeout(function(){if(ov)ov.classList.add('active');},80);
-  setTimeout(function(){window.location.href='note.html';},600);
-}
-window.addEventListener('wheel',function(e){
-  if(_yrLocked)return;
-  if(e.deltaY>30)_goNote();
-},{passive:true});
-var _yrTY=0;
-window.addEventListener('touchstart',function(e){_yrTY=e.touches[0].clientY;},{passive:true});
-window.addEventListener('touchend',function(e){
-  if(_yrLocked)return;
-  if(_yrTY-e.changedTouches[0].clientY>40)_goNote();
-},{passive:true});
 window.addEventListener('load',function(){
   var loader=document.getElementById('page-loader');
   if(loader){setTimeout(function(){loader.classList.add('hidden');setTimeout(function(){loader.style.display='none';},650);},400);}
