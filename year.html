@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
@@ -166,42 +166,12 @@ body.fade-out{opacity:0;transition:opacity 0.3s ease}
   .bs-prev{left:10px}.bs-next{right:10px}
 }
 
-.nav-hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:10px;margin:-10px;-webkit-tap-highlight-color:transparent}
-.nav-hamburger span{display:block;width:22px;height:1.5px;background:var(--ink);}
-@media(max-width:480px){.nav-right{display:none!important}.nav-hamburger{display:flex}}
-.mob-overlay{position:fixed;inset:0;z-index:790;background:rgba(0,0,0,0);pointer-events:none;transition:background 0.3s ease}
-.mob-overlay.open{background:rgba(0,0,0,0.32);pointer-events:all}
-.mob-menu{position:fixed;left:0;right:0;bottom:0;z-index:800;background:var(--white);border-radius:20px 20px 0 0;transform:translateY(100%);transition:transform 0.38s cubic-bezier(0.16,1,0.3,1);box-shadow:0 -4px 32px rgba(0,0,0,0.10)}
-.mob-menu.open{transform:translateY(0)}
-.mob-handle-wrap{display:flex;justify-content:center;padding:12px 0 6px}
-.mob-handle{width:36px;height:4px;border-radius:2px;background:rgba(0,0,0,0.15)}
-.mob-menu-body{padding:4px 0 44px}
-.mob-item{display:flex;align-items:center;padding:18px 28px;font-size:17px;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink);cursor:pointer;-webkit-tap-highlight-color:transparent;border-bottom:0.5px solid rgba(0,0,0,0.06)}
-.mob-item:active{background:rgba(0,0,0,0.03)}
-.mob-sub{display:flex;align-items:center;padding:15px 28px 15px 48px;font-size:14px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-mid);cursor:pointer;-webkit-tap-highlight-color:transparent;border-bottom:0.5px solid rgba(0,0,0,0.04)}
-.mob-sub:active{background:rgba(0,0,0,0.03)}
-.intro-zone.exiting{transform:translateY(-18px);opacity:0;transition:transform 0.55s cubic-bezier(0.4,0,0.2,1),opacity 0.45s ease}
-#yr-trans-overlay{position:fixed;inset:0;background:var(--bg);z-index:9000;opacity:0;pointer-events:none;transition:opacity 0.55s cubic-bezier(0.4,0,0.2,1)}
-#yr-trans-overlay.active{opacity:1;pointer-events:all}
+@media(max-width:480px){.nav-right{display:none!important}}
 </style>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-YBRBFCMMCB"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-YBRBFCMMCB');</script>
 </head>
 <body>
-
-<div id="yr-trans-overlay"></div>
-<div class="mob-overlay" id="mobOverlay" onclick="closeMobMenu()"></div>
-<div class="mob-menu" id="mobMenu">
-  <div class="mob-handle-wrap"><div class="mob-handle"></div></div>
-  <div class="mob-menu-body">
-    <div class="mob-item" onclick="closeMobMenu();go('index')">Won Jeong Cho</div>
-    <div class="mob-item" style="padding-bottom:4px;border-bottom:none;font-size:13px;color:var(--ink-dim);padding-top:10px">Archive</div>
-    <div class="mob-sub" onclick="closeMobMenu();go('year')">Year</div>
-    <div class="mob-sub" onclick="closeMobMenu();go('context')">Context</div>
-    <div class="mob-item" style="padding-bottom:4px;border-bottom:none;font-size:13px;color:var(--ink-dim);padding-top:10px">Text</div>
-    <div class="mob-sub" onclick="closeMobMenu();go('note')">Note</div>
-    <div class="mob-sub" onclick="closeMobMenu();go('critique')">Critique</div>
-    <div class="mob-item" onclick="closeMobMenu();go('about')">About</div>
   </div>
 </div>
 <div id="page-loader">
@@ -212,8 +182,7 @@ body.fade-out{opacity:0;transition:opacity 0.3s ease}
 </div>
 <nav>
   <span class="nav-logo" onclick="go('index')">Won Jeong Cho</span>
-  <button class="nav-hamburger" id="navHamburger" onclick="toggleMobMenu()" aria-label="메뉴"><span></span><span></span><span></span></button>
-  <div class="nav-right">
+    <div class="nav-right">
     <div class="nav-dd" id="navArchive">
       <span class="nav-item active">Archive</span>
       <div class="nav-dd-menu">
@@ -482,15 +451,7 @@ document.addEventListener('click',function(e){
   if(!e.target.closest||!e.target.closest('.nav-dd'))
     document.querySelectorAll('.nav-dd-menu').forEach(function(m){m.classList.remove('open');});
 });
-function toggleMobMenu(){
-  var menu=document.getElementById('mobMenu'),overlay=document.getElementById('mobOverlay');
-  if(menu.classList.contains('open')){closeMobMenu();}
   else{menu.classList.add('open');overlay.classList.add('open');document.body.style.overflow='hidden';}
-}
-function closeMobMenu(){
-  document.getElementById('mobMenu').classList.remove('open');
-  document.getElementById('mobOverlay').classList.remove('open');
-  document.body.style.overflow='';
 }
 fetch('./data/works.json')
   .then(function(r){return r.json();})
@@ -504,17 +465,6 @@ fetch('./data/works.json')
   })
   .catch(function(){sel('yearGrid').innerHTML='<div style="font-size:8px;color:var(--ink-dim)">로딩 오류</div>';});
 var yrScrollLocked=false;
-function goNote(){
-  if(yrScrollLocked)return;
-  var iz=document.getElementById('introZone');
-  if(!iz||iz.classList.contains('hidden'))return;
-  if(document.getElementById('mobMenu').classList.contains('open'))return;
-  yrScrollLocked=true;
-  var ov=document.getElementById('yr-trans-overlay');
-  iz.classList.add('exiting');
-  setTimeout(function(){ov.classList.add('active');},80);
-  setTimeout(function(){window.location.href='note.html';},600);
-}
 window.addEventListener('wheel',function(e){
   if(yrScrollLocked)return;
   if(e.deltaY>30)goNote();
@@ -531,4 +481,4 @@ window.addEventListener('load',function(){
 });
 </script>
 </body>
-</html>
+</html> 
