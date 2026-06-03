@@ -477,17 +477,24 @@ function toggleTag(cat,enc,el){
 function updateBadge(cat){sel('cell-'+cat).classList.toggle('has-sel',selected[cat].length>0);}
 function updatePills(){
   var strip=sel('activeStrip');strip.innerHTML='';
+  var mBar=sel('mSelectedBar');mBar.innerHTML='';
   var total=0;
   ['THE','SER','MAT','SEN'].forEach(function(cat){
     selected[cat].forEach(function(tag){
       total++;
-      var p=document.createElement('div');p.className='a-pill';
       var enc=encodeURIComponent(tag);
+      /* PC pill */
+      var p=document.createElement('div');p.className='a-pill';
       p.innerHTML=tag+'<span class="a-pill-x" onclick="removePill(\''+cat+'\',\''+enc+'\')">×</span>';
       strip.appendChild(p);
+      /* 모바일 pill */
+      var mp=document.createElement('div');mp.className='m-sel-tag';
+      mp.innerHTML=tag+'<span class="m-sel-x" onclick="removePill(\''+cat+'\',\''+enc+'\')">×</span>';
+      mBar.appendChild(mp);
     });
   });
   sel('clearBtn').style.display=total>0?'inline-block':'none';
+  mBar.classList.toggle('show',total>0);
 }
 function removePill(cat,enc){
   var tag=decodeURIComponent(enc);
