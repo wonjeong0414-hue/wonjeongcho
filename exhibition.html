@@ -342,6 +342,7 @@ function renderGrid(){
 
 /* 초기화 */
 var keyParam=decodeURIComponent(getParam('key'));
+var titleParam=decodeURIComponent(getParam('title'));
 
 fetch('./data/exhibition.json?v='+Date.now(),{cache:'no-store'})
   .then(function(r){return r.json();})
@@ -351,7 +352,7 @@ fetch('./data/exhibition.json?v='+Date.now(),{cache:'no-store'})
     } else {
       items=data.filter(function(d){return d.year;});
     }
-    document.getElementById('exhTitle').textContent=items.length?items[0].title:(keyParam||'—');
+    document.getElementById('exhTitle').textContent=titleParam||(items.length?items[0].title:(keyParam||'—'));
     if(items.length){
       document.getElementById('exhYear').textContent=items[0].year;
       document.getElementById('exhPlace').textContent=items[0].place;

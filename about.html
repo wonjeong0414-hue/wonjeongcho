@@ -300,7 +300,7 @@ function makePlace(p,c){
   if(!p) return '<span class="place-city">'+c+'</span>';
   return '<span class="place-name">'+p+'</span>'+(c?'<span class="place-sep"> · </span><span class="place-city">'+c+'</span>':'');
 }
-function exhLink(cvKey){if(!cvKey) return '#';return 'exhibition.html?key='+encodeURIComponent(cvKey);}
+function exhLink(cvKey,title){if(!cvKey) return '#';var u='exhibition.html?key='+encodeURIComponent(cvKey);if(title)u+='&title='+encodeURIComponent(title);return u;}
 function renderFullList(){
   if(!D||!activeTab) return;
   var ko=(lang==='ko');
@@ -312,7 +312,7 @@ function renderFullList(){
     if(!t) return '';
     var p=ko?(item.placeKo||''):(item.placeEn||item.placeKo||'');
     var c=ko?(item.cityKo||''):(item.cityEn||item.cityKo||'');
-    var link=item.cvKey?exhLink(item.cvKey):'';
+    var link=item.cvKey?exhLink(item.cvKey,t):'';
     return '<div class="panel-row"><div class="panel-title-wrap"><span class="panel-year">'+(item.year||'')+'</span><a class="exh-link panel-title" href="'+link+'">'+t+'</a></div><div class="panel-place">'+makePlace(p,c)+'</div></div>';
   }).join('');
 }
@@ -331,7 +331,7 @@ function renderMainArea(){
     var t=ko?(item.ko||''):(item.en||item.ko||'');
     var p=ko?(item.placeKo||''):(item.placeEn||item.placeKo||'');
     var c=ko?(item.cityKo||''):(item.cityEn||item.cityKo||'');
-    var link=item.cvKey?exhLink(item.cvKey):'';
+    var link=item.cvKey?exhLink(item.cvKey,t):'';
     return '<div class="latest-row"><div class="latest-cell-type">'+(typeL[item._t]||'')+'</div><div class="latest-cell-title"><a class="exh-link" href="'+link+'">'+t+'</a></div><div class="latest-cell-place">'+makePlace(p,c)+'</div><div class="latest-cell-date">'+(item.date||'')+'</div></div>';
   }).join('');
   if(activeTab){document.getElementById('latestSection').style.display='none';document.getElementById('fullListRows').style.display='block';renderFullList();}
