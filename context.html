@@ -494,6 +494,12 @@ function updatePills(){
     });
   });
   sel('clearBtn').style.display=total>0?'inline-block':'none';
+  if(total>0){
+    var cb=document.createElement('button');
+    cb.className='clear-btn';cb.textContent='Clear all';cb.onclick=clearAll;
+    cb.style.cssText='margin-left:auto;font-size:9px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-dim);cursor:pointer;border:none;background:none;padding:0;flex-shrink:0';
+    mBar.appendChild(cb);
+  }
   mBar.classList.toggle('show',total>0);
 }
 function removePill(cat,enc){
