@@ -145,7 +145,7 @@ body.fade-out{opacity:0;transition:opacity .3s ease}
   <div class="stmt-block" id="stmtBlock" style="display:none">
     <div class="stmt-label">Artist Statement</div>
     <div class="stmt-text" id="stmtText"></div>
-    <a class="stmt-link" id="stmtLink" href="#" target="_blank" style="display:none">PDF 열기 ↗</a>
+    <a class="stmt-link" id="stmtLink" href="#" target="_blank" style="display:none">Artist Statement 전체 PDF ↗</a>
   </div>
   <div class="content-row">
     <div class="list-col">
@@ -214,6 +214,9 @@ function renderStmt(){
   var el=sel('stmtText');
   el.style.opacity='0';
   setTimeout(function(){el.textContent=txt;el.style.opacity='1';},180);
+  var lk=sel('stmtLink');
+  if(STATEMENT.link){lk.href=STATEMENT.link;lk.style.display='inline-flex';}
+  else lk.style.display='none';
 }
 function renderList(){
   var inner=sel('listInner');
