@@ -191,7 +191,7 @@ body.fade-out{opacity:0;transition:opacity .3s ease}
 var DATA=[], STATEMENT={ko:'',en:''}, lang='ko', mOpenIdx=null, currentRow=null;
 function openPdf(url){
   var m=url.match(/\/d\/([a-zA-Z0-9_-]{10,})/);
-  var embedUrl=m?'https://drive.google.com/uc?export=view&id='+m[1]:url;
+  var embedUrl=m?'https://drive.google.com/file/d/'+m[1]+'/preview':url;
   sel('pdf-frame').src=embedUrl;
   sel('pdf-overlay').classList.add('open');
   document.body.style.overflow='hidden';
