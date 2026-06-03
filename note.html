@@ -109,9 +109,23 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 @keyframes loaderFadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 @keyframes loaderLine{from{width:0}to{width:clamp(80px,12vw,140px)}}
 body.fade-out{opacity:0;transition:opacity .3s ease}
+#pdf-overlay{display:none;position:fixed;inset:0;z-index:2000;background:#fff;flex-direction:column}
+#pdf-overlay.open{display:flex}
+.pdf-overlay-bar{flex-shrink:0;display:flex;align-items:center;justify-content:space-between;padding:0 20px;height:44px;border-bottom:.5px solid rgba(0,0,0,.1)}
+.pdf-overlay-title{font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-mid)}
+.pdf-overlay-close{font-size:22px;line-height:1;background:none;border:none;cursor:pointer;color:var(--ink-dim);font-family:serif;padding:0}
+.pdf-overlay-close:hover{color:var(--ink)}
+#pdf-frame{flex:1;border:none;background:#fff}
 </style>
 </head>
 <body>
+<div id="pdf-overlay">
+  <div class="pdf-overlay-bar">
+    <span class="pdf-overlay-title">Artist Statement</span>
+    <button class="pdf-overlay-close" onclick="closePdf()">×</button>
+  </div>
+  <iframe id="pdf-frame" src=""></iframe>
+</div>
 <div id="page-loader"><div class="loader-inner"><div class="loader-name">Won Jeong Cho</div><div class="loader-line"></div></div></div>
 <nav>
   <span class="nav-logo" onclick="go('index')">Won Jeong Cho</span>
@@ -172,6 +186,18 @@ body.fade-out{opacity:0;transition:opacity .3s ease}
 </div>
 <script>
 var DATA=[], STATEMENT={ko:'',en:''}, lang='ko', mOpenIdx=null, currentRow=null;
+function openPdf(url){
+  var m=url.match(/\/d\/([a-zA-Z0-9_-]{10,})/);
+  var embedUrl=m?'https://drive.google.com/file/d/'+m[1]+'/preview':url;
+  sel('pdf-frame').src=embedUrl;
+  sel('pdf-overlay').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closePdf(){
+  sel('pdf-overlay').classList.remove('open');
+  sel('pdf-frame').src='';
+  document.body.style.overflow='';
+}
 function go(p){document.body.classList.add('fade-out');setTimeout(function(){window.location.href=p+'.html';},280);}
 function sel(id){return document.getElementById(id);}
 function isMobile(){return window.innerWidth<=600;}
@@ -215,8 +241,11 @@ function renderStmt(){
   el.style.opacity='0';
   setTimeout(function(){el.textContent=txt;el.style.opacity='1';},180);
   var lk=sel('stmtLink');
-  if(STATEMENT.link){lk.href=STATEMENT.link;lk.style.display='inline-flex';}
-  else lk.style.display='none';
+  if(STATEMENT.link){
+    lk.href='#';
+    lk.onclick=function(e){e.preventDefault();openPdf(STATEMENT.link);};
+    lk.style.display='inline-flex';
+  } else lk.style.display='none';
 }
 function renderList(){
   var inner=sel('listInner');
