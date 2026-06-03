@@ -115,7 +115,8 @@ body.fade-out{opacity:0;transition:opacity .3s ease}
 .pdf-overlay-title{font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-mid)}
 .pdf-overlay-close{font-size:22px;line-height:1;background:none;border:none;cursor:pointer;color:var(--ink-dim);font-family:serif;padding:0}
 .pdf-overlay-close:hover{color:var(--ink)}
-#pdf-frame{flex:1;border:none;background:#fff}
+.pdf-frame-wrap{flex:1;overflow:hidden;position:relative}
+#pdf-frame{position:absolute;top:0;left:0;width:calc(100% + 60px);height:100%;border:none;background:#fff}
 </style>
 </head>
 <body>
@@ -124,7 +125,9 @@ body.fade-out{opacity:0;transition:opacity .3s ease}
     <span class="pdf-overlay-title">Artist Statement</span>
     <button class="pdf-overlay-close" onclick="closePdf()">×</button>
   </div>
-  <iframe id="pdf-frame" src=""></iframe>
+  <div class="pdf-frame-wrap">
+    <iframe id="pdf-frame" src=""></iframe>
+  </div>
 </div>
 <div id="page-loader"><div class="loader-inner"><div class="loader-name">Won Jeong Cho</div><div class="loader-line"></div></div></div>
 <nav>
