@@ -84,7 +84,7 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 .full-list-label{font-size:8px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink);font-weight:600;white-space:nowrap;flex-shrink:0}
 .full-list-sep{width:.5px;height:10px;background:rgba(26,26,24,.25);margin:0 14px;flex-shrink:0}
 .cv-tabs{display:flex;gap:0;align-items:center;flex:1}
-.cv-tab{font-size:9.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-mid);padding:2px 12px 2px 0;cursor:pointer;transition:color .2s;white-space:nowrap}
+.cv-tab{font-size:9.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-mid);padding:2px 22px 2px 0;cursor:pointer;transition:color .2s;white-space:nowrap}
 .cv-tab:hover{color:var(--ink-mid)}
 .cv-tab.active{color:var(--ink);font-weight:700;letter-spacing:.13em;font-size:10px}
 .back-btn{display:none;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-mid);cursor:pointer;white-space:nowrap;border:.5px solid rgba(26,26,24,.2);border-radius:2px;padding:2px 8px;background:transparent;font-family:'Cormorant Garamond',serif;transition:color .15s,border-color .15s}
@@ -199,6 +199,16 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
   </div>
   <div class="sec-divider2"></div>
   <div class="exh-section">
+    <div class="full-list-wrap">
+      <span class="full-list-label" id="labelFullListTop">전시 전체 리스트</span>
+      <div class="full-list-sep"></div>
+      <div class="cv-tabs">
+        <div class="cv-tab" id="tabSoloTop" onclick="setCvTab('solo')"><span id="labelSoloTop">개인 및 초대전</span></div>
+        <div class="cv-tab" id="tabGroupTop" onclick="setCvTab('group')"><span id="labelGroupTop">단체전</span></div>
+        <div class="cv-tab" id="tabFairTop" onclick="setCvTab('fair')">Art Fair</div>
+        <button class="back-btn" id="backBtnTop" onclick="showLatestYear()">← 현재 연도</button>
+      </div>
+    </div>
     <div class="latest-section" id="latestSection">
       <div class="latest-header-row">
         <span class="latest-year-label" id="latestYearLabel">2026년 전시</span>
@@ -277,10 +287,12 @@ function setLang(l){
 function setCvTab(t){
   activeTab=t;
   ['solo','group','fair'].forEach(function(k){
-    var el=document.getElementById('tab'+k.charAt(0).toUpperCase()+k.slice(1));
-    if(el) el.classList.toggle('active',k===t);
+    var cap=k.charAt(0).toUpperCase()+k.slice(1);
+    var el=document.getElementById('tab'+cap);if(el)el.classList.toggle('active',k===t);
+    var elT=document.getElementById('tab'+cap+'Top');if(elT)elT.classList.toggle('active',k===t);
   });
   document.getElementById('backBtn').classList.add('visible');
+  var bTop=document.getElementById('backBtnTop');if(bTop)bTop.classList.add('visible');
   document.getElementById('latestSection').style.display='none';
   document.getElementById('fullListRows').style.display='block';
   renderFullList();
@@ -288,10 +300,11 @@ function setCvTab(t){
 function showLatestYear(){
   activeTab=null;
   ['Solo','Group','Fair'].forEach(function(n){
-    var el=document.getElementById('tab'+n);
-    if(el) el.classList.remove('active');
+    var el=document.getElementById('tab'+n);if(el)el.classList.remove('active');
+    var elT=document.getElementById('tab'+n+'Top');if(elT)elT.classList.remove('active');
   });
   document.getElementById('backBtn').classList.remove('visible');
+  var bTop=document.getElementById('backBtnTop');if(bTop)bTop.classList.remove('visible');
   document.getElementById('latestSection').style.display='';
   document.getElementById('fullListRows').style.display='none';
 }
@@ -388,6 +401,10 @@ function render(){
   document.getElementById('labelSolo').textContent=ko?'개인 및 초대전':'Solo';
   document.getElementById('labelGroup').textContent=ko?'단체전':'Group';
   document.getElementById('backBtn').textContent='← '+(ko?'현재 연도':'Current Year');
+  var flT=document.getElementById('labelFullListTop');if(flT)flT.textContent=ko?'전시 전체 리스트':'Full List';
+  var lsT=document.getElementById('labelSoloTop');if(lsT)lsT.textContent=ko?'개인 및 초대전':'Solo';
+  var lgT=document.getElementById('labelGroupTop');if(lgT)lgT.textContent=ko?'단체전':'Group';
+  var bbT=document.getElementById('backBtnTop');if(bbT)bbT.textContent='← '+(ko?'현재 연도':'Current Year');
   renderMainArea();
   if(D.pdfUrl){document.getElementById('pdfLink').href=D.pdfUrl;document.getElementById('pdfLink').style.display='inline-flex';}
   if(D.aboutImg){
