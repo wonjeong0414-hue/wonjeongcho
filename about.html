@@ -61,7 +61,7 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 .edu-coll-item{font-family:'EB Garamond',serif;font-size:12.5px;line-height:1.8;color:var(--ink-mid)}
 .sec-divider2{width:100%;height:.5px;background:rgba(26,26,24,.1);margin:0 0 36px}
 .exh-section{}
-.latest-section{max-width:640px;margin-left:auto;margin-right:auto}
+.latest-section{max-width:640px;margin-left:auto;margin-right:auto;margin-top:24px}
 .latest-header-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;padding-bottom:8px;border-bottom:.5px solid rgba(26,26,24,.08)}
 .latest-year-label{font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-mid)}
 .latest-table-head{display:grid;grid-template-columns:62px 1fr 180px 96px;gap:0 6px;padding:0 0 5px;border-bottom:.5px solid rgba(26,26,24,.1);margin-bottom:0}
@@ -335,7 +335,7 @@ function renderMainArea(){
   var ko=(lang==='ko');
   var labelEl=document.getElementById('latestYearLabel');
   var rowsEl=document.getElementById('latestRows');
-  labelEl.textContent=latestYear?(ko?latestYear+'년 전시':latestYear+' Exhibitions'):(ko?'최근 전시':'Recent');
+  labelEl.textContent=latestYear?(ko?latestYear+' · 올해 전시':latestYear+' · Current'):(ko?'최근 전시':'Recent');
   document.getElementById('latestTableHead').style.display='';
   var typeL={solo:ko?'개인·초대':'Solo',group:ko?'단체전':'Group',fair:'Art Fair'};
   var all=[].concat((D.solo||[]).map(function(i){return Object.assign({},i,{_t:'solo'});})).concat((D.group||[]).map(function(i){return Object.assign({},i,{_t:'group'});})).concat((D.fair||[]).map(function(i){return Object.assign({},i,{_t:'fair'});}));
