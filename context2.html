@@ -441,13 +441,33 @@ function isVideoRow(r){return !!(r['isVideo']);}
 function isGifRow(r){return !!(r['isGif']);}
 function getEmbedUrl(r){var fid=r['fileId']||'';return fid?'https://drive.google.com/file/d/'+fid+'/preview':'';}
 function getViewUrl(r){var fid=r['fileId']||'';return fid?'https://drive.google.com/uc?export=view&id='+fid:(r['full']||'');}
-function loadSubImg(imgId,url){
-  if(!url)return;
-  var img=sel(imgId);
-  img.style.opacity='0';img.style.transition='opacity 0.8s ease';
-  img.onload=function(){this.style.opacity='1';};
-  img.onerror=function(){var m=url.match(/\/d\/([a-zA-Z0-9_-]{10,})/);if(m&&this.src.indexOf('export')===-1){this.src='https://drive.google.com/uc?export=view&id='+m[1];}};
-  img.src=url;
+function loadSubImg(imgId, url) {
+  if (!url) return;
+  var img = sel(imgId);
+  img.style.opacity = '0';
+  img.style.transition = 'opacity 0.8s ease';
+  
+  // URL을 thumbnail 형식으로 변환
+  var fileId = url.match(/id=([a-zA-Z0-9_-]{20,})/);
+  if (fileId) {
+    url = 'https://drive.google.com/thumbnail?id=' + fileId[1] + '&sz=w400';
+  }
+  
+  var showImage = function() {
+    img.style.opacity = '1';
+  };
+  
+  img.onload = showImage;
+  img.onerror = function() {
+    var m = url.match(/id=([a-zA-Z0-9_-]{20,})/);
+    if (m) {
+      this.src = 'https://drive.google.com/thumbnail?id=' + m[1] + '&sz=w400';
+    }
+    showImage();
+  };
+  
+  img.src = url;
+  setTimeout(showImage, 2000);
 }
 function buildList(listId,tags,cat){
   var el=sel(listId);
