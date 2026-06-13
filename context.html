@@ -456,14 +456,20 @@ function loadSubImg(imgId, url) {
   img.onload = showImage;
   
   // ★ 수정: onerror도 showImage() 호출 추가
-  img.onerror = function() {
-    var m = url.match(/\/d\/([a-zA-Z0-9_-]{10,})/);
-    if (m && this.src.indexOf('export') === -1) {
-      this.src = 'https://drive.google.com/thumbnail?id=' + m[1];
-    }
+ img.onerror = function() {
+  var m = url.match(/id=([a-zA-Z0-9_-]{20,})/);  // ← 정규식 수정
+  if (m) {  // ← 조건 단순화
+    this.src = 'https://drive.google.com/thumbnail?id=' + m[1] + '&sz=w400';  // ← sz=w400 추가
+  }
+  showImage();
+};
     showImage();  // ★ 에러 시에도 표시
   };
-  
+  // ★ URL을 thumbnail 형식으로 변환 (year.html과 동일하게)
+var fileId = url.match(/id=([a-zA-Z0-9_-]{20,})/);
+if (fileId) {
+  url = 'https://drive.google.com/thumbnail?id=' + fileId[1] + '&sz=w400';
+}
   img.src = url;
   
   // ★ 새로 추가: 2초 후 강제 표시 (onload/onerror 안 되도록 대비)
