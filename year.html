@@ -87,8 +87,9 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 .card:hover img{transform:scale(1.05)}
 .card-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(26,26,24,0.6) 0%,transparent 50%);opacity:0;transition:opacity 0.22s ease;display:flex;flex-direction:column;justify-content:flex-end;padding:7px 8px}
 .card:hover .card-overlay{opacity:1}
-.card-title{font-family:'EB Garamond',serif;font-style:italic;font-size:10px;color:#fff;line-height:1.3;margin-bottom:1px}
-.card-meta{font-size:8px;letter-spacing:0.08em;color:rgba(255,255,255,0.65);text-transform:uppercase}
+.card-title{font-family:'EB Garamond',serif;font-style:italic;font-size:12px;font-weight:500;color:#fff;line-height:1.3;margin-bottom:2px}
+.card-meta{font-size:8px;letter-spacing:0.08em;color:rgba(255,255,255,0.75);text-transform:uppercase;font-weight:500}
+.card-dim{font-size:7.5px;letter-spacing:0.04em;color:rgba(255,255,255,0.6);margin-top:1px}
 .card-skeleton{position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,0.04) 25%,rgba(0,0,0,0.07) 50%,rgba(0,0,0,0.04) 75%);background-size:200% 100%;animation:cardShimmer 1.4s ease infinite}
 @keyframes cardShimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
 .load-sentinel{height:1px}
@@ -369,7 +370,7 @@ function disconnectChunkObserver(){if(chunkObserver){chunkObserver.disconnect();
 var CARD_SPANS=[{c:1,r:3},{c:1,r:2},{c:2,r:3},{c:1,r:2},{c:1,r:4},{c:2,r:2},{c:1,r:3},{c:2,r:4},{c:1,r:2},{c:1,r:3},{c:3,r:3},{c:1,r:2},{c:2,r:3},{c:1,r:2},{c:1,r:3}];
 function makeCard(row,flatIdx,animOffset){
   var card=document.createElement('div');card.className='card';
-  var title=row['title']||'',yr=row['year']||'',medium=row['medium']||'';
+  var title=row['title']||'',yr=row['year']||'',medium=row['medium']||'',dim=row['dim']||row['dimensions']||'';
   var sp=CARD_SPANS[flatIdx%CARD_SPANS.length];
   if(Math.random()<0.3){sp={c:sp.c,r:sp.r+(Math.random()<0.5?1:-1)};sp.r=Math.max(2,sp.r);}
   card.style.gridColumn='span '+sp.c;card.style.gridRow='span '+sp.r;
@@ -380,7 +381,7 @@ function makeCard(row,flatIdx,animOffset){
   img.onerror=function(){if(sk.parentNode)sk.parentNode.removeChild(sk);};
   if(thumb){lazyLoad(img,thumb);}else{img.classList.add('loaded');}
   card.appendChild(img);
-  if(!isMobile()){var ov=document.createElement('div');ov.className='card-overlay';ov.innerHTML='<div class="card-title">'+title+'</div><div class="card-meta">'+yr+(medium?' · '+medium:'')+'</div>';card.appendChild(ov);}
+  if(!isMobile()){var ov=document.createElement('div');ov.className='card-overlay';ov.innerHTML='<div class="card-title">'+title+'</div><div class="card-meta">'+yr+(medium?' · '+medium:'')+'</div>'+(dim?'<div class="card-dim">'+dim+'</div>':'');card.appendChild(ov);}
   (function(idx){card.addEventListener('click',function(){openModal(idx);});})(flatIdx);
   setTimeout(function(){card.classList.add('revealed');},animOffset*60);
   return card;

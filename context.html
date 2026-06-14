@@ -106,8 +106,9 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 .card:hover img{transform:scale(1.05)}
 .card-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(26,26,24,0.6) 0%,transparent 50%);opacity:0;transition:opacity 0.22s ease;display:flex;flex-direction:column;justify-content:flex-end;padding:7px 8px}
 .card:hover .card-overlay{opacity:1}
-.card-title{font-family:'EB Garamond',serif;font-style:italic;font-size:10px;color:#fff;line-height:1.3;margin-bottom:1px}
-.card-meta{font-size:6.5px;letter-spacing:0.08em;color:rgba(255,255,255,0.5);text-transform:uppercase}
+.card-title{font-family:'EB Garamond',serif;font-style:italic;font-size:12px;font-weight:500;color:#fff;line-height:1.3;margin-bottom:2px}
+.card-meta{font-size:8px;letter-spacing:0.08em;color:rgba(255,255,255,0.7);text-transform:uppercase;font-weight:500}
+.card-dim{font-size:7.5px;letter-spacing:0.04em;color:rgba(255,255,255,0.6);margin-top:1px}
 .card-skeleton{position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,0.04) 25%,rgba(0,0,0,0.07) 50%,rgba(0,0,0,0.04) 75%);background-size:200% 100%;animation:cardShimmer 1.4s ease infinite}
 @keyframes cardShimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
 .card-video-wrap{position:absolute;inset:0;background:#111;display:flex;align-items:center;justify-content:center;overflow:hidden;pointer-events:none;}
@@ -558,7 +559,7 @@ function renderFiltered(){
       return selected[ac].some(function(t){return ct.indexOf(t)>=0;});
     });
   }).map(function(row){
-    return{Title:row.title,Year:row.year,Medium:row.medium,Description:row.desc,
+    return{Title:row.title,Year:row.year,Medium:row.medium,Dimensions:row.dimensions,Description:row.desc,
       thumb:row.thumb,full:row.full,isVideo:row.isVideo||false,isGif:row.isGif||false,fileId:row.fileId||'',
       'Thought & Being':row.THE,'Traces & Memory':row.SER,'Matter & Touch':row.MAT,'Sense & Silence':row.SEN};
   }).sort(function(a,b){return(parseInt(b.Year)||0)-(parseInt(a.Year)||0);});
@@ -593,7 +594,7 @@ function disconnectChunkObserver(){
 }
 function makeCard(row,idx,animate){
   var card=document.createElement('div');card.className='card';
-  var title=row['Title']||'',year=row['Year']||'',medium=row['Medium']||'',thumb=thumbUrl(row);
+  var title=row['Title']||'',year=row['Year']||'',medium=row['Medium']||'',dimensions=row['Dimensions']||'',thumb=thumbUrl(row);
   var delay=animate?Math.min((idx-(renderedCount-CHUNK_SIZE))*25,400):0;
   if(isGifRow(row)){
     card.classList.add('is-gif');
@@ -611,7 +612,7 @@ function makeCard(row,idx,animate){
     }
     card.appendChild(gifWrap);
     var ov=document.createElement('div');ov.className='card-overlay';
-    ov.innerHTML='<div class="card-title">'+title+'</div><div class="card-meta">'+year+(medium?' · '+medium:'')+'</div>';
+    ov.innerHTML='<div class="card-title">'+title+'</div><div class="card-meta">'+year+(medium?' · '+medium:'')+'</div>'+(dimensions?'<div class="card-dim">'+dimensions+'</div>':'');
     card.appendChild(ov);
     (function(i){card.addEventListener('click',function(){openModal(i);});})(idx);
     setTimeout(function(){card.classList.add('revealed');},delay);return card;
@@ -632,7 +633,7 @@ function makeCard(row,idx,animate){
     }
     card.appendChild(wrap);
     var ov2=document.createElement('div');ov2.className='card-overlay';
-    ov2.innerHTML='<div class="card-title">'+title+'</div><div class="card-meta">'+year+(medium?' · '+medium:'')+'</div>';
+    ov2.innerHTML='<div class="card-title">'+title+'</div><div class="card-meta">'+year+(medium?' · '+medium:'')+'</div>'+(dimensions?'<div class="card-dim">'+dimensions+'</div>':'');
     card.appendChild(ov2);
     (function(i){card.addEventListener('click',function(){openModal(i);});})(idx);
     setTimeout(function(){card.classList.add('revealed');},delay);return card;
@@ -644,7 +645,7 @@ function makeCard(row,idx,animate){
   if(thumb){lazyLoad(img,thumb);}else{img.classList.add('loaded');}
   card.appendChild(img);
   var ov3=document.createElement('div');ov3.className='card-overlay';
-  ov3.innerHTML='<div class="card-title">'+title+'</div><div class="card-meta">'+year+(medium?' · '+medium:'')+'</div>';
+  ov3.innerHTML='<div class="card-title">'+title+'</div><div class="card-meta">'+year+(medium?' · '+medium:'')+'</div>'+(dimensions?'<div class="card-dim">'+dimensions+'</div>':'');
   card.appendChild(ov3);
   (function(i){card.addEventListener('click',function(){openModal(i);});})(idx);
   setTimeout(function(){card.classList.add('revealed');},delay);return card;
