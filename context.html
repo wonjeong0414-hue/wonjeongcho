@@ -490,12 +490,15 @@ function toggleCat(cat){
 }
 function toggleTag(cat,enc,el){
   var tag=decodeURIComponent(enc);
-  var arr=selected[cat];
-  var already=arr.length===1&&arr[0]===tag;
-  if(already){selected[cat]=[];el.classList.remove('checked');}
-  else{document.querySelectorAll('#list-'+cat+' .cb-item').forEach(function(i){i.classList.remove('checked');});selected[cat]=[tag];el.classList.add('checked');}
+  var already=selected[cat].length===1&&selected[cat][0]===tag;
+  ['THE','SER','MAT','SEN'].forEach(function(c){
+    selected[c]=[];
+    document.querySelectorAll('#list-'+c+' .cb-item').forEach(function(i){i.classList.remove('checked');});
+    updateBadge(c);
+  });
+  if(!already){selected[cat]=[tag];el.classList.add('checked');updateBadge(cat);}
   if(isMobile()){sel('cell-'+cat).classList.remove('open');}
-  updateBadge(cat);updatePills();applyFilter();
+  updatePills();applyFilter();
 }
 function updateBadge(cat){sel('cell-'+cat).classList.toggle('has-sel',selected[cat].length>0);}
 function updatePills(){
