@@ -551,7 +551,7 @@ function renderFiltered(){
   var activeCats=['THE','SER','MAT','SEN'].filter(function(cat){return selected[cat].length>0;});
   filtered=allWorks.filter(function(row){
     if(row.pub&&row.pub!=='y')return false;
-    return activeCats.every(function(ac){
+    return activeCats.some(function(ac){
       var ct=parseTags(row[ac]);
       return selected[ac].some(function(t){return ct.indexOf(t)>=0;});
     });
