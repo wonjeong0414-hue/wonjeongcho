@@ -91,6 +91,11 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 .grid-zone{position:absolute;inset:0;overflow-y:auto;padding:20px 7% 48px 20px;scrollbar-width:none;opacity:0;pointer-events:none;transition:opacity 0.5s ease}
 .grid-zone::-webkit-scrollbar{display:none}
 .grid-zone.open{opacity:1;pointer-events:all}
+.tag-header{display:none;position:sticky;top:0;z-index:2;background:var(--white);margin:-20px -7% 24px -20px;padding:20px 7% 16px 20px;border-bottom:0.5px solid rgba(0,0,0,0.1)}
+.tag-header.show{display:flex;align-items:baseline;flex-wrap:nowrap;gap:0}
+.tag-header-name{font-family:'EB Garamond',serif;font-size:clamp(13px,1.2vw,16px);font-style:italic;letter-spacing:0.04em;color:var(--ink-mid);margin-bottom:0;flex-shrink:0}
+.tag-header-desc{font-size:11px;letter-spacing:0.02em;line-height:1.85;color:var(--ink-mid);word-break:keep-all}
+.tag-header-desc::before{content:" — ";color:var(--ink-mid);font-family:'EB Garamond',serif;font-style:italic}
 .grid{display:grid;grid-template-columns:repeat(6,1fr);gap:5px}
 @media(max-width:1200px){.grid{grid-template-columns:repeat(5,1fr)}}
 @media(max-width:900px){.grid{grid-template-columns:repeat(4,1fr)}}
@@ -143,7 +148,7 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 .arr-next{right:16px}
 .mobile-hint{display:none}
 @media(max-width:600px){
-  html,body{overflow:auto;height:auto}
+  html,body{overflow:auto;height:auto;min-height:100vh}
   .layout{position:static;margin-top:var(--nav-h);height:auto;display:block}
   .top-header{display:none}
   .body-row{display:block;height:auto;overflow:visible}
@@ -175,7 +180,7 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
   .mobile-hint-marquee-wrap{display:none !important}
   .mobile-hint-marquee{display:none}
   .mobile-hint-static{display:none}
-  .hint-img-wrap{position:relative;width:90vw;max-height:70vh;margin:6px auto 12px;display:block;overflow:hidden;animation:hintFloat 6s ease-in-out infinite;cursor:pointer}
+  .hint-img-wrap{position:relative;width:90vw;aspect-ratio:4/3;max-height:70vh;margin:6px auto 12px;display:block;overflow:hidden;animation:hintFloat 6s ease-in-out infinite;cursor:pointer;background:rgba(0,0,0,0.04)}
   .hint-img-wrap::after{content:none}
   .mobile-hint-img{width:100%;max-height:70vh;object-fit:contain;display:block;opacity:0;transition:opacity 0.6s ease}
   .mobile-hint-img.loaded{opacity:1}
@@ -191,6 +196,11 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
   .narrative-zone.show{display:block}
   .grid-zone{position:static !important;opacity:1 !important;pointer-events:all !important;padding:8px 8px 120px;overflow:visible;display:none}
   .grid-zone.open{display:block !important}
+  .tag-header{margin:-8px -8px 16px -8px;padding:14px 16px 12px;position:sticky;top:0}
+  .tag-header.show{display:block}
+  .tag-header-name{font-size:13px;margin-bottom:5px}
+  .tag-header-desc{font-size:11px;line-height:1.75}
+  .tag-header-desc::before{content:""}
   .grid{display:block;column-count:2;column-gap:5px}
   .card{display:inline-block;width:100%;aspect-ratio:unset;break-inside:avoid;margin-bottom:5px}
   .card img{position:static;width:100%;height:auto;display:block}
@@ -286,7 +296,6 @@ body.fade-out{opacity:0;transition:opacity 0.3s ease}
       <div class="left-title-block">
         <div class="left-header-title">Tactile Thinking</div>
       </div>
-      <div class="strip-row"><button class="clear-btn" id="clearBtn" style="display:none" onclick="clearAll()">Clear all</button></div>
       <div class="active-strip" id="activeStrip"></div>
       <div class="left-explore-hint">Select a series to explore &#8595;</div>
       <div class="cat-list-wrap">
@@ -314,7 +323,7 @@ body.fade-out{opacity:0;transition:opacity 0.3s ease}
         <div class="pc-float-text">우연의 캔버스 위에 스며든 필연의 숨결,<br>비결정적 순간이 빚어낸 견고한 정원</div>
       </div>
       <div class="narrative-zone" id="narrativeZone"><div class="ns-label" id="nsLabel"></div><div class="ns-text" id="nsText"></div><div class="ns-rule"></div></div>
-      <div class="grid-zone" id="gridZone"><div class="grid" id="grid"></div></div>
+      <div class="grid-zone" id="gridZone"><div class="tag-header" id="tagHeader"><div class="tag-header-name" id="tagHeaderName"></div><div class="tag-header-desc" id="tagHeaderDesc"></div></div><div class="grid" id="grid"></div></div>
     </div>
   </div>
 </div>
@@ -426,6 +435,7 @@ function pinCard(idx){
 }
 
 var TAGS_THE=[],TAGS_SER=[],TAGS_MAT=[],TAGS_SEN=[];
+var tagDescs={THE:{},SER:{},MAT:{},SEN:{}};
 var selected={THE:[],SER:[],MAT:[],SEN:[]};
 var filtered=[],modalIdx=0,narrativeTimer=null,pendingTag=null;
 var CHUNK_SIZE=24,renderedCount=0,chunkSentinel=null,chunkObserver=null;
@@ -490,40 +500,20 @@ function toggleCat(cat){
 }
 function toggleTag(cat,enc,el){
   var tag=decodeURIComponent(enc);
-  var arr=selected[cat];
-  var already=arr.length===1&&arr[0]===tag;
-  if(already){selected[cat]=[];el.classList.remove('checked');}
-  else{document.querySelectorAll('#list-'+cat+' .cb-item').forEach(function(i){i.classList.remove('checked');});selected[cat]=[tag];el.classList.add('checked');}
+  var already=selected[cat].length===1&&selected[cat][0]===tag;
+  ['THE','SER','MAT','SEN'].forEach(function(c){
+    selected[c]=[];
+    document.querySelectorAll('#list-'+c+' .cb-item').forEach(function(i){i.classList.remove('checked');});
+    updateBadge(c);
+  });
+  if(!already){selected[cat]=[tag];el.classList.add('checked');updateBadge(cat);}
   if(isMobile()){sel('cell-'+cat).classList.remove('open');}
-  updateBadge(cat);updatePills();applyFilter();
+  updatePills();applyFilter();
 }
 function updateBadge(cat){sel('cell-'+cat).classList.toggle('has-sel',selected[cat].length>0);}
 function updatePills(){
-  var strip=sel('activeStrip');strip.innerHTML='';
-  var mBar=sel('mSelectedBar');mBar.innerHTML='';
-  var total=0;
-  ['THE','SER','MAT','SEN'].forEach(function(cat){
-    selected[cat].forEach(function(tag){
-      total++;
-      var enc=encodeURIComponent(tag);
-      /* PC pill */
-      var p=document.createElement('div');p.className='a-pill';
-      p.innerHTML=tag+'<span class="a-pill-x" onclick="removePill(\''+cat+'\',\''+enc+'\')">×</span>';
-      strip.appendChild(p);
-      /* 모바일 pill */
-      var mp=document.createElement('div');mp.className='m-sel-tag';
-      mp.innerHTML=tag+'<span class="m-sel-x" onclick="removePill(\''+cat+'\',\''+enc+'\')">×</span>';
-      mBar.appendChild(mp);
-    });
-  });
-  sel('clearBtn').style.display=total>0?'inline-block':'none';
-  if(total>0){
-    var cb=document.createElement('button');
-    cb.className='clear-btn';cb.textContent='Clear all';cb.onclick=clearAll;
-    cb.style.cssText='margin-left:auto;font-size:9px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-dim);cursor:pointer;border:none;background:none;padding:0;flex-shrink:0';
-    mBar.appendChild(cb);
-  }
-  mBar.classList.toggle('show',total>0);
+  sel('activeStrip').innerHTML='';
+  sel('mSelectedBar').innerHTML='';
 }
 function removePill(cat,enc){
   var tag=decodeURIComponent(enc);
@@ -547,11 +537,23 @@ function applyFilter(){
   if(pendingTag!==firstTag){pendingTag=firstTag;runNarrativeThenGrid(firstTag);}
   else{renderFiltered();}
 }
+function showTagHeader(){
+  var activeCats=['THE','SER','MAT','SEN'].filter(function(cat){return selected[cat].length>0;});
+  var th=sel('tagHeader');if(!th)return;
+  if(!activeCats.length){th.classList.remove('show');return;}
+  var cat=activeCats[0],tag=selected[cat][0];
+  sel('tagHeaderName').textContent=tag;
+  var desc=(tagDescs[cat]&&tagDescs[cat][tag])||'';
+  sel('tagHeaderDesc').textContent=desc;
+  sel('tagHeaderDesc').style.display=desc?'':'none';
+  th.classList.add('show');
+}
 function renderFiltered(){
   var activeCats=['THE','SER','MAT','SEN'].filter(function(cat){return selected[cat].length>0;});
+  showTagHeader();
   filtered=allWorks.filter(function(row){
     if(row.pub&&row.pub!=='y')return false;
-    return activeCats.every(function(ac){
+    return activeCats.some(function(ac){
       var ct=parseTags(row[ac]);
       return selected[ac].some(function(t){return ct.indexOf(t)>=0;});
     });
@@ -651,8 +653,9 @@ var imgObserver=new IntersectionObserver(function(entries,obs){
   entries.forEach(function(e){
     if(!e.isIntersecting)return;
     var img=e.target,src=img.dataset.src;obs.unobserve(img);
-    img.onerror=function(){var m=src.match(/[?&]id=([a-zA-Z0-9_-]{10,})/);if(m&&this.src.indexOf('w200')===-1){this.src='https://drive.google.com/thumbnail?id='+m[1]+'&sz=w200';}else{this.style.opacity='0.05';this.classList.add('loaded');}};
-    img.onload=function(){img.classList.add('loaded');};img.src=src;
+    var idM2=src.match(/[?&]id=([a-zA-Z0-9_-]{10,})/);var loadSrc=idM2?'https://drive.google.com/thumbnail?id='+idM2[1]+'&sz=w400':src;
+    img.onerror=function(){if(this.src.indexOf('sz=w400')!==-1){this.src=this.src.replace('sz=w400','sz=w200');}else{this.style.opacity='0.05';this.classList.add('loaded');}};
+    img.onload=function(){img.classList.add('loaded');};img.src=loadSrc;
   });
 },{rootMargin:'300px'});
 function lazyLoad(img,url){if(!url){img.classList.add('loaded');return;}img.dataset.src=url;imgObserver.observe(img);}
@@ -669,6 +672,7 @@ function showFloat(){
   pendingTag=null;disconnectChunkObserver();
   sel('narrativeZone').classList.remove('show','rising');
   sel('gridZone').classList.remove('open');
+  var th=sel('tagHeader');if(th)th.classList.remove('show');
   sel('floatZone').classList.remove('hidden');
   var hint=sel('mobileHint');
   if(hint&&isMobile())hint.style.display='flex';
@@ -762,6 +766,7 @@ Promise.all([
 ]).then(function(results){
   var tags=results[0];allWorks=results[1];
   TAGS_THE=tags.THE||[];TAGS_SER=tags.SER||[];TAGS_MAT=tags.MAT||[];TAGS_SEN=tags.SEN||[];
+  tagDescs={THE:tags.THE_descs||{},SER:tags.SER_descs||{},MAT:tags.MAT_descs||{},SEN:tags.SEN_descs||{}};
   buildList('list-THE',TAGS_THE,'THE');buildList('list-SER',TAGS_SER,'SER');
   buildList('list-MAT',TAGS_MAT,'MAT');buildList('list-SEN',TAGS_SEN,'SEN');
   var sorted=allWorks.slice().sort(function(a,b){return(parseInt(b.year||0))-(parseInt(a.year||0));});
@@ -774,7 +779,7 @@ Promise.all([
   /* buildTagWords 후 이벤트 연결 */
   subWorks.forEach(function(row,cardIdx){buildTagWords(cardIdx);});
   startTagCycles();
-  if(subs[0]){var hi=sel('hintImg');if(hi){var hUrl=subs[0].thumb||subs[0].full||'';hi.onload=function(){hi.classList.add('loaded');};hi.src=hUrl;}}
+  if(subs[0]){var hi=sel('hintImg');if(hi){var hUrl=subs[0].thumb||subs[0].full||'';var idM=hUrl.match(/[?&]id=([a-zA-Z0-9_-]{10,})/);var thumbUrl=idM?'https://drive.google.com/thumbnail?id='+idM[1]+'&sz=w400':hUrl;hi.onerror=function(){if(hi.src.indexOf('sz=w400')!==-1){hi.src=hi.src.replace('sz=w400','sz=w200');}else{hi.classList.add('loaded');}};hi.onload=function(){hi.classList.add('loaded');};hi.src=thumbUrl;}}
 
   /* ── 모바일 힌트 이미지 탭 → 태그 표시 ── */
   (function(){
