@@ -138,7 +138,9 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 .modal-x{position:absolute;top:12px;right:14px;font-size:18px;line-height:1;color:rgba(26,26,24,0.4);cursor:pointer;background:none;border:none;font-family:serif;transition:color 0.15s;z-index:10}
 .modal-x:hover{color:var(--ink)}
 .m-title{font-family:'EB Garamond',serif;font-style:italic;font-size:18px;color:var(--ink);line-height:1.3;margin-bottom:6px}
-.m-meta{font-size:7.5px;letter-spacing:0.14em;color:var(--ink-dim);text-transform:uppercase;margin-bottom:2px}
+.m-meta{font-size:9px;letter-spacing:0.12em;color:var(--ink-mid);text-transform:uppercase;margin-bottom:2px}
+#mYear{font-size:11px;letter-spacing:0.1em;color:var(--ink)}
+.m-dim{text-transform:none;letter-spacing:0.04em}
 .m-rule{width:20px;height:0.5px;background:rgba(0,0,0,0.12);margin:12px auto}
 .m-desc{font-size:11px;line-height:1.9;color:var(--ink-mid);word-break:keep-all}
 .m-tags{margin-top:14px;display:flex;flex-wrap:wrap;gap:4px;justify-content:center}
@@ -219,7 +221,9 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
   .bs-img-area img{max-width:100%;max-height:38vh;object-fit:contain;display:block}
   .bs-info{padding:0 20px 16px;overflow-y:auto;max-height:none}
   .bs-title{font-family:'EB Garamond',serif;font-style:italic;font-size:20px;color:var(--ink);line-height:1.3;margin-bottom:6px}
-  .bs-meta{font-size:8px;letter-spacing:0.14em;color:var(--ink-dim);text-transform:uppercase;margin-bottom:2px}
+  .bs-meta{font-size:9.5px;letter-spacing:0.12em;color:var(--ink-mid);text-transform:uppercase;margin-bottom:2px}
+  #bsYear{font-size:12px;letter-spacing:0.1em;color:var(--ink)}
+  .bs-dim{text-transform:none;letter-spacing:0.04em}
   .bs-rule{width:20px;height:0.5px;background:rgba(0,0,0,0.13);margin:14px 0}
   .bs-desc{font-size:12px;line-height:1.9;color:var(--ink-mid);word-break:keep-all}
   .bs-tags{margin-top:16px;display:flex;flex-wrap:wrap;gap:4px}
@@ -337,6 +341,7 @@ body.fade-out{opacity:0;transition:opacity 0.3s ease}
       <div class="m-title" id="mTitle"></div>
       <div class="m-meta" id="mYear"></div>
       <div class="m-meta" id="mMedium"></div>
+      <div class="m-meta m-dim" id="mDim"></div>
       <div class="m-rule"></div>
       <div class="m-desc" id="mDesc"></div>
       <div class="m-tags" id="mTags"></div>
@@ -354,6 +359,7 @@ body.fade-out{opacity:0;transition:opacity 0.3s ease}
     <div class="bs-title" id="bsTitle"></div>
     <div class="bs-meta" id="bsYear"></div>
     <div class="bs-meta" id="bsMedium"></div>
+    <div class="bs-meta bs-dim" id="bsDim"></div>
     <div class="bs-rule"></div>
     <div class="bs-desc" id="bsDesc"></div>
     <div class="bs-tags" id="bsTags"></div>
@@ -700,7 +706,7 @@ function paintModal(){
     img.onload=function(){img.style.opacity='1';area.style.background='#f7f6f3';area.style.animation='none';};
     img.onerror=function(){var id=row['thumb']&&row['thumb'].match(/[?&]id=([a-zA-Z0-9_-]{10,})/);if(id&&img.src.indexOf('w800')===-1){img.src='https://drive.google.com/thumbnail?id='+id[1]+'&sz=w800';}};
     img.src=imgUrl;area.appendChild(img);}
-  sel('mTitle').textContent=row['Title']||'';sel('mYear').textContent=row['Year']||'';sel('mMedium').textContent=row['Medium']||'';
+  sel('mTitle').textContent=row['Title']||'';sel('mYear').textContent=row['Year']||'';sel('mMedium').textContent=row['Medium']||'';sel('mDim').textContent=row['Dimensions']||'';
   sel('mDesc').textContent=row['Description']||'';
   sel('mTags').innerHTML=allRowTags(row).map(function(t){return'<span class="m-tag">'+t+'</span>';}).join('');
   sel('arrPrev').style.display=filtered.length>1?'flex':'none';sel('arrNext').style.display=filtered.length>1?'flex':'none';
@@ -723,7 +729,7 @@ function paintSheet(){
   else{var img=document.createElement('img');img.style.opacity='0';img.onload=function(){img.style.opacity='1';};
     img.onerror=function(){var id=row['thumb']&&row['thumb'].match(/[?&]id=([a-zA-Z0-9_-]{10,})/);if(id&&img.src.indexOf('w800')===-1){img.src='https://drive.google.com/thumbnail?id='+id[1]+'&sz=w800';}};
     img.src=fullUrl(row);area.appendChild(img);}
-  sel('bsTitle').textContent=row['Title']||'';sel('bsYear').textContent=row['Year']||'';sel('bsMedium').textContent=row['Medium']||'';
+  sel('bsTitle').textContent=row['Title']||'';sel('bsYear').textContent=row['Year']||'';sel('bsMedium').textContent=row['Medium']||'';sel('bsDim').textContent=row['Dimensions']||'';
   sel('bsDesc').textContent=row['Description']||'';
   sel('bsTags').innerHTML=allRowTags(row).map(function(t){return'<span class="bs-tag">'+t+'</span>';}).join('');
   var showNav=filtered.length>1;sel('bsPrev').style.display=showNav?'flex':'none';sel('bsNext').style.display=showNav?'flex':'none';
