@@ -651,8 +651,9 @@ var imgObserver=new IntersectionObserver(function(entries,obs){
   entries.forEach(function(e){
     if(!e.isIntersecting)return;
     var img=e.target,src=img.dataset.src;obs.unobserve(img);
-    img.onerror=function(){var m=src.match(/[?&]id=([a-zA-Z0-9_-]{10,})/);if(m&&this.src.indexOf('w200')===-1){this.src='https://drive.google.com/thumbnail?id='+m[1]+'&sz=w200';}else{this.style.opacity='0.05';this.classList.add('loaded');}};
-    img.onload=function(){img.classList.add('loaded');};img.src=src;
+    var idM2=src.match(/[?&]id=([a-zA-Z0-9_-]{10,})/);var loadSrc=idM2?'https://drive.google.com/thumbnail?id='+idM2[1]+'&sz=w400':src;
+    img.onerror=function(){if(this.src.indexOf('sz=w400')!==-1){this.src=this.src.replace('sz=w400','sz=w200');}else{this.style.opacity='0.05';this.classList.add('loaded');}};
+    img.onload=function(){img.classList.add('loaded');};img.src=loadSrc;
   });
 },{rootMargin:'300px'});
 function lazyLoad(img,url){if(!url){img.classList.add('loaded');return;}img.dataset.src=url;imgObserver.observe(img);}
@@ -774,7 +775,7 @@ Promise.all([
   /* buildTagWords 후 이벤트 연결 */
   subWorks.forEach(function(row,cardIdx){buildTagWords(cardIdx);});
   startTagCycles();
-  if(subs[0]){var hi=sel('hintImg');if(hi){var hUrl=subs[0].thumb||subs[0].full||'';hi.onload=function(){hi.classList.add('loaded');};hi.src=hUrl;}}
+  if(subs[0]){var hi=sel('hintImg');if(hi){var hUrl=subs[0].thumb||subs[0].full||'';var idM=hUrl.match(/[?&]id=([a-zA-Z0-9_-]{10,})/);var thumbUrl=idM?'https://drive.google.com/thumbnail?id='+idM[1]+'&sz=w400':hUrl;hi.onerror=function(){if(hi.src.indexOf('sz=w400')!==-1){hi.src=hi.src.replace('sz=w400','sz=w200');}else{hi.classList.add('loaded');}};hi.onload=function(){hi.classList.add('loaded');};hi.src=thumbUrl;}}
 
   /* ── 모바일 힌트 이미지 탭 → 태그 표시 ── */
   (function(){
