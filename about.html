@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+﻿ <!DOCTYPE html>
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
@@ -138,9 +138,11 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 }
 @media(max-width:480px){
   .nav-logo{font-size:10px;letter-spacing:.18em}
-  .nav-item{font-size:8px;padding:5px 6px}
+  
   .nav-sep{margin:0 1px}
 }
+
+@media(max-width:600px){.nav-logo{touch-action:manipulation;-webkit-tap-highlight-color:transparent}.nav-item{min-height:44px;display:inline-flex;align-items:center;padding:0 9px;font-size:9px;letter-spacing:0.12em;touch-action:manipulation;-webkit-tap-highlight-color:transparent}.nav-sep{margin:0 2px}.nav-dd-item{min-height:44px;display:flex;align-items:center;touch-action:manipulation;-webkit-tap-highlight-color:transparent}}
 </style>
 </head>
 <body>

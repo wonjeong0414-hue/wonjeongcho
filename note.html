@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+﻿ <!DOCTYPE html>
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
@@ -98,7 +98,7 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 }
 @media(max-width:480px){
   .nav-logo{font-size:10px;letter-spacing:.18em}
-  .nav-item{font-size:8px;padding:5px 6px}
+  
   .nav-sep{margin:0 1px}
 }
 #page-loader{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:9999;opacity:1;transition:opacity .6s cubic-bezier(.16,1,.3,1);pointer-events:all}
@@ -117,6 +117,8 @@ body.fade-out{opacity:0;transition:opacity .3s ease}
 .pdf-overlay-close:hover{color:var(--ink)}
 .pdf-frame-wrap{flex:1;overflow:hidden;position:relative}
 #pdf-frame{position:absolute;top:0;left:0;width:100%;height:100%;border:none;background:#fff}
+
+@media(max-width:600px){.nav-logo{touch-action:manipulation;-webkit-tap-highlight-color:transparent}.nav-item{min-height:44px;display:inline-flex;align-items:center;padding:0 9px;font-size:9px;letter-spacing:0.12em;touch-action:manipulation;-webkit-tap-highlight-color:transparent}.nav-sep{margin:0 2px}.nav-dd-item{min-height:44px;display:flex;align-items:center;touch-action:manipulation;-webkit-tap-highlight-color:transparent}}
 </style>
 </head>
 <body>

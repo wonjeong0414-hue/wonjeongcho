@@ -1,4 +1,4 @@
-  <!DOCTYPE html>
+﻿  <!DOCTYPE html>
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
@@ -199,7 +199,7 @@ body.fade-out{opacity:0;transition:opacity 0.3s ease}
 /* ── 모바일 ── */
 @media(max-width:600px){
   .nav-logo{font-size:9px !important;letter-spacing:0.18em !important}
-  .nav-item{font-size:8px !important;padding:4px 7px !important}
+  
   .nav-sep{margin:0 2px !important}
   .shell{padding-top:clamp(8px,2vh,20px)}
   .img-box{max-width:88vw !important;max-height:54vh !important}
@@ -207,6 +207,8 @@ body.fade-out{opacity:0;transition:opacity 0.3s ease}
   .img-overlay{justify-content:center !important;align-items:flex-end !important}
   .work-title{font-size:22px !important;text-align:center}
 }
+
+@media(max-width:600px){.nav-logo{touch-action:manipulation;-webkit-tap-highlight-color:transparent}.nav-item{min-height:44px;display:inline-flex;align-items:center;padding:0 9px;font-size:9px;letter-spacing:0.12em;touch-action:manipulation;-webkit-tap-highlight-color:transparent}.nav-sep{margin:0 2px}.nav-dd-item{min-height:44px;display:flex;align-items:center;touch-action:manipulation;-webkit-tap-highlight-color:transparent}}
 </style>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-YBRBFCMMCB"></script>
   <script>
