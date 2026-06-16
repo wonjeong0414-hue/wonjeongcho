@@ -77,19 +77,20 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 .year-section-grid{overflow:hidden}
 .yd-label{font-family:'EB Garamond',serif;font-style:italic;font-size:18px;color:var(--ink);letter-spacing:0.04em;line-height:1.3;display:block}
 .yd-count{font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-mid);font-weight:500;display:block;margin-top:3px}
-.grid{display:grid;grid-template-columns:repeat(12,1fr);grid-auto-rows:52px;gap:4px}
-@media(max-width:1200px){.grid{grid-template-columns:repeat(10,1fr);grid-auto-rows:48px}}
-@media(max-width:900px){.grid{grid-template-columns:repeat(8,1fr);grid-auto-rows:44px}}
-.card{position:relative;overflow:hidden;cursor:pointer;background:rgba(0,0,0,0.04);opacity:0;transform:translateY(6px);transition:opacity 0.35s ease,transform 0.4s cubic-bezier(0.16,1,0.3,1)}
+.grid{display:grid;grid-template-columns:repeat(5,1fr);gap:4px}
+@media(max-width:1200px){.grid{grid-template-columns:repeat(4,1fr)}}
+@media(max-width:900px){.grid{grid-template-columns:repeat(3,1fr)}}
+.card{position:relative;overflow:hidden;cursor:pointer;background:rgba(0,0,0,0.04);opacity:0;transform:translateY(6px);transition:opacity 0.35s ease,transform 0.4s cubic-bezier(0.16,1,0.3,1);aspect-ratio:1}
 .card.revealed{opacity:1;transform:translateY(0)}
 .card img{width:100%;height:100%;object-fit:cover;display:block;opacity:0;filter:blur(3px);transition:opacity 0.5s ease,filter 0.6s ease,transform 0.35s ease;position:absolute;inset:0}
 .card img.loaded{opacity:1;filter:blur(0)}
 .card:hover img{transform:scale(1.05)}
-.card-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(26,26,24,0.6) 0%,transparent 50%);opacity:0;transition:opacity 0.22s ease;display:flex;flex-direction:column;justify-content:flex-end;padding:7px 8px}
+.card-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(26,26,24,0.8) 0%,rgba(26,26,24,0.1) 60%,transparent 80%);opacity:0;transition:opacity 0.22s ease;display:flex;flex-direction:column;justify-content:flex-end;padding:9px 10px}
 .card:hover .card-overlay{opacity:1}
-.card-title{font-family:'EB Garamond',serif;font-style:italic;font-size:12px;font-weight:500;color:#fff;line-height:1.3;margin-bottom:2px}
-.card-meta{font-size:8px;letter-spacing:0.08em;color:rgba(255,255,255,0.75);text-transform:uppercase;font-weight:500}
-.card-dim{font-size:7.5px;letter-spacing:0.04em;color:rgba(255,255,255,0.6);margin-top:1px}
+.card-title{font-family:'EB Garamond',serif;font-style:italic;font-size:9.5px;font-weight:500;color:#fff;line-height:1.4;margin-bottom:2px}
+.card-year{font-size:9.5px;letter-spacing:0.08em;color:rgba(255,255,255,0.97);font-weight:500;margin-bottom:1px}
+.card-meta{font-size:9.5px;letter-spacing:0.05em;color:rgba(255,255,255,0.85);text-transform:none;font-weight:400}
+.card-dim{font-size:9.5px;letter-spacing:0.04em;color:rgba(255,255,255,0.75);margin-top:0}
 .card-skeleton{position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,0.04) 25%,rgba(0,0,0,0.07) 50%,rgba(0,0,0,0.04) 75%);background-size:200% 100%;animation:cardShimmer 1.4s ease infinite}
 @keyframes cardShimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
 .load-sentinel{height:1px}
@@ -105,8 +106,8 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 .modal-x{position:absolute;top:12px;right:14px;font-size:18px;line-height:1;color:rgba(26,26,24,0.4);cursor:pointer;background:none;border:none;font-family:serif;transition:color 0.15s;z-index:10}
 .modal-x:hover{color:var(--ink)}
 .m-title{font-family:'EB Garamond',serif;font-style:italic;font-size:18px;color:var(--ink);line-height:1.3;margin-bottom:6px}
-.m-meta{font-size:9px;letter-spacing:0.06em;color:var(--ink-mid);margin-bottom:2px}
-#mYear{font-size:12px;letter-spacing:0.08em;color:var(--ink);font-weight:500}
+.m-meta{font-size:12px;letter-spacing:0.05em;color:#3a3a38;margin-bottom:2px}
+#mYear{font-size:12px;letter-spacing:0.08em;color:#3a3a38;font-weight:500}
 .m-rule{width:20px;height:0.5px;background:rgba(0,0,0,0.12);margin:12px auto}
 .m-desc{font-size:11px;line-height:1.9;color:var(--ink-mid);word-break:keep-all}
 .m-tags{margin-top:14px;display:flex;flex-wrap:wrap;gap:4px;justify-content:center}
@@ -160,8 +161,7 @@ body.fade-out{opacity:0;transition:opacity 0.3s ease}
   .bs-img-area iframe{width:100%;height:48vw;border:none;display:block}
   .bs-info{padding:0 20px 16px;overflow-y:auto;max-height:none}
   .bs-title{font-family:'EB Garamond',serif;font-style:italic;font-size:20px;color:var(--ink);line-height:1.3;margin-bottom:6px}
-  .bs-meta{font-size:10px;letter-spacing:0.06em;color:var(--ink-mid);margin-bottom:2px}
-  #bsYear{font-size:13px;letter-spacing:0.08em;color:var(--ink);font-weight:500}
+  .bs-meta-line{font-size:11px;letter-spacing:0.05em;color:var(--ink-mid);margin-bottom:4px;line-height:1.7}
   .bs-rule{width:20px;height:0.5px;background:rgba(0,0,0,0.13);margin:14px 0}
   .bs-desc{font-size:12px;line-height:1.9;color:var(--ink-mid);word-break:keep-all}
   .bs-tags{margin-top:16px;display:flex;flex-wrap:wrap;gap:4px}
@@ -254,9 +254,7 @@ body.fade-out{opacity:0;transition:opacity 0.3s ease}
   <div class="bs-img-area" id="bsImgArea"><img id="bsImg" src="" alt=""></div>
   <div class="bs-info">
     <div class="bs-title" id="bsTitle"></div>
-    <div class="bs-meta" id="bsYear"></div>
-    <div class="bs-meta" id="bsMedium"></div>
-    <div class="bs-meta" id="bsDim"></div>
+    <div class="bs-meta-line" id="bsMetaLine"></div>
     <div class="bs-rule"></div>
     <div class="bs-desc" id="bsDesc"></div>
     <div class="bs-tags" id="bsTags"></div>
@@ -337,7 +335,7 @@ function fetchAndRender(){
   sel('gridZone').classList.add('open');sel('gridContainer').innerHTML='<div class="loading-msg">Loading…</div>';
   var yearsDesc=selectedYears.slice().sort(function(a,b){return b-a;});
   allFiltered=[];flatFiltered=[];
-  yearsDesc.forEach(function(yr){var rows=allWorks.filter(function(w){return parseInt(w['year']||0)===yr;});if(rows.length)allFiltered.push({year:yr,rows:rows});rows.forEach(function(r){flatFiltered.push(r);});});
+  yearsDesc.forEach(function(yr){var rows=shuffle(allWorks.filter(function(w){return parseInt(w['year']||0)===yr;}));if(rows.length)allFiltered.push({year:yr,rows:rows});rows.forEach(function(r){flatFiltered.push(r);});});
   yearRendered={};renderAll();
 }
 function renderAll(){
@@ -371,13 +369,10 @@ function connectChunkObserver(){
   if(chunkSentinel)chunkObserver.observe(chunkSentinel);
 }
 function disconnectChunkObserver(){if(chunkObserver){chunkObserver.disconnect();chunkObserver=null;}if(chunkSentinel){chunkSentinel.remove();chunkSentinel=null;}}
-var CARD_SPANS=[{c:1,r:3},{c:1,r:2},{c:2,r:3},{c:1,r:2},{c:1,r:4},{c:2,r:2},{c:1,r:3},{c:2,r:4},{c:1,r:2},{c:1,r:3},{c:3,r:3},{c:1,r:2},{c:2,r:3},{c:1,r:2},{c:1,r:3}];
+function shuffle(arr){var a=arr.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}return a;}
 function makeCard(row,flatIdx,animOffset){
   var card=document.createElement('div');card.className='card';
   var title=row['title']||'',yr=row['year']||'',medium=row['medium']||'',dim=row['dim']||row['dimensions']||'';
-  var sp=CARD_SPANS[flatIdx%CARD_SPANS.length];
-  if(Math.random()<0.3){sp={c:sp.c,r:sp.r+(Math.random()<0.5?1:-1)};sp.r=Math.max(2,sp.r);}
-  card.style.gridColumn='span '+sp.c;card.style.gridRow='span '+sp.r;
   var thumb=row['thumb']||'';
   var sk=document.createElement('div');sk.className='card-skeleton';card.appendChild(sk);
   var img=document.createElement('img');img.alt=title;
@@ -385,7 +380,7 @@ function makeCard(row,flatIdx,animOffset){
   img.onerror=function(){if(sk.parentNode)sk.parentNode.removeChild(sk);};
   if(thumb){lazyLoad(img,thumb);}else{img.classList.add('loaded');}
   card.appendChild(img);
-  if(!isMobile()){var ov=document.createElement('div');ov.className='card-overlay';ov.innerHTML='<div class="card-title">'+title+'</div><div class="card-meta">'+yr+(medium?' · '+medium:'')+'</div>'+(dim?'<div class="card-dim">'+dim+'</div>':'');card.appendChild(ov);}
+  if(!isMobile()){var ov=document.createElement('div');ov.className='card-overlay';ov.innerHTML='<div class="card-title">'+title+'</div><div class="card-year">'+yr+'</div>'+(medium?'<div class="card-meta">'+medium+'</div>':'')+(dim?'<div class="card-dim">'+dim+'</div>':'');card.appendChild(ov);}
   (function(idx){card.addEventListener('click',function(){openModal(idx);});})(flatIdx);
   setTimeout(function(){card.classList.add('revealed');},animOffset*60);
   return card;
@@ -418,7 +413,9 @@ function paintSheet(){
   img.onload=function(){img.style.opacity='1';};
   img.onerror=function(){var m=src.match(/[?&]id=([a-zA-Z0-9_-]{10,})/);if(m&&img.src.indexOf('w800')===-1)img.src='https://drive.google.com/thumbnail?id='+m[1]+'&sz=w800';};
   img.src=src;area.appendChild(img);
-  sel('bsTitle').textContent=row['title']||'';sel('bsYear').textContent=row['year']||'';sel('bsMedium').textContent=row['medium']||'';sel('bsDim').textContent=row['dim']||row['dimensions']||'';sel('bsDesc').textContent=row['desc']||'';
+  sel('bsTitle').textContent=row['title']||'';
+  sel('bsMetaLine').textContent=[row['year']||'',row['medium']||'',row['dim']||row['dimensions']||''].filter(Boolean).join(' · ');
+  sel('bsDesc').textContent=row['desc']||'';
   var tags=[];['THE','SER','MAT','SEN'].forEach(function(k){var v=row[k]||'';v.split(/[,\n]/).forEach(function(t){t=t.trim();if(t)tags.push(t);});});
   sel('bsTags').innerHTML=tags.map(function(t){return'<span class="bs-tag">'+t+'</span>';}).join('');
   var showNav=flatFiltered.length>1;sel('bsPrev').style.display=showNav?'flex':'none';sel('bsNext').style.display=showNav?'flex':'none';
