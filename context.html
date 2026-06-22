@@ -69,11 +69,12 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 .tag-item:hover{color:var(--ink)}
 .tag-item.checked{color:var(--ink);font-weight:600}
 .result-count{font-size:7.5px;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-dim);margin-top:8px;text-align:right;flex-shrink:0}
-.empty-state{display:none;padding:40px 0 48px}
+.empty-state{display:none;padding:48px 20px;text-align:center}
 .empty-state.show{display:block}
-.empty-state-tags{font-size:10px;color:var(--ink-mid);letter-spacing:0.04em;line-height:2.1;margin-bottom:18px}
-.empty-state-cat{font-size:8.5px;color:var(--ink-dim);letter-spacing:0.08em;text-transform:uppercase;margin-right:4px}
-.empty-state-msg{font-family:'EB Garamond',serif;font-style:italic;font-size:15px;color:var(--ink-dim);line-height:1.9}
+.empty-state-tags{font-size:10px;color:var(--ink-mid);letter-spacing:0.03em;line-height:1.8;margin-bottom:14px}
+.empty-state-msg{font-family:'EB Garamond',serif;font-style:italic;font-size:14px;color:var(--ink-dim);line-height:1.8;margin-bottom:20px}
+.empty-clear-btn{font-size:8px;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-mid);cursor:pointer;border:0.5px solid rgba(0,0,0,0.22);background:transparent;padding:5px 16px;border-radius:20px;transition:color 0.15s,border-color 0.15s}
+.empty-clear-btn:hover{color:var(--ink);border-color:rgba(0,0,0,0.45)}
 .right-panel{flex:1;min-width:0;position:relative;overflow:hidden}
 .float-zone{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;transition:opacity 0.4s ease;pointer-events:all}
 .float-zone.hidden{opacity:0;pointer-events:none}
@@ -330,7 +331,7 @@ body.fade-out{opacity:0;transition:opacity 0.3s ease}
         <div class="pc-float-text">우연의 캔버스 위에 스며든 필연의 숨결,<br>비결정적 순간이 빚어낸 견고한 정원</div>
       </div>
       <div class="narrative-zone" id="narrativeZone"><div class="ns-label" id="nsLabel"></div><div class="ns-text" id="nsText"></div><div class="ns-rule"></div></div>
-      <div class="grid-zone" id="gridZone"><div class="tag-header" id="tagHeader"><div class="tag-header-name" id="tagHeaderName"></div><div class="tag-header-desc" id="tagHeaderDesc"></div></div><div class="grid" id="grid"></div><div class="empty-state" id="emptyState"><div class="empty-state-tags" id="emptyStateTags"></div><div class="empty-state-msg">선택된 이미지가 없습니다.<br>다른 조합으로 선택해 주세요.</div></div></div>
+      <div class="grid-zone" id="gridZone"><div class="tag-header" id="tagHeader"><div class="tag-header-name" id="tagHeaderName"></div><div class="tag-header-desc" id="tagHeaderDesc"></div></div><div class="grid" id="grid"></div><div class="empty-state" id="emptyState"><div class="empty-state-tags" id="emptyStateTags"></div><div class="empty-state-msg">선택된 이미지가 없습니다. 다른 조합으로 선택해 주세요.</div><button class="empty-clear-btn" onclick="clearAll()">Clear All</button></div></div>
     </div>
   </div>
 </div>
@@ -580,12 +581,12 @@ function renderFiltered(){
   sel('gridZone').classList.add('open');
   disconnectChunkObserver();
   if(!filtered.length){
-    var tagLines=CAT_KEYS.filter(function(k){return catSel[k];}).map(function(k){
+    var parts=CAT_KEYS.filter(function(k){return catSel[k];}).map(function(k){
       var tag=catSel[k];var subName='';
       (CAT_DATA[k]&&CAT_DATA[k].subs||[]).forEach(function(sub){(sub.tags||[]).forEach(function(t){if(t.kr===tag)subName=sub.name;});});
-      return '<span class="empty-state-cat">'+(CAT_LABELS[k]||k)+'</span>'+(subName?subName+' — ':'')+tag;
+      return (CAT_LABELS[k]||k)+': '+(subName?subName+' ('+tag+')':tag);
     });
-    sel('emptyStateTags').innerHTML=tagLines.join('<br>');
+    sel('emptyStateTags').textContent=parts.join('  →  ');
     if(emptyEl)emptyEl.classList.add('show');
   }else{
     if(emptyEl)emptyEl.classList.remove('show');
