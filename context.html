@@ -136,8 +136,8 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 .card:hover .card-play-icon{background:rgba(255,255,255,0.32);transform:scale(1.1);}
 .card-iframe-overlay{position:absolute;inset:0;z-index:3;opacity:0;pointer-events:none;transition:opacity 0.4s ease;overflow:hidden;}
 .card-iframe-overlay iframe{width:110%;height:110%;margin:-5%;border:none;pointer-events:none;display:block;}
-.card.video-hover .card-iframe-overlay{opacity:1;pointer-events:all;}
-.card.video-hover .card-iframe-overlay iframe{pointer-events:all;}
+.card.video-hover .card-iframe-overlay{opacity:1;pointer-events:none;}
+.card.video-hover .card-iframe-overlay iframe{pointer-events:none;}
 .card.video-hover .card-play-icon{opacity:0;}
 .card-gif-img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0;opacity:0;transition:opacity 0.5s ease;}
 .card-gif-img.loaded{opacity:1;}
