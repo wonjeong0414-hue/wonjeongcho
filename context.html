@@ -562,12 +562,15 @@ function showTagHeader(){
 }
 function renderFiltered(){
   var activeCats=CAT_KEYS.filter(function(k){return catSel[k];});
+  console.log('[filter] catSel=',JSON.stringify(catSel),'activeCats=',activeCats);
   showTagHeader();
   filtered=allWorks.filter(function(row){
     if(row.pub&&row.pub!=='y')return false;
     return activeCats.every(function(cat){
       var fieldVal=row[catFieldName(cat)]||row[cat]||'';
-      return parseTags(fieldVal).indexOf(catSel[cat])>=0;
+      var tags=parseTags(fieldVal);
+      var found=tags.indexOf(catSel[cat])>=0;
+      return found;
     });
   }).map(function(row){
     return{Title:row.title,Year:row.year,Medium:row.medium,Dimensions:row.dimensions,Description:row.desc,
@@ -576,6 +579,7 @@ function renderFiltered(){
       TEC:row[catFieldName('TEC')]||row.TEC||'',
       SEN:row[catFieldName('SEN')]||row.SEN||''};
   }).sort(function(a,b){return(parseInt(b.Year)||0)-(parseInt(a.Year)||0);});
+  console.log('[filter] result count=',filtered.length);
   sel('resultCount').textContent=filtered.length+' works';
   var emptyEl=sel('emptyState');
   var grid=sel('grid');grid.innerHTML='';
