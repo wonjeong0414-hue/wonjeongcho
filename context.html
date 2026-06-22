@@ -580,7 +580,7 @@ function renderFiltered(){
   }).sort(function(a,b){return(parseInt(b.Year)||0)-(parseInt(a.Year)||0);});
   var emptyEl=sel('emptyState');
   var grid=sel('grid');
-  function doRender(){
+  function doRender(keepKeys){
     filtered=newFiltered;
     sel('resultCount').textContent=filtered.length+' works';
     grid.innerHTML='';
@@ -597,29 +597,35 @@ function renderFiltered(){
     }else{
       if(emptyEl)emptyEl.classList.remove('show');
       renderedCount=0;
-      renderNextChunk(true);
+      renderNextChunk(true,keepKeys||{});
     }
   }
   var currentCards=Array.from(grid.querySelectorAll('.card'));
-  if(!currentCards.length){doRender();return;}
+  if(!currentCards.length){doRender({});return;}
   var newKeySet={};
   newFiltered.forEach(function(row){newKeySet[(row.Title||'')+'|'+(row.Year||'')]=true;});
   var toFade=currentCards.filter(function(card){return !newKeySet[card.dataset.workKey||''];});
-  if(!toFade.length){doRender();return;}
-  var stagger=Math.min(30,Math.floor(480/toFade.length));
+  if(!toFade.length){doRender({});return;}
+  var keepKeys={};
+  currentCards.forEach(function(card){var k=card.dataset.workKey||'';if(newKeySet[k])keepKeys[k]=true;});
+  var stagger=Math.min(28,Math.floor(460/toFade.length));
   toFade.forEach(function(card,i){
     setTimeout(function(){
-      card.style.transition='opacity 0.22s ease,transform 0.22s ease';
+      card.style.transition='opacity 0.3s ease,transform 0.38s cubic-bezier(0.4,0,0.6,1)';
       card.style.opacity='0';
-      card.style.transform='scale(0.94)';
+      card.style.transform='translateY(32px)';
     },i*stagger);
   });
-  setTimeout(doRender,Math.min(toFade.length*stagger+260,720));
+  setTimeout(function(){doRender(keepKeys);},Math.min(toFade.length*stagger+320,760));
 }
-function renderNextChunk(animate){
+function renderNextChunk(animate,keepKeys){
+  keepKeys=keepKeys||{};
   var grid=sel('grid');
   var start=renderedCount,end=Math.min(start+CHUNK_SIZE,filtered.length);
-  for(var i=start;i<end;i++)grid.appendChild(makeCard(filtered[i],i,animate));
+  for(var i=start;i<end;i++){
+    var r=filtered[i];var k=(r.Title||'')+'|'+(r.Year||'');
+    grid.appendChild(makeCard(r,i,animate,!!keepKeys[k]));
+  }
   renderedCount=end;
   if(chunkSentinel)chunkSentinel.remove();chunkSentinel=null;
   if(renderedCount<filtered.length){
@@ -638,11 +644,11 @@ function disconnectChunkObserver(){
   if(chunkObserver){chunkObserver.disconnect();chunkObserver=null;}
   if(chunkSentinel){chunkSentinel.remove();chunkSentinel=null;}
 }
-function makeCard(row,idx,animate){
+function makeCard(row,idx,animate,instant){
   var card=document.createElement('div');card.className='card';
   var title=row['Title']||'',year=row['Year']||'',medium=row['Medium']||'',dimensions=row['Dimensions']||'',thumb=thumbUrl(row);
   card.dataset.workKey=title+'|'+year;
-  var delay=animate?Math.min((idx-(renderedCount-CHUNK_SIZE))*25,400):0;
+  var delay=instant?0:(animate?Math.min((idx-(renderedCount-CHUNK_SIZE))*25,400):0);
   if(isGifRow(row)){
     card.classList.add('is-gif');
     var gifEmbed=getEmbedUrl(row);
