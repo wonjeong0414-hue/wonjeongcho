@@ -108,10 +108,10 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 @media(max-width:900px){.grid{grid-template-columns:repeat(3,1fr)}}
 .grid.few-3{grid-template-columns:repeat(3,minmax(0,220px));justify-content:center;gap:10px}
 .grid.few-2{grid-template-columns:repeat(2,minmax(0,290px));justify-content:center;gap:16px}
-.grid.few-1{display:flex;justify-content:center;align-items:flex-start;padding-top:24px}
-.grid.few-1 .card{width:clamp(200px,28%,330px);flex-shrink:0}
-.grid.few-1 .card.revealed{animation:cardFloat 8s ease-in-out 0.5s infinite}
-@keyframes cardFloat{0%,100%{transform:translateY(0) rotate(0deg)}30%{transform:translateY(-12px) rotate(0.5deg)}65%{transform:translateY(6px) rotate(-0.3deg)}}
+.grid.few-1{display:flex;justify-content:center;align-items:flex-start;padding-top:36px}
+.grid.few-1 .card{width:min(50%,460px);flex-shrink:0;box-shadow:0 24px 48px rgba(0,0,0,0.10),0 4px 12px rgba(0,0,0,0.06)}
+.grid.few-1 .card.revealed{animation:cardFloat 8s ease-in-out 1s infinite}
+@keyframes cardFloat{0%,100%{transform:translateY(0) rotate(0deg)}30%{transform:translateY(-14px) rotate(0.5deg)}65%{transform:translateY(7px) rotate(-0.3deg)}}
 .card{position:relative;overflow:hidden;cursor:pointer;background:rgba(0,0,0,0.04);aspect-ratio:3/4;opacity:0;transform:translateY(6px);transition:opacity 0.35s ease,transform 0.4s cubic-bezier(0.16,1,0.3,1)}
 .card.revealed{opacity:1;transform:translateY(0)}
 .card img{width:100%;height:100%;object-fit:cover;display:block;opacity:0;filter:blur(3px);transition:opacity 0.5s ease,filter 0.6s ease,transform 0.35s ease;position:absolute;inset:0}
