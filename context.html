@@ -562,7 +562,6 @@ function showTagHeader(){
 }
 function renderFiltered(){
   var activeCats=CAT_KEYS.filter(function(k){return catSel[k];});
-  console.log('[filter] catSel=',JSON.stringify(catSel),'activeCats=',activeCats);
   showTagHeader();
   filtered=allWorks.filter(function(row){
     if(row.pub&&row.pub!=='y')return false;
@@ -579,7 +578,6 @@ function renderFiltered(){
       TEC:row[catFieldName('TEC')]||row.TEC||'',
       SEN:row[catFieldName('SEN')]||row.SEN||''};
   }).sort(function(a,b){return(parseInt(b.Year)||0)-(parseInt(a.Year)||0);});
-  console.log('[filter] result count=',filtered.length);
   sel('resultCount').textContent=filtered.length+' works';
   var emptyEl=sel('emptyState');
   var grid=sel('grid');grid.innerHTML='';
@@ -595,6 +593,7 @@ function renderFiltered(){
     if(emptyEl)emptyEl.classList.add('show');
   }else{
     if(emptyEl)emptyEl.classList.remove('show');
+    renderedCount=0;
     renderNextChunk(true);
   }
 }
