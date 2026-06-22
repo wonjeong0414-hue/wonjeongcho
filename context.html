@@ -540,9 +540,10 @@ function clearAll(){
 function applyFilter(){
   var activeCats=CAT_KEYS.filter(function(k){return catSel[k];});
   if(!activeCats.length){showFloat();sel('resultCount').textContent='';return;}
-  var firstTag=catSel[activeCats[0]];
-  if(pendingTag!==firstTag){pendingTag=firstTag;runNarrativeThenGrid(firstTag);}
-  else{renderFiltered();}
+  sel('floatZone').classList.add('hidden');
+  sel('narrativeZone').classList.remove('show','rising');
+  var hint=sel('mobileHint');if(hint)hint.style.display='none';
+  renderFiltered();
 }
 function showTagHeader(){
   var activeCats=CAT_KEYS.filter(function(k){return catSel[k];});
