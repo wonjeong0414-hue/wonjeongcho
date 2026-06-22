@@ -50,24 +50,24 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 .a-pill-x:hover{opacity:0.8}
 .cat-list-wrap{display:flex;flex-direction:column;flex:1;overflow-y:auto;scrollbar-width:none}
 .cat-list-wrap::-webkit-scrollbar{display:none}
-.cat-header{display:flex;align-items:center;justify-content:space-between;padding:8px 0 7px;cursor:pointer;user-select:none}
-.cat-header:hover .cat-title{color:var(--ink-mid)}
-.cat-title{font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink-mid);line-height:1.3;transition:color 0.2s}
+.cat-cell{border-bottom:0.5px solid rgba(0,0,0,0.07)}
+.cat-header{display:flex;align-items:center;gap:6px;padding:9px 0 8px;cursor:pointer;user-select:none}
+.cat-header:hover .cat-title{color:var(--ink)}
+.cat-title{font-size:9px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-mid);line-height:1.3;transition:color 0.2s;flex:1}
 .cat-cell.open .cat-title,.cat-cell.has-sel .cat-title{color:var(--ink)}
-.cat-arrow{font-size:7px;opacity:0.45;transition:transform 0.25s ease,opacity 0.2s;flex-shrink:0}
+.cat-badge{font-size:8px;min-width:16px;height:16px;border-radius:8px;background:var(--ink);color:#fff;display:none;align-items:center;justify-content:center;padding:0 4px;font-weight:600;letter-spacing:0}
+.cat-cell.has-sel .cat-badge{display:inline-flex}
+.cat-arrow{font-size:7px;opacity:0.35;transition:transform 0.25s ease;flex-shrink:0}
 .cat-cell.open .cat-arrow{transform:rotate(180deg);opacity:0.5}
-.cat-list{max-height:0;overflow:hidden;transition:max-height 0.38s cubic-bezier(0.16,1,0.3,1);display:flex;flex-direction:column;padding:0 0 0 2px}
-.cat-cell.open .cat-list{max-height:300px;padding-bottom:8px}
-.cb-item{display:flex;align-items:center;gap:8px;padding:4px 0;cursor:pointer;user-select:none}
-.cb-item:hover .cb-label{color:var(--ink)}
-.cb-box{width:12px;height:12px;border:0.5px solid rgba(0,0,0,0.22);border-radius:2px;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:background 0.15s,border-color 0.15s;margin-top:1px}
-.cb-item.checked .cb-box{background:var(--ink-dim);border-color:var(--ink-dim)}
-.cb-check{display:none}
-.cb-item.checked .cb-check{display:block}
-.cb-label-wrap{display:flex;flex-direction:column;gap:1px}
-.cb-label{font-size:11px;color:#4a4a47;font-weight:500;transition:color 0.15s;line-height:1.4;letter-spacing:0.02em}
-.cb-label-en{font-size:11px;color:var(--ink-dim);letter-spacing:0.03em;line-height:1.3}
-.cb-item.checked .cb-label{color:var(--ink)}
+.cat-list{max-height:0;overflow:hidden;transition:max-height 0.4s cubic-bezier(0.16,1,0.3,1)}
+.cat-cell.open .cat-list{max-height:600px;padding-bottom:10px}
+.sub-row{padding:6px 0 4px}
+.sub-name{font-size:9.5px;color:var(--ink);font-weight:500;letter-spacing:0.01em;margin-bottom:5px;line-height:1.4}
+.sub-name-en{font-size:8.5px;color:var(--ink-dim);font-weight:400;letter-spacing:0.03em;margin-left:4px}
+.tag-chips{display:flex;flex-wrap:wrap;gap:4px}
+.tag-chip{font-size:9px;padding:3px 9px;border:0.5px solid rgba(0,0,0,0.18);border-radius:20px;cursor:pointer;color:var(--ink-mid);background:transparent;transition:background 0.15s,color 0.15s,border-color 0.15s;line-height:1.4;letter-spacing:0.01em;user-select:none}
+.tag-chip:hover{color:var(--ink);border-color:rgba(0,0,0,0.35)}
+.tag-chip.checked{background:var(--ink);color:#fff;border-color:var(--ink)}
 .result-count{font-size:7.5px;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-dim);margin-top:8px;text-align:right;flex-shrink:0}
 .right-panel{flex:1;min-width:0;position:relative;overflow:hidden}
 .float-zone{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;transition:opacity 0.4s ease;pointer-events:all}
@@ -157,22 +157,21 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
   .layout{position:static;margin-top:var(--nav-h);height:auto;display:block}
   .top-header{display:none}
   .body-row{display:block;height:auto;overflow:visible}
-  .left-panel{width:100%;display:grid;grid-template-columns:1fr 1fr;gap:2px;padding:0 12px 16px;border-bottom:0.5px solid rgba(0,0,0,0.08);overflow:visible}
+  .left-panel{width:100%;display:flex;flex-direction:column;padding:0 12px 8px;border-bottom:0.5px solid rgba(0,0,0,0.08);overflow:visible}
   .strip-row{display:none}
   .active-strip{display:none}
   .result-count{display:none}
-  .cat-list-wrap{display:contents}
-  .cat-cell{position:relative}
-  .cat-header{display:flex;align-items:center;justify-content:space-between;padding:7px 10px;border:0.5px solid rgba(0,0,0,0.15);border-radius:20px;background:var(--white);cursor:pointer;user-select:none}
-  .cat-cell.open .cat-header,.cat-cell.has-sel .cat-header{border-color:var(--ink-dim);background:rgba(0,0,0,0.03)}
-  .cat-title{font-size:10px;letter-spacing:0.05em;white-space:normal;overflow:visible;text-overflow:unset}
-  .cat-arrow{font-size:7px;flex-shrink:0;margin-left:4px}
-  .cat-list{position:absolute;top:calc(100% + 4px);left:0;z-index:300;background:var(--white);border-radius:8px;box-shadow:0 6px 24px rgba(0,0,0,0.12);padding:6px 0;min-width:160px;max-height:none !important;overflow:visible !important;transition:none !important;display:none}
-  .cat-cell.open .cat-list{display:flex;flex-direction:column}
-  .cb-item{padding:9px 14px;gap:10px}
-  .cb-label{font-size:14px;letter-spacing:0.02em}
-  .cb-label-en{font-size:11px}
-  .cb-box{width:14px;height:14px}
+  .cat-list-wrap{display:flex;flex-direction:column}
+  .cat-cell{position:relative;border-bottom:0.5px solid rgba(0,0,0,0.07)}
+  .cat-cell:last-child{border-bottom:none}
+  .cat-header{padding:10px 2px;border:none;border-radius:0;background:transparent}
+  .cat-title{font-size:11px;letter-spacing:0.06em}
+  .cat-arrow{font-size:8px}
+  .cat-list{position:static;box-shadow:none;border-radius:0;padding:0;background:transparent;max-height:0;overflow:hidden;display:block !important;transition:max-height 0.35s cubic-bezier(0.16,1,0.3,1)}
+  .cat-cell.open .cat-list{max-height:600px;padding-bottom:8px}
+  .sub-row{padding:5px 0 4px}
+  .sub-name{font-size:11px}
+  .tag-chip{font-size:10px;padding:4px 11px}
   .right-panel{position:static;width:100%;height:auto;overflow:visible}
   .float-zone{display:none !important}
   .pc-float-text{display:none}
@@ -306,12 +305,7 @@ body.fade-out{opacity:0;transition:opacity 0.3s ease}
       </div>
       <div class="active-strip" id="activeStrip"></div>
       <div class="left-explore-hint">Select a series to explore &#8595;</div>
-      <div class="cat-list-wrap">
-        <div class="cat-cell" id="cell-THE"><div class="cat-header" onclick="toggleCat('THE')"><span class="cat-title">Thought &amp; Being</span><span class="cat-arrow">▾</span></div><div class="cat-list" id="list-THE"></div></div>
-        <div class="cat-cell" id="cell-SER"><div class="cat-header" onclick="toggleCat('SER')"><span class="cat-title">Traces &amp; Memory</span><span class="cat-arrow">▾</span></div><div class="cat-list" id="list-SER"></div></div>
-        <div class="cat-cell" id="cell-MAT"><div class="cat-header" onclick="toggleCat('MAT')"><span class="cat-title">Matter &amp; Touch</span><span class="cat-arrow">▾</span></div><div class="cat-list" id="list-MAT"></div></div>
-        <div class="cat-cell" id="cell-SEN"><div class="cat-header" onclick="toggleCat('SEN')"><span class="cat-title">Sense &amp; Silence</span><span class="cat-arrow">▾</span></div><div class="cat-list" id="list-SEN"></div></div>
-      </div>
+      <div class="cat-list-wrap" id="catListWrap"></div>
       <div class="result-count" id="resultCount"></div>
     </div>
     <div class="right-panel">
@@ -375,16 +369,9 @@ var tagCycleTimers=[];
 function getSubTags(row){
   if(!row)return[];
   var tags=[];
-  var keys=[['THE','the'],['SER','ser'],['MAT','mat'],['SEN','sen']];
-  keys.forEach(function(pair){
-    var v=row[pair[0]]||row[pair[1]]||'';
-    parseTags(v).forEach(function(t){if(t)tags.push(t);});
+  CAT_KEYS.forEach(function(k){
+    parseTags(row[catFieldName(k)]||row[k]||'').forEach(function(t){if(t)tags.push(t);});
   });
-  if(!tags.length){
-    ['Thought & Being','Traces & Memory','Matter & Touch','Sense & Silence'].forEach(function(k){
-      parseTags(row[k]||'').forEach(function(t){if(t)tags.push(t);});
-    });
-  }
   return tags;
 }
 
@@ -443,20 +430,19 @@ function pinCard(idx){
 }
 
 var TAGS_THE=[],TAGS_SER=[],TAGS_MAT=[],TAGS_SEN=[];
-var tagDescs={THE:{},SER:{},MAT:{},SEN:{}};
-var tagEn={THE:{},SER:{},MAT:{},SEN:{}};
-var selected={THE:[],SER:[],MAT:[],SEN:[]};
+var CAT_KEYS=['NAR','TEC','SEN'];
+var CAT_DATA={};
+var selected={NAR:[],TEC:[],SEN:[]};
 var filtered=[],modalIdx=0,narrativeTimer=null,pendingTag=null;
 var CHUNK_SIZE=24,renderedCount=0,chunkSentinel=null,chunkObserver=null;
 var allWorks=[];
 var isMobile=function(){return window.innerWidth<=600;};
-var TAG_DESC={'비결정적 순간':'정의되지 않은 우연과 필연의 경계, 그 찰나에 포착된 존재의 흔적.','촉각적 사고':'눈이 아닌 손끝으로 먼저 반응하는 사유. 물성과 감각이 만나는 지점.'};
-var CAT_COL={THE:'Thought & Being',SER:'Traces & Memory',MAT:'Matter & Touch',SEN:'Sense & Silence'};
 function sel(id){return document.getElementById(id);}
 function go(page){document.body.classList.add('fade-out');setTimeout(function(){window.location.href=page+'.html';},280);}
 document.addEventListener('DOMContentLoaded',function(){document.body.classList.add('page-fade');setTimeout(function(){document.body.classList.remove('page-fade');},500);});
 function parseTags(str){if(!str)return[];return String(str).split(/[,\n]/).map(function(t){return t.trim();}).filter(Boolean);}
-function allRowTags(row){var arr=[];Object.keys(CAT_COL).forEach(function(cat){parseTags(row[CAT_COL[cat]]).forEach(function(t){arr.push(t);});});return arr;}
+function catFieldName(key){return CAT_DATA[key]?CAT_DATA[key].name:key;}
+function allRowTags(row){var arr=[];CAT_KEYS.forEach(function(k){parseTags(row[catFieldName(k)]||row[k]||'').forEach(function(t){if(t)arr.push(t);});});return arr;}
 function thumbUrl(row){return row['thumb']||'';}
 function fullUrl(row){return row['full']||row['thumb']||'';}
 function isVideoRow(r){return !!(r['isVideo']);}
@@ -491,88 +477,94 @@ function loadSubImg(imgId, url) {
   img.src = url;
   setTimeout(showImage, 2000);
 }
-function buildList(listId,tags,cat){
-  var el=sel(listId);
-  var enMap=tagEn[cat]||{};
-  el.innerHTML=tags.map(function(tag){
-    var enc=encodeURIComponent(tag);
-    var en=enMap[tag]||'';
-    return '<div class="cb-item" id="cb-'+cat+'-'+enc+'" onclick="toggleTag(\''+cat+'\',\''+enc+'\',this)">'
-      +'<div class="cb-box"><svg class="cb-check" width="8" height="6" viewBox="0 0 8 6" fill="none">'
-      +'<polyline points="1,3 3,5 7,1" stroke="white" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>'
-      +'</svg></div><div class="cb-label-wrap"><span class="cb-label">'+tag+'</span>'
-      +(en?'<span class="cb-label-en">'+en+'</span>':'')+'</div></div>';
-  }).join('');
-}
-function toggleCat(cat){
-  var cell=sel('cell-'+cat);
-  var isOpen=cell.classList.contains('open');
-  ['THE','SER','MAT','SEN'].forEach(function(c){sel('cell-'+c).classList.remove('open');});
-  if(!isOpen)cell.classList.add('open');
-}
-function toggleTag(cat,enc,el){
-  var tag=decodeURIComponent(enc);
-  var already=selected[cat].length===1&&selected[cat][0]===tag;
-  ['THE','SER','MAT','SEN'].forEach(function(c){
-    selected[c]=[];
-    document.querySelectorAll('#list-'+c+' .cb-item').forEach(function(i){i.classList.remove('checked');});
-    updateBadge(c);
+function buildCatPanels(){
+  var wrap=sel('catListWrap');if(!wrap)return;
+  wrap.innerHTML='';
+  CAT_KEYS.forEach(function(key){
+    var cat=CAT_DATA[key];if(!cat)return;
+    var cell=document.createElement('div');cell.className='cat-cell';cell.id='cell-'+key;
+    var hdr=document.createElement('div');hdr.className='cat-header';
+    hdr.innerHTML='<span class="cat-title">'+cat.name+'</span>'
+      +'<span class="cat-badge" id="badge-'+key+'"></span>'
+      +'<span class="cat-arrow">▾</span>';
+    hdr.addEventListener('click',function(){toggleCat(key);});
+    var list=document.createElement('div');list.className='cat-list';list.id='list-'+key;
+    (cat.subs||[]).forEach(function(sub){
+      var subRow=document.createElement('div');subRow.className='sub-row';
+      var nameEl=document.createElement('div');nameEl.className='sub-name';
+      nameEl.innerHTML=sub.name+(sub.nameEn?'<span class="sub-name-en">/ '+sub.nameEn+'</span>':'');
+      var chips=document.createElement('div');chips.className='tag-chips';
+      (sub.tags||[]).forEach(function(tag){
+        var chip=document.createElement('span');chip.className='tag-chip';
+        chip.dataset.cat=key;chip.dataset.tag=tag.kr;
+        chip.textContent=tag.kr;
+        chip.addEventListener('click',function(){toggleTagChip(key,tag.kr,chip);});
+        chips.appendChild(chip);
+      });
+      subRow.appendChild(nameEl);subRow.appendChild(chips);list.appendChild(subRow);
+    });
+    cell.appendChild(hdr);cell.appendChild(list);wrap.appendChild(cell);
   });
-  if(!already){selected[cat]=[tag];el.classList.add('checked');updateBadge(cat);}
-  if(isMobile()){sel('cell-'+cat).classList.remove('open');}
-  updatePills();applyFilter();
 }
-function updateBadge(cat){sel('cell-'+cat).classList.toggle('has-sel',selected[cat].length>0);}
-function updatePills(){
-  sel('activeStrip').innerHTML='';
-  sel('mSelectedBar').innerHTML='';
+function toggleCat(key){
+  var cell=sel('cell-'+key);
+  cell.classList.toggle('open');
 }
-function removePill(cat,enc){
-  var tag=decodeURIComponent(enc);
+function toggleTagChip(cat,tag,el){
   var idx=selected[cat].indexOf(tag);
-  if(idx>=0)selected[cat].splice(idx,1);
-  var cbEl=document.getElementById('cb-'+cat+'-'+enc);
-  if(cbEl)cbEl.classList.remove('checked');
-  updateBadge(cat);updatePills();applyFilter();
+  if(idx>=0){selected[cat].splice(idx,1);el.classList.remove('checked');}
+  else{selected[cat].push(tag);el.classList.add('checked');}
+  updateBadge(cat);applyFilter();
+}
+function updateBadge(cat){
+  var count=selected[cat].length;
+  var badge=sel('badge-'+cat);
+  if(badge){badge.textContent=count||'';badge.style.display=count?'inline-flex':'none';}
+  var cell=sel('cell-'+cat);if(cell)cell.classList.toggle('has-sel',count>0);
 }
 function clearAll(){
-  ['THE','SER','MAT','SEN'].forEach(function(cat){
+  CAT_KEYS.forEach(function(cat){
     selected[cat]=[];updateBadge(cat);
-    document.querySelectorAll('#list-'+cat+' .cb-item').forEach(function(el){el.classList.remove('checked');});
+    document.querySelectorAll('#list-'+cat+' .tag-chip').forEach(function(el){el.classList.remove('checked');});
   });
-  updatePills();applyFilter();
+  applyFilter();
 }
 function applyFilter(){
-  var activeCats=['THE','SER','MAT','SEN'].filter(function(cat){return selected[cat].length>0;});
+  var activeCats=CAT_KEYS.filter(function(k){return selected[k].length>0;});
   if(!activeCats.length){showFloat();sel('resultCount').textContent='';return;}
   var firstTag=selected[activeCats[0]][0];
   if(pendingTag!==firstTag){pendingTag=firstTag;runNarrativeThenGrid(firstTag);}
   else{renderFiltered();}
 }
 function showTagHeader(){
-  var activeCats=['THE','SER','MAT','SEN'].filter(function(cat){return selected[cat].length>0;});
+  var activeCats=CAT_KEYS.filter(function(k){return selected[k].length>0;});
   var th=sel('tagHeader');if(!th)return;
   if(!activeCats.length){th.classList.remove('show');return;}
   var cat=activeCats[0],tag=selected[cat][0];
   sel('tagHeaderName').textContent=tag;
-  var desc=(tagDescs[cat]&&tagDescs[cat][tag])||'';
+  var desc='';
+  var catData=CAT_DATA[cat];
+  if(catData){(catData.subs||[]).forEach(function(sub){(sub.tags||[]).forEach(function(t){if(t.kr===tag&&sub.desc)desc=sub.desc;});});}
   sel('tagHeaderDesc').textContent=desc;
   sel('tagHeaderDesc').style.display=desc?'':'none';
   th.classList.add('show');
 }
 function renderFiltered(){
-  var activeCats=['THE','SER','MAT','SEN'].filter(function(cat){return selected[cat].length>0;});
+  var activeCats=CAT_KEYS.filter(function(k){return selected[k].length>0;});
   showTagHeader();
   filtered=allWorks.filter(function(row){
     if(row.pub&&row.pub!=='y')return false;
-    return activeCats.some(function(ac){
-      var ct=parseTags(row[ac]);
+    return activeCats.every(function(ac){
+      var fieldVal=row[catFieldName(ac)]||row[ac]||'';
+      var ct=parseTags(fieldVal);
       return selected[ac].some(function(t){return ct.indexOf(t)>=0;});
     });
   }).map(function(row){
     return{Title:row.title,Year:row.year,Medium:row.medium,Dimensions:row.dimensions,Description:row.desc,
       thumb:row.thumb,full:row.full,isVideo:row.isVideo||false,isGif:row.isGif||false,fileId:row.fileId||'',
-      'Thought & Being':row.THE,'Traces & Memory':row.SER,'Matter & Touch':row.MAT,'Sense & Silence':row.SEN};
+      NAR:row[catFieldName('NAR')]||row.NAR||'',
+      TEC:row[catFieldName('TEC')]||row.TEC||'',
+      SEN:row[catFieldName('SEN')]||row.SEN||''};
   }).sort(function(a,b){return(parseInt(b.Year)||0)-(parseInt(a.Year)||0);});
   sel('resultCount').textContent=filtered.length+' works';
   renderedCount=0;
@@ -771,18 +763,15 @@ document.addEventListener('click',function(e){
   if(!e.target.closest||!e.target.closest('.nav-dd'))
     document.querySelectorAll('.nav-dd-menu').forEach(function(m){m.classList.remove('open');});
   if(!e.target.closest||!e.target.closest('.cat-cell'))
-    document.querySelectorAll('.cat-cell').forEach(function(c){c.classList.remove('open');});
+    if(isMobile())document.querySelectorAll('.cat-cell').forEach(function(c){c.classList.remove('open');});
 });
 Promise.all([
   fetch('./data/tags.json').then(function(r){return r.json();}),
   fetch('./data/works.json').then(function(r){return r.json();})
 ]).then(function(results){
   var tags=results[0];allWorks=results[1];
-  TAGS_THE=tags.THE||[];TAGS_SER=tags.SER||[];TAGS_MAT=tags.MAT||[];TAGS_SEN=tags.SEN||[];
-  tagDescs={THE:tags.THE_descs||{},SER:tags.SER_descs||{},MAT:tags.MAT_descs||{},SEN:tags.SEN_descs||{}};
-  tagEn={THE:tags.THE_en||{},SER:tags.SER_en||{},MAT:tags.MAT_en||{},SEN:tags.SEN_en||{}};
-  buildList('list-THE',TAGS_THE,'THE');buildList('list-SER',TAGS_SER,'SER');
-  buildList('list-MAT',TAGS_MAT,'MAT');buildList('list-SEN',TAGS_SEN,'SEN');
+  CAT_DATA={NAR:tags.NAR||{},TEC:tags.TEC||{},SEN:tags.SEN||{}};
+  buildCatPanels();
   var sorted=allWorks.slice().sort(function(a,b){return(parseInt(b.year||0))-(parseInt(a.year||0));});
   var subs=[];
   for(var i=0;i<sorted.length&&subs.length<3;i++){if((sorted[i].page||'').trim()==='서브')subs.push(sorted[i]);}
