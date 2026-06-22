@@ -55,7 +55,7 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 .cat-header:hover .cat-title{color:var(--ink)}
 .cat-title{font-size:9px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-mid);line-height:1.3;transition:color 0.2s;flex:1}
 .cat-cell.open .cat-title,.cat-cell.has-sel .cat-title{color:var(--ink)}
-.cat-badge{font-size:8px;min-width:16px;height:16px;border-radius:8px;background:var(--ink);color:#fff;display:none;align-items:center;justify-content:center;padding:0 4px;font-weight:600;letter-spacing:0}
+.cat-badge{font-size:8px;min-width:16px;height:16px;border-radius:8px;background:var(--ink-mid);color:#fff;display:none;align-items:center;justify-content:center;padding:0 4px;font-weight:600;letter-spacing:0}
 .cat-cell.has-sel .cat-badge{display:inline-flex}
 .cat-arrow{font-size:7px;opacity:0.35;transition:transform 0.25s ease;flex-shrink:0}
 .cat-cell.open .cat-arrow{transform:rotate(180deg);opacity:0.5}
@@ -69,9 +69,10 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 .tag-item:hover{color:var(--ink)}
 .tag-item.checked{color:var(--ink);font-weight:600}
 .result-count{font-size:7.5px;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-dim);margin-top:8px;text-align:right;flex-shrink:0}
-.empty-state{display:none;padding:48px 20px;text-align:center}
+.empty-state{display:none;padding:40px 0 48px}
 .empty-state.show{display:block}
-.empty-state-tags{font-size:10px;color:var(--ink-mid);letter-spacing:0.04em;line-height:2;margin-bottom:20px}
+.empty-state-tags{font-size:10px;color:var(--ink-mid);letter-spacing:0.04em;line-height:2.1;margin-bottom:18px}
+.empty-state-cat{font-size:8.5px;color:var(--ink-dim);letter-spacing:0.08em;text-transform:uppercase;margin-right:4px}
 .empty-state-msg{font-family:'EB Garamond',serif;font-style:italic;font-size:15px;color:var(--ink-dim);line-height:1.9}
 .right-panel{flex:1;min-width:0;position:relative;overflow:hidden}
 .float-zone{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;transition:opacity 0.4s ease;pointer-events:all}
@@ -435,6 +436,7 @@ function pinCard(idx){
 
 var TAGS_THE=[],TAGS_SER=[],TAGS_MAT=[],TAGS_SEN=[];
 var CAT_KEYS=['NAR','TEC','SEN'];
+var CAT_LABELS={NAR:'Narratives',TEC:'Technique',SEN:'Sensory'};
 var CAT_DATA={};
 var catSel={};
 var filtered=[],modalIdx=0,narrativeTimer=null,pendingTag=null;
@@ -520,7 +522,7 @@ function toggleTagItem(cat,tag,el){
     document.querySelectorAll('.tag-item.checked[data-cat="'+cat+'"]').forEach(function(e){e.classList.remove('checked');});
     catSel[cat]=tag;el.classList.add('checked');
   }
-  updateBadge(cat);applyFilter();
+  updateBadge(cat);showTagHeader();applyFilter();
 }
 function updateBadge(cat){
   var has=!!catSel[cat];
@@ -545,11 +547,13 @@ function showTagHeader(){
   var activeCats=CAT_KEYS.filter(function(k){return catSel[k];});
   var th=sel('tagHeader');if(!th)return;
   if(!activeCats.length){th.classList.remove('show');return;}
-  var cat=activeCats[0];var tag=catSel[cat];
-  sel('tagHeaderName').textContent=tag;
+  var tagNames=activeCats.map(function(k){return catSel[k];});
+  sel('tagHeaderName').textContent=tagNames.join('  ·  ');
   var desc='';
-  var catData=CAT_DATA[cat];
-  if(catData){(catData.subs||[]).forEach(function(sub){(sub.tags||[]).forEach(function(t){if(t.kr===tag&&sub.desc)desc=sub.desc;});});}
+  if(activeCats.length===1){
+    var cat=activeCats[0];var tag=catSel[cat];
+    (CAT_DATA[cat]&&CAT_DATA[cat].subs||[]).forEach(function(sub){(sub.tags||[]).forEach(function(t){if(t.kr===tag&&sub.desc)desc=sub.desc;});});
+  }
   sel('tagHeaderDesc').textContent=desc;
   sel('tagHeaderDesc').style.display=desc?'':'none';
   th.classList.add('show');
@@ -578,8 +582,8 @@ function renderFiltered(){
   if(!filtered.length){
     var tagLines=CAT_KEYS.filter(function(k){return catSel[k];}).map(function(k){
       var tag=catSel[k];var subName='';
-      (CAT_DATA[k].subs||[]).forEach(function(sub){(sub.tags||[]).forEach(function(t){if(t.kr===tag)subName=sub.name;});});
-      return (subName?subName+' : ':'')+tag;
+      (CAT_DATA[k]&&CAT_DATA[k].subs||[]).forEach(function(sub){(sub.tags||[]).forEach(function(t){if(t.kr===tag)subName=sub.name;});});
+      return '<span class="empty-state-cat">'+(CAT_LABELS[k]||k)+'</span>'+(subName?subName+' — ':'')+tag;
     });
     sel('emptyStateTags').innerHTML=tagLines.join('<br>');
     if(emptyEl)emptyEl.classList.add('show');
