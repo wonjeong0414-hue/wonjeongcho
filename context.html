@@ -50,22 +50,20 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 .a-pill-x:hover{opacity:0.8}
 .cat-list-wrap{display:flex;flex-direction:column;flex:1;overflow-y:auto;scrollbar-width:none}
 .cat-list-wrap::-webkit-scrollbar{display:none}
-.cat-cell{border-bottom:0.5px solid rgba(0,0,0,0.07)}
-.cat-header{display:flex;align-items:center;gap:6px;padding:9px 0 8px;cursor:pointer;user-select:none}
-.cat-header:hover .cat-title{color:var(--ink)}
-.cat-title{font-size:9px;letter-spacing:0.1em;text-transform:uppercase;color:#3d3d3b;line-height:1.3;transition:color 0.2s;flex:1}
-.cat-cell.open .cat-title,.cat-cell.has-sel .cat-title{color:var(--ink)}
+.cat-cell{border-bottom:0.5px solid rgba(0,0,0,0.07);padding-bottom:10px}
+.cat-header{display:flex;align-items:center;gap:6px;padding:9px 0 5px}
+.cat-title{font-size:8.5px;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-dim);line-height:1.3;flex:1}
+.cat-cell.has-sel .cat-title{color:#3d3d3b}
 .cat-badge{width:5px;height:5px;border-radius:50%;background:var(--ink-dim);display:none;flex-shrink:0}
 .cat-cell.has-sel .cat-badge{display:inline-block}
-.cat-arrow{font-size:7px;opacity:0.35;transition:transform 0.25s ease;flex-shrink:0}
-.cat-cell.open .cat-arrow{transform:rotate(180deg);opacity:0.5}
-.cat-list{max-height:0;overflow:hidden;transition:max-height 0.4s cubic-bezier(0.16,1,0.3,1)}
-.cat-cell.open .cat-list{max-height:600px;padding-bottom:10px}
-.sub-row{display:flex;align-items:baseline;flex-wrap:wrap;padding:2px 0 1px}
-.sub-name{font-size:10px;color:var(--ink);font-weight:600;white-space:nowrap;margin-right:4px;line-height:1.9;flex-shrink:0}
-.sub-name-en{display:none}
-.tag-row{display:flex;flex-wrap:wrap;gap:0 8px;flex:1}
-.tag-item{font-size:8.5px;color:var(--ink-mid);cursor:pointer;letter-spacing:0.01em;line-height:1.9;transition:color 0.15s;user-select:none}
+.sub-chip-row{display:flex;flex-wrap:wrap;gap:4px 5px;padding-bottom:2px}
+.sub-chip{font-size:8.5px;color:var(--ink-mid);cursor:pointer;padding:2px 8px;border-radius:11px;border:0.5px solid rgba(0,0,0,0.13);transition:color 0.15s,border-color 0.15s,background 0.15s;user-select:none;line-height:1.7}
+.sub-chip:hover{color:var(--ink);border-color:rgba(0,0,0,0.28)}
+.sub-chip.open{color:var(--ink);border-color:rgba(0,0,0,0.4);background:rgba(0,0,0,0.03)}
+.sub-chip.has-sel{color:var(--ink);border-color:var(--ink);font-weight:600}
+.sub-dropdown{max-height:0;overflow:hidden;transition:max-height 0.32s cubic-bezier(0.16,1,0.3,1),padding 0.2s ease;display:flex;flex-wrap:wrap;gap:0 10px}
+.sub-dropdown.open{max-height:150px;padding:7px 0 4px}
+.tag-item{font-size:8.5px;color:var(--ink-mid);cursor:pointer;letter-spacing:0.01em;line-height:2;transition:color 0.15s;user-select:none}
 .tag-item:hover{color:var(--ink)}
 .tag-item.checked{color:var(--ink);font-weight:600}
 .left-top-row{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:10px}
@@ -443,6 +441,7 @@ var CAT_KEYS=['NAR','TEC','SEN'];
 var CAT_LABELS={NAR:'Narratives',TEC:'Technique',SEN:'Sensory'};
 var CAT_DATA={};
 var catSel={};
+var openDropdown=null;
 var filtered=[],modalIdx=0,narrativeTimer=null,pendingTag=null;
 var CHUNK_SIZE=24,renderedCount=0,chunkSentinel=null,chunkObserver=null;
 var allWorks=[];
@@ -490,35 +489,63 @@ function loadSubImg(imgId, url) {
 function buildCatPanels(){
   var wrap=sel('catListWrap');if(!wrap)return;
   wrap.innerHTML='';
+  var shortTitle={NAR:'Narratives',TEC:'Technique',SEN:'Sensory'};
   CAT_KEYS.forEach(function(key){
     var cat=CAT_DATA[key];if(!cat)return;
     var cell=document.createElement('div');cell.className='cat-cell';cell.id='cell-'+key;
     var hdr=document.createElement('div');hdr.className='cat-header';
-    hdr.innerHTML='<span class="cat-title">'+cat.name+'</span>'
-      +'<span class="cat-badge" id="badge-'+key+'"></span>'
-      +'<span class="cat-arrow">▾</span>';
-    hdr.addEventListener('click',function(){toggleCat(key);});
-    var list=document.createElement('div');list.className='cat-list';list.id='list-'+key;
-    (cat.subs||[]).forEach(function(sub){
-      var subRow=document.createElement('div');subRow.className='sub-row';
-      var nameEl=document.createElement('span');nameEl.className='sub-name';
-      nameEl.textContent=sub.name+':';
-      var tagRow=document.createElement('div');tagRow.className='tag-row';
-      (sub.tags||[]).forEach(function(tag){
-        var item=document.createElement('span');item.className='tag-item';
-        item.dataset.cat=key;item.dataset.tag=tag.kr;
-        item.textContent=tag.kr;
-        item.addEventListener('click',function(){toggleTagItem(key,tag.kr,item);});
-        tagRow.appendChild(item);
-      });
-      subRow.appendChild(nameEl);subRow.appendChild(tagRow);list.appendChild(subRow);
+    hdr.innerHTML='<span class="cat-title">'+(shortTitle[key]||key)+'</span>'
+      +'<span class="cat-badge" id="badge-'+key+'"></span>';
+    var chipRow=document.createElement('div');chipRow.className='sub-chip-row';
+    var dropdown=document.createElement('div');dropdown.className='sub-dropdown';dropdown.id='dropdown-'+key;
+    (cat.subs||[]).forEach(function(sub,idx){
+      var chip=document.createElement('span');chip.className='sub-chip';
+      chip.id='chip-'+key+'-'+idx;
+      chip.dataset.cat=key;chip.dataset.subIdx=idx;
+      chip.textContent=sub.name;
+      chip.addEventListener('click',function(){clickSubChip(key,idx);});
+      chipRow.appendChild(chip);
     });
-    cell.appendChild(hdr);cell.appendChild(list);wrap.appendChild(cell);
+    cell.appendChild(hdr);cell.appendChild(chipRow);cell.appendChild(dropdown);
+    wrap.appendChild(cell);
   });
 }
-function toggleCat(key){
-  var cell=sel('cell-'+key);
-  cell.classList.toggle('open');
+function clickSubChip(cat,subIdx){
+  if(openDropdown&&openDropdown.cat===cat&&openDropdown.subIdx===subIdx){
+    closeAllDropdowns();return;
+  }
+  closeAllDropdowns();
+  openDropdown={cat:cat,subIdx:subIdx};
+  var chip=sel('chip-'+cat+'-'+subIdx);if(chip)chip.classList.add('open');
+  var dd=sel('dropdown-'+cat);if(!dd)return;
+  dd.innerHTML='';
+  var sub=(CAT_DATA[cat]&&CAT_DATA[cat].subs||[])[subIdx];if(!sub)return;
+  (sub.tags||[]).forEach(function(tag){
+    var item=document.createElement('span');item.className='tag-item';
+    item.dataset.cat=cat;item.dataset.tag=tag.kr;
+    item.textContent=tag.kr;
+    if(catSel[cat]===tag.kr)item.classList.add('checked');
+    item.addEventListener('click',function(){toggleTagItem(cat,tag.kr,item);});
+    dd.appendChild(item);
+  });
+  dd.classList.add('open');
+}
+function closeAllDropdowns(){
+  if(openDropdown){
+    var chip=sel('chip-'+openDropdown.cat+'-'+openDropdown.subIdx);
+    if(chip)chip.classList.remove('open');
+    var dd=sel('dropdown-'+openDropdown.cat);
+    if(dd)dd.classList.remove('open');
+    openDropdown=null;
+  }
+}
+function updateSubChipSelState(cat){
+  var subs=CAT_DATA[cat]&&CAT_DATA[cat].subs||[];
+  subs.forEach(function(sub,idx){
+    var chip=sel('chip-'+cat+'-'+idx);if(!chip)return;
+    var hasSel=(sub.tags||[]).some(function(t){return catSel[cat]===t.kr;});
+    chip.classList.toggle('has-sel',hasSel);
+  });
 }
 function toggleTagItem(cat,tag,el){
   if(catSel[cat]===tag){delete catSel[cat];el.classList.remove('checked');}
@@ -526,6 +553,8 @@ function toggleTagItem(cat,tag,el){
     document.querySelectorAll('.tag-item.checked[data-cat="'+cat+'"]').forEach(function(e){e.classList.remove('checked');});
     catSel[cat]=tag;el.classList.add('checked');
   }
+  closeAllDropdowns();
+  updateSubChipSelState(cat);
   updateBadge(cat);showTagHeader();applyFilter();
 }
 function updateBadge(cat){
@@ -536,6 +565,8 @@ function updateBadge(cat){
 }
 function clearAll(){
   catSel={};
+  closeAllDropdowns();
+  document.querySelectorAll('.sub-chip.has-sel').forEach(function(c){c.classList.remove('has-sel');});
   document.querySelectorAll('.tag-item.checked').forEach(function(el){el.classList.remove('checked');});
   CAT_KEYS.forEach(function(cat){updateBadge(cat);});
   applyFilter();
