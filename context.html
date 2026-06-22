@@ -460,10 +460,15 @@ function catFieldName(key){return CAT_DATA[key]?CAT_DATA[key].name:key;}
 function allRowTags(row){var arr=[];CAT_KEYS.forEach(function(k){parseTags(row[catFieldName(k)]||row[k]||'').forEach(function(t){if(t)arr.push(t);});});return arr;}
 function thumbUrl(row){return row['thumb']||'';}
 function fullUrl(row){return row['full']||row['thumb']||'';}
-function isVideoRow(r){return !!(r['isVideo']);}
+function isVideoRow(r){return !!(r['isVideo'])||(!!r['medium']&&r['medium'].toLowerCase().indexOf('video')>=0);}
 function isGifRow(r){return !!(r['isGif']);}
-function getEmbedUrl(r){var fid=r['fileId']||'';return fid?'https://drive.google.com/file/d/'+fid+'/preview':'';}
-function getViewUrl(r){var fid=r['fileId']||'';return fid?'https://drive.google.com/uc?export=view&id='+fid:(r['full']||'');}
+function getDriveFileId(r){
+  var fid=r['fileId']||'';
+  if(!fid){var m=(r['full']||r['thumb']||'').match(/[?&\/]id=([a-zA-Z0-9_-]{20,})|\/d\/([a-zA-Z0-9_-]{20,})\//);if(m)fid=m[1]||m[2];}
+  return fid;
+}
+function getEmbedUrl(r){var fid=getDriveFileId(r);return fid?'https://drive.google.com/file/d/'+fid+'/preview':'';}
+function getViewUrl(r){var fid=getDriveFileId(r);return fid?'https://drive.google.com/uc?export=view&id='+fid:(r['full']||'');}
 function loadSubImg(imgId, url) {
   if (!url) return;
   var img = sel(imgId);
