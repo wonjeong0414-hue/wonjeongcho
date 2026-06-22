@@ -580,7 +580,7 @@ function renderFiltered(){
   }).sort(function(a,b){return(parseInt(b.Year)||0)-(parseInt(a.Year)||0);});
   var emptyEl=sel('emptyState');
   var grid=sel('grid');
-  function doRender(keepKeys){
+  function doRender(keepKeys,oldPositions){
     filtered=newFiltered;
     sel('resultCount').textContent=filtered.length+' works';
     grid.innerHTML='';
@@ -598,25 +598,50 @@ function renderFiltered(){
       if(emptyEl)emptyEl.classList.remove('show');
       renderedCount=0;
       renderNextChunk(true,keepKeys||{});
+      if(oldPositions&&Object.keys(oldPositions).length){
+        requestAnimationFrame(function(){
+          Array.from(grid.querySelectorAll('.card')).forEach(function(card){
+            var key=card.dataset.workKey||'';
+            var oldRect=oldPositions[key];if(!oldRect)return;
+            var newRect=card.getBoundingClientRect();
+            var dx=oldRect.left-newRect.left,dy=oldRect.top-newRect.top;
+            if(Math.abs(dx)<2&&Math.abs(dy)<2)return;
+            card.style.transition='none';
+            card.style.transform='translate('+dx+'px,'+dy+'px)';
+          });
+          requestAnimationFrame(function(){
+            Array.from(grid.querySelectorAll('.card')).forEach(function(card){
+              var key=card.dataset.workKey||'';
+              if(!oldPositions[key])return;
+              card.style.transition='transform 0.6s cubic-bezier(0.16,1,0.3,1)';
+              card.style.transform='';
+              card.addEventListener('transitionend',function h(){card.style.transition='';card.removeEventListener('transitionend',h);},{once:true});
+            });
+          });
+        });
+      }
     }
   }
   var currentCards=Array.from(grid.querySelectorAll('.card'));
-  if(!currentCards.length){doRender({});return;}
+  if(!currentCards.length){doRender({},null);return;}
   var newKeySet={};
   newFiltered.forEach(function(row){newKeySet[(row.Title||'')+'|'+(row.Year||'')]=true;});
   var toFade=currentCards.filter(function(card){return !newKeySet[card.dataset.workKey||''];});
-  if(!toFade.length){doRender({});return;}
-  var keepKeys={};
-  currentCards.forEach(function(card){var k=card.dataset.workKey||'';if(newKeySet[k])keepKeys[k]=true;});
-  var stagger=Math.min(28,Math.floor(460/toFade.length));
+  if(!toFade.length){doRender({},null);return;}
+  var keepKeys={};var oldPositions={};
+  currentCards.forEach(function(card){
+    var k=card.dataset.workKey||'';
+    if(newKeySet[k]){keepKeys[k]=true;oldPositions[k]=card.getBoundingClientRect();}
+  });
+  var stagger=Math.min(25,Math.floor(440/toFade.length));
   toFade.forEach(function(card,i){
     setTimeout(function(){
-      card.style.transition='opacity 0.3s ease,transform 0.38s cubic-bezier(0.4,0,0.6,1)';
+      card.style.transition='opacity 0.45s ease-in,transform 0.45s cubic-bezier(0.4,0,1,1)';
       card.style.opacity='0';
-      card.style.transform='translateY(32px)';
+      card.style.transform='scale(0.72) translateY(52px)';
     },i*stagger);
   });
-  setTimeout(function(){doRender(keepKeys);},Math.min(toFade.length*stagger+320,760));
+  setTimeout(function(){doRender(keepKeys,oldPositions);},Math.min(toFade.length*stagger+360,820));
 }
 function renderNextChunk(animate,keepKeys){
   keepKeys=keepKeys||{};
@@ -668,7 +693,7 @@ function makeCard(row,idx,animate,instant){
     ov.innerHTML='<div class="card-title">'+title+'</div><div class="card-year">'+year+'</div>'+(medium?'<div class="card-meta">'+medium+'</div>':'')+(dimensions?'<div class="card-dim">'+dimensions+'</div>':'');
     card.appendChild(ov);
     (function(i){card.addEventListener('click',function(){openModal(i);});})(idx);
-    setTimeout(function(){card.classList.add('revealed');},delay);return card;
+    if(instant){card.style.transition='none';card.classList.add('revealed');}else{setTimeout(function(){card.classList.add('revealed');},delay);}return card;
   }
   if(isVideoRow(row)){
     card.classList.add('is-video');
@@ -689,7 +714,7 @@ function makeCard(row,idx,animate,instant){
     ov2.innerHTML='<div class="card-title">'+title+'</div><div class="card-year">'+year+'</div>'+(medium?'<div class="card-meta">'+medium+'</div>':'')+(dimensions?'<div class="card-dim">'+dimensions+'</div>':'');
     card.appendChild(ov2);
     (function(i){card.addEventListener('click',function(){openModal(i);});})(idx);
-    setTimeout(function(){card.classList.add('revealed');},delay);return card;
+    if(instant){card.style.transition='none';card.classList.add('revealed');}else{setTimeout(function(){card.classList.add('revealed');},delay);}return card;
   }
   var sk=document.createElement('div');sk.className='card-skeleton';card.appendChild(sk);
   var img=document.createElement('img');img.alt=title;
