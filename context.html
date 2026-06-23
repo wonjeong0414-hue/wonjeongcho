@@ -481,8 +481,7 @@ function getDriveFileId(r){
   return fid;
 }
 function getYouTubeId(r){
-  var yt=r['youtube']||'';
-  if(!yt)return '';
+  var yt=r['youtube']||r['full']||r['thumb']||'';
   var m=yt.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/))([a-zA-Z0-9_-]{11})/);
   return m?m[1]:'';
 }
@@ -856,10 +855,25 @@ function bgClose(e){if(e.target===sel('modalBg'))closeModal();}
 function navModal(d){modalIdx=(modalIdx+d+filtered.length)%filtered.length;paintModal();}
 function paintModal(){
   var row=filtered[modalIdx];var area=sel('modalImgArea');
-  var prevIframe=area.querySelector('iframe');if(prevIframe)prevIframe.src='';
+  var prevIframe=area.querySelector('iframe');if(prevIframe)prevIframe.src='about:blank';
   area.innerHTML='';area.style.background='';area.style.animation='none';
   if(isVideoRow(row)){var embedUrl=getEmbedUrl(row);if(embedUrl){var iframe=document.createElement('iframe');iframe.src=embedUrl+(getYouTubeId(row)?'?autoplay=1&mute=1&rel=0':'?autoplay=1&mute=1&rm=minimal');iframe.setAttribute('allow','autoplay; encrypted-media; picture-in-picture');iframe.setAttribute('allowfullscreen','');area.appendChild(iframe);}}
-  else if(isGifRow(row)){var gifEmbed2=getEmbedUrl(row);if(gifEmbed2){var gifIframe2=document.createElement('iframe');gifIframe2.src=gifEmbed2;gifIframe2.setAttribute('allowfullscreen','');gifIframe2.style.cssText='width:100%;height:65vh;border:none;display:block;';area.appendChild(gifIframe2);}}
+  else if(isGifRow(row)){
+    var gifFid2=getDriveFileId(row);
+    if(gifFid2){
+      var gifVid2=document.createElement('video');
+      gifVid2.setAttribute('autoplay','');gifVid2.setAttribute('muted','');gifVid2.setAttribute('loop','');gifVid2.setAttribute('playsinline','');
+      gifVid2.style.cssText='max-width:100%;max-height:65vh;object-fit:contain;display:block;';
+      gifVid2.src='https://drive.google.com/uc?export=view&id='+gifFid2;
+      gifVid2.onerror=function(){
+        var gifImg2b=document.createElement('img');
+        gifImg2b.style.cssText='max-width:100%;max-height:65vh;object-fit:contain;display:block;';
+        gifImg2b.src='https://drive.google.com/uc?export=view&id='+gifFid2;
+        if(area.contains(gifVid2))area.replaceChild(gifImg2b,gifVid2);
+      };
+      area.appendChild(gifVid2);
+    }
+  }
   else{var img=document.createElement('img');img.style.opacity='0';var imgUrl=fullUrl(row);
     area.style.background='linear-gradient(90deg,rgba(0,0,0,0.04) 25%,rgba(0,0,0,0.07) 50%,rgba(0,0,0,0.04) 75%)';
     area.style.backgroundSize='200% 100%';area.style.animation='cardShimmer 1.4s ease infinite';
@@ -899,7 +913,22 @@ function paintSheet(){
     if(openUrl){wrap.addEventListener('click',function(){window.open(openUrl,'_blank');});}
     area.appendChild(wrap);
   }
-  else if(isGifRow(row)){var gifEmbed=getEmbedUrl(row);if(gifEmbed){var gifIframe=document.createElement('iframe');gifIframe.src=gifEmbed;gifIframe.setAttribute('allowfullscreen','');gifIframe.style.cssText='width:100%;height:38vh;border:none;display:block;';area.appendChild(gifIframe);}}
+  else if(isGifRow(row)){
+    var gifFidS=getDriveFileId(row);
+    if(gifFidS){
+      var gifVidS=document.createElement('video');
+      gifVidS.setAttribute('autoplay','');gifVidS.setAttribute('muted','');gifVidS.setAttribute('loop','');gifVidS.setAttribute('playsinline','');
+      gifVidS.style.cssText='width:100%;max-height:38vh;object-fit:contain;display:block;';
+      gifVidS.src='https://drive.google.com/uc?export=view&id='+gifFidS;
+      gifVidS.onerror=function(){
+        var gifImgS=document.createElement('img');
+        gifImgS.style.cssText='width:100%;max-height:38vh;object-fit:contain;display:block;';
+        gifImgS.src='https://drive.google.com/uc?export=view&id='+gifFidS;
+        if(area.contains(gifVidS))area.replaceChild(gifImgS,gifVidS);
+      };
+      area.appendChild(gifVidS);
+    }
+  }
   else{var img=document.createElement('img');img.style.opacity='0';img.onload=function(){img.style.opacity='1';};
     img.onerror=function(){var id=row['thumb']&&row['thumb'].match(/[?&]id=([a-zA-Z0-9_-]{10,})/);if(id&&img.src.indexOf('w800')===-1){img.src='https://drive.google.com/thumbnail?id='+id[1]+'&sz=w800';}};
     img.src=fullUrl(row);area.appendChild(img);}
