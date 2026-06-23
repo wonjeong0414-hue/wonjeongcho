@@ -890,7 +890,8 @@ var sheetState='closed',dragStartY=0,dragStartState='';
 function openSheet(idx){
   modalIdx=idx;paintSheet();var sheet=sel('bsSheet');sheet.classList.remove('half','full');
   sheet.style.willChange='transform';
-  requestAnimationFrame(function(){sheet.classList.add('half');});sheetState='half';document.body.classList.add('sheet-open');
+  var openState=(isVideoRow(filtered[idx])||isGifRow(filtered[idx]))?'full':'half';
+  requestAnimationFrame(function(){sheet.classList.add(openState);});sheetState=openState;document.body.classList.add('sheet-open');
   setTimeout(function(){sheet.style.willChange='auto';},420);
 }
 function closeSheet(){
@@ -910,24 +911,18 @@ function paintSheet(){
       iframeS.src=embedUrlS+params;
       iframeS.setAttribute('allow','autoplay; encrypted-media; picture-in-picture');
       iframeS.setAttribute('allowfullscreen','');
-      if(row['portrait']||row['isPortrait']){iframeS.style.cssText='width:60%;aspect-ratio:9/16;border:none;display:block;margin:0 auto;';}
+      if(row['portrait']||row['isPortrait']){iframeS.style.cssText='width:min(75vw,320px);aspect-ratio:9/16;border:none;display:block;margin:0 auto;';}else{iframeS.style.cssText='width:100%;aspect-ratio:16/9;border:none;display:block;';}
       area.appendChild(iframeS);
     }
   }
   else if(isGifRow(row)){
-    var gifFidS=getDriveFileId(row);
-    if(gifFidS){
-      var gifVidS=document.createElement('video');
-      gifVidS.setAttribute('autoplay','');gifVidS.setAttribute('muted','');gifVidS.setAttribute('loop','');gifVidS.setAttribute('playsinline','');
-      gifVidS.style.cssText='width:100%;max-height:38vh;object-fit:contain;display:block;';
-      gifVidS.src='https://drive.google.com/uc?export=view&id='+gifFidS;
-      gifVidS.onerror=function(){
-        var gifImgS=document.createElement('img');
-        gifImgS.style.cssText='width:100%;max-height:38vh;object-fit:contain;display:block;';
-        gifImgS.src='https://drive.google.com/uc?export=view&id='+gifFidS;
-        if(area.contains(gifVidS))area.replaceChild(gifImgS,gifVidS);
-      };
-      area.appendChild(gifVidS);
+    var gifEmbedS=getEmbedUrl(row);
+    if(gifEmbedS){
+      var gifIframeS=document.createElement('iframe');
+      gifIframeS.src=gifEmbedS;
+      gifIframeS.setAttribute('allowfullscreen','');
+      gifIframeS.style.cssText='width:100%;aspect-ratio:16/9;border:none;display:block;';
+      area.appendChild(gifIframeS);
     }
   }
   else{var img=document.createElement('img');img.style.opacity='0';img.onload=function(){img.style.opacity='1';};
