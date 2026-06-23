@@ -858,7 +858,7 @@ function paintModal(){
   var row=filtered[modalIdx];var area=sel('modalImgArea');
   var prevIframe=area.querySelector('iframe');if(prevIframe)prevIframe.src='about:blank';
   area.innerHTML='';area.style.background='';area.style.animation='none';
-  if(isVideoRow(row)){var embedUrl=getEmbedUrl(row);if(embedUrl){var iframe=document.createElement('iframe');iframe.src=embedUrl+(getYouTubeId(row)?'?autoplay=1&mute=1&rel=0':'?autoplay=1&mute=1&rm=minimal');iframe.setAttribute('allow','autoplay; encrypted-media; picture-in-picture');iframe.setAttribute('allowfullscreen','');area.appendChild(iframe);}}
+  if(isVideoRow(row)){var embedUrl=getEmbedUrl(row);if(embedUrl){var iframe=document.createElement('iframe');iframe.src=embedUrl+(getYouTubeId(row)?'?autoplay=1&mute=1&rel=0':'?autoplay=1&mute=1&rm=minimal');iframe.setAttribute('allow','autoplay; encrypted-media; picture-in-picture');iframe.setAttribute('allowfullscreen','');if(row['portrait']||row['isPortrait']){iframe.style.cssText='width:45%;aspect-ratio:9/16;border:none;display:block;margin:0 auto;';}area.appendChild(iframe);}}
   else if(isGifRow(row)){
     var gifFid2=getDriveFileId(row);
     if(gifFid2){
@@ -910,6 +910,7 @@ function paintSheet(){
       iframeS.src=embedUrlS+params;
       iframeS.setAttribute('allow','autoplay; encrypted-media; picture-in-picture');
       iframeS.setAttribute('allowfullscreen','');
+      if(row['portrait']||row['isPortrait']){iframeS.style.cssText='width:60%;aspect-ratio:9/16;border:none;display:block;margin:0 auto;';}
       area.appendChild(iframeS);
     }
   }
