@@ -860,8 +860,8 @@ function paintModal(){
   area.innerHTML='';area.style.background='';area.style.animation='none';
   if(isVideoRow(row)){var embedUrl=getEmbedUrl(row);if(embedUrl){var iframe=document.createElement('iframe');iframe.src=embedUrl+(getYouTubeId(row)?'?autoplay=1&mute=1&rel=0':'?autoplay=1&mute=1&rm=minimal');iframe.setAttribute('allow','autoplay; encrypted-media; picture-in-picture');iframe.setAttribute('allowfullscreen','');if(row['portrait']||row['isPortrait']){iframe.style.cssText='height:65vh;width:auto;max-width:55%;border:none;display:block;margin:0 auto;';}area.appendChild(iframe);}}
   else if(isGifRow(row)){
-    var gifEmbed2=getEmbedUrl(row);
-    if(gifEmbed2){var gifIframe2=document.createElement('iframe');gifIframe2.src=gifEmbed2;gifIframe2.setAttribute('allowfullscreen','');gifIframe2.style.cssText='width:100%;height:65vh;border:none;display:block;';area.appendChild(gifIframe2);}
+    var gifFid2=getDriveFileId(row);
+    if(gifFid2){var gifImg2=document.createElement('img');gifImg2.style.cssText='max-width:100%;max-height:65vh;object-fit:contain;display:block;margin:0 auto;';gifImg2.src='https://drive.google.com/uc?export=view&id='+gifFid2;area.appendChild(gifImg2);}
   }
   else{var img=document.createElement('img');img.style.opacity='0';var imgUrl=fullUrl(row);
     area.style.background='linear-gradient(90deg,rgba(0,0,0,0.04) 25%,rgba(0,0,0,0.07) 50%,rgba(0,0,0,0.04) 75%)';
@@ -904,14 +904,8 @@ function paintSheet(){
     }
   }
   else if(isGifRow(row)){
-    var gifEmbedS=getEmbedUrl(row);
-    if(gifEmbedS){
-      var gifIframeS=document.createElement('iframe');
-      gifIframeS.src=gifEmbedS;
-      gifIframeS.setAttribute('allowfullscreen','');
-      gifIframeS.style.cssText='width:100%;height:45vh;border:none;display:block;';
-      area.appendChild(gifIframeS);
-    }
+    var gifFidS=getDriveFileId(row);
+    if(gifFidS){var gifImgS=document.createElement('img');gifImgS.style.cssText='max-width:100%;max-height:45vh;object-fit:contain;display:block;margin:0 auto;';gifImgS.src='https://drive.google.com/uc?export=view&id='+gifFidS;area.appendChild(gifImgS);}
   }
   else{var img=document.createElement('img');img.style.opacity='0';img.onload=function(){img.style.opacity='1';};
     img.onerror=function(){var id=row['thumb']&&row['thumb'].match(/[?&]id=([a-zA-Z0-9_-]{10,})/);if(id&&img.src.indexOf('w800')===-1){img.src='https://drive.google.com/thumbnail?id='+id[1]+'&sz=w800';}};
