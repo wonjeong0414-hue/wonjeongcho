@@ -42,7 +42,7 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 .nav-dd-menu{position:absolute;top:calc(100% + 4px);left:50%;transform:translateX(-50%);background:var(--white);border-radius:4px;min-width:80px;width:max-content;z-index:300;box-shadow:0 4px 14px rgba(0,0,0,0.08);max-height:0;overflow:hidden;opacity:0;padding:0;pointer-events:none;transition:max-height 0.32s cubic-bezier(0.16,1,0.3,1),opacity 0.22s ease,padding 0.22s ease}
 .nav-dd-menu.open{max-height:200px;opacity:1;padding:4px 0;pointer-events:all}
 .nav-dd-item{display:block;font-size:9px;letter-spacing:0.08em;color:var(--ink-mid);padding:5px 14px;cursor:pointer;transition:color 0.15s,background 0.15s;white-space:nowrap;text-transform:uppercase}
-@media(max-width:600px){.nav-dd-item{padding:12px 18px;font-size:12px}}
+@media(max-width:600px){.nav-dd-item{padding:3px 16px;font-size:12px}}
 .nav-dd-item:hover{color:var(--ink);background:rgba(0,0,0,0.03)}
 .layout{position:fixed;top:var(--nav-h);left:0;right:0;bottom:0;display:flex;flex-direction:column}
 .year-bar{flex-shrink:0;min-height:var(--bar-h);height:auto;display:flex;align-items:center;flex-wrap:wrap;padding:4px 36px;border-bottom:0.5px solid rgba(0,0,0,0.07);column-gap:0;row-gap:0;overflow:visible}
@@ -171,7 +171,7 @@ body.fade-out{opacity:0;transition:opacity 0.3s ease}
   .bs-prev{left:10px}.bs-next{right:10px}
 }
 
-@media(max-width:600px){.nav-logo{touch-action:manipulation;-webkit-tap-highlight-color:transparent}.nav-item{min-height:44px;display:inline-flex;align-items:center;padding:0 9px;font-size:9px;letter-spacing:0.12em;touch-action:manipulation;-webkit-tap-highlight-color:transparent}.nav-sep{margin:0 2px}.nav-dd-item{min-height:44px;display:flex;align-items:center;touch-action:manipulation;-webkit-tap-highlight-color:transparent}}
+@media(max-width:600px){.nav-logo{touch-action:manipulation;-webkit-tap-highlight-color:transparent}.nav-item{min-height:44px;display:inline-flex;align-items:center;padding:0 9px;font-size:9px;letter-spacing:0.12em;touch-action:manipulation;-webkit-tap-highlight-color:transparent}.nav-sep{margin:0 2px}.nav-dd-item{min-height:unset;display:block;touch-action:manipulation;-webkit-tap-highlight-color:transparent}}
 </style>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-YBRBFCMMCB"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-YBRBFCMMCB');</script>
