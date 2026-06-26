@@ -294,7 +294,7 @@ function lbNav(dir){
 }
 function renderLb(){
   var item=items[lbIndex];
-  document.getElementById('lbImg').src=item.full||item.thumb;
+  document.getElementById('lbImg').src=driveThumb(item.full||item.thumb,'w1600');
   var caption=[item.title, item.place, item.year].filter(Boolean).join(' · ');
   if(item.type) caption+=(caption?' — ':'')+item.type;
   document.getElementById('lbCaption').textContent=caption;
@@ -306,6 +306,13 @@ document.addEventListener('keydown',function(e){
   if(e.key==='ArrowRight') lbNav(1);
   if(e.key==='Escape') closeLb();
 });
+
+function driveThumb(url,sz){
+  if(!url) return url;
+  var m=url.match(/\/d\/([^/?#]+)/)||url.match(/[?&]id=([^&#]+)/);
+  if(m) return 'https://drive.google.com/thumbnail?id='+m[1]+'&sz='+(sz||'w800');
+  return url;
+}
 
 /* 그리드 렌더 */
 function renderGrid(){
@@ -330,15 +337,16 @@ function renderGrid(){
   items.forEach(function(item,i){
     if(item.isVideo) return;
     var wrapper=grid.children[i];
+    var thumb=driveThumb(item.thumb);
     var img=new Image();
     img.onload=function(){
-      wrapper.innerHTML='<img src="'+item.thumb+'" alt="'+item.title+'" loading="lazy">'
+      wrapper.innerHTML='<img src="'+thumb+'" alt="'+(item.title||'')+'" loading="lazy">'
         +(item.type?'<div class="img-type">'+item.type+'</div>':'');
     };
     img.onerror=function(){
       wrapper.querySelector('.img-placeholder-inner').style.display='none';
     };
-    img.src=item.thumb;
+    img.src=thumb;
   });
 }
 
