@@ -231,7 +231,7 @@ function setLang(l){
   sel('btnKo').classList.toggle('active',l==='ko');
   sel('btnEn').classList.toggle('active',l==='en');
   renderStmt();renderList();
-  if(!isMobile()&&sel('detailPanel').classList.contains('visible'))renderDetail(currentRow);
+  showLatestOrCurrent();
 }
 function driveThumb(url,sz){
   if(!url)return'';
@@ -295,6 +295,15 @@ function toggleMobile(idx){
   if(row){var desc=lang==='ko'?(row.desc_ko||row.desc||''):(row.desc_en||row.desc||'');var el=sel('m-desc-'+idx);if(el)el.textContent=desc;}
   setTimeout(function(){var el=sel('m-detail-'+idx);if(el)el.scrollIntoView({behavior:'smooth',block:'nearest'});},50);
 }
+function showLatestOrCurrent(){
+  if(isMobile()||!DATA.length)return;
+  var idx=0;
+  if(currentRow){
+    var found=DATA.indexOf(currentRow);
+    if(found>=0)idx=found;
+  }
+  showDetail(idx);
+}
 function showDetail(idx){
   var row=DATA[idx];if(!row)return;
   document.querySelectorAll('.file-row').forEach(function(r){r.classList.remove('active-row');});
@@ -329,6 +338,7 @@ fetch('./data/text.json?v='+Date.now(),{cache:'no-store'})
     DATA=d['작가노트']||[];
     STATEMENT=result.statement||{ko:'',en:''};
     renderStmt();renderList();
+    showLatestOrCurrent();
     sel('thYear').textContent=lang==='ko'?'년도':'Year';
     sel('thCat').textContent=lang==='ko'?'구분':'Type';
     sel('thTitle').textContent=lang==='ko'?'제목':'Title';
