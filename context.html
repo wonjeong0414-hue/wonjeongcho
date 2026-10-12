@@ -528,6 +528,32 @@ function loadSubImg(imgId, url) {
   img.src = url;
   setTimeout(showImage, 2000);
 }
+function normalizePageValue(p){
+  return String(p||'').replace(/\s+/g,'').trim();
+}
+function findWorkBySubSlot(slot){
+  var want='서브'+slot;
+  for(var i=0;i<allWorks.length;i++){
+    if(normalizePageValue(allWorks[i].page)===want)return allWorks[i];
+  }
+  return null;
+}
+function collectSubWorksFromSheet(){
+  var subs=[null,null,null],n;
+  for(n=1;n<=3;n++)subs[n-1]=findWorkBySubSlot(n);
+  if(subs[0]||subs[1]||subs[2])return subs;
+  var sorted=allWorks.slice().sort(function(a,b){return(parseInt(b.year||0))-(parseInt(a.year||0));});
+  var legacy=[];
+  for(var i=0;i<sorted.length&&legacy.length<3;i++){
+    if(normalizePageValue(sorted[i].page)==='서브')legacy.push(sorted[i]);
+  }
+  for(n=0;n<3;n++)subs[n]=legacy[n]||null;
+  return subs;
+}
+function subWorkImageUrl(row){
+  if(!row)return '';
+  return row.full||row.thumb||'';
+}
 function buildCatPanels(){
   var wrap=sel('catListWrap');if(!wrap)return;
   wrap.innerHTML='';
@@ -960,13 +986,11 @@ Promise.all([
   var tags=results[0];allWorks=results[1];
   CAT_DATA={NAR:tags.NAR||{},TEC:tags.TEC||{},SEN:tags.SEN||{}};
   buildCatPanels();
-  var sorted=allWorks.slice().sort(function(a,b){return(parseInt(b.year||0))-(parseInt(a.year||0));});
-  var subs=[];
-  for(var i=0;i<sorted.length&&subs.length<3;i++){if((sorted[i].page||'').trim()==='서브')subs.push(sorted[i]);}
+  var subs=collectSubWorksFromSheet();
   subWorks=subs;
-  if(subs[0])loadSubImg('subImg1',subs[0].thumb||subs[0].full||'');
-  if(subs[1])loadSubImg('subImg2',subs[1].thumb||subs[1].full||'');
-  if(subs[2])loadSubImg('subImg3',subs[2].thumb||subs[2].full||'');
+  if(subs[0])loadSubImg('subImg1',subWorkImageUrl(subs[0]));
+  if(subs[1])loadSubImg('subImg2',subWorkImageUrl(subs[1]));
+  if(subs[2])loadSubImg('subImg3',subWorkImageUrl(subs[2]));
   /* buildTagWords 후 이벤트 연결 */
   subWorks.forEach(function(row,cardIdx){buildTagWords(cardIdx);});
   startTagCycles();
