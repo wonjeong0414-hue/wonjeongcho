@@ -503,30 +503,20 @@ function getViewUrl(r){var fid=getDriveFileId(r);return fid?'https://drive.googl
 function loadSubImg(imgId, url) {
   if (!url) return;
   var img = sel(imgId);
-  img.style.opacity = '0';
-  img.style.transition = 'opacity 0.8s ease';
-  
-  // URL을 thumbnail 형식으로 변환
-  var fileId = url.match(/id=([a-zA-Z0-9_-]{20,})/);
-  if (fileId) {
-    url = 'https://drive.google.com/thumbnail?id=' + fileId[1] + '&sz=w400';
-  }
-  
-  var showImage = function() {
-    img.style.opacity = '1';
+  var fileId=(url.match(/[?&\/]id=([a-zA-Z0-9_-]{10,})|\/d\/([a-zA-Z0-9_-]{10,})\//)||[]).slice(1).filter(Boolean)[0];
+  var tryUrls=fileId?[
+    'https://drive.google.com/thumbnail?id='+fileId+'&sz=w800',
+    'https://drive.google.com/thumbnail?id='+fileId+'&sz=w400',
+    'https://drive.google.com/uc?export=view&id='+fileId
+  ]:[url];
+  var idx=0;
+  img.style.opacity='0';
+  img.style.transition='opacity 0.8s ease';
+  img.onload=function(){img.style.opacity='1';};
+  img.onerror=function(){
+    if(idx<tryUrls.length)img.src=tryUrls[idx++];
   };
-  
-  img.onload = showImage;
-  img.onerror = function() {
-    var m = url.match(/id=([a-zA-Z0-9_-]{20,})/);
-    if (m) {
-      this.src = 'https://drive.google.com/thumbnail?id=' + m[1] + '&sz=w400';
-    }
-    showImage();
-  };
-  
-  img.src = url;
-  setTimeout(showImage, 2000);
+  img.src=tryUrls[idx++];
 }
 function normalizePageValue(p){
   return String(p||'').replace(/\s+/g,'').trim();
