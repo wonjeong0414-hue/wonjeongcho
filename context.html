@@ -8,7 +8,6 @@
   <meta name="keywords" content="조원정, Won Jeong Cho, 작가, artist, 회화, painting, 추상, abstract, Tactile Thinking, 촉각적 사고, 한국 현대미술, Korean contemporary art">
   <meta name="author" content="Won Jeong Cho">
   <meta name="robots" content="index, follow">
-  <link rel="prefetch" href="./data/works.json">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;1,400&family=Cormorant+Garamond:wght@300;400&display=swap" onload="this.rel='stylesheet'">
@@ -522,11 +521,12 @@ function normalizePageValue(p){
   return String(p||'').replace(/\s+/g,'').trim();
 }
 function findWorkBySubSlot(slot){
-  var want='서브'+slot;
+  var want=normalizePageValue('서브'+slot);
+  var found=null;
   for(var i=0;i<allWorks.length;i++){
-    if(normalizePageValue(allWorks[i].page)===want)return allWorks[i];
+    if(normalizePageValue(allWorks[i].page)===want)found=allWorks[i];
   }
-  return null;
+  return found;
 }
 function collectSubWorksFromSheet(){
   var subs=[null,null,null],n;
@@ -971,7 +971,7 @@ document.addEventListener('click',function(e){
 });
 Promise.all([
   fetch('./data/tags.json').then(function(r){return r.json();}),
-  fetch('./data/works.json').then(function(r){return r.json();})
+  fetch('./data/works.json?v='+Date.now(),{cache:'no-store'}).then(function(r){return r.json();})
 ]).then(function(results){
   var tags=results[0];allWorks=results[1];
   CAT_DATA={NAR:tags.NAR||{},TEC:tags.TEC||{},SEN:tags.SEN||{}};
