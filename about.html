@@ -259,7 +259,18 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
   </div>
 </div>
 <script>
-var D=null, lang='ko', activeTab=null, latestYear=null;
+var D=null, activeTab=null, latestYear=null;
+var LANG_KEY='wjc_lang';
+function readLang(){
+  try{
+    var q=new URLSearchParams(location.search).get('lang');
+    if(q==='en'||q==='ko') return q;
+    var s=sessionStorage.getItem(LANG_KEY);
+    if(s==='en'||s==='ko') return s;
+  }catch(e){}
+  return 'ko';
+}
+var lang=readLang();
 function go(p){window.location.href=p+'.html';}
 document.querySelectorAll('.nav-dd').forEach(function(dd){
   var menu=dd.querySelector('.nav-dd-menu'),timer;
@@ -283,10 +294,20 @@ document.addEventListener('click',function(e){
 });
 function setLang(l){
   lang=l;
+  try{sessionStorage.setItem(LANG_KEY,l);}catch(e){}
   document.getElementById('btnKo').classList.toggle('active',l==='ko');
   document.getElementById('btnEn').classList.toggle('active',l==='en');
   if(D) render();
 }
+setLang(lang);
+window.addEventListener('pageshow',function(){
+  var l=readLang();
+  if(l!==lang) setLang(l);
+  else{
+    document.getElementById('btnKo').classList.toggle('active',lang==='ko');
+    document.getElementById('btnEn').classList.toggle('active',lang==='en');
+  }
+});
 function setCvTab(t){
   activeTab=t;
   ['solo','group','fair'].forEach(function(k){
@@ -316,7 +337,13 @@ function makePlace(p,c){
   if(!p) return '<span class="place-city">'+c+'</span>';
   return '<span class="place-name">'+p+'</span>'+(c?'<span class="place-sep"> · </span><span class="place-city">'+c+'</span>':'');
 }
-function exhLink(cvKey,title){if(!cvKey) return '#';var u='exhibition.html?key='+encodeURIComponent(cvKey);if(title)u+='&title='+encodeURIComponent(title);return u;}
+function exhLink(cvKey,title){
+  if(!cvKey) return '#';
+  var u='exhibition.html?key='+encodeURIComponent(cvKey);
+  if(title) u+='&title='+encodeURIComponent(title);
+  if(lang==='en') u+='&lang=en';
+  return u;
+}
 function renderFullList(){
   if(!D||!activeTab) return;
   var ko=(lang==='ko');
