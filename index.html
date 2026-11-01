@@ -80,10 +80,12 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 /* ── 이미지 박스: 데스크톱 원본 비율 ── */
 .img-box{
   max-width:min(86vw,820px);
-  max-height:min(72vh,720px);
   flex-shrink:0;
   position:relative;
-  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+  align-items:stretch;
+  overflow:visible;
   cursor:pointer;
   opacity:0;
   transition:opacity 0.7s ease, transform 0.7s cubic-bezier(0.16,1,0.3,1);
@@ -108,9 +110,10 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 .img-box:hover img{transform:scale(1.008)}
 
 .img-overlay{
-  position:absolute;inset:0;
+  position:static;
   display:flex;align-items:flex-end;justify-content:flex-end;
-  padding:0 28px 28px;
+  padding:0;
+  margin-top:clamp(10px,1.6vh,16px);
   pointer-events:none;
 }
 
@@ -139,7 +142,7 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 }
 .work-title{
   font-family:'Allura','Mr Dafoe',cursive;
-  font-weight:400;font-size:clamp(32px,5vw,52px);
+  font-weight:400;font-size:clamp(24px,2.8vw,36px);
   color:var(--ink);line-height:1.1;
   letter-spacing:0.06em;
   white-space:nowrap;
@@ -150,7 +153,6 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
   opacity:0;
   font-feature-settings:"liga" 1,"calt" 1;
   pointer-events:none;
-  text-shadow:0 2px 20px rgba(247,246,243,0.92),0 0 1px rgba(247,246,243,0.75);
 }
 .work-title.visible{
   animation:scriptWrite 2.6s cubic-bezier(0.22,0.85,0.28,1) forwards,
@@ -416,7 +418,7 @@ fetch('./data/main.json?v='+Date.now(), { cache: 'no-store' })
       var ratio = natW / natH;
       var mobile = window.innerWidth <= 600;
       var viewH = window.innerHeight - 50;
-      var titleGap = mobile ? 52 : 48;
+      var titleGap = mobile ? 52 : 56;
       var w, h;
 
       if (mobile) {
@@ -438,9 +440,9 @@ fetch('./data/main.json?v='+Date.now(), { cache: 'no-store' })
           w = maxH * ratio;
         }
         box.style.width = w + 'px';
-        box.style.height = h + 'px';
-        inner.style.width = '100%';
-        inner.style.height = '100%';
+        box.style.height = 'auto';
+        inner.style.width = w + 'px';
+        inner.style.height = h + 'px';
       }
 
       box.classList.add('visible');
