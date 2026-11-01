@@ -109,8 +109,8 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 
 .img-overlay{
   position:absolute;inset:0;
-  display:flex;align-items:flex-end;justify-content:center;
-  padding-bottom:28px;
+  display:flex;align-items:flex-end;justify-content:flex-end;
+  padding:0 28px 28px;
   pointer-events:none;
 }
 
@@ -144,7 +144,7 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
   letter-spacing:0.06em;
   white-space:nowrap;
   margin:0;
-  text-align:center;
+  text-align:right;
   display:inline-block;
   clip-path:inset(0 100% 0 0);
   opacity:0;
@@ -217,7 +217,7 @@ body.fade-out{opacity:0;transition:opacity 0.3s ease}
   .img-box{
     display:flex;
     flex-direction:column;
-    align-items:center;
+    align-items:stretch;
     max-width:none;
     max-height:none;
     height:auto !important;
@@ -231,9 +231,10 @@ body.fade-out{opacity:0;transition:opacity 0.3s ease}
   .img-overlay{
     position:static;
     inset:auto;
-    padding:0;
+    padding:0 4px 0 0;
     margin-top:clamp(12px,2vh,18px);
-    align-items:center;
+    justify-content:flex-end;
+    align-items:flex-end;
   }
   .work-title{
     font-size:clamp(26px,7.5vw,34px) !important;
