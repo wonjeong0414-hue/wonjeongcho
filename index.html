@@ -326,7 +326,34 @@ document.querySelectorAll('.nav-dropdown').forEach(function(dd){
 /* ───────────────────────────────────────────
    데이터 로드 & 이미지 비율 처리
 ─────────────────────────────────────────── */
-fetch('./data/main.json')
+function driveIdFromUrl(url){
+  var m = String(url||'').match(/(?:\/d\/|id=)([a-zA-Z0-9_-]+)/);
+  return m ? m[1] : '';
+}
+function driveImageCandidates(url){
+  var id = driveIdFromUrl(url);
+  if(!id) return url ? [url] : [];
+  return [
+    'https://drive.google.com/thumbnail?id='+id+'&sz=w1200',
+    'https://drive.google.com/thumbnail?id='+id+'&sz=w800',
+    'https://drive.google.com/thumbnail?id='+id+'&sz=w400',
+    'https://drive.google.com/uc?export=view&id='+id
+  ];
+}
+function loadMainImage(imgEl, url, onLoad, onFail){
+  var list = driveImageCandidates(url);
+  var idx = 0;
+  imgEl.referrerPolicy = 'no-referrer';
+  function attempt(){
+    if(idx >= list.length){ if(onFail) onFail(); return; }
+    imgEl.onload = onLoad;
+    imgEl.onerror = function(){ idx++; attempt(); };
+    imgEl.src = list[idx++];
+  }
+  attempt();
+}
+
+fetch('./data/main.json?v='+Date.now(), { cache: 'no-store' })
   .then(function(r){ return r.json(); })
   .then(function(result){
     var main = result.main;
@@ -336,7 +363,7 @@ fetch('./data/main.json')
     var imgEl  = document.getElementById('mainImg');
     var box    = document.getElementById('imgBox');
 
-    imgEl.onload = function(){
+    function onImgReady(){
       /* 원본 비율로 박스 크기 결정 */
       var natW = imgEl.naturalWidth;
       var natH = imgEl.naturalHeight;
@@ -372,17 +399,17 @@ fetch('./data/main.json')
         e.stopPropagation();
         goContext();
       });
-    };
+    }
 
-    imgEl.onerror = function(){
-      /* 이미지 없어도 텍스트는 표시 */
+    function showWithoutImage(){
       box.classList.add('visible');
       document.getElementById('workTitle').textContent = 'Tactile Thinking';
       document.getElementById('workTitle').classList.add('visible');
       document.getElementById('workInfo').classList.add('visible');
-    };
+    }
 
-    imgEl.src = imgUrl;
+    if(!imgUrl){ showWithoutImage(); }
+    else { loadMainImage(imgEl, imgUrl, onImgReady, showWithoutImage); }
 
     document.getElementById('wiTitle').textContent  = main.title || '';
     document.getElementById('wiYear').textContent   = main.year || '';
