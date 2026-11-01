@@ -38,8 +38,8 @@
   </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,500;1,500&family=Cormorant+Garamond:wght@300;400&display=swap&font-display=swap" onload="this.rel='stylesheet'">
-<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,500;1,500&family=Cormorant+Garamond:wght@300;400&display=swap&font-display=swap"></noscript>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,500;1,500&family=Cormorant+Garamond:wght@300;400&family=Playfair+Display:ital,wght@1,400;1,500&display=swap&font-display=swap" onload="this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,500;1,500&family=Cormorant+Garamond:wght@300;400&family=Playfair+Display:ital,wght@1,400;1,500&display=swap&font-display=swap"></noscript>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{--ink:#1a1a18;--ink-mid:#4a4a47;--ink-dim:#7a7a74;--bg:#f7f6f3;--white:#fff;--nav-h:50px}
@@ -98,7 +98,13 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 }
 .img-box:hover img{transform:scale(1.008)}
 
-.img-overlay{display:none}
+.img-overlay{
+  position:absolute;inset:0;
+  display:flex;align-items:flex-end;justify-content:center;
+  padding-bottom:28px;
+  background:linear-gradient(to top,rgba(247,246,243,0.65) 0%,transparent 38%);
+  pointer-events:none;
+}
 
 /* scroll cue */
 @keyframes bob{0%,100%{opacity:0.35;transform:translateY(0) translateX(-50%)}50%{opacity:0.6;transform:translateY(4px) translateX(-50%)}}
@@ -115,14 +121,14 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 
 /* ── Tactile Thinking 플로팅 텍스트 ── */
 @keyframes gentleFloat{
-  0%,100%{transform:translateY(0);opacity:0.9}
-  40%{transform:translateY(-7px);opacity:1}
-  70%{transform:translateY(3px);opacity:0.85}
+  0%,100%{transform:skewX(-4deg) translateY(0);opacity:0.9}
+  40%{transform:skewX(-4deg) translateY(-7px);opacity:1}
+  70%{transform:skewX(-4deg) translateY(3px);opacity:0.85}
 }
 .work-title{
-  font-family:'EB Garamond',serif;
-  font-style:italic;font-weight:500;font-size:32px;
-  color:var(--ink);letter-spacing:0.06em;line-height:1;
+  font-family:'Playfair Display','EB Garamond',serif;
+  font-style:italic;font-weight:400;font-size:clamp(28px,3.6vw,38px);
+  color:var(--ink);letter-spacing:0.02em;line-height:1.05;
   opacity:0;transition:opacity 0.9s ease;
   animation:gentleFloat 6s ease-in-out infinite;
   text-shadow:0 2px 20px rgba(247,246,243,0.9);
@@ -369,6 +375,8 @@ fetch('./data/main.json?v='+Date.now(), { cache: 'no-store' })
 
       box.classList.add('visible');
       setTimeout(function(){
+        document.getElementById('workTitle').textContent = 'Tactile Thinking';
+        document.getElementById('workTitle').classList.add('visible');
         document.getElementById('scrollCue').classList.add('visible');
       }, 350);
 
@@ -382,6 +390,8 @@ fetch('./data/main.json?v='+Date.now(), { cache: 'no-store' })
 
     function showWithoutImage(){
       box.classList.add('visible');
+      document.getElementById('workTitle').textContent = 'Tactile Thinking';
+      document.getElementById('workTitle').classList.add('visible');
     }
 
     if(!imgUrl){ showWithoutImage(); }
@@ -389,6 +399,8 @@ fetch('./data/main.json?v='+Date.now(), { cache: 'no-store' })
   })
   .catch(function(){
     document.getElementById('imgBox').classList.add('visible');
+    document.getElementById('workTitle').textContent = 'Tactile Thinking';
+    document.getElementById('workTitle').classList.add('visible');
   });
 
 /* ───────────────────────────────────────────
