@@ -21,6 +21,7 @@
   <meta name="twitter:description" content="Official website of artist Won Jeong Cho. Paintings rooted in Tactile Thinking — where sensation, material, and gesture converge.">
   <meta name="twitter:image" content="https://www.chowonjeong.org/og-image.jpg">
   <link rel="canonical" href="https://www.chowonjeong.org/">
+<link rel="stylesheet" href="./nav-mobile.css">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -77,9 +78,10 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
   flex-shrink:0;max-width:100%;
 }
 
-/* ── 이미지 박스: 정방형 크롭 ── */
+/* ── 이미지 박스: 데스크톱 원본 비율 ── */
 .img-box{
-  aspect-ratio:1/1;
+  max-width:min(76vw,700px);
+  max-height:min(74vh,680px);
   flex-shrink:0;
   position:relative;
   overflow:hidden;
@@ -93,11 +95,11 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
   display:block;
   width:100%;
   height:100%;
-  object-fit:cover;
+  object-fit:contain;
   object-position:center;
   transition:transform 0.7s cubic-bezier(0.16,1,0.3,1);
 }
-.img-box:hover img{transform:scale(1.02)}
+.img-box:hover img{transform:scale(1.008)}
 
 /* scroll cue */
 @keyframes bob{0%,100%{opacity:0.35;transform:translateY(0) translateX(-50%)}50%{opacity:0.6;transform:translateY(4px) translateX(-50%)}}
@@ -193,12 +195,17 @@ body.fade-out{opacity:0;transition:opacity 0.3s ease}
 
 /* ── 모바일 ── */
 @media(max-width:600px){
-  .nav-logo{font-size:9px !important;letter-spacing:0.18em !important}
   .nav-sep{margin:0 2px !important}
   .shell{
     justify-content:flex-start;
     padding-top:clamp(8px,2vh,16px);
   }
+  .img-box{
+    aspect-ratio:1/1;
+    max-width:none;
+    max-height:none;
+  }
+  .img-box img{object-fit:cover}
   .wi-medium{display:none}
   .work-title{font-size:clamp(26px,7.5vw,34px) !important;margin-top:clamp(12px,2vh,18px)}
 }
@@ -365,17 +372,34 @@ fetch('./data/main.json?v='+Date.now(), { cache: 'no-store' })
     var box    = document.getElementById('imgBox');
 
     function onImgReady(){
+      var natW = imgEl.naturalWidth;
+      var natH = imgEl.naturalHeight;
+      var ratio = natW / natH;
       var mobile = window.innerWidth <= 600;
       var viewH = window.innerHeight - 50;
       var titleGap = mobile ? 52 : 64;
-      var maxByW = mobile
-        ? window.innerWidth * 0.94
-        : Math.min(window.innerWidth * 0.58, 520);
-      var maxByH = viewH - titleGap - (mobile ? 24 : 48);
-      var side = Math.min(maxByW, maxByH, mobile ? 9999 : 520);
+      var w, h;
 
-      box.style.width  = side + 'px';
-      box.style.height = side + 'px';
+      if (mobile) {
+        var maxByW = window.innerWidth * 0.94;
+        var maxByH = viewH - titleGap - 24;
+        var side = Math.min(maxByW, maxByH);
+        w = side;
+        h = side;
+      } else {
+        var maxW = Math.min(window.innerWidth * 0.76, 700);
+        var maxH = Math.min(viewH - titleGap - 48, 680);
+        if (ratio > maxW / maxH) {
+          w = maxW;
+          h = maxW / ratio;
+        } else {
+          h = maxH;
+          w = maxH * ratio;
+        }
+      }
+
+      box.style.width  = w + 'px';
+      box.style.height = h + 'px';
 
       box.classList.add('visible');
       setTimeout(function(){

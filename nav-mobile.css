@@ -1,0 +1,41 @@
+/* Shared mobile nav: larger, sharper logo and menu (all pages) */
+@media (max-width: 600px) {
+  nav .nav-logo {
+    font-size: 11px !important;
+    letter-spacing: 0.2em !important;
+    font-weight: 400 !important;
+    color: var(--ink) !important;
+    opacity: 1 !important;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+  nav .nav-item {
+    font-size: 10.5px !important;
+    letter-spacing: 0.14em !important;
+    color: var(--ink-mid) !important;
+    font-weight: 400 !important;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  nav .nav-item.active {
+    color: var(--ink) !important;
+  }
+  nav .nav-dropdown-item,
+  nav .nav-dd-item {
+    font-size: 11px !important;
+    letter-spacing: 0.1em !important;
+    -webkit-font-smoothing: antialiased;
+  }
+}
+
+@media (max-width: 480px) {
+  nav .nav-logo {
+    font-size: 10.5px !important;
+    letter-spacing: 0.17em !important;
+  }
+  nav .nav-item {
+    font-size: 10px !important;
+    letter-spacing: 0.12em !important;
+  }
+}
