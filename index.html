@@ -112,7 +112,9 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 .img-overlay{
   position:static;
   display:flex;align-items:flex-end;justify-content:flex-end;
-  padding:0;
+  box-sizing:border-box;
+  width:100%;
+  padding:0 clamp(20px,3.5vw,52px) 0 0;
   margin-top:clamp(10px,1.6vh,16px);
   pointer-events:none;
 }
