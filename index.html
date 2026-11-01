@@ -125,9 +125,9 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
   to{clip-path:inset(0 0 0 0);opacity:1}
 }
 @keyframes scriptFloat{
-  0%,100%{transform:rotate(-11deg) translateY(0)}
-  45%{transform:rotate(-11deg) translateY(-8px)}
-  70%{transform:rotate(-11deg) translateY(4px)}
+  0%,100%{transform:translateY(0)}
+  45%{transform:translateY(-8px)}
+  70%{transform:translateY(4px)}
 }
 .work-title{
   font-family:'Allura','Mr Dafoe',cursive;
@@ -135,8 +135,6 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
   color:var(--ink);line-height:1;
   letter-spacing:0.06em;
   white-space:nowrap;
-  transform:rotate(-11deg);
-  transform-origin:center bottom;
   text-shadow:0 2px 24px rgba(247,246,243,0.95),0 0 1px rgba(247,246,243,0.8);
   display:inline-block;
   clip-path:inset(0 100% 0 0);
