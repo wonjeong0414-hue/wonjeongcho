@@ -42,8 +42,32 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 .lang-btn{font-family:'Cormorant Garamond',serif;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;padding:4px 10px;cursor:pointer;background:transparent;color:var(--ink-mid);border:none;transition:background .15s,color .15s}
 .lang-btn.active{background:rgba(26,26,24,.62);color:var(--bg)}
 .lang-btn:not(.active):hover{color:var(--ink)}
-.page-wrap{max-width:var(--max-w);margin:0 auto;padding:calc(var(--nav-h) + var(--lang-h) + 48px) 48px 100px}
-.critique-item{margin-bottom:64px;padding-bottom:64px;border-bottom:.5px solid rgba(26,26,24,.08)}
+.page-wrap{max-width:var(--max-w);margin:0 auto;padding:calc(var(--nav-h) + var(--lang-h) + 48px) var(--pad) 100px}
+.critique-index{margin-bottom:8px}
+.critique-index-head,.critique-index-row{
+  display:grid;
+  grid-template-columns:minmax(0,0.85fr) minmax(0,1.35fr) minmax(0,0.7fr) minmax(0,0.95fr) 52px;
+  gap:0 14px;align-items:baseline;padding:6px 0;
+  font-family:'EB Garamond',serif;
+}
+.critique-index-head{
+  padding:0 0 8px;border-bottom:.5px solid rgba(26,26,24,.12);
+  font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-mid);
+}
+.critique-index-row{
+  font-size:12.5px;line-height:1.55;color:var(--ink);
+  border-bottom:.5px solid rgba(26,26,24,.05);
+  cursor:pointer;transition:color .15s,background .15s;
+}
+.critique-index-row:last-child{border-bottom:none}
+.critique-index-row:hover{color:var(--ink-mid);background:rgba(26,26,24,.02)}
+.critique-index-row .ci-year{font-size:10.5px;color:var(--ink-mid);letter-spacing:.03em;white-space:nowrap}
+.critique-index-row .ci-cat{font-size:10px;color:var(--ink-mid);letter-spacing:.02em}
+.critique-index-row .ci-title{color:var(--ink);min-width:0}
+.critique-index-row .ci-critic{font-size:11.5px;color:var(--ink-mid)}
+.critique-index-row .ci-venue{font-size:11px;color:var(--ink-dim);min-width:0}
+.critique-section-divider{width:100%;height:.5px;background:rgba(26,26,24,.14);margin:40px 0 48px}
+.critique-item{margin-bottom:64px;padding-bottom:64px;border-bottom:.5px solid rgba(26,26,24,.08);scroll-margin-top:calc(var(--nav-h) + var(--lang-h) + 16px)}
 .critique-item:last-child{border-bottom:none}
 .critique-title-row{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:20px}
 .critique-title{font-family:'EB Garamond',serif;font-size:20px;font-weight:400;color:var(--ink);line-height:1.4}
@@ -56,7 +80,28 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 .critique-body{font-family:'EB Garamond',serif;font-size:14px;line-height:2.1;color:var(--ink-mid);text-align:justify;word-break:keep-all}
 .critique-body p{margin-bottom:1.4em}.critique-body p:last-child{margin-bottom:0}
 .loading{padding:80px 0;text-align:center;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-mid)}
-@media(max-width:600px){:root{--lang-h:40px}nav{padding:0 16px}.lang-bar{padding:0 16px}.page-wrap{padding:calc(var(--nav-h) + var(--lang-h) + 32px) 20px 80px}.critique-title{font-size:17px}.critique-body{font-size:13px;line-height:1.9}.critique-item{margin-bottom:48px;padding-bottom:48px}.critique-img{margin-bottom:20px}}
+@media(max-width:600px){
+  :root{--lang-h:40px}
+  nav{padding:0 16px}
+  .lang-bar{padding:0 16px}
+  .page-wrap{padding:calc(var(--nav-h) + var(--lang-h) + 32px) 20px 80px}
+  .critique-index-head{display:none}
+  .critique-index-row{
+    grid-template-columns:48px minmax(0,1fr);
+    grid-template-rows:auto auto auto auto auto;
+    gap:2px 10px;padding:12px 0;
+  }
+  .critique-index-row .ci-year{grid-column:1;grid-row:1}
+  .critique-index-row .ci-cat{grid-column:2;grid-row:1;font-size:10px}
+  .critique-index-row .ci-title{grid-column:1/-1;grid-row:2;font-size:13px}
+  .critique-index-row .ci-critic{grid-column:1/-1;grid-row:3;font-size:11px}
+  .critique-index-row .ci-venue{grid-column:1/-1;grid-row:4;font-size:11px}
+  .critique-section-divider{margin:28px 0 36px}
+  .critique-title{font-size:17px}
+  .critique-body{font-size:13px;line-height:1.9}
+  .critique-item{margin-bottom:48px;padding-bottom:48px}
+  .critique-img{float:none;width:100%;max-width:100%;margin:0 0 20px}
+}
 @media(max-width:480px){.nav-logo{font-size:10px;letter-spacing:.18em}.nav-sep{margin:0 1px}}
 #page-loader{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:9999;opacity:1;transition:opacity .6s cubic-bezier(.16,1,.3,1);pointer-events:all}
 #page-loader.hidden{opacity:0;pointer-events:none}
@@ -101,7 +146,9 @@ body.fade-out{opacity:0;transition:opacity .3s ease}
   </div>
 </div>
 <div class="page-wrap">
-  <div id="critiqueList"><div class="loading">Loading…</div></div>
+  <div id="critiqueIndex"></div>
+  <div class="critique-section-divider" id="critiqueDivider" style="display:none"></div>
+  <div id="critiqueArticles"><div class="loading">Loading…</div></div>
 </div>
 <script>
 var DATA=[], lang='ko';
@@ -137,36 +184,91 @@ function driveThumb(url,sz){
   var m=url.match(/\/d\/([a-zA-Z0-9_-]{10,})/);
   return m?'https://drive.google.com/thumbnail?id='+m[1]+'&sz='+(sz||'w800'):url;
 }
-function renderCritiques(){
+function escH(s){
+  return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+function critiqueVenue(row){
+  return (row.venue||row.exhibitPlace||row.exhibition||'').trim();
+}
+function critiqueTitle(row,ko){
+  return ko?(row.title||row.filename||''):(row.title||row.filename||'');
+}
+function scrollToCritique(i){
+  var el=document.getElementById('critique-'+i);
+  if(el)el.scrollIntoView({behavior:'smooth',block:'start'});
+}
+function renderCritiqueIndex(){
   var ko=(lang==='ko');
-  var list=sel('critiqueList');
+  var box=sel('critiqueIndex');
+  var div=sel('critiqueDivider');
+  if(!DATA.length){box.innerHTML='';div.style.display='none';return;}
+  div.style.display='block';
+  var hTitle=ko?'Title':'Title';
+  var hSubject=ko?'제목':'Subject';
+  var hCritic=ko?'비평가':'Critic';
+  var hVenue=ko?'전시장소':'Venue';
+  var hYear=ko?'년도':'Year';
+  box.innerHTML='<div class="critique-index">'
+    +'<div class="critique-index-head">'
+    +'<span>'+hTitle+'</span><span>'+hSubject+'</span><span>'+hCritic+'</span><span>'+hVenue+'</span><span>'+hYear+'</span>'
+    +'</div>'
+    +DATA.map(function(row,i){
+      var title=critiqueTitle(row,ko);
+      var venue=critiqueVenue(row);
+      return '<div class="critique-index-row" role="button" tabindex="0" onclick="scrollToCritique('+i+')" onkeydown="if(event.key===\'Enter\')scrollToCritique('+i+')">'
+        +'<span class="ci-cat">'+escH(row.category||'')+'</span>'
+        +'<span class="ci-title">'+escH(title)+'</span>'
+        +'<span class="ci-critic">'+escH(row.place||'')+'</span>'
+        +'<span class="ci-venue">'+escH(venue||'—')+'</span>'
+        +'<span class="ci-year">'+escH(row.year||'')+'</span>'
+        +'</div>';
+    }).join('')
+    +'</div>';
+}
+function renderCritiqueArticles(){
+  var ko=(lang==='ko');
+  var list=sel('critiqueArticles');
   if(!DATA.length){list.innerHTML='<div class="loading">—</div>';return;}
-  list.innerHTML=DATA.map(function(row){
-    var title=ko?(row.title||row.filename||''):(row.title||row.filename||'');
+  list.innerHTML=DATA.map(function(row,i){
+    var title=critiqueTitle(row,ko);
     var desc=ko?(row.desc_ko||row.desc||''):(row.desc_en||row.desc||'');
     var paras=desc.split(/\n\n+/).filter(function(p){return p.trim();});
     if(paras.length<=1)paras=desc.split(/\n/).filter(function(p){return p.trim();});
-    var imgHtml=row.img?'<img class="critique-img" src="'+driveThumb(row.img,'w800')+'" alt="'+title+'">':'';
+    var imgHtml=row.img?'<img class="critique-img" src="'+driveThumb(row.img,'w800')+'" alt="'+escH(title)+'">':'';
     var bodyHtml='';
     if(row.img&&paras.length>=3){
-      bodyHtml='<p>'+paras[0].trim()+'</p><p>'+paras[1].trim()+'</p>'+imgHtml;
-      for(var i=2;i<paras.length;i++){bodyHtml+='<p>'+paras[i].trim()+'</p>';}
-      imgHtml='';
-    }else{bodyHtml=paras.map(function(p){return'<p>'+p.trim()+'</p>';}).join('');}
-    var pdfHtml=row.link?'<a class="critique-pdf" href="'+row.link+'" target="_blank">PDF ↗</a>':'';
-    var hasImg=!!row.img;
-    return '<div class="critique-item">'
-      +'<div class="critique-title-row"><div class="critique-title">'+title+'</div>'+pdfHtml+'</div>'
-      +'<div class="critique-content '+(hasImg?'':'no-img')+'">'
-      +'<div class="critique-body">'+bodyHtml
-      +'<div class="critique-meta">'+(row.year?'<span>'+row.year+'</span>':'')+(row.category?'<span class="meta-sep">·</span><span>'+row.category+'</span>':'')+(row.place?'<span class="meta-sep">·</span><span>'+row.place+'</span>':'')+'</div>'
-      +'</div></div></div>';
+      bodyHtml='<p>'+escH(paras[0].trim())+'</p><p>'+escH(paras[1].trim())+'</p>'+imgHtml;
+      for(var j=2;j<paras.length;j++){bodyHtml+='<p>'+escH(paras[j].trim())+'</p>';}
+    }else{
+      bodyHtml=paras.map(function(p){return'<p>'+escH(p.trim())+'</p>';}).join('');
+    }
+    var pdfHtml=row.link?'<a class="critique-pdf" href="'+escH(row.link)+'" target="_blank" rel="noopener">PDF ↗</a>':'';
+    var venue=critiqueVenue(row);
+    var metaParts=[];
+    if(row.year)metaParts.push('<span>'+escH(row.year)+'</span>');
+    if(row.category)metaParts.push('<span>'+escH(row.category)+'</span>');
+    if(row.place)metaParts.push('<span>'+escH(row.place)+'</span>');
+    if(venue)metaParts.push('<span>'+escH(venue)+'</span>');
+    return '<article class="critique-item" id="critique-'+i+'">'
+      +'<div class="critique-title-row"><div class="critique-title">'+escH(title)+'</div>'+pdfHtml+'</div>'
+      +'<div class="critique-meta">'+metaParts.join('<span class="meta-sep">·</span>')+'</div>'
+      +'<div class="critique-content">'
+      +'<div class="critique-body">'+bodyHtml+'</div>'
+      +'</div></article>';
   }).join('');
+}
+function renderCritiques(){
+  renderCritiqueIndex();
+  renderCritiqueArticles();
 }
 fetch('./data/text.json?v='+Date.now(),{cache:'no-store'})
   .then(function(r){return r.json();})
   .then(function(result){var d=result.data||{};DATA=d['평론']||[];renderCritiques();})
-  .catch(function(){sel('critiqueList').innerHTML='<div class="loading">데이터를 불러올 수 없습니다.</div>';});
+  .catch(function(){
+    sel('critiqueArticles').innerHTML='<div class="loading">데이터를 불러올 수 없습니다.</div>';
+    sel('critiqueIndex').innerHTML='';
+    sel('critiqueDivider').style.display='none';
+  });
 window.addEventListener('load',function(){
   var loader=document.getElementById('page-loader');
   if(loader){setTimeout(function(){loader.classList.add('hidden');setTimeout(function(){loader.style.display='none';},650);},400);}
