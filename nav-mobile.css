@@ -1,7 +1,7 @@
-/* PC: logo + menu stay within content width (aligned with ~820px hero), not viewport edges */
+/* PC: logo + menu within 960px content column (see site-layout.css) */
 @media (min-width: 601px) {
   :root {
-    --site-nav-max: 820px;
+    --site-content-max: 960px;
     --site-nav-edge: 36px;
   }
 
@@ -9,11 +9,11 @@
   .lang-bar {
     padding-left: max(
       var(--site-nav-edge),
-      calc((100vw - var(--site-nav-max)) / 2)
+      calc((100vw - var(--site-content-max)) / 2)
     ) !important;
     padding-right: max(
       var(--site-nav-edge),
-      calc((100vw - var(--site-nav-max)) / 2)
+      calc((100vw - var(--site-content-max)) / 2)
     ) !important;
     box-sizing: border-box;
   }
