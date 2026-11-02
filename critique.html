@@ -188,7 +188,7 @@ function escH(s){
   return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
 function critiqueVenue(row){
-  return (row.venue||row.exhibitPlace||row.exhibition||'').trim();
+  return String(row.venue||'').trim();
 }
 function critiqueTitle(row,ko){
   return ko?(row.title||row.filename||''):(row.title||row.filename||'');
@@ -219,7 +219,7 @@ function renderCritiqueIndex(){
         +'<span class="ci-cat">'+escH(row.category||'')+'</span>'
         +'<span class="ci-title">'+escH(title)+'</span>'
         +'<span class="ci-critic">'+escH(row.place||'')+'</span>'
-        +'<span class="ci-venue">'+escH(venue||'—')+'</span>'
+        +'<span class="ci-venue">'+escH(venue)+'</span>'
         +'<span class="ci-year">'+escH(row.year||'')+'</span>'
         +'</div>';
     }).join('')
