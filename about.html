@@ -66,18 +66,20 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
 .latest-section{max-width:640px;margin-left:auto;margin-right:auto;margin-top:24px}
 .latest-header-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;padding-bottom:8px;border-bottom:.5px solid rgba(26,26,24,.08)}
 .latest-year-label{font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-mid)}
-.latest-table-head{display:grid;grid-template-columns:62px 1fr 180px 96px;gap:0 6px;padding:0 0 5px;border-bottom:.5px solid rgba(26,26,24,.1);margin-bottom:0}
+.latest-table-head{display:grid;grid-template-columns:28px 62px minmax(0,1fr) 180px 96px;gap:0 6px;padding:0 0 5px;border-bottom:.5px solid rgba(26,26,24,.1);margin-bottom:0}
 .latest-th{font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-mid)}
 .latest-rows-wrap{overflow:visible}
-.latest-row{display:grid;grid-template-columns:62px minmax(0,1fr) 180px 96px;gap:0 6px;padding:4px 0;border-bottom:.5px solid rgba(26,26,24,.04);font-family:'EB Garamond',serif;font-size:12px;line-height:1.55;color:var(--ink);align-items:baseline}
+.latest-row{display:grid;grid-template-columns:28px 62px minmax(0,1fr) 180px 96px;gap:0 6px;padding:4px 0;border-bottom:.5px solid rgba(26,26,24,.04);font-family:'EB Garamond',serif;font-size:12px;line-height:1.55;color:var(--ink);align-items:baseline}
+.latest-cell-no{font-size:10px;color:var(--ink-mid);font-variant-numeric:tabular-nums;text-align:left}
 .latest-row:last-child{border-bottom:none}
 .latest-cell-type{font-size:10px;color:var(--ink-mid);white-space:nowrap}
 .latest-cell-title{color:var(--ink)}
 .latest-cell-place{font-size:10.5px;color:var(--ink-mid)}
 .latest-cell-date{font-size:10px;color:var(--ink-mid);letter-spacing:.01em;white-space:nowrap}
 .full-list-rows{margin-top:4px;max-width:640px;margin-left:auto;margin-right:auto}
-.panel-row{display:block;padding:4px 0;border-bottom:.5px solid rgba(26,26,24,.04);font-family:'EB Garamond',serif;font-size:12px;line-height:1.55}
+.panel-row{display:grid;grid-template-columns:28px minmax(0,1fr);gap:0 8px;padding:4px 0;border-bottom:.5px solid rgba(26,26,24,.04);font-family:'EB Garamond',serif;font-size:12px;line-height:1.55;align-items:baseline}
 .panel-row:last-child{border-bottom:none}
+.panel-no{font-size:10px;color:var(--ink-mid);font-variant-numeric:tabular-nums}
 .panel-title-wrap{display:flex;align-items:baseline;gap:10px;min-width:0}
 .panel-year{font-size:10px;color:var(--ink-mid);letter-spacing:.03em;flex-shrink:0}
 .panel-title{color:var(--ink);min-width:0}
@@ -121,9 +123,10 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
   .sec-divider{margin:0 0 24px}
   .edu-coll-row{flex-direction:column;gap:28px;align-items:flex-start;margin-bottom:32px}
   .latest-header-row{position:sticky;top:calc(var(--nav-h) + var(--lang-h));background:var(--bg);z-index:100;padding:8px 0 6px;margin-bottom:0;border-bottom:.5px solid rgba(26,26,24,.08);display:flex;align-items:center;justify-content:space-between;}
-  .latest-table-head{display:grid;grid-template-columns:52px minmax(0,1fr) 100px;gap:0 6px;padding:5px 0 4px;border-bottom:.5px solid rgba(26,26,24,.1);position:sticky;top:calc(var(--nav-h) + var(--lang-h) + 34px);background:var(--bg);z-index:99;}
+  .latest-table-head{display:grid;grid-template-columns:24px 52px minmax(0,1fr) 100px;gap:0 6px;padding:5px 0 4px;border-bottom:.5px solid rgba(26,26,24,.1);position:sticky;top:calc(var(--nav-h) + var(--lang-h) + 34px);background:var(--bg);z-index:99;}
   .latest-th:last-child{display:none}
-  .latest-row{grid-template-columns:52px minmax(0,1fr) 100px;gap:0 6px;padding:5px 0;font-size:11.5px;}
+  .latest-row{grid-template-columns:24px 52px minmax(0,1fr) 100px;gap:0 6px;padding:5px 0;font-size:11.5px;}
+  .panel-row{grid-template-columns:24px minmax(0,1fr);gap:0 6px;}
   .latest-cell-type{font-size:9.5px}
   .latest-cell-place{font-size:10px}
   .latest-cell-date{display:none}
@@ -219,6 +222,7 @@ nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-i
         <span class="latest-year-label" id="latestYearLabel">2026년 전시</span>
       </div>
       <div class="latest-table-head" id="latestTableHead">
+        <span class="latest-th" id="thNo">번호</span>
         <span class="latest-th" id="thType">구분</span>
         <span class="latest-th" id="thTitle">제목</span>
         <span class="latest-th" id="thPlace">장소</span>
@@ -346,20 +350,28 @@ function exhLink(cvKey,title){
   if(lang==='en') u+='&lang=en';
   return u;
 }
+function reverseListNo_(total,idx){return total-idx;}
 function renderFullList(){
   if(!D||!activeTab) return;
   var ko=(lang==='ko');
   var list={solo:D.solo||[],group:D.group||[],fair:D.fair||[]}[activeTab]||[];
   var el=document.getElementById('fullListRows');
   if(!list.length){el.innerHTML='<div style="font-size:11px;color:var(--ink-dim);padding:8px 0">—</div>';return;}
-  el.innerHTML=list.map(function(item){
+  var rows=[];
+  list.forEach(function(item){
     var t=ko?(item.ko||''):(item.en||item.ko||'');
-    if(!t) return '';
+    if(t) rows.push(item);
+  });
+  if(!rows.length){el.innerHTML='<div style="font-size:11px;color:var(--ink-dim);padding:8px 0">—</div>';return;}
+  var total=rows.length;
+  el.innerHTML=rows.map(function(item,idx){
+    var t=ko?(item.ko||''):(item.en||item.ko||'');
     var p=ko?(item.placeKo||''):(item.placeEn||item.placeKo||'');
     var c=ko?(item.cityKo||''):(item.cityEn||item.cityKo||'');
     var link=item.cvKey?exhLink(item.cvKey,t):'';
     var placeStr=[p,c].filter(Boolean).join(' · ');
-    return '<div class="panel-row"><div class="panel-title-wrap"><span class="panel-year">'+(item.year||'')+'</span><a class="exh-link panel-title" href="'+link+'">'+t+'</a>'+(placeStr?'<span class="panel-place-inline">'+placeStr+'</span>':'')+'</div></div>';
+    var num=reverseListNo_(total,idx);
+    return '<div class="panel-row"><span class="panel-no">'+num+'</span><div class="panel-title-wrap"><span class="panel-year">'+(item.year||'')+'</span><a class="exh-link panel-title" href="'+link+'">'+t+'</a>'+(placeStr?'<span class="panel-place-inline">'+placeStr+'</span>':'')+'</div></div>';
   }).join('');
 }
 function renderMainArea(){
@@ -373,12 +385,14 @@ function renderMainArea(){
   var all=[].concat((D.solo||[]).map(function(i){return Object.assign({},i,{_t:'solo'});})).concat((D.group||[]).map(function(i){return Object.assign({},i,{_t:'group'});})).concat((D.fair||[]).map(function(i){return Object.assign({},i,{_t:'fair'});}));
   var filtered=latestYear?all.filter(function(i){return String(i.year)===String(latestYear);}):[];
   if(!filtered.length){rowsEl.innerHTML='<div style="font-size:11px;color:var(--ink-dim);padding:8px 0">—</div>';return;}
-  rowsEl.innerHTML=filtered.map(function(item){
+  var total=filtered.length;
+  rowsEl.innerHTML=filtered.map(function(item,idx){
     var t=ko?(item.ko||''):(item.en||item.ko||'');
     var p=ko?(item.placeKo||''):(item.placeEn||item.placeKo||'');
     var c=ko?(item.cityKo||''):(item.cityEn||item.cityKo||'');
     var link=item.cvKey?exhLink(item.cvKey,t):'';
-    return '<div class="latest-row"><div class="latest-cell-type">'+(typeL[item._t]||'')+'</div><div class="latest-cell-title"><a class="exh-link" href="'+link+'">'+t+'</a></div><div class="latest-cell-place">'+makePlace(p,c)+'</div><div class="latest-cell-date">'+(item.date||'')+'</div></div>';
+    var num=reverseListNo_(total,idx);
+    return '<div class="latest-row"><div class="latest-cell-no">'+num+'</div><div class="latest-cell-type">'+(typeL[item._t]||'')+'</div><div class="latest-cell-title"><a class="exh-link" href="'+link+'">'+t+'</a></div><div class="latest-cell-place">'+makePlace(p,c)+'</div><div class="latest-cell-date">'+(item.date||'')+'</div></div>';
   }).join('');
   if(activeTab){document.getElementById('latestSection').style.display='none';document.getElementById('fullListRows').style.display='block';renderFullList();}
 }
@@ -425,6 +439,7 @@ function render(){
   var yrs=allForYear.map(function(i){return parseInt(i.year,10)||0;});
   var maxY=yrs.length?Math.max.apply(null,yrs):null;
   latestYear=maxY?String(maxY):null;
+  document.getElementById('thNo').textContent=ko?'번호':'No.';
   document.getElementById('thType').textContent=ko?'구분':'Type';
   document.getElementById('thTitle').textContent=ko?'제목':'Title';
   document.getElementById('thPlace').textContent=ko?'장소':'Venue';

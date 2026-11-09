@@ -123,8 +123,21 @@ function safeGetAny(row, col, keys) {
   }
   return '';
 }
+function titleFromFilename_(fn) {
+  fn = String(fn || '').trim();
+  if (!fn) return '';
+  var us = fn.indexOf('_');
+  if (us > 0) return fn.substring(0, us).trim();
+  return fn;
+}
 function pickWorkTitle_(row, col) {
-  return safeGetAny(row, col, ['Title', 'title', '제목', '작품명', '파일명', 'filename', 'Filename']);
+  var t = safeGetAny(row, col, ['Title', 'title', '제목', '작품명']);
+  if (t) return t;
+  var fn = safeGetAny(row, col, ['파일명', 'filename', 'Filename']);
+  return titleFromFilename_(fn) || fn;
+}
+function pickDriveLink_(row, col) {
+  return safeGetAny(row, col, ['드라이브링크', '드라이브 링크', '링크', 'link', 'Link', 'Drive']);
 }
 function pickWorkYear_(row, col, sheetName) {
   var y = safeGetAny(row, col, ['Year', 'year', '연도', '년', '년도']);
@@ -269,14 +282,14 @@ function loadAllWorksFromSheet() {
     for (var i = 1; i < data.length; i++) {
       var row = data[i];
       if (!row[0]) continue;
-      var drive = safeGet(row, col, '드라이브링크');
-      var pub = (safeGet(row, col, '공개여부').toLowerCase().trim()) || 'y';
+      var drive = pickDriveLink_(row, col);
+      var pub = (safeGetAny(row, col, ['공개여부', '노출여부', 'pub', 'Public']).toLowerCase().trim()) || 'y';
       if (pub !== 'y') continue;
       rows.push({
         title  : pickWorkTitle_(row, col),
         year   : pickWorkYear_(row, col, name),
         medium : safeGetAny(row, col, ['Medium', 'medium', '재료', '매체']),
-        dimensions : safeGetAny(row, col, ['Dimensions', 'dimensions', '규격', '크기']),
+        dimensions : safeGetAny(row, col, ['Dimensions', 'Dimension', 'dimensions', 'dimension', '규격', '크기']),
         desc   : safeGetAny(row, col, ['Description', 'description', 'desc', '설명', '작품설명']),
         pub    : 'y',
         thumb  : driveToThumb(drive, 'w400'),
@@ -312,7 +325,7 @@ function buildMainData() {
 
     for (var r = 1; r < data.length; r++) {
       var vs    = (data[r][pageCol] || '').toString().trim();
-      var drive = safeGet(data[r], col, '드라이브링크');
+      var drive = pickDriveLink_(data[r], col);
 
       if (!mainWork && isMainPageLabel_(vs)) {
         mainWork = {
@@ -841,6 +854,26 @@ function autoExportWorksSpreadsheetOnChange() {
   Logger.log('auto: works + main + tags');
 }
 
+/**
+ * 셀 내용 수정 시 export (Title 등) — onChange는 행 추가/삭제 위주라 onEdit 보완
+ * 60초 디바운스
+ */
+function autoExportWorksSpreadsheetOnEdit(e) {
+  try {
+    if (!e || !e.range) return;
+    var sn = e.range.getSheet().getName();
+    if (EXCLUDE_SHEETS.indexOf(sn) >= 0 || sn === '태그') return;
+    if (!/^\d{4}$/.test(sn) && sn !== '영상') return;
+    var props = PropertiesService.getScriptProperties();
+    var last = parseInt(props.getProperty('LAST_WORKS_EXPORT_EDIT') || '0', 10);
+    if (Date.now() - last < 60000) return;
+    props.setProperty('LAST_WORKS_EXPORT_EDIT', String(Date.now()));
+    autoExportWorksSpreadsheetOnChange();
+  } catch (err) {
+    Logger.log('onEdit export: ' + err);
+  }
+}
+
 /** text 스프레드시트(TEXT_SHEET_ID) 변경 → about + text + exhibition */
 function autoExportTextSpreadsheetOnChange() {
   pushToGitHub('about.json', JSON.stringify(getAboutData()));
@@ -868,20 +901,29 @@ function setTrigger_(fnName, sheetId) {
     .onChange()
     .create();
 }
+function setEditTrigger_(fnName, sheetId) {
+  deleteTriggersForHandlers_([fnName]);
+  ScriptApp.newTrigger(fnName)
+    .forSpreadsheet(SpreadsheetApp.openById(sheetId))
+    .onEdit()
+    .create();
+}
 
-/** ★ 한 번만 실행: 옛 트리거 정리 후 2개만 등록 */
+/** ★ 한 번만 실행: 옛 트리거 정리 후 Works onChange+onEdit, Text onChange */
 function setAllAutoTriggers() {
   deleteTriggersForHandlers_([
     'autoExportOnEdit',
     'autoExportWorksSpreadsheetOnChange',
+    'autoExportWorksSpreadsheetOnEdit',
     'autoExportAboutOnEdit',
     'autoExportTextOnEdit',
     'autoExportExhibitionOnEdit',
     'autoExportTextSpreadsheetOnChange'
   ]);
   setTrigger_('autoExportWorksSpreadsheetOnChange', SHEET_ID);
+  setEditTrigger_('autoExportWorksSpreadsheetOnEdit', SHEET_ID);
   setTrigger_('autoExportTextSpreadsheetOnChange', TEXT_SHEET_ID);
-  Logger.log('트리거 2개 등록 완료 (Works + Text 스프레드시트)');
+  Logger.log('트리거 3개 등록 (Works onChange+onEdit, Text onChange)');
 }
 
 function setAutoTrigger() { setAllAutoTriggers(); }
