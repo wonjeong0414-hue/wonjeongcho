@@ -104,6 +104,34 @@ function safeGet(row, col, key) {
   var v = row[i];
   return (v !== undefined && v !== null) ? v.toString() : '';
 }
+/** 헤더 이름이 Title/제목/title 등 달라도 같은 열을 찾음 */
+function safeGetAny(row, col, keys) {
+  var k, i, h, want, v;
+  for (k = 0; k < keys.length; k++) {
+    v = safeGet(row, col, keys[k]);
+    if (v && String(v).trim()) return String(v).trim();
+  }
+  for (k = 0; k < keys.length; k++) {
+    want = String(keys[k]).toLowerCase().replace(/\s+/g, '');
+    for (h in col) {
+      if (!col.hasOwnProperty(h)) continue;
+      if (String(h).toLowerCase().replace(/\s+/g, '') !== want) continue;
+      i = col[h];
+      v = row[i];
+      if (v !== undefined && v !== null && String(v).trim()) return String(v).trim();
+    }
+  }
+  return '';
+}
+function pickWorkTitle_(row, col) {
+  return safeGetAny(row, col, ['Title', 'title', '제목', '작품명', '파일명', 'filename', 'Filename']);
+}
+function pickWorkYear_(row, col, sheetName) {
+  var y = safeGetAny(row, col, ['Year', 'year', '연도', '년', '년도']);
+  if (y) return y;
+  if (sheetName && /^\d{4}$/.test(String(sheetName))) return String(sheetName);
+  return '';
+}
 function parseTags(str) {
   if (!str) return [];
   return String(str).split(',').map(function(t) { return t.trim(); }).filter(Boolean);
@@ -199,7 +227,7 @@ function loadVideoSheet() {
   var rows = [];
   for (var i = 1; i < data.length; i++) {
     var r = data[i];
-    if (!safeGet(r, col, '파일명') && !safeGet(r, col, 'Title')) continue;
+    if (!pickWorkTitle_(r, col) && !safeGetAny(r, col, ['드라이브링크', '드라이브 링크', 'link'])) continue;
     var pub = safeGet(r, col, '공개여부').toLowerCase().trim();
     if (pub && pub !== 'y') continue;
     var link = safeGet(r, col, '드라이브링크');
@@ -209,8 +237,8 @@ function loadVideoSheet() {
     var filename = safeGet(r, col, '파일명').toLowerCase();
     var isGif    = filename.indexOf('.gif') >= 0;
     rows.push({
-      title  : safeGet(r, col, 'Title'),
-      year   : safeGet(r, col, 'Year'),
+      title  : pickWorkTitle_(r, col),
+      year   : pickWorkYear_(r, col, ''),
       medium : isGif ? 'gif' : '영상',
       desc   : safeGet(r, col, 'Description'),
       pub    : 'y',
@@ -245,11 +273,11 @@ function loadAllWorksFromSheet() {
       var pub = (safeGet(row, col, '공개여부').toLowerCase().trim()) || 'y';
       if (pub !== 'y') continue;
       rows.push({
-        title  : safeGet(row, col, 'Title'),
-        year   : safeGet(row, col, 'Year'),
-        medium : safeGet(row, col, 'Medium'),
-        dimensions : safeGet(row, col, 'Dimensions'),
-        desc   : safeGet(row, col, 'Description'),
+        title  : pickWorkTitle_(row, col),
+        year   : pickWorkYear_(row, col, name),
+        medium : safeGetAny(row, col, ['Medium', 'medium', '재료', '매체']),
+        dimensions : safeGetAny(row, col, ['Dimensions', 'dimensions', '규격', '크기']),
+        desc   : safeGetAny(row, col, ['Description', 'description', 'desc', '설명', '작품설명']),
         pub    : 'y',
         thumb  : driveToThumb(drive, 'w400'),
         full   : driveToThumb(drive, 'w1200'),
@@ -288,10 +316,10 @@ function buildMainData() {
 
       if (!mainWork && isMainPageLabel_(vs)) {
         mainWork = {
-          title  : safeGet(data[r], col, 'Title'),
-          year   : safeGet(data[r], col, 'Year'),
-          medium : safeGet(data[r], col, 'Medium'),
-          dim    : safeGet(data[r], col, 'Dimensions'),
+          title  : pickWorkTitle_(data[r], col),
+          year   : pickWorkYear_(data[r], col, yearNames[i]),
+          medium : safeGetAny(data[r], col, ['Medium', 'medium', '재료', '매체']),
+          dim    : safeGetAny(data[r], col, ['Dimensions', 'dimensions', '규격', '크기']),
           desc   : safeGet(data[r], col, 'Description'),
           imgUrl : driveToThumb(drive, 'w1200'),
           thumb  : driveToThumb(drive, 'w400')
